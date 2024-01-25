@@ -8,4 +8,5 @@
 - Ahmad Elmahallawy 40193418 
 - Clara Gagnon 40208598 
 - Khanh Huy Nguyen 40125396
-
+- Jean-Nicolas Sabatini-Ouellet	40207926
+- Mohamad Mounir Yassin 40198854
