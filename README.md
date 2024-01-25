@@ -59,7 +59,7 @@ npm run start
 | Jessey Thach         | AyoMahan          | 40210440 | Developer  |
 | Mahanaim Rubin Yo    | AyoMahan          | 40178119 | Developer  |
 | Vanessa DiPietrantonio  | AyoMahan          | 40189938 | Developer  |
-| Ahmad Elmahallawy    | AyoMahan          | 40193418 | Developer  |
+| Ahmad Elmahallawy    | Ahmad-Elmahallawy          | 40193418 | Developer  |
 | Clara Gagnon    | AyoMahan          | 40208598 | Developer  |
 | Khanh Huy Nguyen    | AyoMahan          | 40125396 | Developer  |
 | Jean-Nicolas Sabatini-Ouellet    | AyoMahan | 40207926 | Developer  |
