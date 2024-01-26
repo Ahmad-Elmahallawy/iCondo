@@ -56,7 +56,7 @@ npm run start
 |--------| -----          | -----------| -----|
 | Hoang Minh Khoi Pham | HoangMinhKhoiPham | 40162551 | Developer  |
 | Michaël Gugliandolo  | Mika24boss        | 40213419 | Developer  |
-| Jessey Thach         | AyoMahan          | 40210440 | Developer  |
+| Jessey Thach         | jesseythach          | 40210440 | Developer  |
 | Mahanaim Rubin Yo    | AyoMahan          | 40178119 | Developer  |
 | Vanessa DiPietrantonio  | AyoMahan          | 40189938 | Developer  |
 | Ahmad Elmahallawy    | Ahmad-Elmahallawy          | 40193418 | Developer  |
