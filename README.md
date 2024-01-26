@@ -58,9 +58,9 @@ npm run start
 | Michaël Gugliandolo  | Mika24boss        | 40213419 | Developer  |
 | Jessey Thach         | jesseythach          | 40210440 | Developer  |
 | Mahanaim Rubin Yo    | AyoMahan          | 40178119 | Developer  |
-| Vanessa DiPietrantonio  | AyoMahan          | 40189938 | Developer  |
+| Vanessa DiPietrantonio  | vanessadp17         | 40189938 | Developer  |
 | Ahmad Elmahallawy    | Ahmad-Elmahallawy          | 40193418 | Developer  |
-| Clara Gagnon    | AyoMahan          | 40208598 | Developer  |
+| Clara Gagnon    | clarag02         | 40208598 | Developer  |
 | Khanh Huy Nguyen    | huy2272          | 40125396 | Developer  |
 | Jean-Nicolas Sabatini-Ouellet    | AyoMahan | 40207926 | Developer  |
 | Mohamad Mounir Yassin    | MoMounirYas          | 40198854 | Developer  |
