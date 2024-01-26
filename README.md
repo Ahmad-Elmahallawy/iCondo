@@ -63,7 +63,7 @@ npm run start
 | Clara Gagnon    | AyoMahan          | 40208598 | Developer  |
 | Khanh Huy Nguyen    | huy2272          | 40125396 | Developer  |
 | Jean-Nicolas Sabatini-Ouellet    | AyoMahan | 40207926 | Developer  |
-| Mohamad Mounir Yassin    | AyoMahan          | 40198854 | Developer  |
+| Mohamad Mounir Yassin    | MoMounirYas          | 40198854 | Developer  |
 
 ## Introduction 
 
