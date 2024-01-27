@@ -1,0 +1,36 @@
+.text-field {
+  position: relative;
+  margin: 20px;
+}
+
+.text-field label {
+  position: absolute;
+  top: 0;
+  left: 15px;
+  padding: 10px 0;
+  color: #757575;
+  transition: 0.3s ease-out;
+  pointer-events: none; /* Make label non-interactive */
+}
+
+.text-field input {
+  width: 100%;
+  padding: 15px;
+  font-size: 16px;
+  border: 1px solid #bdbdbd;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s ease-out;
+
+  &:focus {
+    border-color: #4285f4; /* Google's blue color */
+  }
+}
+
+.text-field.focused label {
+  top: -10px; /* Adjust this value to control the label's position */
+  color: #4285f4; /* Google's blue color */
+  font-size: 12px;
+  background-color: #ffffff; /* Optional: Add background color to cover the border */
+  padding: 0 5px; /* Optional: Add padding to cover the border */
+}
