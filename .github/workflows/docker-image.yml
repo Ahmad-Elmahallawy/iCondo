@@ -1,0 +1,30 @@
+name: Docker Image CI
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image - frontend
+      run: docker build "frontend" --tag docker.happyfir.com/misc/soen390:latest
+    - name: Deploy - frontend
+      run: docker push docker.happyfir.com/misc/soen390:latest
+    - name: Build the Docker image - backend
+      run: docker build "backend" --tag docker.happyfir.com/misc/soen390-backend:latest
+    - name: Deploy - backend
+      run: docker push docker.happyfir.com/misc/soen390-backend:latest
+    - name: Webhook POST Action
+      uses: muinmomin/webhook-action@v1.0.0
+      with:
+        # URL of webhook to send post request to
+        url: ${{ secrets.WEBHOOK_URL }}
