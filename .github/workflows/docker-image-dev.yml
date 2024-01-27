@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Docker Image CI - Build Check and Deploy on Dev
 
 on:
   workflow_dispatch:
