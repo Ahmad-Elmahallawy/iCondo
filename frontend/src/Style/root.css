@@ -5,7 +5,7 @@
     --body-background-gradient: linear-gradient(to bottom right, #f0f0f0, #e0e0e0);
     --text-primary: #333;
     --text-secondary: #666;
-    --heading-primary: #4285f4;
+    --heading-primary:  #122797;
     --heading-secondary: #0f9d58;
     --label-color: #999;
     --background-light: #fff;
@@ -39,6 +39,10 @@
     color: var(--heading-primary);
   }
   
+  h1 {
+    font-size: 64px;
+  }
+
   h2 {
     color: var(--heading-secondary);
   }

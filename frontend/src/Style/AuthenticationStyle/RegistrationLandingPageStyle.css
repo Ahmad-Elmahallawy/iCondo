@@ -1,0 +1,27 @@
+.registration-container {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+}
+
+.registration-title-and-image,
+.registration-information-textfields {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; /* Center horizontally and vertically */
+  width: 50%;
+  padding: 1.2rem; /* Adjust the padding as needed */
+}
+
+.registration-title-and-image h1 {
+  text-align: left;
+}
+
+.registration-title-and-image img {
+  width: 350px;
+}
+
+.registration-information-textfields {
+  background: #122797;
+}
