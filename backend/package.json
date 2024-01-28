@@ -39,6 +39,7 @@
   "devDependencies": {
     "@types/node": "^20.11.8",
     "prisma": "^5.8.1",
+    "sonarqube-scanner": "^3.3.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   }
