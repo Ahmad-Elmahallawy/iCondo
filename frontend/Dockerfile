@@ -1,9 +1,20 @@
-FROM node:18-alpine as builder
-COPY . /temp
-WORKDIR /temp
-RUN npm install --force
-RUN npm run build
+# pull official base image
+FROM node:18-alpine
 
-EXPOSE 3000
+# set working directory
+WORKDIR /app
 
-CMD ["node", "/temp/build/index.js"]
+# add `/app/node_modules/.bin` to $PATH
+ENV PATH /app/node_modules/.bin:$PATH
+
+# install app dependencies
+COPY package.json ./
+COPY package-lock.json ./
+RUN npm install --silent
+RUN npm install react-scripts@5.0.1 -g --silent
+
+# add app
+COPY . ./
+
+# start app
+CMD ["npm", "start"]
