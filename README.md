@@ -62,7 +62,7 @@ npm run start
 | Ahmad Elmahallawy    | Ahmad-Elmahallawy          | 40193418 | Developer  |
 | Clara Gagnon    | clarag02         | 40208598 | Developer  |
 | Khanh Huy Nguyen    | huy2272          | 40125396 | Developer  |
-| Jean-Nicolas Sabatini-Ouellet    | AyoMahan | 40207926 | Developer  |
+| Jean-Nicolas Sabatini-Ouellet    | wolfie7679 | 40207926 | Developer  |
 | Mohamad Mounir Yassin    | MoMounirYas          | 40198854 | Developer  |
 
 ## Introduction 
