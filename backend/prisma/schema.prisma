@@ -9,7 +9,23 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
-model User{
-  id Int @id @default(autoincrement())
-  name String
+
+model User {
+  id              String @id @default(uuid())
+  username        String @unique
+  email           String @unique
+  phone_number    String @unique
+  profile_picture Image? @relation(fields: [imageId], references: [id])
+  imageId         Int?
+
+  @@unique([username, email])
+  @@index([email, phone_number])
+}
+
+model Image {
+  id         Int     @unique
+  image_name String
+  image_url  String
+  is_deleted Boolean
+  User       User[]
 }
