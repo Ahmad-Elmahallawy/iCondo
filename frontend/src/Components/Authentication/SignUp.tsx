@@ -45,7 +45,7 @@ const SignUp: React.FC = () => {
   });
 
   return (
-    <form action="" onSubmit={formik.handleSubmit} className="registration-and-login-form">
+    <form onSubmit={formik.handleSubmit} className="registration-and-login-form">
       <div>
         <div
           className={`input-with-icon ${
