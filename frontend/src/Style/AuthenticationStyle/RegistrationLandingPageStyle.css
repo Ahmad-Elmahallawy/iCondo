@@ -28,7 +28,6 @@
   width: 400px;
 }
 
-/* Center the "Sign Up Now!" text vertically within the registration-title-and-image-container */
 .registration-title-and-image-container {
   align-items: flex-start;
 }
@@ -41,8 +40,8 @@
   border-radius: 30px;
   background: rgba(255, 255, 255, 0.1);
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  width: 70%; /* Adjust the width as needed */
-  padding: 4rem; /* Add padding to the container */
+  width: 70%; 
+  padding: 4rem; 
   display: flex;
   justify-content: center;
   flex-direction: column;

@@ -2,15 +2,15 @@
   display: flex;
   align-items: center;
   margin-top: 20px;
-  background: #6aa6ff; /* Set the background color */
-  padding: 8px; /* Add padding to the container */
+  background: #6aa6ff; 
+  padding: 8px; 
   border-radius: 10px;
   box-shadow: 3px 4px 1px 1px rgba(0, 0, 0, 0.25);
 }
 
 .input-with-icon img {
   margin-right: 10px;
-  height: 20px; /* Adjust the height as needed */
+  height: 20px; 
 }
 
 .input-with-icon input,
