@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useFormik } from "formik"; //hook
 import * as Yup from "yup";
 import "../../Style/AuthenticationStyle/LoginAndRegistrationStyle.css";
+import "../../Style/AuthenticationStyle/SignUpStyle.css";
 
 // Define the shape of form values
 interface FormValues {
@@ -14,7 +15,7 @@ interface FormValues {
 }
 
 const SignUp: React.FC = () => {
-  const [userType, setUserType] = useState("regular-user");
+  const [userType, setUserType] = useState("regularUser");
 
   // Initialize useFormik with initial values and validation logic
   const formik = useFormik<FormValues>({
@@ -57,19 +58,18 @@ const SignUp: React.FC = () => {
     >
       <div>
         <div className="registration-user-type">
-          <label htmlFor="user-type">I am a </label>
+          <label htmlFor="userType">I am a </label>
           <select
-            id="user-type"
+            id="userType"
             onChange={(e) => {
               setUserType(e.target.value);
-              console.log(userType);
             }}
           >
-            <option value="regular-user">Regular User</option>
+            <option value="regularUser">Regular User</option>
             <option value="company">Company</option>
           </select>
         </div>
-        {userType === "regular-user" ? (
+        {userType === "regularUser" ? (
           <>
             <div
               className={`input-with-icon ${
@@ -119,16 +119,16 @@ const SignUp: React.FC = () => {
           <>
             <div
               className={`input-with-icon ${
-                formik.touched.email && formik.errors.email
+                formik.touched.companyName && formik.errors.companyName
                   ? "input-border-error"
                   : ""
               }`}
             >
               <img src="Assets/company.svg" alt="" />
               <input
-                id="company"
-                name="company"
-                type="company"
+                id="companyName"
+                name="companyName"
+                type="companyName"
                 placeholder="Company Name"
                 value={formik.values.companyName}
                 onChange={formik.handleChange}

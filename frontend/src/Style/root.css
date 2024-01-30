@@ -85,3 +85,12 @@ button {
 input::placeholder {
   font-family: "Inria Serif";
 }
+
+select {
+  font-family: "Inria Serif";
+}
+
+option {
+  font-family: "Inria Serif";
+
+}
