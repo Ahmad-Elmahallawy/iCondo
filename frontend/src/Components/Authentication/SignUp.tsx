@@ -3,6 +3,7 @@ import React from "react";
 import { useFormik } from "formik"; //hook
 import * as Yup from "yup";
 import "../../Style/AuthenticationStyle/SignUpStyle.css";
+import { toHaveFormValues } from "@testing-library/jest-dom/matchers";
 
 // Define the shape of form values
 interface FormValues {
@@ -45,11 +46,23 @@ const SignUp: React.FC = () => {
   });
 
   return (
-    <form onSubmit={formik.handleSubmit} className="registration-and-login-form">
+    <form
+      onSubmit={formik.handleSubmit}
+      className="registration-and-login-form"
+    >
       <div>
+        <div className="registration-user-type">
+          <label htmlFor="user-type">I am a </label>
+          <select id="user-type">
+            <option value="regular-user">Regular User</option>
+            <option value="company">Company</option>\
+          </select>
+        </div>
         <div
           className={`input-with-icon ${
-            formik.touched.firstName && formik.errors.firstName ? "input-border-error" : ""
+            formik.touched.firstName && formik.errors.firstName
+              ? "input-border-error"
+              : ""
           }`}
         >
           <img src="Assets/person.svg" alt="" />
@@ -69,7 +82,9 @@ const SignUp: React.FC = () => {
 
         <div
           className={`input-with-icon ${
-            formik.touched.lastName && formik.errors.lastName ? "input-border-error" : ""
+            formik.touched.lastName && formik.errors.lastName
+              ? "input-border-error"
+              : ""
           }`}
         >
           <img src="Assets/person.svg" alt="" />
@@ -89,7 +104,9 @@ const SignUp: React.FC = () => {
 
         <div
           className={`input-with-icon ${
-            formik.touched.email && formik.errors.email ? "input-border-error" : ""
+            formik.touched.email && formik.errors.email
+              ? "input-border-error"
+              : ""
           }`}
         >
           <img src="Assets/letter.svg" alt="" />
@@ -132,7 +149,9 @@ const SignUp: React.FC = () => {
 
         <div
           className={`input-with-icon ${
-            formik.touched.password && formik.errors.password ? "input-border-error" : ""
+            formik.touched.password && formik.errors.password
+              ? "input-border-error"
+              : ""
           }`}
         >
           <img src="Assets/lock.svg" alt="" />
@@ -150,7 +169,9 @@ const SignUp: React.FC = () => {
           <p className="error-msg">{formik.errors.password}</p>
         ) : null}
       </div>
-      <button type="submit" className="registration-and-login-button">Register</button>
+      <button type="submit" className="registration-and-login-button">
+        Register
+      </button>
     </form>
   );
 };
