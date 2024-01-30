@@ -12,13 +12,16 @@ datasource db {
 
 model User {
   id              String @id @default(uuid())
-  username        String @unique
+  first_name      String
+  last_name       String
   email           String @unique
   phone_number    String @unique
+  password        String
+  role            String
   profile_picture Image? @relation(fields: [imageId], references: [id])
   imageId         Int?
 
-  @@unique([username, email])
+  @@unique([phone_number, email])
   @@index([email, phone_number])
 }
 
