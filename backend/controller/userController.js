@@ -86,8 +86,55 @@ const login = asyncHandler(async (req, res) => {
         throw new Error('Invalid credentials')
     }
 })
+//Task 51
+const registerCompany = asyncHandler(async (req, res) => {
+    const { company_name, property_name, email, password,phone_number } = req.body
+    console.log(company_name, property_name, email, password, phone_number)
+    if (!company_name || !property_name || !email || !password || !phone_number) {
+        res.status(400)
+        throw new Error('Please add all fields')
+    }
+    // Check if user exists
+    const userExists = await prisma.user.findUnique({
+        where: { email },
+    })
+    if (userExists) {
+        res.status(400)
+        throw new Error('User already exists')
+    }
+
+    //Hash password
+    const salt = await bcrypt.genSalt(10)
+    const hashedPassword = await bcrypt.hash(password, salt)
+    try {
+        const user = await prisma.User.create({
+            data: {
+                company_name,
+                property_name,
+                email,
+                password: hashedPassword,
+                phone_number
+            },
+        })
+
+        res.status(201).json({
+            _id: user.id,
+            company_name: user.company_name,
+            property_name: user.property_name,
+            email: user.email,
+            phone_number: user.phone_number,
+            token: generateToken(user.id),
+        })
+    } catch (error) {
+        console.error(error)
+        res.status(400)
+        throw new Error('Invalid user data')
+    }
+})
+
 
 module.exports = {
     registerUser,
     login,
+    registerCompany,
 }
