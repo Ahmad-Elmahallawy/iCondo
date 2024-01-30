@@ -126,7 +126,7 @@ const registerCompany = asyncHandler(async (req, res) => {
     } catch (error) {
         console.error(error)
         res.status(400)
-        throw new Error('Invalid user data')
+        throw new Error('Invalid company data')
     }
 })
 
