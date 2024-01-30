@@ -1,4 +1,4 @@
-import './Hero.css'
+import '../Style/LandingPage/Hero.css'
 
 const Hero = () => {
     return (
