@@ -1,25 +1,22 @@
 import React from "react";
-import SignUp from "./SignUp";
-import "../../Style/AuthenticationStyle/LoginAndRegistrationLandingPageStyle.css";
+import "../Style/AuthenticationStyle/LoginAndRegistrationLandingPageStyle.css";
+import LogIn from "../Components/Authentication/LogIn";
 
-const RegistrationLandingPage = () => {
+const LogInLandingPage = () => {
   return (
     <div className="registration-and-login-container">
       <div className="registration-and-login-title-and-image-container">
-        <h1>
-          Sign Up <br />
-          Now!
-        </h1>
+        <h1>Welcome to the Condo Management System</h1>
         <img src="Assets/registration-room.png" alt="" />
       </div>
       <div className="registration-and-login-information-container">
         <div className="registration-and-login-information-content">
-          <h2>Create Your Account</h2>
-          <SignUp />
+          <h2>Sign in to your account</h2>
+          <LogIn />
         </div>
       </div>
     </div>
   );
 };
 
-export default RegistrationLandingPage;
+export default LogInLandingPage;
