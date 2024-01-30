@@ -1,0 +1,50 @@
+.input-with-icon {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  background: #6aa6ff; 
+  padding: 8px; 
+  border-radius: 10px;
+  box-shadow: 3px 4px 1px 1px rgba(0, 0, 0, 0.25);
+}
+
+.input-with-icon img {
+  margin-right: 10px;
+  height: 20px; 
+}
+
+.input-with-icon input,
+.input-with-icon input::placeholder {
+  color: white;
+}
+
+.error-msg {
+  color: white;
+  margin-top: 0;
+}
+
+.input-border-error {
+  border: 2px solid red !important;
+}
+
+.registration-and-login-button {
+  margin-top: 20px;
+  border-radius: 255px;
+  background: #fff;
+  width: 100%;
+  border: none;
+  box-shadow: 3px 4px 1px 1px rgba(0, 0, 0, 0.25);
+  color: #122797;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 8px;
+  transition: transform 0.3s, background-color 0.3s, color 0.3s;
+}
+
+.registration-and-login-button:hover {
+  transform: scale(1.1);
+  background-color: #6aa6ff;
+  color: white;
+  cursor: pointer;
+}
+
