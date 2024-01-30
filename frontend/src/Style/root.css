@@ -1,12 +1,15 @@
 /* styles.css */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
 :root {
   /* Color Palette */
-  --body-background-gradient: linear-gradient(
-    to bottom right,
-    #f0f0f0,
-    #e0e0e0
-  );
+  --body-background-gradient: linear-gradient(to bottom right,
+      #f0f0f0,
+      #e0e0e0);
   --text-primary: #333;
   --text-secondary: #666;
   --heading-primary: #122797;
@@ -73,9 +76,12 @@ a:hover {
 input {
   background: var(--input-background);
   border: none;
-  padding: 8px; /* Add padding for better visibility */
-  border: none; /* Remove default border */
-  outline: none; /* Remove outline on focus (click) */
+  padding: 8px;
+  /* Add padding for better visibility */
+  border: none;
+  /* Remove default border */
+  outline: none;
+  /* Remove outline on focus (click) */
 }
 
 button {
