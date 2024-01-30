@@ -88,9 +88,9 @@ const login = asyncHandler(async (req, res) => {
 })
 //Task 51
 const registerCompany = asyncHandler(async (req, res) => {
-    const { company_name, property_name, email, password,phone_number } = req.body
-    console.log(company_name, property_name, email, password, phone_number)
-    if (!company_name || !property_name || !email || !password || !phone_number) {
+    const { company_name, email, password,phone_number } = req.body
+    console.log(company_name, email, password, phone_number)
+    if (!company_name || !email || !password || !phone_number) {
         res.status(400)
         throw new Error('Please add all fields')
     }
@@ -110,7 +110,6 @@ const registerCompany = asyncHandler(async (req, res) => {
         const user = await prisma.User.create({
             data: {
                 company_name,
-                property_name,
                 email,
                 password: hashedPassword,
                 phone_number
@@ -120,7 +119,6 @@ const registerCompany = asyncHandler(async (req, res) => {
         res.status(201).json({
             _id: user.id,
             company_name: user.company_name,
-            property_name: user.property_name,
             email: user.email,
             phone_number: user.phone_number,
             token: generateToken(user.id),
