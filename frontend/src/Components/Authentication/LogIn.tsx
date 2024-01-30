@@ -2,7 +2,7 @@
 import React from "react";
 import { useFormik } from "formik"; //hook
 import * as Yup from "yup";
-import "../../Style/AuthenticationStyle/SignUpStyle.css";
+import "../../Style/AuthenticationStyle/LoginAndRegistrationStyle.css";
 
 // Define the shape of form values
 interface FormValues {
