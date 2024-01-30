@@ -13,9 +13,9 @@ const generateToken = (id) => {
 }
 
 const registerUser = asyncHandler(async (req, res) => {
-    const { first_name, last_name, email, password, role, phone_number } = req.body
-    console.log(first_name, last_name, email, password, role)
-    if (!first_name || !last_name || !email || !password || !role) {
+    const {username, first_name, last_name, email, password, role, phone_number } = req.body
+    console.log(username,first_name, last_name, email, password, role)
+    if (!username||!first_name || !last_name || !email || !password || !role) {
         res.status(400)
         throw new Error('Please add all fields')
     }
@@ -34,6 +34,7 @@ const registerUser = asyncHandler(async (req, res) => {
     try {
         const user = await prisma.User.create({
             data: {
+                username,
                 first_name,
                 last_name,
                 email,
@@ -45,6 +46,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
         res.status(201).json({
             _id: user.id,
+            username: user.username,
             first_name: user.first_name,
             last_name: user.last_name,
             email: user.email,
@@ -74,6 +76,7 @@ const login = asyncHandler(async (req, res) => {
     if (user && (await bcrypt.compare(password, user.password))) {
         res.json({
             _id: user.id,
+            username: user.username,
             first_name: user.first_name,
             last_name: user.last_name,
             email: user.email,
