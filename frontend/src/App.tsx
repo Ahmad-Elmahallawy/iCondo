@@ -9,9 +9,6 @@ import Hero from './Pages/Hero';
 
 
 function App() {
-
-
-
   return (
     <BrowserRouter>
       <NavBar />
