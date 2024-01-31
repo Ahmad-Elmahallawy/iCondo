@@ -3,6 +3,8 @@ import './Style/root.css'
 import SignUp from './Components/Authentication/SignUp';
 import RegistrationLandingPage from './Components/Authentication/RegistrationLandingPage';
 import LogInLandingPage from './Components/Authentication/LogInLandingPage';
+import UserProfilePage from './Components/UserProfilePage';
+
 
 function App() {
 
