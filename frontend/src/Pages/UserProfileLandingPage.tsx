@@ -1,13 +1,12 @@
 import React from "react";
 import "../Style/UserProfileStyle/UserProfilePageStyle.css";
+import UserInformation from "../Components/UserProfile/UserInformation";
 
 const UserProfilePage = () => {
   return (
     <div className="user-profile-container">
       <div className="myprofile-container">
-        <div className="myprofile-content">
-          <h1>hello</h1>
-        </div>
+          <UserInformation />
       </div>
       <div className="properties-and-requests-container">
         <div className="properties-content"></div>
