@@ -2,10 +2,9 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './Style/root.css'
 import SignUp from './Components/Authentication/SignUp';
-import RegistrationLandingPage from './Pages/RegistrationLandingPage';
-import LogInLandingPage from './Pages/LogInLandingPage';
-import NavBar from './Components/NavBar';
-import Hero from './Pages/Hero';
+import RegistrationLandingPage from './Components/Authentication/RegistrationLandingPage';
+import LogInLandingPage from './Components/Authentication/LogInLandingPage';
+import UserProfilePage from './Components/UserProfilePage';
 
 
 function App() {
