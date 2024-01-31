@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs')
 const asyncHandler = require('express-async-handler');
 // const prisma = require('../index')
 const { PrismaClient } = require('@prisma/client');
+const {async} = require("sonarqube-scanner");
 const prisma = new PrismaClient()
 
 // Generate JWT
@@ -13,9 +14,8 @@ const generateToken = (id) => {
 }
 
 const registerUser = asyncHandler(async (req, res) => {
-    const { first_name, last_name, email, password, role, phone_number } = req.body
-    console.log(first_name, last_name, email, password, role)
-    if (!first_name || !last_name || !email || !password || !role) {
+    const { first_name, last_name, username, email, password, role, phone_number } = req.body
+    if (!first_name || !last_name || !email || !password || !role|| !username) {
         res.status(400)
         throw new Error('Please add all fields')
     }
@@ -38,6 +38,7 @@ const registerUser = asyncHandler(async (req, res) => {
                 last_name,
                 email,
                 password: hashedPassword,
+                username,
                 role,
                 phone_number
             },
@@ -47,6 +48,7 @@ const registerUser = asyncHandler(async (req, res) => {
             _id: user.id,
             first_name: user.first_name,
             last_name: user.last_name,
+            username: user.username,
             email: user.email,
             phone_number: user.phone_number,
             token: generateToken(user.id),
@@ -76,6 +78,7 @@ const login = asyncHandler(async (req, res) => {
             _id: user.id,
             first_name: user.first_name,
             last_name: user.last_name,
+            username: user.usernam,
             email: user.email,
             phone_number: user.phone_number,
             token: generateToken(user.id),
