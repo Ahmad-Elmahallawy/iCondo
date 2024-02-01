@@ -91,45 +91,19 @@ const login = asyncHandler(async (req, res) => {
 })
 //Task 51
 const registerCompany = asyncHandler(async (req, res) => {
-    const { company_name, email, password,phone_number } = req.body
-    console.log(company_name, email, password, phone_number)
-    if (!company_name || !email || !password || !phone_number) {
+    const { company_name} = req.body
+    console.log(company_name)
+    if (!company_name) {
         res.status(400)
-        throw new Error('Please add all fields')
+        throw new Error('Please enter a unique company name')
     }
     // Check if user exists
-    const userExists = await prisma.user.findUnique({
-        where: { email },
+    const companyExists = await prisma.company.findUnique({
+        where: {company_name},
     })
-    if (userExists) {
+    if (companyExists) {
         res.status(400)
-        throw new Error('User already exists')
-    }
-
-    //Hash password
-    const salt = await bcrypt.genSalt(10)
-    const hashedPassword = await bcrypt.hash(password, salt)
-    try {
-        const user = await prisma.User.create({
-            data: {
-                company_name,
-                email,
-                password: hashedPassword,
-                phone_number
-            },
-        })
-
-        res.status(201).json({
-            _id: user.id,
-            company_name: user.company_name,
-            email: user.email,
-            phone_number: user.phone_number,
-            token: generateToken(user.id),
-        })
-    } catch (error) {
-        console.error(error)
-        res.status(400)
-        throw new Error('Invalid company data')
+        throw new Error(' company name already taken')
     }
 })
 

@@ -25,6 +25,11 @@ model User {
   @@unique([phone_number, email])
   @@index([email, phone_number])
 }
+// Define the Company model
+model Company {
+  id          Int      @id @default(autoincrement())
+  companyName String   @unique
+}
 
 model Image {
   id         Int     @unique

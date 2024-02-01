@@ -8,6 +8,6 @@ router.route('/')
 router.route('/login')
     .get(login)
 router.route('/registerCompany')
-    .get(registerCompany)
+    .post(registerCompany)
 
 module.exports = router

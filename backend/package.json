@@ -4,7 +4,8 @@
   "description": "Repository for the condo-management website for the SOEN390 project - Winter 2024",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "prisma": "dotenv -e .env.local -- npx prisma studio"
   },
   "repository": {
     "type": "git",
