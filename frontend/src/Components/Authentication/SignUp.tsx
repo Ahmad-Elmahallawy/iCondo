@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import "../../Style/AuthenticationStyle/LoginAndRegistrationStyle.css";
 import "../../Style/AuthenticationStyle/SignUpStyle.css";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 interface FormValues {
   first_name: string;
@@ -197,7 +198,7 @@ const SignUp: React.FC = () => {
       </div>
 
       {registrationError && <p className="error-msg">{registrationError}</p>}
-
+      <p>Already Have an account? {<Link to="/Login"><span>Log in here</span></Link>}</p>
       <button type="submit" className="registration-and-login-button">
         Register
       </button>
