@@ -53,13 +53,10 @@ const SignUp: React.FC = () => {
       }),
     }),
     onSubmit: async (values) => {
-      // TODO: handle form submission later
       try {
-        // You can customize the URL according to your server
         const registrationUrl =
           "https://devbackendcondos.happyfir.com/api/users/";
 
-        // Create an object with user data to send in the request body
         const userData = {
           ...values,
           userType,
@@ -68,10 +65,8 @@ const SignUp: React.FC = () => {
         // Make a POST request using Axios
         const response = await axios.post(registrationUrl, userData);
 
-        // Handle the response (you can check the status code and do appropriate actions)
         console.log("Registration successful:", response.data);
 
-        // TODO: You may want to redirect the user or show a success message
       } catch (error: any) {
         // Handle errors (you can check the error status and display an error message)
         console.error("Registration failed:", error.message);
