@@ -53,14 +53,26 @@ const SignUp: React.FC = () => {
       }),
     }),
     onSubmit: async (values) => {
+      const testUser = {
+        first_name: "oaidwada",
+        last_name: "oaidwada",
+        username: "oaidwada",
+        phone_number: "243125234634623",
+        email: "oaidwada@adawdaw",
+        password: "dadawdwa12dawq2",
+        role: "dawdwa"
+      }
+      console.log(testUser)
       try {
         const registrationUrl =
-          "https://devbackendcondos.happyfir.com/api/users/";
+          //"https://devbackendcondos.happyfir.com/api/users/";
+            "http://localhost:8000/api/users/";
 
-        const userData = {
+        /*const userData = {
           ...values,
           userType,
-        };
+        };*/
+        const userData = {...testUser};
 
         // Make a POST request using Axios
         const response = await axios.post(registrationUrl, userData);
