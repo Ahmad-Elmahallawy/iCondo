@@ -1,8 +1,8 @@
-// SignUp.tsx
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik"; //hook
 import * as Yup from "yup";
 import "../../Style/AuthenticationStyle/LoginAndRegistrationStyle.css";
+import "../../Style/AuthenticationStyle/SignUpStyle.css";
 
 // Define the shape of form values
 interface FormValues {
@@ -11,9 +11,12 @@ interface FormValues {
   email: string;
   phoneNumber: string;
   password: string;
+  companyName: string;
 }
 
 const SignUp: React.FC = () => {
+  const [userType, setUserType] = useState("regularUser");
+
   // Initialize useFormik with initial values and validation logic
   const formik = useFormik<FormValues>({
     initialValues: {
@@ -22,6 +25,7 @@ const SignUp: React.FC = () => {
       email: "",
       phoneNumber: "",
       password: "",
+      companyName: "",
     },
     validationSchema: Yup.object({
       firstName: Yup.string()
@@ -37,6 +41,9 @@ const SignUp: React.FC = () => {
       password: Yup.string()
         .min(8, "Password must be at least 8 characters long")
         .required("Required"),
+      companyName: Yup.string()
+        .max(20, "Must be 20 characters or less")
+        .required("Required"),
     }),
     onSubmit: (values) => {
       // TODO: handle form submission later
@@ -45,51 +52,99 @@ const SignUp: React.FC = () => {
   });
 
   return (
-    <form onSubmit={formik.handleSubmit} className="registration-and-login-form">
+    <form
+      onSubmit={formik.handleSubmit}
+      className="registration-and-login-form"
+    >
       <div>
-        <div
-          className={`input-with-icon ${
-            formik.touched.firstName && formik.errors.firstName ? "input-border-error" : ""
-          }`}
-        >
-          <img src="Assets/person.svg" alt="" />
-          <input
-            id="firstName"
-            name="firstName"
-            type="text"
-            placeholder="First Name"
-            value={formik.values.firstName}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-          />
+        <div className="registration-user-type">
+          <label htmlFor="userType">I am a </label>
+          <select
+            id="userType"
+            onChange={(e) => {
+              setUserType(e.target.value);
+            }}
+          >
+            <option value="regularUser">Regular User</option>
+            <option value="company">Company</option>
+          </select>
         </div>
-        {formik.touched.firstName && formik.errors.firstName ? (
-          <p className="error-msg">{formik.errors.firstName}</p>
-        ) : null}
+        {userType === "regularUser" ? (
+          <>
+            <div
+              className={`input-with-icon ${
+                formik.touched.firstName && formik.errors.firstName
+                  ? "input-border-error"
+                  : ""
+              }`}
+            >
+              <img src="Assets/person.svg" alt="" />
+              <input
+                id="firstName"
+                name="firstName"
+                type="text"
+                placeholder="First Name"
+                value={formik.values.firstName}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              />
+            </div>
+            {formik.touched.firstName && formik.errors.firstName ? (
+              <p className="error-msg">{formik.errors.firstName}</p>
+            ) : null}
 
+            <div
+              className={`input-with-icon ${
+                formik.touched.lastName && formik.errors.lastName
+                  ? "input-border-error"
+                  : ""
+              }`}
+            >
+              <img src="Assets/person.svg" alt="" />
+              <input
+                id="lastName"
+                name="lastName"
+                type="text"
+                placeholder="Last Name"
+                value={formik.values.lastName}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              />
+            </div>
+            {formik.touched.lastName && formik.errors.lastName ? (
+              <p className="error-msg">{formik.errors.lastName}</p>
+            ) : null}
+          </>
+        ) : (
+          <>
+            <div
+              className={`input-with-icon ${
+                formik.touched.companyName && formik.errors.companyName
+                  ? "input-border-error"
+                  : ""
+              }`}
+            >
+              <img src="Assets/company.svg" alt="" />
+              <input
+                id="companyName"
+                name="companyName"
+                type="companyName"
+                placeholder="Company Name"
+                value={formik.values.companyName}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              />
+            </div>
+            {formik.touched.companyName && formik.errors.companyName ? (
+              <p className="error-msg">{formik.errors.companyName}</p>
+            ) : null}
+          </>
+        )}
         <div
           className={`input-with-icon ${
-            formik.touched.lastName && formik.errors.lastName ? "input-border-error" : ""
-          }`}
-        >
-          <img src="Assets/person.svg" alt="" />
-          <input
-            id="lastName"
-            name="lastName"
-            type="text"
-            placeholder="Last Name"
-            value={formik.values.lastName}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-          />
-        </div>
-        {formik.touched.lastName && formik.errors.lastName ? (
-          <p className="error-msg">{formik.errors.lastName}</p>
-        ) : null}
-
-        <div
-          className={`input-with-icon ${
-            formik.touched.email && formik.errors.email ? "input-border-error" : ""
+            formik.touched.email && formik.errors.email
+              ? "input-border-error"
+              : ""
           }`}
         >
           <img src="Assets/letter.svg" alt="" />
@@ -115,7 +170,6 @@ const SignUp: React.FC = () => {
           }`}
         >
           <img src="Assets/phone.svg" alt="" />
-
           <input
             id="phoneNumber"
             name="phoneNumber"
@@ -132,7 +186,9 @@ const SignUp: React.FC = () => {
 
         <div
           className={`input-with-icon ${
-            formik.touched.password && formik.errors.password ? "input-border-error" : ""
+            formik.touched.password && formik.errors.password
+              ? "input-border-error"
+              : ""
           }`}
         >
           <img src="Assets/lock.svg" alt="" />
@@ -150,7 +206,9 @@ const SignUp: React.FC = () => {
           <p className="error-msg">{formik.errors.password}</p>
         ) : null}
       </div>
-      <button type="submit" className="registration-and-login-button">Register</button>
+      <button type="submit" className="registration-and-login-button">
+        Register
+      </button>
     </form>
   );
 };

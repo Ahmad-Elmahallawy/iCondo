@@ -9,7 +9,7 @@ const app = express()
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient()
 
-app.use(cors());
+app.use(cors({origin:true,credentials: true}));
 app.use(express.json());
 app.use(cookieParser())
 app.use(express.urlencoded({ extended: false }));
@@ -21,5 +21,5 @@ app.get('/', function (req, res, next) {
 
 // module.exports = {prisma}
 app.listen(process.env.PORT, function () {
-    console.log('CORS-enabled web server listening on port '+ process.env.PORT)
+    console.log('CORS-enabled web server listening on port ' + process.env.PORT)
 })
