@@ -91,15 +91,15 @@ const login = asyncHandler(async (req, res) => {
 })
 //Task 51
 const registerCompany = asyncHandler(async (req, res) => {
-    const { company_name} = req.body
-    console.log(company_name)
-    if (!company_name) {
+    const { companyName} = req.body
+    console.log(companyName)
+    if (!companyName) {
         res.status(400)
-        throw new Error('Please enter a unique company name')
+        throw new Error('Please provide a company name')
     }
     // Check if user exists
     const companyExists = await prisma.company.findUnique({
-        where: {company_name},
+        where: {companyName},
     })
     if (companyExists) {
         res.status(400)
