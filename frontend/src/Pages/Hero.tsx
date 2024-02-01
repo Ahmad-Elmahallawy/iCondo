@@ -2,7 +2,7 @@ import '../Style/LandingPage/Hero.css'
 
 const Hero = () => {
     return (
-        <div className='hero'>
+        <div data-testid='hero' className='hero'>
             <div className='container'>
                 <div className='content'>
                     <div className='col-1'>
