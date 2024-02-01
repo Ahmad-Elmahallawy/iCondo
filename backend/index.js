@@ -1,5 +1,5 @@
 const express = require("express");
-const dotenv = require('dotenv').config()
+const dotenv = require('dotenv').config({path: ['.env.local', '.env']})
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
 const port = process.env.PORT || 8000;
@@ -21,5 +21,5 @@ app.get('/', function (req, res, next) {
 
 // module.exports = {prisma}
 app.listen(process.env.PORT, function () {
-    console.log('CORS-enabled web server listening on port 80')
+    console.log('CORS-enabled web server listening on port ' + process.env.PORT)
 })
