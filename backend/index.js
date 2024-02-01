@@ -9,7 +9,7 @@ const app = express()
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient()
 
-app.use(cors());
+app.use(cors({origin:true,credentials: true}));
 app.use(express.json());
 app.use(cookieParser())
 app.use(express.urlencoded({ extended: false }));
