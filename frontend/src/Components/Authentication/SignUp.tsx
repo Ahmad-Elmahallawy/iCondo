@@ -3,11 +3,13 @@ import { useFormik } from "formik"; //hook
 import * as Yup from "yup";
 import "../../Style/AuthenticationStyle/LoginAndRegistrationStyle.css";
 import "../../Style/AuthenticationStyle/SignUpStyle.css";
+import axios from "axios";
 
 // Define the shape of form values
 interface FormValues {
   firstName: string;
   lastName: string;
+  username: string;
   email: string;
   phoneNumber: string;
   password: string;
@@ -22,6 +24,7 @@ const SignUp: React.FC = () => {
     initialValues: {
       firstName: "",
       lastName: "",
+      username: "",
       email: "",
       phoneNumber: "",
       password: "",
@@ -34,6 +37,9 @@ const SignUp: React.FC = () => {
       lastName: Yup.string()
         .max(20, "Must be 20 characters or less")
         .required("Required"),
+      username: Yup.string()
+        .max(20, "Must be 20 characters or less")
+        .required("Required"),
       email: Yup.string().email("Invalid Email Address").required("Required"),
       phoneNumber: Yup.string()
         .matches(/^[0-9]{10,15}$/, "Invalid Phone Number")
@@ -41,13 +47,37 @@ const SignUp: React.FC = () => {
       password: Yup.string()
         .min(8, "Password must be at least 8 characters long")
         .required("Required"),
-      companyName: Yup.string()
-        .max(20, "Must be 20 characters or less")
-        .required("Required"),
+      companyName: Yup.string().matches(/.*/, {
+        excludeEmptyString: userType == "regularUser",
+        message: "Company Name is required", // Custom error message
+      }),
     }),
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       // TODO: handle form submission later
-      console.log(values);
+      try {
+        // You can customize the URL according to your server
+        const registrationUrl =
+          "https://devbackendcondos.happyfir.com/api/users/";
+
+        // Create an object with user data to send in the request body
+        const userData = {
+          ...values,
+          userType,
+        };
+
+        // Make a POST request using Axios
+        const response = await axios.post(registrationUrl, userData);
+
+        // Handle the response (you can check the status code and do appropriate actions)
+        console.log("Registration successful:", response.data);
+
+        // TODO: You may want to redirect the user or show a success message
+      } catch (error: any) {
+        // Handle errors (you can check the error status and display an error message)
+        console.error("Registration failed:", error.message);
+
+        // TODO: You may want to display an error message to the user
+      }
     },
   });
 
@@ -61,7 +91,7 @@ const SignUp: React.FC = () => {
           <label htmlFor="userType">I am a </label>
           <select
             id="userType"
-            onChange={(e) => {
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
               setUserType(e.target.value);
             }}
           >
@@ -140,6 +170,27 @@ const SignUp: React.FC = () => {
             ) : null}
           </>
         )}
+        <div
+          className={`input-with-icon ${
+            formik.touched.username && formik.errors.username
+              ? "input-border-error"
+              : ""
+          }`}
+        >
+          <img src="Assets/person.svg" alt="" />
+          <input
+            id="username"
+            name="username"
+            type="username"
+            placeholder="Username"
+            value={formik.values.username}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
+        </div>
+        {formik.touched.username && formik.errors.username ? (
+          <p className="error-msg">{formik.errors.username}</p>
+        ) : null}
         <div
           className={`input-with-icon ${
             formik.touched.email && formik.errors.email

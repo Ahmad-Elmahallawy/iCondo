@@ -10,7 +10,7 @@ interface FormValues {
   password: string;
 }
 
-const SignUp: React.FC = () => {
+const Login: React.FC = () => {
   // Initialize useFormik with initial values and validation logic
   const formik = useFormik<FormValues>({
     initialValues: {
@@ -79,7 +79,7 @@ const SignUp: React.FC = () => {
           <p className="error-msg">{formik.errors.password}</p>
         ) : null}
       </div>
-      {/* // TODO: add signup button here */}
+      {/* // TODO: add Login button here */}
       <button type="submit" className="registration-and-login-button">
         Log in
       </button>
@@ -87,4 +87,4 @@ const SignUp: React.FC = () => {
   );
 };
 
-export default SignUp;
+export default Login;
