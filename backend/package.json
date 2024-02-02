@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
-    "prisma": "dotenv -e .env.local -- npx prisma studio"
+    "prisma": "dotenv -e .env.local -- npx prisma studio",
+    "migrate": "dotenv -e .env.local -- npx prisma migrate dev --name update-database-relational"
   },
   "repository": {
     "type": "git",
