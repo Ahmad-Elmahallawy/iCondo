@@ -35,15 +35,15 @@ model roles {
 
 model users {
   id                Int                 @id(map: "user_pkey") @default(autoincrement())
-  email             String              @db.VarChar(255)
+  email             String              @unique @db.VarChar(255)
   role_id           Int
-  password_hash     String?             @db.VarChar(500)
+  password          String?             @db.VarChar(500)
   username          String              @unique(map: "user_username_key") @db.VarChar(255)
-  phone_number      String              @db.VarChar(255)
+  phone_number      String              @unique @db.VarChar(255)
   first_name        String              @db.VarChar(255)
   last_name         String              @db.VarChar(255)
-  profile_image_id  Int
+  profile_image_id  Int?
   company_employees company_employees[]
-  profile_images    profile_images      @relation(fields: [profile_image_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_image")
+  profile_images    profile_images?     @relation(fields: [profile_image_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_image")
   roles             roles               @relation(fields: [role_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "rules")
 }

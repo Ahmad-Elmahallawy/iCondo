@@ -20,9 +20,17 @@ const registerUser = asyncHandler(async (req, res) => {
         throw new Error('Please add all fields')
     }
     // Check if user exists
-    const userExists = await prisma.user.findUnique({
-        where: { email },
+    const userExists = await prisma.users.findUnique({
+        where: { email: email },
     })
+    console.log(role)
+    const roleRecord = await prisma.roles.findFirst({
+        where: { name: role },
+    });
+    if (!roleRecord) {
+        res.status(400);
+        throw new Error('Invalid role specified');
+    }
     if (userExists) {
         res.status(400)
         throw new Error('User already exists')
@@ -32,14 +40,14 @@ const registerUser = asyncHandler(async (req, res) => {
     const salt = await bcrypt.genSalt(10)
     const hashedPassword = await bcrypt.hash(password, salt)
     try {
-        const user = await prisma.User.create({
+        const user = await prisma.users.create({
             data: {
                 first_name,
                 last_name,
                 email,
                 password: hashedPassword,
                 username,
-                role,
+                role_id: roleRecord.id,
                 phone_number
             },
         })
@@ -52,7 +60,7 @@ const registerUser = asyncHandler(async (req, res) => {
             email: user.email,
             phone_number: user.phone_number,
             token: generateToken(user.id),
-            role: user.role,
+            role: roleRecord.name,
         })
     } catch (error) {
         console.error(error)
@@ -69,8 +77,11 @@ const login = asyncHandler(async (req, res) => {
         throw new Error('Please add all fields')
     }
 
-    const user = await prisma.user.findUnique({
+    const user = await prisma.users.findUnique({
         where: { email },
+    })
+    const roleRecord = await prisma.roles.findUnique({
+        where: { id: user.role_id },
     })
 
     if (user && (await bcrypt.compare(password, user.password))) {
@@ -78,11 +89,11 @@ const login = asyncHandler(async (req, res) => {
             _id: user.id,
             first_name: user.first_name,
             last_name: user.last_name,
-            username: user.usernam,
+            username: user.username,
             email: user.email,
             phone_number: user.phone_number,
             token: generateToken(user.id),
-            role: user.role,
+            role: roleRecord.name,
         })
     } else {
         res.status(401)
