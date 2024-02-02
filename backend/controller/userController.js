@@ -20,11 +20,10 @@ const registerUser = asyncHandler(async (req, res) => {
         throw new Error('Please add all fields')
     }
     // Check if user exists
-    const userExists = await prisma.users.findUnique({
+    const userExists = await prisma.User.findUnique({
         where: { email: email },
     })
-    console.log(role)
-    const roleRecord = await prisma.roles.findFirst({
+    const roleRecord = await prisma.Role.findFirst({
         where: { name: role },
     });
     if (!roleRecord) {
@@ -40,7 +39,7 @@ const registerUser = asyncHandler(async (req, res) => {
     const salt = await bcrypt.genSalt(10)
     const hashedPassword = await bcrypt.hash(password, salt)
     try {
-        const user = await prisma.users.create({
+        const user = await prisma.User.create({
             data: {
                 first_name,
                 last_name,
@@ -77,10 +76,10 @@ const login = asyncHandler(async (req, res) => {
         throw new Error('Please add all fields')
     }
 
-    const user = await prisma.users.findUnique({
+    const user = await prisma.User.findUnique({
         where: { email },
     })
-    const roleRecord = await prisma.roles.findUnique({
+    const roleRecord = await prisma.Role.findUnique({
         where: { id: user.role_id },
     })
 
