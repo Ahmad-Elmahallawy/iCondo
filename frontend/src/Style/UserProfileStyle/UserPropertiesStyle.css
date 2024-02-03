@@ -24,7 +24,7 @@
 
 .property-image {
     width: 100%;
-    height: auto;
+    height: 100%;
     border-radius: 8px;
 }
 
@@ -32,6 +32,8 @@
     padding: 16px;
     flex: 1;
     color: #fff;
+    width: 100px;
+    height: auto;
 }
 
 .property-details {
@@ -45,13 +47,13 @@
 
 .property-rent-price {
     font-size: 1.1em;
-    color: #fff;
+    color: var(--color4);
     margin-bottom: 8px;
 }
 
 .property-description {
     margin-bottom: 12px;
-    color: #fff;
+    color: var(--color4);
 }
 
 .property-actions {
@@ -85,4 +87,22 @@
 .message-button:hover {
     background-color: #fff;
     color: #8da9e7;
+}
+
+@media only screen and (max-width: 1200px) {
+    .property-content {
+        flex-direction: column;
+    }
+
+    .property-image {
+        height: auto;
+    }
+
+    .text-container {
+        width: auto;
+    }
+
+    .image-container {
+        width: 100%;
+    }
 }
