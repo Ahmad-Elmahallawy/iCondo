@@ -10,7 +10,7 @@ const RegistrationLandingPage = () => {
           Sign Up <br />
           Now!
         </h1>
-        <img src="Assets/registration-room.png" alt="" />
+        <img src="Assets/signup.gif" alt="" />
       </div>
       <div className="registration-and-login-information-container">
         <div className="registration-and-login-information-content">

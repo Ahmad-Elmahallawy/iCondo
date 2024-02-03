@@ -7,7 +7,7 @@ import Requests from "../Components/UserProfile/UserRequests";
 const UserProfilePage = () => {
   return (
     <div className="user-profile-container">
-      <div className="myprofile-container">
+      <div className="my-profile-container">
           <UserInformation />
       </div>
       <div className="properties-and-requests-container">

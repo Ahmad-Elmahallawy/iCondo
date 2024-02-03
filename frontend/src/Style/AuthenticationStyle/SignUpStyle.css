@@ -1,40 +1,37 @@
 .registration-user-type {
   display: flex;
-  align-items: center; 
+  align-items: center;
   margin-top: 20px;
-  margin-bottom: 40px; 
-
+  margin-bottom: 40px;
 }
-
 
 .registration-user-type label {
-  color: white; 
-  margin-right: 10px; 
+  color: white;
+  margin-right: 10px;
 }
 
-
 .registration-user-type select {
-  background: #6aa6ff; 
-  color: white; 
-  border: none; 
-  border-radius: 10px; 
-  padding: 8px; 
-  box-shadow: 3px 4px 1px 1px rgba(0, 0, 0, 0.25); 
-  -webkit-appearance: none; 
-  -moz-appearance: none; 
+  background: var(--color4);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 8px;
+  box-shadow: 3px 4px 1px 1px rgba(0, 0, 0, 0.25);
+  -webkit-appearance: none;
+  -moz-appearance: none;
   appearance: none;
-  flex-grow: 1; 
+  flex-grow: 1;
 }
 
 .registration-user-type select option {
-  background: #122797; 
-  color: white; 
+  background: var(--color4);
+  color: white;
 }
 
 .registration-user-type select {
-  outline: none; 
+  outline: none;
 }
 
 .registration-user-type select:focus {
-  box-shadow: 0 0 0 2px #6aa6ff; 
+  box-shadow: 0 0 0 2px var(--color2);
 }

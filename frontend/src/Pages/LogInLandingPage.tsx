@@ -7,7 +7,7 @@ const LogInLandingPage = () => {
     <div className="registration-and-login-container">
       <div className="registration-and-login-title-and-image-container">
         <h1>Welcome to the Condo Management System</h1>
-        <img src="Assets/registration-room.png" alt="" />
+        <img src="Assets/login.gif" alt="" />
       </div>
       <div className="registration-and-login-information-container">
         <div className="registration-and-login-information-content">
