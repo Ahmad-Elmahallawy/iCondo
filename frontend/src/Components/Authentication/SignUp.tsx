@@ -18,7 +18,9 @@ interface FormValues {
 
 const SignUp: React.FC = () => {
   const [userType, setUserType] = useState("regularUser");
-  const [registrationError, setRegistrationError] = useState<string | null>(null);
+  const [registrationError, setRegistrationError] = useState<string | null>(
+    null
+  );
 
   const clearRegistrationError = () => {
     setRegistrationError(null);
@@ -35,12 +37,22 @@ const SignUp: React.FC = () => {
       companyName: "",
     },
     validationSchema: Yup.object({
-      first_name: Yup.string().max(15, "Must be 15 characters or less").required("Required"),
-      last_name: Yup.string().max(20, "Must be 20 characters or less").required("Required"),
-      username: Yup.string().max(20, "Must be 20 characters or less").required("Required"),
+      first_name: Yup.string()
+        .max(15, "Must be 15 characters or less")
+        .required("Required"),
+      last_name: Yup.string()
+        .max(20, "Must be 20 characters or less")
+        .required("Required"),
+      username: Yup.string()
+        .max(20, "Must be 20 characters or less")
+        .required("Required"),
       email: Yup.string().email("Invalid Email Address").required("Required"),
-      phone_number: Yup.string().matches(/^[0-9]{10,15}$/, "Invalid Phone Number").required("Required"),
-      password: Yup.string().min(8, "Password must be at least 8 characters long").required("Required"),
+      phone_number: Yup.string()
+        .matches(/^[0-9]{10,15}$/, "Invalid Phone Number")
+        .required("Required"),
+      password: Yup.string()
+        .min(8, "Password must be at least 8 characters long")
+        .required("Required"),
       companyName: Yup.string().matches(/.*/, {
         excludeEmptyString: userType === "regularUser",
         message: "Company Name is required",
@@ -50,7 +62,14 @@ const SignUp: React.FC = () => {
       try {
         const registrationUrl = "http://localhost:8000/api/users/";
 
-        const { first_name, last_name, username, phone_number, email, password } = values;
+        const {
+          first_name,
+          last_name,
+          username,
+          phone_number,
+          email,
+          password,
+        } = values;
 
         const userData = {
           first_name,
@@ -71,7 +90,9 @@ const SignUp: React.FC = () => {
         console.error("Registration failed:", error.message);
 
         if (error.response && error.response.status === 400) {
-          setRegistrationError("User with this email or username already exists");
+          setRegistrationError(
+            "User with this email or username already exists"
+          );
         } else {
           // Handle other error statuses here if needed
         }
@@ -99,7 +120,13 @@ const SignUp: React.FC = () => {
         </div>
         {userType === "regularUser" ? (
           <>
-            <div className={`input-with-icon ${formik.touched.first_name && formik.errors.first_name ? "input-border-error" : ""}`}>
+            <div
+              className={`input-with-icon ${
+                formik.touched.first_name && formik.errors.first_name
+                  ? "input-border-error"
+                  : ""
+              }`}
+            >
               <img src="Assets/person.svg" alt="" />
               <input
                 id="first_name"
@@ -111,11 +138,19 @@ const SignUp: React.FC = () => {
                 onBlur={formik.handleBlur}
               />
             </div>
-            {formik.touched.firstName && formik.errors.firstName ? (
-              <p className="error-msg">{formik.errors.firstName}</p>
-            ) : <p className="error-msg-alternative"></p>}
+            {formik.touched.first_name && formik.errors.first_name ? (
+              <p className="error-msg">{formik.errors.first_name}</p>
+            ) : (
+              <p className="error-msg-alternative"></p>
+            )}
 
-            <div className={`input-with-icon ${formik.touched.last_name && formik.errors.last_name ? "input-border-error" : ""}`}>
+            <div
+              className={`input-with-icon ${
+                formik.touched.last_name && formik.errors.last_name
+                  ? "input-border-error"
+                  : ""
+              }`}
+            >
               <img src="Assets/person.svg" alt="" />
               <input
                 id="last_name"
@@ -127,13 +162,21 @@ const SignUp: React.FC = () => {
                 onBlur={formik.handleBlur}
               />
             </div>
-            {formik.touched.lastName && formik.errors.lastName ? (
-              <p className="error-msg">{formik.errors.lastName}</p>
-            ) : <p className="error-msg-alternative"></p>}
+            {formik.touched.last_name && formik.errors.last_name ? (
+              <p className="error-msg">{formik.errors.last_name}</p>
+            ) : (
+              <p className="error-msg-alternative"></p>
+            )}
           </>
         ) : (
           <>
-            <div className={`input-with-icon ${formik.touched.companyName && formik.errors.companyName ? "input-border-error" : ""}`}>
+            <div
+              className={`input-with-icon ${
+                formik.touched.companyName && formik.errors.companyName
+                  ? "input-border-error"
+                  : ""
+              }`}
+            >
               <img src="Assets/company.svg" alt="" />
               <input
                 id="companyName"
@@ -147,10 +190,18 @@ const SignUp: React.FC = () => {
             </div>
             {formik.touched.companyName && formik.errors.companyName ? (
               <p className="error-msg">{formik.errors.companyName}</p>
-            ) : <p className="error-msg-alternative"></p>}
+            ) : (
+              <p className="error-msg-alternative"></p>
+            )}
           </>
         )}
-        <div className={`input-with-icon ${formik.touched.username && formik.errors.username ? "input-border-error" : ""}`}>
+        <div
+          className={`input-with-icon ${
+            formik.touched.username && formik.errors.username
+              ? "input-border-error"
+              : ""
+          }`}
+        >
           <img src="Assets/person.svg" alt="" />
           <input
             id="username"
@@ -162,8 +213,18 @@ const SignUp: React.FC = () => {
             onBlur={formik.handleBlur}
           />
         </div>
-        {formik.touched.username && formik.errors.username && <p className="error-msg">{formik.errors.username}</p>}
-        <div className={`input-with-icon ${formik.touched.email && formik.errors.email ? "input-border-error" : ""}`}>
+        {formik.touched.username && formik.errors.username ? (
+          <p className="error-msg">{formik.errors.username}</p>
+        ) : (
+          <p className="error-msg-alternative"></p>
+        )}
+        <div
+          className={`input-with-icon ${
+            formik.touched.email && formik.errors.email
+              ? "input-border-error"
+              : ""
+          }`}
+        >
           <img src="Assets/letter.svg" alt="" />
           <input
             id="email"
@@ -177,9 +238,17 @@ const SignUp: React.FC = () => {
         </div>
         {formik.touched.email && formik.errors.email ? (
           <p className="error-msg">{formik.errors.email}</p>
-        ) : <p className="error-msg-alternative"></p>}
+        ) : (
+          <p className="error-msg-alternative"></p>
+        )}
 
-        <div className={`input-with-icon ${formik.touched.phone_number && formik.errors.phone_number ? "input-border-error" : ""}`}>
+        <div
+          className={`input-with-icon ${
+            formik.touched.phone_number && formik.errors.phone_number
+              ? "input-border-error"
+              : ""
+          }`}
+        >
           <img src="Assets/phone.svg" alt="" />
           <input
             id="phone_number"
@@ -191,11 +260,19 @@ const SignUp: React.FC = () => {
             onBlur={formik.handleBlur}
           />
         </div>
-        {formik.touched.phoneNumber && formik.errors.phoneNumber ? (
-          <p className="error-msg">{formik.errors.phoneNumber}</p>
-        ) : <p className="error-msg-alternative"></p>}
+        {formik.touched.phone_number && formik.errors.phone_number ? (
+          <p className="error-msg">{formik.errors.phone_number}</p>
+        ) : (
+          <p className="error-msg-alternative"></p>
+        )}
 
-        <div className={`input-with-icon ${formik.touched.password && formik.errors.password ? "input-border-error" : ""}`}>
+        <div
+          className={`input-with-icon ${
+            formik.touched.password && formik.errors.password
+              ? "input-border-error"
+              : ""
+          }`}
+        >
           <img src="Assets/lock.svg" alt="" />
           <input
             id="password"
@@ -209,11 +286,20 @@ const SignUp: React.FC = () => {
         </div>
         {formik.touched.password && formik.errors.password ? (
           <p className="error-msg">{formik.errors.password}</p>
-        ) : <p className="error-msg-alternative"></p>}
+        ) : (
+          <p className="error-msg-alternative"></p>
+        )}
       </div>
 
       {registrationError && <p className="error-msg">{registrationError}</p>}
-      <p>Already Have an account? {<Link to="/Login"><span>Log in here</span></Link>}</p>
+      <p className="registration-and-login-to-eachother">
+        Already Have an account?{" "}
+        {
+          <Link to="/Login">
+            <span>Log in here</span>
+          </Link>
+        }
+      </p>
       <button type="submit" className="registration-and-login-button">
         Register
       </button>
