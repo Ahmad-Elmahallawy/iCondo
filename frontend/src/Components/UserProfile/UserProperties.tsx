@@ -34,7 +34,7 @@ const Properties: React.FC = () => {
 
     return (
         <div>
-            <h2 className="property-header">Condo</h2>
+            <h2 className="property-header">Condos</h2>
             <div className="property-box">
                 <div className="property-content">
                     <div className="image-container">
