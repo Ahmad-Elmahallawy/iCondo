@@ -15,6 +15,7 @@ const Requests: React.FC = () => {
     const [request, setRequest] = useState<Request>(defaultRequest);
 
     return (
+        // TODO: change layout for the display of requests
         <div className='request-content'>
             <h2 className="request-header">{"Requests"}</h2>
             <div className="request-description">{request.description}</div>

@@ -19,17 +19,18 @@ const Properties: React.FC = () => {
         title: 'Beautiful 3 1/3 condo',
         rentPrice: 2000,
         description: 'This condo is modern luxury in the heart of the city. Step into an urban oasis where floor-to-ceiling windows bathe the living spaces in natural light.',
-    };
+    }; // Created placeholder property/condo data for the user profile page
 
     const [property, setProperty] = useState<Property>(defaultProperty);
     const [liked, setLiked] = useState<boolean>(false);
 
     const handleLikeClick = () => {
         setLiked((prevLiked) => !prevLiked);
+        //TODO: Save liked properties/condo somewhere 
     };
 
     const handleMessageClick = () => {
-        console.log(`Messaging about ${property.title}`);
+        // TODO: Send message to condo owner/ manager 
     };
 
     return (
