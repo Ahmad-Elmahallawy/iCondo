@@ -1,0 +1,83 @@
+/* UserInformationStyle.css */
+
+.user-information-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  width: 100%;
+  max-width: 400px; 
+  margin: 20px;
+  position: relative;
+}
+
+.user-information-profile-container {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.user-information-profile-picture {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #fff;
+}
+
+.user-information-edit-picture {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: #fff;
+  border-radius: 50%;
+  padding: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-information-heading {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.user-information-field {
+  display: flex;
+  flex-direction: row; 
+  justify-content: space-between; 
+  width: 100%;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.user-information-label {
+  margin-right: 10px; 
+  text-align: left !important; 
+  color: #fff;
+}
+
+.user-information-input,
+.user-information-text {
+  padding: 8px;
+  border-radius: 5px;
+  text-align: right; 
+}
+
+.user-information-button {
+  padding: 10px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.user-information-cancel-button {
+  background-color: #ff4444;
+}
+
