@@ -1,0 +1,88 @@
+.property-box {
+    border: 1px solid #8da9e7;
+    max-width: 600px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 3%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.property-header {
+    font-size: 1.5em;
+    margin-bottom: 8px;
+}
+
+.property-content {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.image-container {
+    width: 50%;
+}
+
+.property-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.text-container {
+    padding: 16px;
+    flex: 1;
+    color: #fff;
+}
+
+.property-details {
+    flex: 1;
+}
+
+.property-title {
+    font-size: 1.2em;
+    margin-bottom: 8px;
+}
+
+.property-rent-price {
+    font-size: 1.1em;
+    color: #fff;
+    margin-bottom: 8px;
+}
+
+.property-description {
+    margin-bottom: 12px;
+    color: #fff;
+}
+
+.property-actions {
+    display: flex;
+    width: 100%;
+}
+
+.action-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.like-button,
+.message-button {
+    flex: 1;
+    background-color: #8da9e7;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+}
+
+.like-button:hover {
+    background-color: #fff;
+    color: #8da9e7;
+}
+
+.message-button:hover {
+    background-color: #fff;
+    color: #8da9e7;
+}
