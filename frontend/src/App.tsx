@@ -4,8 +4,9 @@ import './Style/root.css'
 import SignUp from './Components/Authentication/SignUp';
 import RegistrationLandingPage from './Pages/RegistrationLandingPage';
 import LogInLandingPage from './Pages/LogInLandingPage';
-import NavBar from './Components/NavBar';
+import UserProfilePage from './Pages/UserProfileLandingPage';
 import Hero from './Pages/Hero';
+import NavBar from './Components/NavBar';
 
 
 function App() {
@@ -16,9 +17,7 @@ function App() {
         <Route path="/" element={<Hero />} />
         <Route path="Login" element={<LogInLandingPage />} />
         <Route path="Register" element={<RegistrationLandingPage />} />
-        <Route path="Signup" element={<SignUp />} />
-        <Route path="Portfolio" element={<></>} />
-        <Route path="Finance" element={<></>} />
+        <Route path="Profile" element={<UserProfilePage />} />
         <Route path="*" element={<></>} />
       </Routes>
     </BrowserRouter>

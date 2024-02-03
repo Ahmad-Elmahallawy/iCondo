@@ -1,8 +1,8 @@
-import '../Style/LandingPage/Hero.css'
+import '../Style/LandingPageStyle/HeroStyle.css'
 
 const Hero = () => {
     return (
-        <div className='hero'>
+        <div data-testid='hero' className='hero'>
             <div className='container'>
                 <div className='content'>
                     <div className='col-1'>
@@ -14,7 +14,7 @@ const Hero = () => {
                     <div className='col-2'>
                         <div className='img-layout'>
                             <div className='img-container'>
-                                <img src="Assets/registration-room.png" alt="" />
+                                <img src="Assets/home.gif" alt="" />
                             </div>
                         </div>
                     </div>

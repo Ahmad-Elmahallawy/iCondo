@@ -4,7 +4,9 @@
   "description": "Repository for the condo-management website for the SOEN390 project - Winter 2024",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "prisma": "dotenv -e .env.local -- npx prisma studio",
+    "migrate": "dotenv -e .env.local -- npx prisma migrate dev --name update-database-relational"
   },
   "repository": {
     "type": "git",
@@ -25,6 +27,7 @@
     "cors": "^2.8.5",
     "date-fns": "^3.3.1",
     "dotenv": "^16.4.1",
+    "dotenv-cli": "^7.3.0",
     "express": "^4.18.2",
     "express-async-handler": "^1.2.0",
     "express-rate-limit": "^7.1.5",

@@ -12,6 +12,7 @@
     "@types/react-dom": "^18.2.18",
     "axios": "^1.6.7",
     "formik": "^2.4.5",
+    "jest-environment-jsdom": "^29.7.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.0.1",
@@ -24,6 +25,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test-coverage": "react-scripts test --coverage --watchAll=false",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -45,6 +47,13 @@
     ]
   },
   "devDependencies": {
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^27.5.1",
     "react-router-dom": "^6.21.3"
-  }
+  },
+  "moduleNameMapper": {
+    "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+    "\\.(css|less|scss|sass)$": "identity-obj-proxy"
+  },
+  "testEnvironment": "jsdom"
 }

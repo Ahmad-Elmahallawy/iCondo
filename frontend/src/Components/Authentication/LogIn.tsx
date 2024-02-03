@@ -55,7 +55,7 @@ const Login: React.FC = () => {
         </div>
         {formik.touched.email && formik.errors.email ? (
           <p className="error-msg">{formik.errors.email}</p>
-        ) : null}
+        ) : <p className="error-msg-alternative"></p>}
 
         <div
           className={`input-with-icon ${
@@ -77,7 +77,7 @@ const Login: React.FC = () => {
         </div>
         {formik.touched.password && formik.errors.password ? (
           <p className="error-msg">{formik.errors.password}</p>
-        ) : null}
+        ) : <p className="error-msg-alternative"></p>}
       </div>
       {/* // TODO: add Login button here */}
       <button type="submit" className="registration-and-login-button">
