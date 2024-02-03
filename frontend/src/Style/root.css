@@ -1,103 +1,59 @@
-/* styles.css */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+/* Root CSS for your website */
 
 :root {
-  /* Color Palette */
-  --body-background-gradient: linear-gradient(to bottom right,
-      #f0f0f0,
-      #e0e0e0);
-  --text-primary: #333;
-  --text-secondary: #666;
-  --heading-primary: #122797;
-  --heading-secondary: #0f9d58;
-  --label-color: #999;
-  --background-light: #fff;
-  --background-dark: #f5f5f5;
-  --border-color: #ddd;
-  --link-color: #1a73e8;
-  --input-background: #6aa6ff;
+  --color1: #eeedeb;
+  --color2: #e0ccbe;
+  --color3: #747264;
+  --color4: #3c3633;
 }
 
-html,
 body {
-  height: 100%;
-  margin: 0;
+  background-color: var(--color1);
+  color: var(--color4);
+  font-family: Arial, sans-serif;
   padding: 0;
-}
-
-body {
-  background: var(--body-background-gradient);
-  color: var(--text-primary);
-  font-family: "Inria Serif";
+  margin: 0;
+  font-family: "inria-serif" !important;
 }
 
 p {
-  color: var(--text-primary);
-  line-height: 1.6;
+  color: var(--color3);
 }
 
-label {
-  color: var(--label-color);
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--color4);
 }
 
-h1 {
-  font-size: 64px;
-}
-
-h2 {
-  font-size: 36px;
+input,
+select {
+  background-color: var(--color2);
+  color: var(--color4);
+  border: none;
+  font-family: "inria-serif" !important;
 }
 
 a {
-  color: var(--link-color);
+  color: var(--color3);
   text-decoration: none;
 }
 
 a:hover {
-  text-decoration: underline;
-}
-
-.bg-light {
-  background-color: var(--background-light);
-}
-
-.bg-dark {
-  background-color: var(--background-dark);
-}
-
-.border {
-  border: 1px solid var(--border-color);
-}
-
-input {
-  background: var(--input-background);
-  border: none;
-  padding: 8px;
-  /* Add padding for better visibility */
-  border: none;
-  /* Remove default border */
-  outline: none;
-  /* Remove outline on focus (click) */
-}
-
-button {
-  font-family: "Inria Serif";
-}
-
-input::placeholder {
-  font-family: "Inria Serif";
-}
-
-select {
-  font-family: "Inria Serif";
+  color: var(--color4);
 }
 
 option {
-  font-family: "Inria Serif";
+  background-color: var(--color1);
+  color: var(--color3);
+  font-family: "inria-serif" !important;
+}
 
-
+input:focus,
+select:focus {
+  outline: none;
+  box-shadow: 0 0 5px var(--color4);
 }

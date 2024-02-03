@@ -56,7 +56,7 @@ const SignUp: React.FC = () => {
       onSubmit={formik.handleSubmit}
       className="registration-and-login-form"
     >
-      <div>
+      <div className="registration-and-login-content-main-div">
         <div className="registration-user-type">
           <label htmlFor="userType">I am a </label>
           <select
@@ -91,7 +91,7 @@ const SignUp: React.FC = () => {
             </div>
             {formik.touched.firstName && formik.errors.firstName ? (
               <p className="error-msg">{formik.errors.firstName}</p>
-            ) : null}
+            ) : <p className="error-msg-alternative"></p>}
 
             <div
               className={`input-with-icon ${
@@ -113,7 +113,7 @@ const SignUp: React.FC = () => {
             </div>
             {formik.touched.lastName && formik.errors.lastName ? (
               <p className="error-msg">{formik.errors.lastName}</p>
-            ) : null}
+            ) : <p className="error-msg-alternative"></p>}
           </>
         ) : (
           <>
@@ -137,7 +137,7 @@ const SignUp: React.FC = () => {
             </div>
             {formik.touched.companyName && formik.errors.companyName ? (
               <p className="error-msg">{formik.errors.companyName}</p>
-            ) : null}
+            ) : <p className="error-msg-alternative"></p>}
           </>
         )}
         <div
@@ -160,7 +160,7 @@ const SignUp: React.FC = () => {
         </div>
         {formik.touched.email && formik.errors.email ? (
           <p className="error-msg">{formik.errors.email}</p>
-        ) : null}
+        ) : <p className="error-msg-alternative"></p>}
 
         <div
           className={`input-with-icon ${
@@ -182,7 +182,7 @@ const SignUp: React.FC = () => {
         </div>
         {formik.touched.phoneNumber && formik.errors.phoneNumber ? (
           <p className="error-msg">{formik.errors.phoneNumber}</p>
-        ) : null}
+        ) : <p className="error-msg-alternative"></p>}
 
         <div
           className={`input-with-icon ${
@@ -204,7 +204,7 @@ const SignUp: React.FC = () => {
         </div>
         {formik.touched.password && formik.errors.password ? (
           <p className="error-msg">{formik.errors.password}</p>
-        ) : null}
+        ) : <p className="error-msg-alternative"></p>}
       </div>
       <button type="submit" className="registration-and-login-button">
         Register
