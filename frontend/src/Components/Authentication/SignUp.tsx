@@ -297,7 +297,7 @@ const SignUp: React.FC = () => {
       {isLoading && <LoadingScreen />}
       {registrationError && <p className="error-msg">{registrationError}</p>}
       <p className="registration-and-login-to-eachother">
-        Already Have an account?{" "}
+        Already have an account?{" "}
         {
           <Link to="/Login">
             <span>Log in here</span>
