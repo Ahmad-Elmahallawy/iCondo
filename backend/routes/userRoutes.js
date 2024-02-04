@@ -5,11 +5,10 @@ const {registerUser, login, consoleLog, getUser, modifyUser} = require('../contr
 
 router.route('/')
     .post(registerUser)
+    .patch(modifyUser)
 router.route('/login')
     .get(login)
 router.route('/:userid')
     .get(getUser)
-router.route('/')
-    .patch(modifyUser)
 
 module.exports = router
