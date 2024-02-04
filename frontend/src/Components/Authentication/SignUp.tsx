@@ -5,6 +5,7 @@ import "../../Style/AuthenticationStyle/LoginAndRegistrationStyle.css";
 import "../../Style/AuthenticationStyle/SignUpStyle.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { BounceLoader } from "react-spinners";
 
 interface FormValues {
   first_name: string;
@@ -13,14 +14,15 @@ interface FormValues {
   email: string;
   phone_number: string;
   password: string;
-  companyName: string;
+  company_name: string;
 }
 
 const SignUp: React.FC = () => {
-  const [userType, setUserType] = useState("regularUser");
+  const [userType, setUserType] = useState("PublicUser");
   const [registrationError, setRegistrationError] = useState<string | null>(
     null
   );
+  const [isLoading, setIsLoading] = useState(false);
 
   const clearRegistrationError = () => {
     setRegistrationError(null);
@@ -34,7 +36,7 @@ const SignUp: React.FC = () => {
       email: "",
       phone_number: "",
       password: "",
-      companyName: "",
+      company_name: "",
     },
     validationSchema: Yup.object({
       first_name: Yup.string()
@@ -53,13 +55,14 @@ const SignUp: React.FC = () => {
       password: Yup.string()
         .min(8, "Password must be at least 8 characters long")
         .required("Required"),
-      companyName: Yup.string().matches(/.*/, {
-        excludeEmptyString: userType === "regularUser",
+      company_name: Yup.string().matches(/.*/, {
+        excludeEmptyString: userType === "PublicUser",
         message: "Company Name is required",
       }),
     }),
     onSubmit: async (values) => {
       try {
+        setIsLoading(true); // Set loading state to true
         const registrationUrl = "http://localhost:8000/api/users/";
 
         const {
@@ -78,9 +81,8 @@ const SignUp: React.FC = () => {
           phone_number,
           email,
           password,
-          role: "user",
+          role: "PublicUser",
         };
-
         const response = await axios.post(registrationUrl, userData);
 
         console.log("Registration successful:", response.data);
@@ -91,11 +93,13 @@ const SignUp: React.FC = () => {
 
         if (error.response && error.response.status === 400) {
           setRegistrationError(
-            "User with this email or username already exists"
+            "User with this email, username or phone # already exists"
           );
         } else {
           // Handle other error statuses here if needed
         }
+      } finally {
+        setIsLoading(false); // Set loading state to false after the request is completed
       }
     },
   });
@@ -114,11 +118,11 @@ const SignUp: React.FC = () => {
               setUserType(e.target.value);
             }}
           >
-            <option value="regularUser">Regular User</option>
+            <option value="PublicUser">Public User</option>
             <option value="company">Company</option>
           </select>
         </div>
-        {userType === "regularUser" ? (
+        {userType === "PublicUser" ? (
           <>
             <div
               className={`input-with-icon ${
@@ -172,24 +176,24 @@ const SignUp: React.FC = () => {
           <>
             <div
               className={`input-with-icon ${
-                formik.touched.companyName && formik.errors.companyName
+                formik.touched.company_name && formik.errors.company_name
                   ? "input-border-error"
                   : ""
               }`}
             >
               <img src="Assets/company.svg" alt="" />
               <input
-                id="companyName"
-                name="companyName"
+                id="company_name"
+                name="company_name"
                 type="text"
                 placeholder="Company Name"
-                value={formik.values.companyName}
+                value={formik.values.company_name}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               />
             </div>
-            {formik.touched.companyName && formik.errors.companyName ? (
-              <p className="error-msg">{formik.errors.companyName}</p>
+            {formik.touched.company_name && formik.errors.company_name ? (
+              <p className="error-msg">{formik.errors.company_name}</p>
             ) : (
               <p className="error-msg-alternative"></p>
             )}
@@ -290,7 +294,15 @@ const SignUp: React.FC = () => {
           <p className="error-msg-alternative"></p>
         )}
       </div>
-
+      {isLoading && (
+        <div className="loading-background">
+          <BounceLoader
+            size={60}
+            color={"#ffffff"}
+            loading={true}
+          />
+        </div>
+      )}
       {registrationError && <p className="error-msg">{registrationError}</p>}
       <p className="registration-and-login-to-eachother">
         Already Have an account?{" "}

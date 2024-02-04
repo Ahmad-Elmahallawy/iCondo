@@ -25,6 +25,7 @@ const Login: React.FC = () => {
     }),
     onSubmit: (values) => {
       // TODO: handle form submission later
+      // http://localhost:8000/api/users/login
       console.log(values);
     },
   });
