@@ -1,30 +1,30 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { useState, ChangeEvent, useEffect } from "react";
 import "../../Style/UserProfileStyle/UserInformationStyle.css";
 import { FaPen } from "react-icons/fa"; // Assuming you have a library for icons
 
 interface UserData {
   profilePicture: File | null;
-  firstName: string;
-  lastName: string;
+  first_name: string;
+  last_name: string;
   email: string;
-  phone: string;
+  phone_number: string;
   password: string;
 }
 
-const UserInformation: React.FC = () => {
+interface UserInformationProps {
+  data: UserData;
+}
+
+const UserInformation: React.FC<UserInformationProps> = ({ data }) => {
   const defaultProfilePicturePath = "/Assets/default-profile-picture.png";
 
-  const initialUserData: UserData = {
-    profilePicture: null,
-    firstName: "John",
-    lastName: "Doe",
-    email: "john.doe@example.com",
-    phone: "123-456-7890",
-    password: "********",
-  };
-
-  const [userData, setUserData] = useState<UserData>(initialUserData);
+  const [userData, setUserData] = useState<UserData>(data);
   const [editMode, setEditMode] = useState<boolean>(false);
+
+  useEffect(() => {
+    // Set user data when the component mounts
+    setUserData(data);
+  }, [data]);
 
   const handleEditPictureClick = (): void => {
     const fileInput = document.getElementById("profilePictureInput");
@@ -37,7 +37,6 @@ const UserInformation: React.FC = () => {
   };
 
   const handleCancelClick = (): void => {
-    setUserData(initialUserData);
     setEditMode(false);
   };
 
@@ -95,11 +94,11 @@ const UserInformation: React.FC = () => {
           <input
             className="user-information-input"
             type="text"
-            value={userData.firstName}
+            value={userData.first_name}
             onChange={(e) => handleChange("firstName", e.target.value)}
           />
         ) : (
-          <span className="user-information-text">{userData.firstName}</span>
+          <span className="user-information-text">{userData.first_name}</span>
         )}
       </div>
       <div className="user-information-field">
@@ -108,11 +107,11 @@ const UserInformation: React.FC = () => {
           <input
             className="user-information-input"
             type="text"
-            value={userData.lastName}
+            value={userData.last_name}
             onChange={(e) => handleChange("lastName", e.target.value)}
           />
         ) : (
-          <span className="user-information-text">{userData.lastName}</span>
+          <span className="user-information-text">{userData.last_name}</span>
         )}
       </div>
       <div className="user-information-field">
@@ -134,11 +133,11 @@ const UserInformation: React.FC = () => {
           <input
             className="user-information-input"
             type="tel"
-            value={userData.phone}
+            value={userData.phone_number}
             onChange={(e) => handleChange("phone", e.target.value)}
           />
         ) : (
-          <span className="user-information-text">{userData.phone}</span>
+          <span className="user-information-text">{userData.phone_number}</span>
         )}
       </div>
       <div className="user-information-field">
