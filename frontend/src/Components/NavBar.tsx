@@ -44,10 +44,16 @@ const Navbar = () => {
         <li className="nav-item">
           <Link to="/">Home</Link>
         </li>
+
         {userIsAuthenticated ? (
-          <li className="nav-item" onClick={handleLogout}>
-            <span>Log Out</span>
-          </li>
+          <>
+            <li className="nav-item" onClick={handleLogout}>
+              <span>Log Out</span>
+            </li>
+            <li className="nav-item">
+              <Link to="/Employee/Registration">Register Employees</Link>
+            </li>
+          </>
         ) : (
           <>
             <li className="nav-item">

@@ -4,7 +4,8 @@ import "./Style/root.css";
 import SignUp from "./Components/Authentication/SignUp";
 import RegistrationLandingPage from "./Pages/RegistrationLandingPage";
 import LogInLandingPage from "./Pages/LogInLandingPage";
-import UserProfilePage from "./Pages/UserProfileLandingPage";
+import UserProfileLandingPage from "./Pages/UserProfileLandingPage";
+import EmployeeRegistrationLandingPage from "./Pages/EmployeeRegistrationLandingPage";
 import Hero from "./Pages/Hero";
 import NavBar from "./Components/NavBar";
 
@@ -17,7 +18,8 @@ function App() {
         <Route path="Login" element={<LogInLandingPage />} />
         <Route path="Register" element={<RegistrationLandingPage />} />
         <Route path="Login" element={<LogInLandingPage />} />
-        <Route path="Profile" element={<UserProfilePage />} />
+        <Route path="Employee/Registration" element={<EmployeeRegistrationLandingPage />} />
+        <Route path="Profile" element={<UserProfileLandingPage />} />
         <Route path="*" element={<></>} />
       </Routes>
     </BrowserRouter>
