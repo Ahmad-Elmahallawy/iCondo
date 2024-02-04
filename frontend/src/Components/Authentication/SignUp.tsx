@@ -5,7 +5,7 @@ import "../../Style/AuthenticationStyle/LoginAndRegistrationStyle.css";
 import "../../Style/AuthenticationStyle/SignUpStyle.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { BounceLoader } from "react-spinners";
+import LoadingScreen from "../Common/LoadingScreen";
 
 interface FormValues {
   first_name: string;
@@ -294,15 +294,7 @@ const SignUp: React.FC = () => {
           <p className="error-msg-alternative"></p>
         )}
       </div>
-      {isLoading && (
-        <div className="loading-background">
-          <BounceLoader
-            size={60}
-            color={"#ffffff"}
-            loading={true}
-          />
-        </div>
-      )}
+      {isLoading && <LoadingScreen />}
       {registrationError && <p className="error-msg">{registrationError}</p>}
       <p className="registration-and-login-to-eachother">
         Already Have an account?{" "}
