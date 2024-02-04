@@ -6,8 +6,9 @@ import "../../Style/AuthenticationStyle/LoginAndRegistrationStyle.css";
 import axios from "axios";
 import LoadingScreen from "../Common/LoadingScreen";
 import { Link, useNavigate } from "react-router-dom";
+import { loginInitialValues } from "../Common/InitialValues";
+import { loginValidationSchema } from "../Common/ValidationSchema";
 
-// Define the shape of form values
 interface FormValues {
   email: string;
   password: string;
@@ -20,18 +21,9 @@ const Login: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  // Initialize useFormik with initial values and validation logic
   const formik = useFormik<FormValues>({
-    initialValues: {
-      email: "",
-      password: "",
-    },
-    validationSchema: Yup.object({
-      email: Yup.string().email("Invalid Email Address").required("Required"),
-      password: Yup.string()
-        .min(8, "Password must be at least 8 characters long")
-        .required("Required"),
-    }),
+    initialValues: loginInitialValues,
+    validationSchema: loginValidationSchema,
     onSubmit: async (values) => {
       try {
         setIsLoading(true);
@@ -44,7 +36,6 @@ const Login: React.FC = () => {
             },
           }
         );
-
         const userData = {
           ...response.data,
           password: values.password,
@@ -55,7 +46,6 @@ const Login: React.FC = () => {
         navigate("/");
         // TODO: Handle the token (e.g., store it in localStorage) and redirect the user
       } catch (error: any) {
-        // Handle errors, e.g., display an error message to the user
         console.error("Login failed:", error.response.data.message);
         if (error.response && error.response.status === 401) {
           setRegistrationError("Email or Password is not correct");
@@ -63,7 +53,7 @@ const Login: React.FC = () => {
           // Handle other error statuses here if needed
         }
       } finally {
-        setIsLoading(false); // Set loading state to false after the request is completed
+        setIsLoading(false);
       }
     },
   });
