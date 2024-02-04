@@ -6,6 +6,8 @@ import "../../Style/AuthenticationStyle/SignUpStyle.css";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import LoadingScreen from "../Common/LoadingScreen";
+import { signUpInitialValues } from "../Common/InitialValues";
+import { signUpValidationSchema } from "../Common/ValidationSchema";
 
 interface FormValues {
   first_name: string;
@@ -26,66 +28,23 @@ const SignUp: React.FC = () => {
   const navigate = useNavigate();
 
   const formik = useFormik<FormValues>({
-    initialValues: {
-      first_name: "",
-      last_name: "",
-      username: "",
-      email: "",
-      phone_number: "",
-      password: "",
-      company_name: "",
-    },
-    validationSchema: Yup.object({
-      first_name: Yup.string()
-        .max(15, "Must be 15 characters or less")
-        .required("Required"),
-      last_name: Yup.string()
-        .max(20, "Must be 20 characters or less")
-        .required("Required"),
-      username: Yup.string()
-        .max(20, "Must be 20 characters or less")
-        .required("Required"),
-      email: Yup.string().email("Invalid Email Address").required("Required"),
-      phone_number: Yup.string()
-        .matches(/^[0-9]{10,15}$/, "Invalid Phone Number")
-        .required("Required"),
-      password: Yup.string()
-        .min(8, "Password must be at least 8 characters long")
-        .required("Required"),
-      company_name: Yup.string().matches(/.*/, {
-        excludeEmptyString: userType === "PublicUser",
-        message: "Company Name is required",
-      }),
-    }),
+    initialValues: signUpInitialValues,
+    validationSchema: signUpValidationSchema,
     onSubmit: async (values) => {
       try {
-        setIsLoading(true); // Set loading state to true
+        setIsLoading(true);
         const registrationUrl = "http://localhost:8000/api/users/";
 
-        const {
-          first_name,
-          last_name,
-          username,
-          phone_number,
-          email,
-          password,
-        } = values;
-
         const userData = {
-          first_name,
-          last_name,
-          username,
-          phone_number,
-          email,
-          password,
+          ...values,
           role: "PublicUser",
         };
-        const response = await axios.post(registrationUrl, userData);
 
+        const response = await axios.post(registrationUrl, userData);
         console.log("Registration successful:", response.data);
 
         setRegistrationError(null);
-        navigate("/");
+        navigate("/Login");
       } catch (error: any) {
         console.error("Registration failed:", error.message);
 
@@ -97,11 +56,10 @@ const SignUp: React.FC = () => {
           // Handle other error statuses here if needed
         }
       } finally {
-        setIsLoading(false); // Set loading state to false after the request is completed
+        setIsLoading(false);
       }
     },
   });
-
   return (
     <form
       onSubmit={formik.handleSubmit}
