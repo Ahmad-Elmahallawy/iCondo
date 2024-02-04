@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import "../../Style/AuthenticationStyle/LoginAndRegistrationStyle.css";
 import "../../Style/AuthenticationStyle/SignUpStyle.css";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LoadingScreen from "../Common/LoadingScreen";
 
 interface FormValues {
@@ -23,10 +23,7 @@ const SignUp: React.FC = () => {
     null
   );
   const [isLoading, setIsLoading] = useState(false);
-
-  const clearRegistrationError = () => {
-    setRegistrationError(null);
-  };
+  const navigate = useNavigate();
 
   const formik = useFormik<FormValues>({
     initialValues: {
@@ -87,7 +84,8 @@ const SignUp: React.FC = () => {
 
         console.log("Registration successful:", response.data);
 
-        clearRegistrationError();
+        setRegistrationError(null);
+        navigate("/");
       } catch (error: any) {
         console.error("Registration failed:", error.message);
 
@@ -297,7 +295,7 @@ const SignUp: React.FC = () => {
       {isLoading && <LoadingScreen />}
       {registrationError && <p className="error-msg">{registrationError}</p>}
       <p className="registration-and-login-to-eachother">
-        Already Have an account?{" "}
+        Already have an account?{" "}
         {
           <Link to="/Login">
             <span>Log in here</span>
