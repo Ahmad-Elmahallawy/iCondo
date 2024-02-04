@@ -35,7 +35,7 @@ const EmployeeRegistration = () => {
               <option value="FinanceManager">FinanceManager</option>
             </select>
           </div>
-          .
+
           <div
             className={`input-with-icon ${
               formik.touched.first_name && formik.errors.first_name
