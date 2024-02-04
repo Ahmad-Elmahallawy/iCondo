@@ -19,11 +19,18 @@ ul {
   padding: 1rem;
 }
 
-a {
+a,
+.nav-item span {
   color: var(--color2);
 }
 
-a:hover {
+.nav-item span:hover {
+  cursor: pointer;
+  color: var(--color4);
+}
+
+a:hover,
+.nav-item span:hover {
   text-decoration: none;
 }
 
