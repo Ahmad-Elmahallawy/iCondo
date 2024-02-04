@@ -1,13 +1,12 @@
-import React from 'react';
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import './Style/root.css'
-import SignUp from './Components/Authentication/SignUp';
-import RegistrationLandingPage from './Pages/RegistrationLandingPage';
-import LogInLandingPage from './Pages/LogInLandingPage';
-import UserProfilePage from './Pages/UserProfileLandingPage';
-import Hero from './Pages/Hero';
-import NavBar from './Components/NavBar';
-
+import "./Style/root.css";
+import SignUp from "./Components/Authentication/SignUp";
+import RegistrationLandingPage from "./Pages/RegistrationLandingPage";
+import LogInLandingPage from "./Pages/LogInLandingPage";
+import UserProfilePage from "./Pages/UserProfileLandingPage";
+import Hero from "./Pages/Hero";
+import NavBar from "./Components/NavBar";
 
 function App() {
   return (

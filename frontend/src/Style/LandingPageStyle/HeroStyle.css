@@ -42,7 +42,6 @@
   font-size: 0.8rem;
 }
 
-
 /* for tablets and under */
 @media screen and (max-width: 768px) {
   .hero {

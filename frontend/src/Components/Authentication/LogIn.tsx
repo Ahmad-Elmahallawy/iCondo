@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import "../../Style/AuthenticationStyle/LoginAndRegistrationStyle.css";
 import axios from "axios";
 import LoadingScreen from "../Common/LoadingScreen";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // Define the shape of form values
 interface FormValues {
@@ -18,6 +18,7 @@ const Login: React.FC = () => {
     null
   );
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   // Initialize useFormik with initial values and validation logic
   const formik = useFormik<FormValues>({
@@ -43,7 +44,8 @@ const Login: React.FC = () => {
             },
           }
         );
-
+        setRegistrationError(null);
+        navigate("/");
         // TODO: Handle the token (e.g., store it in localStorage) and redirect the user
       } catch (error: any) {
         // Handle errors, e.g., display an error message to the user
