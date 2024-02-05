@@ -16,8 +16,9 @@ function App() {
         <Route path="/" element={<Hero />} />
         <Route path="Login" element={<LogInLandingPage />} />
         <Route path="Register" element={<RegistrationLandingPage />} />
-        <Route path="Login" element={<LogInLandingPage />} />
-        <Route path="Profile" element={<UserProfilePage />} />
+        <Route path="Profile" element={<UserProfileLandingPage />} />
+        <Route path="Employee/Registration" element={<EmployeeRegistrationLandingPage />} />
+        <Route path="Profile" element={<UserProfileLandingPage />} />
         <Route path="*" element={<div>404 Page Not Found</div>} />
       </Routes>
     </div>
