@@ -5,8 +5,9 @@ const {registerUser, login, consoleLog, getUser, modifyUser, registerAdminCompan
 
 router.route('/')
     .post(registerUser)
-    .post(registerAdminCompany)
     .patch(modifyUser)
+router.route('/adminCompanyCreation')
+    .post(registerAdminCompany)
 router.route('/login')
     .get(login)
 router.route('/:userid')

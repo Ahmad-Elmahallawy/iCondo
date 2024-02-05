@@ -112,7 +112,7 @@ const registerAdminCompany = asyncHandler(async (req, res) => {
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
   try {
-    const user = await prisma.User.create({
+    const newUser = await prisma.User.create({
       data: {
         first_name,
         last_name,
@@ -123,9 +123,17 @@ const registerAdminCompany = asyncHandler(async (req, res) => {
         phone_number,
       },
     });
-    const company = await prisma.Company.create({
+    const newCompany = await prisma.Company.create({
       data: {
         name,
+      },
+    });
+    const adminCompanyRelation = await prisma.Company_employee.create({
+      data: {
+        user_id:newUser.id,
+        company_id:newCompany.id,
+        company:newCompany,
+        user:newUser,
       },
     });
 
@@ -139,6 +147,7 @@ const registerAdminCompany = asyncHandler(async (req, res) => {
       token: generateToken(user.id),
       role: roleRecord.name,
       company: company.name,
+      relation: adminCompanyRelation
     });
   } catch (error) {
     console.error(error);
