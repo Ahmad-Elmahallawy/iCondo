@@ -18,12 +18,12 @@
 }
 
 .input-with-icon input {
-  flex: 1; 
-  height: 100%; 
-  border: none; 
-  background: transparent; 
+  flex: 1;
+  height: 100%;
+  border: none;
+  background: transparent;
   color: white;
-  outline: none; 
+  outline: none;
 }
 
 .input-with-icon input::placeholder {
@@ -41,11 +41,10 @@
 }
 
 .input-border-error {
-  border: 2px solid red ;
+  border: 2px solid red;
 }
 
 .registration-and-login-button {
-  margin-top: 20px;
   border-radius: 255px;
   background: var(--color4);
   width: 100%;
@@ -62,4 +61,18 @@
   background-color: var(--color2);
   color: white;
   cursor: pointer;
+}
+
+.registration-and-login-to-eachother {
+  color: var(--color1);
+  text-align: center;
+}
+
+.registration-and-login-to-eachother span {
+  color: var(--color1);
+  text-decoration: underline;
+}
+
+.registration-and-login-to-eachother span:hover {
+  color: var(--color4);
 }

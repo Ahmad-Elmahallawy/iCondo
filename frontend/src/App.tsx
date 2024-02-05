@@ -15,6 +15,7 @@ function App() {
         <Route path="/" element={<Hero />} />
         <Route path="Login" element={<LogInLandingPage />} />
         <Route path="Register" element={<RegistrationLandingPage />} />
+        <Route path="Login" element={<LogInLandingPage />} />
         <Route path="Profile" element={<UserProfilePage />} />
         <Route path="*" element={<div>404 Page Not Found</div>} />
       </Routes>
