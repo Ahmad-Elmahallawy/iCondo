@@ -125,28 +125,27 @@ const registerAdminCompany = asyncHandler(async (req, res) => {
     });
     const newCompany = await prisma.Company.create({
       data: {
-        name,
+        name: companyName,
       },
     });
     const adminCompanyRelation = await prisma.Company_employee.create({
       data: {
         user_id:newUser.id,
         company_id:newCompany.id,
-        company:newCompany,
-        user:newUser,
       },
     });
 
     res.status(201).json({
-      _id: user.id,
-      first_name: user.first_name,
-      last_name: user.last_name,
-      username: user.username,
-      email: user.email,
-      phone_number: user.phone_number,
-      token: generateToken(user.id),
+      id: newUser.id,
+      first_name: newUser.first_name,
+      last_name: newUser.last_name,
+      username: newUser.username,
+      email: newUser.email,
+      phone_number: newUser.phone_number,
+      token: generateToken(newUser.id),
       role: roleRecord.name,
-      company: company.name,
+      company: newCompany,
+      user: newUser,
       relation: adminCompanyRelation
     });
   } catch (error) {
