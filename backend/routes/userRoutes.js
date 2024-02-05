@@ -7,7 +7,7 @@ const {
   consoleLog,
   getUser,
   modifyUser,
-  registerEmployee
+  registerEmployee,
 } = require("../controller/userController");
 
 router.route("/").post(registerUser).patch(modifyUser);

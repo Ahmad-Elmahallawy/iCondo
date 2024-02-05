@@ -220,12 +220,6 @@ const EmployeeRegistration = () => {
           </button>
         </form>
       </div>
-
-      {/* Employee Table (Placeholder) */}
-      <div className="employee-table">
-        <h2>Employee Table</h2>
-        {/* Add your table component or code here */}
-      </div>
     </div>
   );
 };
