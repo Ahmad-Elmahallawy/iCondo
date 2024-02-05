@@ -58,7 +58,7 @@ const EmployeeRegistration = () => {
             >
               <option value="Manager">Manager</option>
               <option value="Operator">Operator</option>
-              <option value="FinanceManager">FinanceManager</option>
+              <option value="FinanceManager">Finance Manager</option>
             </select>
           </div>
           <div
