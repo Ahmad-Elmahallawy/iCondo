@@ -18,7 +18,10 @@ const UserProfileLandingPage = () => {
   const userData = JSON.parse(userDataString);
 
   return (
-    <div className="user-profile-container">
+    <div
+      data-testid="user-profile-container"
+      className="user-profile-container"
+    >
       <div className="my-profile-container">
         <UserInformation data={userData} />
       </div>
