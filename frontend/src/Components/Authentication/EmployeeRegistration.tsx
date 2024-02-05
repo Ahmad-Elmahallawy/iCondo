@@ -1,6 +1,6 @@
 // components/EmployeeRegistration.js
 
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import axios from "axios";
 import "../../Style/AuthenticationStyle/LoginAndRegistrationStyle.css";
@@ -9,12 +9,18 @@ import { signUpInitialValues } from "../Common/InitialValues";
 import { signUpValidationSchema } from "../Common/ValidationSchema";
 
 const EmployeeRegistration = () => {
+  const [selectedRole, setSelectedRole] = useState("Manager"); // Default value
+
   const formik = useFormik({
-    initialValues: signUpInitialValues,
+    initialValues: { ...signUpInitialValues, role: selectedRole },
     validationSchema: signUpValidationSchema,
     onSubmit: async (values) => {
+      values.role = selectedRole;
+
+      console.log(values);
+
       try {
-        const registrationUrl = "http://localhost:8000/api/employee/register";
+        const registrationUrl = "http://localhost:8000/api/users/register/employee";
         const response = await axios.post(registrationUrl, values);
         console.log("Employee registration successful:", response.data);
       } catch (error: any) {
@@ -23,17 +29,47 @@ const EmployeeRegistration = () => {
     },
   });
 
+  const handleRoleChange = (event: any) => {
+    setSelectedRole(event.target.value);
+  };
+
   return (
     <div className="registration-and-login-content-main-div">
       <div className="form-container">
         <form onSubmit={formik.handleSubmit}>
           <div className="registration-user-type">
-            <label htmlFor="user_type">Employee's Role is </label>
-            <select id="user_type" name="user_type">
+            <label htmlFor="role">Employee's Role is </label>
+            <select
+              id="role"
+              name="role"
+              value={selectedRole}
+              onChange={handleRoleChange}
+            >
               <option value="Manager">Manager</option>
               <option value="Operator">Operator</option>
               <option value="FinanceManager">FinanceManager</option>
             </select>
+          </div>
+          <div
+            className={`input-with-icon ${
+              formik.touched.company_name && formik.errors.company_name
+                ? "input-border-error"
+                : ""
+            }`}
+          >
+            <img src="Assets/company.svg" alt="" />
+            <input
+              id="company_name"
+              name="company_name"
+              type="text"
+              placeholder="Company Name"
+              value={formik.values.company_name}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            {formik.touched.company_name && formik.errors.company_name && (
+              <p className="error-msg">{formik.errors.company_name}</p>
+            )}
           </div>
 
           <div
