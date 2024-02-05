@@ -50,7 +50,7 @@ const SignUp: React.FC = () => {
 
         if (error.response && error.response.status === 400) {
           setRegistrationError(
-            "User with this email, username or phone # already exists"
+            "User with this email, username or phone number already exists"
           );
         } else {
           // Handle other error statuses here if needed

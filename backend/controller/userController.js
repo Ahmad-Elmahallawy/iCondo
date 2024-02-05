@@ -58,7 +58,6 @@ const registerUser = asyncHandler(async (req, res) => {
         phone_number,
       },
     });
-
     res.status(201).json({
       _id: user.id,
       first_name: user.first_name,
@@ -270,10 +269,89 @@ const doesNewUserExist = asyncHandler(async (name, newValue, currentValue) => {
   return !!newUser;
 });
 
+const registerEmployee = async (req, res) => {
+  try {
+    const {
+      first_name,
+      last_name,
+      email,
+      username,
+      phone_number,
+      company_name,
+      password,
+    } = req.body;
+
+    // Check if the company exists
+    const existingCompany = await prisma.company.findFirst({
+      where: { name: company_name },
+    });
+    if (!existingCompany) {
+      return res.status(400).json({ error: "Company does not exist" });
+    }
+
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Check if the email is already taken
+    const existingUser = await prisma.user.findFirst({
+      where: { email },
+    });
+
+    if (existingUser) {
+      return res.status(400).json({ error: "Email is already taken" });
+    }
+
+    // Get the role ID based on the role name
+    const roleRecord = await prisma.Role.findFirst({
+      where: { name: "FinanceManager" }, // Update with the correct role name
+    });
+
+    if (!roleRecord) {
+      return res.status(400).json({ error: "Role not found" });
+    }
+
+    // Create a new user (employee)
+    const user = await prisma.user.create({
+      data: {
+        first_name,
+        last_name,
+        email,
+        username,
+        phone_number,
+        password: hashedPassword,
+        role: { connect: { id: roleRecord.id } }, // Provide the role ID
+        company_employees: {
+          create: {
+            company: {
+              connect: {
+                id: existingCompany.id,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    res.status(201).json({
+      _id: user.id,
+      first_name: user.first_name,
+      last_name: user.last_name,
+      username: user.username,
+      email: user.email,
+      phone_number: user.phone_number,
+      role: roleRecord.name,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
 module.exports = {
   registerUser,
   login,
   getUser,
   modifyUser,
   registerAdminCompany,
+  registerEmployee,
 };
