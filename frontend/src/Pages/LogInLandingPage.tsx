@@ -4,7 +4,10 @@ import LogIn from "../Components/Authentication/LogIn";
 
 const LogInLandingPage = () => {
   return (
-    <div className="registration-and-login-container">
+    <div
+      data-testid="login-container"
+      className="registration-and-login-container"
+    >
       <div className="registration-and-login-title-and-image-container">
         <h1>Welcome to the Condo Management System</h1>
         <img src="Assets/login.gif" alt="" />
