@@ -30,13 +30,13 @@ describe("full app navigation", () => {
     expect(screen.getByTestId("registration-container")).not.toBeNull();
   });
 
-  it("Rendering My Profile route", async () => {
+  it("Rendering my profile when user is not logged in", async () => {
     setup();
 
-    // verify page content for expected route after navigating
+    // My profile will redirect user to log in page if not logged in
     const profileBtn = screen.getByText(/My Profile/i);
     fireEvent.click(profileBtn);
-    expect(screen.getByTestId("user-profile-container")).not.toBeNull();
+    expect(screen.getByTestId("login-container")).not.toBeNull();
   });
 });
 
