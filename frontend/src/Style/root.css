@@ -1,0 +1,59 @@
+/* Root CSS for your website */
+
+:root {
+  --color1: #eeedeb;
+  --color2: #e0ccbe;
+  --color3: #747264;
+  --color4: #3c3633;
+}
+
+body {
+  background-color: var(--color1);
+  color: var(--color4);
+  font-family: Arial, sans-serif;
+  padding: 0;
+  margin: 0;
+  font-family: "inria-serif" !important;
+}
+
+p {
+  color: var(--color3);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--color4);
+}
+
+input,
+select {
+  background-color: var(--color2);
+  color: var(--color4);
+  border: none;
+  font-family: "inria-serif" !important;
+}
+
+a {
+  color: var(--color3);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--color4);
+}
+
+option {
+  background-color: var(--color1);
+  color: var(--color3);
+  font-family: "inria-serif" !important;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  box-shadow: 0 0 5px var(--color4);
+}

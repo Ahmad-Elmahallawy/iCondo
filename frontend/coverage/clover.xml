@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1706754117332" clover="3.2.0">
+  <project timestamp="1706754117332" name="All files">
+    <metrics statements="23" coveredstatements="2" conditionals="70" coveredconditionals="0" methods="11" coveredmethods="1" elements="104" coveredelements="3" complexity="0" loc="23" ncloc="23" packages="4" files="8" classes="8"/>
+    <package name="src">
+      <metrics statements="3" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+      <file name="App.tsx" path="C:\Users\huy22\Desktop\SOEN390\SOEN390-MiniCap\frontend\src\App.tsx">
+        <metrics statements="1" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="12" count="0" type="stmt"/>
+      </file>
+      <file name="index.tsx" path="C:\Users\huy22\Desktop\SOEN390\SOEN390-MiniCap\frontend\src\index.tsx">
+        <metrics statements="2" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="5" count="0" type="stmt"/>
+        <line num="8" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.Components">
+      <metrics statements="4" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="2" coveredmethods="0"/>
+      <file name="NavBar.tsx" path="C:\Users\huy22\Desktop\SOEN390\SOEN390-MiniCap\frontend\src\Components\NavBar.tsx">
+        <metrics statements="4" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <line num="6" count="0" type="stmt"/>
+        <line num="7" count="0" type="stmt"/>
+        <line num="9" count="0" type="stmt"/>
+        <line num="11" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.Components.Authentication">
+      <metrics statements="10" coveredstatements="0" conditionals="66" coveredconditionals="0" methods="5" coveredmethods="0"/>
+      <file name="LogIn.tsx" path="C:\Users\huy22\Desktop\SOEN390\SOEN390-MiniCap\frontend\src\Components\Authentication\LogIn.tsx">
+        <metrics statements="4" coveredstatements="0" conditionals="16" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <line num="13" count="0" type="stmt"/>
+        <line num="15" count="0" type="stmt"/>
+        <line num="28" count="0" type="stmt"/>
+        <line num="32" count="0" type="stmt"/>
+      </file>
+      <file name="SignUp.tsx" path="C:\Users\huy22\Desktop\SOEN390\SOEN390-MiniCap\frontend\src\Components\Authentication\SignUp.tsx">
+        <metrics statements="6" coveredstatements="0" conditionals="50" coveredconditionals="0" methods="3" coveredmethods="0"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="50" count="0" type="stmt"/>
+        <line num="54" count="0" type="stmt"/>
+        <line num="65" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.Pages">
+      <metrics statements="6" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="1"/>
+      <file name="Hero.tsx" path="C:\Users\huy22\Desktop\SOEN390\SOEN390-MiniCap\frontend\src\Pages\Hero.tsx">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+      </file>
+      <file name="LogInLandingPage.tsx" path="C:\Users\huy22\Desktop\SOEN390\SOEN390-MiniCap\frontend\src\Pages\LogInLandingPage.tsx">
+        <metrics statements="2" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="5" count="0" type="stmt"/>
+        <line num="6" count="0" type="stmt"/>
+      </file>
+      <file name="RegistrationLandingPage.tsx" path="C:\Users\huy22\Desktop\SOEN390\SOEN390-MiniCap\frontend\src\Pages\RegistrationLandingPage.tsx">
+        <metrics statements="2" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="5" count="0" type="stmt"/>
+        <line num="6" count="0" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>

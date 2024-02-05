@@ -1,0 +1,80 @@
+/* RegistrationLandingPageStyle.css */
+
+.registration-and-login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.registration-and-login-title-and-image-container,
+.registration-and-login-information-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 100%;
+}
+
+.registration-and-login-title-and-image-container h1 {
+  text-align: left;
+  margin-bottom: 0; /* Remove default margin */
+}
+
+.registration-and-login-title-and-image-container img {
+  width: 400px;
+}
+
+.registration-and-login-information-content {
+  border-radius: 30px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  width: 70%;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  background-color: var(--color3);
+}
+
+.registration-and-login-information-content h2 {
+  text-align: center;
+  color: var(--color1);
+}
+
+@media only screen and (max-width: 1200px) {
+  .registration-and-login-container {
+    flex-direction: column;
+  }
+  .registration-and-login-information-container {
+    width: 100%;
+  }
+
+  .registration-and-login-title-and-image-container {
+    display: none; /* Hide the container */
+  }
+
+  .registration-and-login-information-content {
+    width: 90%;
+    padding: 2rem;
+    max-width: 500px; /* Adjust the maximum width as needed */
+  }
+
+  .registration-and-login-title-and-image-container h1 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin: 0;
+    padding: 0.5rem;
+  }
+
+  .registration-and-login-title-and-image-container img {
+    width: 70%;
+    max-width: 100px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .registration-and-login-title-and-image-container h1 {
+    font-size: 1.25rem; /* Adjust the font size as needed */
+  }
+}
