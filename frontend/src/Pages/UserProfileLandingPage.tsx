@@ -5,7 +5,7 @@ import UserInformation from "../Components/UserProfile/UserInformation";
 import Properties from "../Components/UserProfile/UserProperties";
 import Requests from "../Components/UserProfile/UserRequests";
 
-const UserProfilePage = () => {
+const UserProfileLandingPage = () => {
   // Check if the user is logged in
   const userDataString = localStorage.getItem("userData");
 
@@ -37,4 +37,4 @@ const UserProfilePage = () => {
   );
 };
 
-export default UserProfilePage;
+export default UserProfileLandingPage;

@@ -1,5 +1,5 @@
 import React from "react";
-import "../Style/AuthenticationStyle/LoginAndRegistrationLandingPageStyle.css";
+import "../Style/LandingPageStyle/LoginAndRegistrationLandingPageStyle.css";
 import LogIn from "../Components/Authentication/LogIn";
 
 const LogInLandingPage = () => {

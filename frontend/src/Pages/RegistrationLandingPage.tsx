@@ -1,6 +1,6 @@
 import React from "react";
 import SignUp from "../Components/Authentication/SignUp";
-import "../Style/AuthenticationStyle/LoginAndRegistrationLandingPageStyle.css";
+import "../Style/LandingPageStyle/LoginAndRegistrationLandingPageStyle.css";
 
 const RegistrationLandingPage = () => {
   return (
