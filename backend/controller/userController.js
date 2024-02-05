@@ -84,7 +84,6 @@ const registerAdminCompany = asyncHandler(async (req, res) => {
     username,
     email,
     password,
-    role,
     phone_number,
     companyName,
   } = req.body;
@@ -97,7 +96,7 @@ const registerAdminCompany = asyncHandler(async (req, res) => {
     where: { email },
   });
   const roleRecord = await prisma.Role.findFirst({
-    where: { name: role },
+    where: { name: "Admin" },
   });
   if (!roleRecord) {
     res.status(400);
