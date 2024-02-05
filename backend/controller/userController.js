@@ -144,9 +144,7 @@ const registerAdminCompany = asyncHandler(async (req, res) => {
       phone_number: newUser.phone_number,
       token: generateToken(newUser.id),
       role: roleRecord.name,
-      company: newCompany,
-      user: newUser,
-      relation: adminCompanyRelation
+
     });
   } catch (error) {
     console.error(error);
