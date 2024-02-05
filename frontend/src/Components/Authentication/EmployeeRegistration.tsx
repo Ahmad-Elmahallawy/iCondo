@@ -7,24 +7,35 @@ import "../../Style/AuthenticationStyle/LoginAndRegistrationStyle.css";
 import "../../Style/AuthenticationStyle/EmployeeRegistrationStyle.css";
 import { signUpInitialValues } from "../Common/InitialValues";
 import { signUpValidationSchema } from "../Common/ValidationSchema";
-
+import LoadingScreen from "../Common/LoadingScreen";
 const EmployeeRegistration = () => {
   const [selectedRole, setSelectedRole] = useState("Manager"); // Default value
+  const [resultMessage, setResultMessage] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const formik = useFormik({
     initialValues: { ...signUpInitialValues, role: selectedRole },
     validationSchema: signUpValidationSchema,
     onSubmit: async (values) => {
+      setIsLoading(true);
       values.role = selectedRole;
-
-      console.log(values);
-
       try {
-        const registrationUrl = "http://localhost:8000/api/users/register/employee";
+        const registrationUrl =
+          "http://localhost:8000/api/users/register/employee";
         const response = await axios.post(registrationUrl, values);
         console.log("Employee registration successful:", response.data);
+        setResultMessage("Employee Added Successfully");
       } catch (error: any) {
         console.error("Employee registration failed:", error.message);
+        if (error.response && error.response.status === 400) {
+          setResultMessage(
+            "User with this email, username or phone number already exists OR Company does not Exist"
+          );
+        } else {
+          // Handle other error statuses here if needed
+        }
+      } finally {
+        setIsLoading(false);
       }
     },
   });
@@ -198,6 +209,12 @@ const EmployeeRegistration = () => {
               <p className="error-msg">{formik.errors.password}</p>
             )}
           </div>
+          {isLoading && <LoadingScreen />}
+          {resultMessage === "Employee Added Successfully" ? (
+            <p className="success-msg">{resultMessage}</p>
+          ) : (
+            <p className="error-msg">{resultMessage}</p>
+          )}
           <button type="submit" className="registration-and-login-button">
             Register Employee
           </button>

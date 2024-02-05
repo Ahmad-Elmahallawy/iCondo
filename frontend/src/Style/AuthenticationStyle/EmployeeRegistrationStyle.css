@@ -52,6 +52,10 @@
   border: 2px solid red;
 }
 
+.success-msg {
+  color: green;
+}
+
 .registration-and-login-button {
   border-radius: 8px;
   background: var(--color4);
