@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const { protect } = require('../middleware/authMiddleware')
 const {registerUser, login, consoleLog, getUser, modifyUser} = require('../controller/userController')
-
+const {ProfilePictureUpload} = require('../controller/fileController')
 router.route('/')
     .post(registerUser)
     .patch(modifyUser)
@@ -10,5 +10,7 @@ router.route('/login')
     .get(login)
 router.route('/:userid')
     .get(getUser)
+router.route('/file')
+    .post(ProfilePictureUpload)
 
 module.exports = router
