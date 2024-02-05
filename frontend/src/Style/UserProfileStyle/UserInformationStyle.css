@@ -9,9 +9,35 @@
   background-color: var(--color3);
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   width: 100%;
-  max-width: 400px; 
+  max-width: 400px;
   margin: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: relative;
+}
+
+.success-message,
+.error-message {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.success-message {
+  color: #155724; /* Bootstrap success color */
+  background-color: #d4edda; /* Bootstrap success background color */
+  border: 1px solid #c3e6cb; /* Bootstrap success border color */
+}
+
+.error-message {
+  color: #721c24; /* Bootstrap error color */
+  background-color: #f8d7da; /* Bootstrap error background color */
+  border: 1px solid #f5c6cb; /* Bootstrap error border color */
 }
 
 .user-information-profile-container {
@@ -47,16 +73,16 @@
 
 .user-information-field {
   display: flex;
-  flex-direction: row; 
-  justify-content: space-between; 
+  flex-direction: row;
+  justify-content: space-between;
   width: 100%;
   align-items: center;
   margin-bottom: 15px;
 }
 
 .user-information-label {
-  margin-right: 10px; 
-  text-align: left !important; 
+  margin-right: 10px;
+  text-align: left !important;
   color: #fff;
 }
 
@@ -64,7 +90,7 @@
 .user-information-text {
   padding: 8px;
   border-radius: 5px;
-  text-align: right; 
+  text-align: right;
   color: var(--color4);
 }
 
@@ -81,6 +107,3 @@
 .user-information-cancel-button {
   background-color: #ff4444;
 }
-
-
-

@@ -1,6 +1,7 @@
 import React, { useState, ChangeEvent, useEffect } from "react";
 import "../../Style/UserProfileStyle/UserInformationStyle.css";
-import { FaPen } from "react-icons/fa"; // Assuming you have a library for icons
+import { FaPen } from "react-icons/fa";
+import axios from "axios";
 
 interface UserData {
   profilePicture: File | null;
@@ -20,9 +21,10 @@ const UserInformation: React.FC<UserInformationProps> = ({ data }) => {
 
   const [userData, setUserData] = useState<UserData>(data);
   const [editMode, setEditMode] = useState<boolean>(false);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
-    // Set user data when the component mounts
     setUserData(data);
   }, [data]);
 
@@ -31,13 +33,29 @@ const UserInformation: React.FC<UserInformationProps> = ({ data }) => {
     fileInput?.click();
   };
 
-  const handleSaveClick = (): void => {
-    setEditMode(false);
-    // TODO: Save changes to the server or perform other actions
+  const handleSaveClick = async (): Promise<void> => {
+    try {
+      // Assuming your backend endpoint for update is "/api/users/:id"
+      await axios.patch("http://localhost:8000/api/users", userData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      setSuccessMessage("User details updated successfully");
+      setErrorMessage(null);
+    } catch (error) {
+      setErrorMessage("Error updating user details");
+      setSuccessMessage(null);
+    } finally {
+      setEditMode(false);
+    }
   };
 
   const handleCancelClick = (): void => {
     setEditMode(false);
+    setSuccessMessage(null);
+    setErrorMessage(null);
   };
 
   const handleChange = (field: string, value: string): void => {
@@ -60,7 +78,14 @@ const UserInformation: React.FC<UserInformationProps> = ({ data }) => {
   };
 
   return (
-    <div className={`user-information-container ${editMode ? 'edit-mode' : ''}`}>
+    <div
+      className={`user-information-container ${editMode ? "edit-mode" : ""}`}
+    >
+      {successMessage && (
+        <div className="success-message">{successMessage}</div>
+      )}
+      {errorMessage && <div className="error-message">{errorMessage}</div>}
+
       <div className="user-information-profile-container">
         <img
           className="user-information-profile-picture"
@@ -88,6 +113,7 @@ const UserInformation: React.FC<UserInformationProps> = ({ data }) => {
         />
       </div>
       <h2 className="user-information-heading">My Profile</h2>
+
       <div className="user-information-field">
         <label className="user-information-label">First Name:</label>
         {editMode ? (
@@ -95,12 +121,13 @@ const UserInformation: React.FC<UserInformationProps> = ({ data }) => {
             className="user-information-input"
             type="text"
             value={userData.first_name}
-            onChange={(e) => handleChange("firstName", e.target.value)}
+            onChange={(e) => handleChange("first_name", e.target.value)}
           />
         ) : (
           <span className="user-information-text">{userData.first_name}</span>
         )}
       </div>
+
       <div className="user-information-field">
         <label className="user-information-label">Last Name:</label>
         {editMode ? (
@@ -108,12 +135,13 @@ const UserInformation: React.FC<UserInformationProps> = ({ data }) => {
             className="user-information-input"
             type="text"
             value={userData.last_name}
-            onChange={(e) => handleChange("lastName", e.target.value)}
+            onChange={(e) => handleChange("last_name", e.target.value)}
           />
         ) : (
           <span className="user-information-text">{userData.last_name}</span>
         )}
       </div>
+
       <div className="user-information-field">
         <label className="user-information-label">Email:</label>
         {editMode ? (
@@ -127,6 +155,7 @@ const UserInformation: React.FC<UserInformationProps> = ({ data }) => {
           <span className="user-information-text">{userData.email}</span>
         )}
       </div>
+
       <div className="user-information-field">
         <label className="user-information-label">Phone Number:</label>
         {editMode ? (
@@ -134,12 +163,13 @@ const UserInformation: React.FC<UserInformationProps> = ({ data }) => {
             className="user-information-input"
             type="tel"
             value={userData.phone_number}
-            onChange={(e) => handleChange("phone", e.target.value)}
+            onChange={(e) => handleChange("phone_number", e.target.value)}
           />
         ) : (
           <span className="user-information-text">{userData.phone_number}</span>
         )}
       </div>
+
       <div className="user-information-field">
         <label className="user-information-label">Password:</label>
         {editMode ? (
@@ -153,6 +183,7 @@ const UserInformation: React.FC<UserInformationProps> = ({ data }) => {
           <span className="user-information-text">{userData.password}</span>
         )}
       </div>
+
       {editMode ? (
         <div>
           <button className="user-information-button" onClick={handleSaveClick}>
@@ -166,7 +197,10 @@ const UserInformation: React.FC<UserInformationProps> = ({ data }) => {
           </button>
         </div>
       ) : (
-        <button className="user-information-button" onClick={() => setEditMode(true)}>
+        <button
+          className="user-information-button"
+          onClick={() => setEditMode(true)}
+        >
           Edit
         </button>
       )}

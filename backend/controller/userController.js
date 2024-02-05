@@ -132,9 +132,9 @@ const getUser = asyncHandler(async (req, res) => {
 });
 
 const modifyUser = asyncHandler(async (req, res) => {
-  const { id } = req.body;
+  const { _id } = req.body;
   const user = await prisma.User.findFirst({
-    where: { id: parseInt(id) },
+    where: { id: parseInt(_id) },
   });
 
   if (!user) {
@@ -176,7 +176,7 @@ const modifyUser = asyncHandler(async (req, res) => {
 
   const updatedUser = await prisma.User.update({
     where: {
-      id: parseInt(id),
+      id: parseInt(_id),
     },
     data: user,
   });
