@@ -1,10 +1,11 @@
 const express = require('express')
 const router = express.Router()
 const { protect } = require('../middleware/authMiddleware')
-const {registerUser, login, consoleLog, getUser, modifyUser} = require('../controller/userController')
+const {registerUser, login, consoleLog, getUser, modifyUser, registerAdminCompany} = require('../controller/userController')
 
 router.route('/')
     .post(registerUser)
+    .post(registerAdminCompany)
     .patch(modifyUser)
 router.route('/login')
     .get(login)
