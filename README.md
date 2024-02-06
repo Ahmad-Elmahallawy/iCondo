@@ -118,6 +118,33 @@ loudflared access tcp --hostname dbcondos.happyfir.com --url localhost:5433
 
 ## Project Description 
 
+# Diagrams
+## Domain Model
+
+## Class Digram
+
+## Deployment Diagram
+
+## Component Diagram
+
+## Activity Diagram
+
+## Sequence Diagram
+
+
 # Application UI
 ## HomePage
-<img src="[https://i.imgur.com/9iA10As.png](https://imgur.com/Wn28D7T)" alt="Login Screen" title="Login" />
+<img width="525" alt="Screenshot 2024-02-06 at 6 09 26 PM" src="https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/7ad2c66f-28b2-4b67-8e53-31e8ce22a5f3">
+## SignInPage
+<img width="524" alt="Screenshot 2024-02-06 at 6 09 50 PM" src="https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/a9ff95cd-3a3f-4f8f-9eeb-42ab634a05ac">
+## SignUpPage
+<img width="527" alt="Screenshot 2024-02-06 at 6 10 11 PM" src="https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/025e7f1f-ff32-4506-864d-63930612c67c">
+## ProfilePage
+<img width="521" alt="Screenshot 2024-02-06 at 6 10 31 PM" src="https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/7eb727cd-a422-4019-bc2b-7fb0615ec119">
+## ManagerSignUpPage
+<img width="523" alt="Screenshot 2024-02-06 at 6 11 08 PM" src="https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/169a1f5a-d8af-42d5-ba35-ccf1a1a16e10">
+
+
+
+
+
