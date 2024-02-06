@@ -141,31 +141,16 @@ loudflared access tcp --hostname dbcondos.happyfir.com --url localhost:5433
 <img width="493" alt="Screenshot 2024-02-06 at 6 18 27 PM" src="https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/5b13037a-d793-48c0-9e4f-09eaf6064bc9">
 
 ## Activity Diagram
-### Public User Registration Activity Diagram
-![Public-User-Registration](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/9bd236c5-6236-4b7d-bce9-2abfc2edb1dc)
+| Public User Registration Activity Diagram | Public User Login Activity Diagram | Reservation Activity Diagram | Financial System Activity Diagram |
+| ------------------ | ------------------ | ------------------ | ------------------ |
+| ![Public User Registration Activity Diagram](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/9bd236c5-6236-4b7d-bce9-2abfc2edb1dc) | ![Public User Login Activity Diagram](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/c7474972-5dfc-4b3d-901f-691edf176a25) | ![Reservation Activity Diagram](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/38ae81d2-77f1-4efd-8367-81eff054bf29) | ![Financial System-Activity-Diagram](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/eb51a81a-b6e4-41cf-826f-f7d535cf9dca) |
 
-### Public User Login Activity Diagram
-![Public-User-Login](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/c7474972-5dfc-4b3d-901f-691edf176a25)
-
-### Reservation Activity Diagram
-![Reservation-Activity-Diagram](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/38ae81d2-77f1-4efd-8367-81eff054bf29)
-
-### Financial System Activity Diagram
-![Financial System-Activity-Diagram](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/eb51a81a-b6e4-41cf-826f-f7d535cf9dca)
-
-| Activity Diagram 1 | Activity Diagram 2 | Activity Diagram 3 |
-| ------------------ | ------------------ | ------------------ |
-| ![Public User Registration Activity Diagram](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/9bd236c5-6236-4b7d-bce9-2abfc2edb1dc) | ![Public User Login Activity Diagram](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/c7474972-5dfc-4b3d-901f-691edf176a25) | ![Reservation Activity Diagram](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/38ae81d2-77f1-4efd-8367-81eff054bf29) |
 
 ## Sequence Diagram
-### Update User Info Diagram
-<img width="510" alt="Screenshot 2024-02-06 at 6 22 48 PM" src="https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/921e50d3-b201-4760-89a4-67ff17c6f69a">
+| Update User Info Diagram | Reservation Diagram | Financial System Diagram | 
+| ------------------ | ------------------ | ------------------ | 
+| <img width="510" alt="Screenshot 2024-02-06 at 6 22 48 PM" src="https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/921e50d3-b201-4760-89a4-67ff17c6f69a"> | <img width="509" alt="Screenshot 2024-02-06 at 6 23 12 PM" src="https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/cf39dd1b-d503-4e5f-ba75-9488c8c94654"> | <img width="538" alt="Screenshot 2024-02-06 at 6 23 31 PM" src="https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/e4572173-c97a-4f64-b5cd-4c93abf4854f"> |
 
-### Reservation Diagram
-<img width="509" alt="Screenshot 2024-02-06 at 6 23 12 PM" src="https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/cf39dd1b-d503-4e5f-ba75-9488c8c94654">
-
-### Financial System Diagram
-<img width="538" alt="Screenshot 2024-02-06 at 6 23 31 PM" src="https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/e4572173-c97a-4f64-b5cd-4c93abf4854f">
 
 # Application UI
 ## HomePage
