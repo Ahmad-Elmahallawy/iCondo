@@ -2,14 +2,17 @@ import React, { useState, ChangeEvent, useEffect } from "react";
 import "../../Style/UserProfileStyle/UserInformationStyle.css";
 import { FaPen } from "react-icons/fa";
 import axios from "axios";
+import { log } from "console";
 
 interface UserData {
   profilePicture: File | null;
+  username: string;
   first_name: string;
   last_name: string;
   email: string;
   phone_number: string;
   password: string;
+  _id: string;
 }
 
 interface UserInformationProps {
@@ -28,6 +31,8 @@ const UserInformation: React.FC<UserInformationProps> = ({ data }) => {
     setUserData(data);
   }, [data]);
 
+  
+
   const handleEditPictureClick = (): void => {
     const fileInput = document.getElementById("profilePictureInput");
     fileInput?.click();
@@ -35,7 +40,6 @@ const UserInformation: React.FC<UserInformationProps> = ({ data }) => {
 
   const handleSaveClick = async (): Promise<void> => {
     try {
-      // Assuming your backend endpoint for update is "/api/users/:id"
       await axios.patch("http://localhost:8000/api/users", userData, {
         headers: {
           "Content-Type": "application/json",
@@ -44,6 +48,16 @@ const UserInformation: React.FC<UserInformationProps> = ({ data }) => {
 
       setSuccessMessage("User details updated successfully");
       setErrorMessage(null);
+
+      if (userData.profilePicture) {
+        const pictureFormData = new FormData();
+        pictureFormData.append("file", userData.profilePicture);
+        await axios.post(
+          `http://localhost:8000/api/files/abc`,
+          pictureFormData
+        );
+      }
+      localStorage.setItem("userData", JSON.stringify(userData));
     } catch (error) {
       setErrorMessage("Error updating user details");
       setSuccessMessage(null);
@@ -77,6 +91,8 @@ const UserInformation: React.FC<UserInformationProps> = ({ data }) => {
     }
   };
 
+
+  
   return (
     <div
       className={`user-information-container ${editMode ? "edit-mode" : ""}`}
@@ -113,6 +129,20 @@ const UserInformation: React.FC<UserInformationProps> = ({ data }) => {
         />
       </div>
       <h2 className="user-information-heading">My Profile</h2>
+
+      <div className="user-information-field">
+        <label className="user-information-label">Username:</label>
+        {editMode ? (
+          <input
+            className="user-information-input"
+            type="text"
+            value={userData.username}
+            onChange={(e) => handleChange("username", e.target.value)}
+          />
+        ) : (
+          <span className="user-information-text">{userData.username}</span>
+        )}
+      </div>
 
       <div className="user-information-field">
         <label className="user-information-label">First Name:</label>
