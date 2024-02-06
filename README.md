@@ -131,14 +131,9 @@ loudflared access tcp --hostname dbcondos.happyfir.com --url localhost:5433
 ![Diagrams-Component Diagram drawio](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/6a25983e-5242-4ce3-a9f4-1c683d3d4b0a)
 
 ## UseCase Diagrams
-### Tenant Use Case Diagram
-<img width="423" alt="Screenshot 2024-02-06 at 6 17 33 PM" src="https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/4036ade6-807f-4ecd-b61f-8fc6f8beb88d">
-
-### Condo Owner Use Case Diagram
-<img width="470" alt="Screenshot 2024-02-06 at 6 17 58 PM" src="https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/bb01444d-19f2-458a-bbf1-dd81a089b6a4">
-
-### Manager Use Case Diagram
-<img width="493" alt="Screenshot 2024-02-06 at 6 18 27 PM" src="https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/5b13037a-d793-48c0-9e4f-09eaf6064bc9">
+| Tenant Use Case Diagram | Condo Owner Use Case Diagram | Manager Use Case Diagram |
+| ------------------------ | ---------------------------- | ------------------------ |
+| <img width="423" alt="Tenant Use Case Diagram" src="https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/4036ade6-807f-4ecd-b61f-8fc6f8beb88d"> | <img width="470" alt="Condo Owner Use Case Diagram" src="https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/bb01444d-19f2-458a-bbf1-dd81a089b6a4"> | <img width="493" alt="Manager Use Case Diagram" src="https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/5b13037a-d793-48c0-9e4f-09eaf6064bc9"> |
 
 ## Activity Diagram
 | Public User Registration Activity Diagram | Public User Login Activity Diagram | Reservation Activity Diagram | Financial System Activity Diagram |
