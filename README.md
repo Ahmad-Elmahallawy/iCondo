@@ -141,6 +141,17 @@ loudflared access tcp --hostname dbcondos.happyfir.com --url localhost:5433
 <img width="493" alt="Screenshot 2024-02-06 at 6 18 27 PM" src="https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/5b13037a-d793-48c0-9e4f-09eaf6064bc9">
 
 ## Activity Diagram
+### Public User Registration Activity Diagram
+![Public-User-Registration](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/9bd236c5-6236-4b7d-bce9-2abfc2edb1dc)
+
+### Public User Login Activity Diagram
+![Public-User-Login](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/c7474972-5dfc-4b3d-901f-691edf176a25)
+
+### Reservation Activity Diagram
+![Reservation-Activity-Diagram](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/38ae81d2-77f1-4efd-8367-81eff054bf29)
+
+### Financial System Activity Diagram
+![Financial System-Activity-Diagram](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/eb51a81a-b6e4-41cf-826f-f7d535cf9dca)
 
 ## Sequence Diagram
 
