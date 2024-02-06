@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1707247361661" clover="3.2.0">
-  <project timestamp="1707247361661" name="All files">
+<coverage generated="1707251988591" clover="3.2.0">
+  <project timestamp="1707251988591" name="All files">
     <metrics statements="362" coveredstatements="134" conditionals="11" coveredconditionals="5" methods="2" coveredmethods="1" elements="375" coveredelements="140" complexity="0" loc="362" ncloc="362" packages="1" files="1" classes="1"/>
     <file name="userController.js" path="/Users/hoangminhkhoipham/Documents/GitHub/SOEN390-MiniCap/backend/controller/userController.js">
       <metrics statements="362" coveredstatements="134" conditionals="11" coveredconditionals="5" methods="2" coveredmethods="1"/>
