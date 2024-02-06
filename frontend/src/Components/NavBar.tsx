@@ -12,6 +12,7 @@ const Navbar = () => {
   const handleClick = () => setClick(!click);
   const userIsAuthenticated = isAuthenticated();
   const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("userData") || "{}");
 
   const handleLogout = () => {
     // Show the logout confirmation modal
@@ -50,9 +51,11 @@ const Navbar = () => {
             <li className="nav-item" onClick={handleLogout}>
               <span>Log Out</span>
             </li>
-            <li className="nav-item">
-              <Link to="/Employee/Registration">Register Employees</Link>
-            </li>
+            {user.role === "Admin" && (
+              <li className="nav-item">
+                <Link to="/Employee/Registration">Register Employees</Link>
+              </li>
+            )}
           </>
         ) : (
           <>

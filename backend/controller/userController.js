@@ -84,9 +84,16 @@ const registerAdminCompany = asyncHandler(async (req, res) => {
     email,
     password,
     phone_number,
-    companyName,
+    company_name,
   } = req.body;
-  if (!first_name || !last_name || !email || !password || !role || !username|| !companyName) {
+  if (
+    !first_name ||
+    !last_name ||
+    !email ||
+    !password ||
+    !username ||
+    !company_name
+  ) {
     res.status(400);
     throw new Error("Please add all fields");
   }
@@ -123,13 +130,13 @@ const registerAdminCompany = asyncHandler(async (req, res) => {
     });
     const newCompany = await prisma.Company.create({
       data: {
-        name: companyName,
+        name: company_name,
       },
     });
     const adminCompanyRelation = await prisma.Company_employee.create({
       data: {
-        user_id:newUser.id,
-        company_id:newCompany.id,
+        user_id: newUser.id,
+        company_id: newCompany.id,
       },
     });
 
@@ -142,7 +149,6 @@ const registerAdminCompany = asyncHandler(async (req, res) => {
       phone_number: newUser.phone_number,
       token: generateToken(newUser.id),
       role: roleRecord.name,
-
     });
   } catch (error) {
     console.error(error);
@@ -150,7 +156,6 @@ const registerAdminCompany = asyncHandler(async (req, res) => {
     throw new Error("Invalid user data");
   }
 });
-
 
 const login = asyncHandler(async (req, res) => {
   const { email, password } = req.query;
