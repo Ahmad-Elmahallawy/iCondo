@@ -16,7 +16,8 @@ interface FormValues {
   email: string;
   phone_number: string;
   password: string;
-  company_name: string;
+  companyName: string;
+  role?: string;
 }
 
 const SignUp: React.FC = () => {
@@ -33,27 +34,55 @@ const SignUp: React.FC = () => {
     onSubmit: async (values) => {
       try {
         setIsLoading(true);
-        const registrationUrl = "http://localhost:8000/api/users/";
 
-        const userData = {
-          ...values,
-          role: "PublicUser",
+        // Common data for both user types
+        const commonUserData = {
+          first_name: values.first_name,
+          last_name: values.last_name,
+          username: values.username,
+          email: values.email,
+          phone_number: values.phone_number,
+          password: values.password,
+        } as {
+          first_name: string;
+          last_name: string;
+          username: string;
+          email: string;
+          phone_number: string;
+          password: string;
+          role?: string;
+          companyName?: string;
         };
 
-        const response = await axios.post(registrationUrl, userData);
+        userType === "PublicUser"
+          ? (commonUserData.role = "PublicUser")
+          : (commonUserData.companyName = values.companyName);
+        console.log(commonUserData);
+
+        const registrationEndpoint =
+          userType === "PublicUser"
+            ? "http://localhost:8000/api/users"
+            : "http://localhost:8000/api/users/adminCompanyCreation";
+
+        const response = await axios.post(registrationEndpoint, commonUserData);
+
         console.log("Registration successful:", response.data);
 
         setRegistrationError(null);
         navigate("/Login");
       } catch (error: any) {
         console.error("Registration failed:", error.message);
-
+        setRegistrationError("Registration failed: ");
         if (error.response && error.response.status === 400) {
-          setRegistrationError(
-            "User with this email, username or phone number already exists"
-          );
-        } else {
-          // Handle other error statuses here if needed
+          if (userType === "PublicUser") {
+            setRegistrationError(
+              "User with this email, username, or phone number already exists"
+            );
+          } else if (userType === "Admin") {
+            setRegistrationError(
+              "Admin with this email, username, or phone number already exists"
+            );
+          }
         }
       } finally {
         setIsLoading(false);
@@ -65,7 +94,7 @@ const SignUp: React.FC = () => {
       onSubmit={formik.handleSubmit}
       className="registration-and-login-form"
     >
-      <div className="registration-and-login-content-main-div">
+      <div>
         <div className="registration-user-type">
           <label htmlFor="userType">I am a </label>
           <select
@@ -75,85 +104,82 @@ const SignUp: React.FC = () => {
             }}
           >
             <option value="PublicUser">Public User</option>
-            <option value="company">Company</option>
+            <option value="Company">Company</option>
           </select>
         </div>
-        {userType === "PublicUser" ? (
+        {userType === "Company" && (
           <>
             <div
               className={`input-with-icon ${
-                formik.touched.first_name && formik.errors.first_name
-                  ? "input-border-error"
-                  : ""
-              }`}
-            >
-              <img src="Assets/person.svg" alt="" />
-              <input
-                id="first_name"
-                name="first_name"
-                type="text"
-                placeholder="First Name"
-                value={formik.values.first_name}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
-            </div>
-            {formik.touched.first_name && formik.errors.first_name ? (
-              <p className="error-msg">{formik.errors.first_name}</p>
-            ) : (
-              <p className="error-msg-alternative"></p>
-            )}
-
-            <div
-              className={`input-with-icon ${
-                formik.touched.last_name && formik.errors.last_name
-                  ? "input-border-error"
-                  : ""
-              }`}
-            >
-              <img src="Assets/person.svg" alt="" />
-              <input
-                id="last_name"
-                name="last_name"
-                type="text"
-                placeholder="Last Name"
-                value={formik.values.last_name}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
-            </div>
-            {formik.touched.last_name && formik.errors.last_name ? (
-              <p className="error-msg">{formik.errors.last_name}</p>
-            ) : (
-              <p className="error-msg-alternative"></p>
-            )}
-          </>
-        ) : (
-          <>
-            <div
-              className={`input-with-icon ${
-                formik.touched.company_name && formik.errors.company_name
+                formik.touched.companyName && formik.errors.companyName
                   ? "input-border-error"
                   : ""
               }`}
             >
               <img src="Assets/company.svg" alt="" />
               <input
-                id="company_name"
-                name="company_name"
+                id="companyName"
+                name="companyName"
                 type="text"
                 placeholder="Company Name"
-                value={formik.values.company_name}
+                value={formik.values.companyName}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               />
             </div>
-            {formik.touched.company_name && formik.errors.company_name ? (
-              <p className="error-msg">{formik.errors.company_name}</p>
+            {formik.touched.companyName && formik.errors.companyName ? (
+              <p className="error-msg">{formik.errors.companyName}</p>
             ) : (
               <p className="error-msg-alternative"></p>
             )}
           </>
+        )}
+        <div
+          className={`input-with-icon ${
+            formik.touched.first_name && formik.errors.first_name
+              ? "input-border-error"
+              : ""
+          }`}
+        >
+          <img src="Assets/person.svg" alt="" />
+          <input
+            id="first_name"
+            name="first_name"
+            type="text"
+            placeholder="First Name"
+            value={formik.values.first_name}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
+        </div>
+        {formik.touched.first_name && formik.errors.first_name ? (
+          <p className="error-msg">{formik.errors.first_name}</p>
+        ) : (
+          <p className="error-msg-alternative"></p>
+        )}
+
+        <div
+          className={`input-with-icon ${
+            formik.touched.last_name && formik.errors.last_name
+              ? "input-border-error"
+              : ""
+          }`}
+        >
+          <img src="Assets/person.svg" alt="" />
+          <input
+            id="last_name"
+            name="last_name"
+            type="text"
+            placeholder="Last Name"
+            value={formik.values.last_name}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
+        </div>
+        {formik.touched.last_name && formik.errors.last_name ? (
+          <p className="error-msg">{formik.errors.last_name}</p>
+        ) : (
+          <p className="error-msg-alternative"></p>
         )}
         <div
           className={`input-with-icon ${

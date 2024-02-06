@@ -63,23 +63,23 @@ const EmployeeRegistration = () => {
           </div>
           <div
             className={`input-with-icon ${
-              formik.touched.company_name && formik.errors.company_name
+              formik.touched.companyName && formik.errors.companyName
                 ? "input-border-error"
                 : ""
             }`}
           >
             <img src="Assets/company.svg" alt="" />
             <input
-              id="company_name"
-              name="company_name"
+              id="companyName"
+              name="companyName"
               type="text"
               placeholder="Company Name"
-              value={formik.values.company_name}
+              value={formik.values.companyName}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
-            {formik.touched.company_name && formik.errors.company_name && (
-              <p className="error-msg">{formik.errors.company_name}</p>
+            {formik.touched.companyName && formik.errors.companyName && (
+              <p className="error-msg">{formik.errors.companyName}</p>
             )}
           </div>
 
