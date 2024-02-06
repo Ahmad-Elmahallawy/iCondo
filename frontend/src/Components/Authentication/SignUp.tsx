@@ -65,7 +65,7 @@ const SignUp: React.FC = () => {
       onSubmit={formik.handleSubmit}
       className="registration-and-login-form"
     >
-      <div className="registration-and-login-content-main-div">
+      <div>
         <div className="registration-user-type">
           <label htmlFor="userType">I am a </label>
           <select
