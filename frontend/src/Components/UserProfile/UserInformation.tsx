@@ -43,7 +43,9 @@ const UserInformation: React.FC<UserInformationProps> = ({ data }) => {
         `http://localhost:8000/api/file/${username}`
       );
       console.log("Profile picture URL:", response.data.url);
-      setProfilePictureUrl(response.data.url);
+      if (response.data && response.data.url) {
+        setProfilePictureUrl(response.data.url);
+      }
     } catch (error) {
       console.error("Error fetching profile picture:", error);
     }
@@ -144,9 +146,12 @@ const UserInformation: React.FC<UserInformationProps> = ({ data }) => {
       <h2 className="user-information-heading">My Profile</h2>
 
       <div className="user-information-field">
-        <label className="user-information-label">Username:</label>
+        <label className="user-information-label" htmlFor="username">
+          Username:
+        </label>
         {editMode ? (
           <input
+            id="username"
             className="user-information-input"
             type="text"
             value={userData.username}
@@ -158,9 +163,12 @@ const UserInformation: React.FC<UserInformationProps> = ({ data }) => {
       </div>
 
       <div className="user-information-field">
-        <label className="user-information-label">First Name:</label>
+        <label className="user-information-label" htmlFor="first_name">
+          First Name:
+        </label>
         {editMode ? (
           <input
+            id="first_name"
             className="user-information-input"
             type="text"
             value={userData.first_name}
@@ -172,9 +180,12 @@ const UserInformation: React.FC<UserInformationProps> = ({ data }) => {
       </div>
 
       <div className="user-information-field">
-        <label className="user-information-label">Last Name:</label>
+        <label className="user-information-label" htmlFor="last_name">
+          Last Name:
+        </label>
         {editMode ? (
           <input
+            id="last_name"
             className="user-information-input"
             type="text"
             value={userData.last_name}
@@ -186,9 +197,12 @@ const UserInformation: React.FC<UserInformationProps> = ({ data }) => {
       </div>
 
       <div className="user-information-field">
-        <label className="user-information-label">Email:</label>
+        <label className="user-information-label" htmlFor="email">
+          Email:
+        </label>
         {editMode ? (
           <input
+            id="email"
             className="user-information-input"
             type="email"
             value={userData.email}
@@ -200,9 +214,12 @@ const UserInformation: React.FC<UserInformationProps> = ({ data }) => {
       </div>
 
       <div className="user-information-field">
-        <label className="user-information-label">Phone Number:</label>
+        <label className="user-information-label" htmlFor="phone_number">
+          Phone Number:
+        </label>
         {editMode ? (
           <input
+            id="phone_number"
             className="user-information-input"
             type="tel"
             value={userData.phone_number}
@@ -214,9 +231,12 @@ const UserInformation: React.FC<UserInformationProps> = ({ data }) => {
       </div>
 
       <div className="user-information-field">
-        <label className="user-information-label">Password:</label>
+        <label className="user-information-label" htmlFor="password">
+          Password:
+        </label>
         {editMode ? (
           <input
+            id="password"
             className="user-information-input"
             type="password"
             value={userData.password}

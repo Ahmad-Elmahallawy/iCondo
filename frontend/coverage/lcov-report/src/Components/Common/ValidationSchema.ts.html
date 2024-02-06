@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/Pages/RegistrationLandingPage.tsx</title>
+    <title>Code coverage report for src/Components/Common/ValidationSchema.ts</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../prettify.css" />
-    <link rel="stylesheet" href="../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../sort-arrow-sprite.png);
+            background-image: url(../../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/Pages</a> RegistrationLandingPage.tsx</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/Components/Common</a> ValidationSchema.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>5/5</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>5/5</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
@@ -91,11 +91,11 @@
 <a name='L26'></a><a href='#L26'>26</a>
 <a name='L27'></a><a href='#L27'>27</a>
 <a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -118,35 +118,44 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from "react";
-import SignUp from "../Components/Authentication/SignUp";
-import "../Style/LandingPageStyle/LoginAndRegistrationLandingPageStyle.css";
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import * as Yup from "yup";
 &nbsp;
-const RegistrationLandingPage = () =&gt; {
-  return (
-    &lt;div
-      data-testid="registration-container"
-      className="registration-and-login-container"
-    &gt;
-      &lt;div className="registration-and-login-title-and-image-container"&gt;
-        &lt;h1&gt;
-          Sign Up &lt;br /&gt;
-          Now!
-        &lt;/h1&gt;
-        &lt;img src="Assets/signup.gif" alt="" /&gt;
-      &lt;/div&gt;
-      &lt;div className="registration-and-login-information-container"&gt;
-        &lt;div className="registration-and-login-information-content"&gt;
-          &lt;h2&gt;Create Your Account&lt;/h2&gt;
-          &lt;SignUp /&gt;
-        &lt;/div&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
-  );
-};
+export const signUpValidationSchema = Yup.object({
+  first_name: Yup.string()
+    .max(15, "Must be 15 characters or less")
+    .required("Required"),
+  last_name: Yup.string()
+    .max(20, "Must be 20 characters or less")
+    .required("Required"),
+  username: Yup.string()
+    .max(20, "Must be 20 characters or less")
+    .required("Required"),
+  email: Yup.string().email("Invalid Email Address").required("Required"),
+  phone_number: Yup.string()
+    .matches(/^[0-9]{10,15}$/, "Invalid Phone Number")
+    .required("Required"),
+  password: Yup.string()
+    .min(8, "Password must be at least 8 characters long")
+    .required("Required"),
+  companyName: Yup.string().matches(/.*/, {
+    excludeEmptyString: true,
+    message: "Company Name is required",
+  }),
+});
 &nbsp;
-export default RegistrationLandingPage;
+export const loginValidationSchema = Yup.object({
+  email: Yup.string().email("Invalid Email Address").required("Required"),
+  password: Yup.string()
+    .min(8, "Password must be at least 8 characters long")
+    .required("Required"),
+});
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -156,14 +165,14 @@ export default RegistrationLandingPage;
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
                 at 2024-02-06T22:19:39.051Z
             </div>
-        <script src="../../prettify.js"></script>
+        <script src="../../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../sorter.js"></script>
-        <script src="../../block-navigation.js"></script>
+        <script src="../../../sorter.js"></script>
+        <script src="../../../block-navigation.js"></script>
     </body>
 </html>
     

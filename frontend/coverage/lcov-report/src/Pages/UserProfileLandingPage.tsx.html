@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/Pages/RegistrationLandingPage.tsx</title>
+    <title>Code coverage report for src/Pages/UserProfileLandingPage.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,20 +19,20 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/Pages</a> RegistrationLandingPage.tsx</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/Pages</a> UserProfileLandingPage.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>5/5</span>
+                <span class='fraction'>10/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>5/5</span>
+                <span class='fraction'>10/12</span>
             </div>
         
             
@@ -91,14 +91,38 @@
 <a name='L26'></a><a href='#L26'>26</a>
 <a name='L27'></a><a href='#L27'>27</a>
 <a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -120,33 +144,45 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from "react";
-import SignUp from "../Components/Authentication/SignUp";
-import "../Style/LandingPageStyle/LoginAndRegistrationLandingPageStyle.css";
+import { Navigate } from "react-router-dom";
+import "../Style/UserProfileStyle/UserProfilePageStyle.css";
+import UserInformation from "../Components/UserProfile/UserInformation";
+import Properties from "../Components/UserProfile/UserProperties";
+import Requests from "../Components/UserProfile/UserRequests";
 &nbsp;
-const RegistrationLandingPage = () =&gt; {
-  return (
+const UserProfileLandingPage = () =&gt; {
+  // Check if the user is logged in
+  const userDataString = localStorage.getItem("userData");
+&nbsp;
+  if (!userDataString) {
+    // Redirect to login page if not logged in
+    return &lt;Navigate to="/Login" /&gt;;
+  }
+&nbsp;
+  // Parse the userDataString into a JavaScript object
+  const userData = <span class="cstat-no" title="statement not covered" >JSON.parse(userDataString);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;div
-      data-testid="registration-container"
-      className="registration-and-login-container"
+      data-testid="user-profile-container"
+      className="user-profile-container"
     &gt;
-      &lt;div className="registration-and-login-title-and-image-container"&gt;
-        &lt;h1&gt;
-          Sign Up &lt;br /&gt;
-          Now!
-        &lt;/h1&gt;
-        &lt;img src="Assets/signup.gif" alt="" /&gt;
+      &lt;div className="my-profile-container"&gt;
+        &lt;UserInformation data={userData} /&gt;
       &lt;/div&gt;
-      &lt;div className="registration-and-login-information-container"&gt;
-        &lt;div className="registration-and-login-information-content"&gt;
-          &lt;h2&gt;Create Your Account&lt;/h2&gt;
-          &lt;SignUp /&gt;
+      &lt;div className="properties-and-requests-container"&gt;
+        &lt;div className="properties-content"&gt;
+          &lt;Properties /&gt;
+        &lt;/div&gt;
+        &lt;div className="requests-content"&gt;
+          &lt;Requests /&gt;
         &lt;/div&gt;
       &lt;/div&gt;
     &lt;/div&gt;
   );
 };
 &nbsp;
-export default RegistrationLandingPage;
+export default UserProfileLandingPage;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
