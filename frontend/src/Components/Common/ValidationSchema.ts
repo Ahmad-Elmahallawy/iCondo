@@ -17,7 +17,7 @@ export const signUpValidationSchema = Yup.object({
   password: Yup.string()
     .min(8, "Password must be at least 8 characters long")
     .required("Required"),
-  company_name: Yup.string().matches(/.*/, {
+  companyName: Yup.string().matches(/.*/, {
     excludeEmptyString: true,
     message: "Company Name is required",
   }),
