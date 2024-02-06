@@ -5,45 +5,18 @@ const storage = multer.memoryStorage();
 const upload = multer({
     storage,
 }).single('file');
-const Minio = require('minio')
-const fs = require('fs')
-const minioClient = new Minio.Client({
-    endPoint: 'devstoragecondos.happyfir.com',
-    port: 443,
-    accessKey: "WKFacN9LKukfU4LrL4TS",
-    secretKey: "rwiHDYHQwsyDbs9YOh0VGUSV4vwDN0quOfAauMuz",
-    useSSL: true
-})
-// const ProfilePictureUpload = asyncHandler(async (req, res) => {
-//
-//     await upload(req, res, async (err) => {
-//         if (err) {
-//             console.log(err)
-//             return res.status(400).json({ error: 'Error uploading file' });
-//         }
-//         try {
-//             if (!req.file) {
-//                 throw new Error('Invalid file path');
-//             }
-//             // const fileBuffer = await fs.createReadStream(req.file.buffer);
-//             const objInfo = await minioClient.putObject('profile-picture', req.file.name, req.file.buffer);
-//             console.log('File uploaded successfully:', objInfo);
-//             return objInfo;
-//         } catch (err) {
-//             console.error('Error uploading file:', err);
-//             throw err;
-//         }
-//         //     try {
-//         //     const results = await fileUpload(req.file, "abc")
-//         //     console.log(results);
-//         //     return res.json({ status: "success" });
-//         // } catch (err) {
-//         //     console.log(err);
-//         // }
-//     })
-//
-// });
+const { PrismaClient } = require("@prisma/client");
+const prisma = new PrismaClient();
+
+// @desc Post file
+// @route Post /api/file/:id
+// @access Private
 const ProfilePictureUpload = asyncHandler(async (req, res) => {
+    const {userid} = req.params
+    console.log(parseInt(userid))
+    const currentUser = await prisma.User.findFirst({
+        where: {id: parseInt(userid)},
+    })
 
     await upload(req, res, async (err) => {
         if (err) {
@@ -51,21 +24,35 @@ const ProfilePictureUpload = asyncHandler(async (req, res) => {
             return res.status(400).json({ error: 'Error uploading file' });
         }
         try {
-            const results = await fileUpload(req.file, "abc.png")
+            const results = await uploadFile('profile-picture', req.file, currentUser.username + ".png")
             console.log(results);
-            return res.json({ status: "success" });
+            try {
+                const objInfo = await getFile("profile-picture",   currentUser.username + ".png");
+                return res.json({ status: "success" , url: objInfo});
+            } catch (error) {
+                res.status(500).json({ error: 'Internal Server Error' });
+            }
         } catch (err) {
             console.log(err);
         }
     })
-
 });
-
+// @desc Get file
+// @route Get /api/file/:id
+// @access Private
 const ProfilePictureGet = asyncHandler(async (req, res) => {
-
-   getFile("profile-picture", "abc.png");
-
+    const {userid} = req.params
+    const currentUser = await prisma.User.findFirst({
+        where: {id: parseInt(userid)}
+    })
+    try {
+        const objInfo = await getFile("profile-picture",   currentUser.username + ".png");
+        return res.json({ url: objInfo});
+    } catch (error) {
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
 });
+
 module.exports = {
     ProfilePictureUpload,
     ProfilePictureGet
