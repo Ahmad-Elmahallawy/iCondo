@@ -23,3 +23,4 @@ app.get("/", function (req, res, next) {
 app.listen(process.env.PORT, function () {
   console.log("CORS-enabled web server listening on port " + process.env.PORT);
 });
+module.exports = {prisma, app}

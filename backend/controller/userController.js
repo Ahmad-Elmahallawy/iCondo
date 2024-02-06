@@ -86,12 +86,12 @@ const login = asyncHandler(async (req, res) => {
   const user = await prisma.User.findUnique({
     where: { email },
   });
+
   const roleRecord = await prisma.Role.findUnique({
     where: { id: user.role_id },
   });
-
   if (user && (await bcrypt.compare(password, user.password))) {
-    res.json({
+    res.status(200).json({
       _id: user.id,
       first_name: user.first_name,
       last_name: user.last_name,
@@ -112,15 +112,14 @@ const getUser = asyncHandler(async (req, res) => {
   const user = await prisma.User.findFirst({
     where: { id: parseInt(userid) },
   });
+  if (!user) {
+    return res.status(400).json({ error: 'User doesn\'t exist' });
+  }
   const roleRecord = await prisma.Role.findUnique({
     where: { id: user.role_id },
   });
 
-  if (!user) {
-    res.status(400);
-    throw new Error("User doesn't exist");
-  }
-  res.json({
+  res.status(201).json({
     _id: user.id,
     first_name: user.first_name,
     last_name: user.last_name,
