@@ -14,18 +14,16 @@ const prisma = new PrismaClient();
 const ProfilePictureUpload = asyncHandler(async (req, res) => {
     const {userid} = req.params
     console.log(parseInt(userid))
-    const currentUser = await prisma.User.findFirst({
+    const currentUser = await prisma.User.findUnique({
         where: {id: parseInt(userid)},
     })
 
     await upload(req, res, async (err) => {
         if (err) {
-            console.log(err)
             return res.status(400).json({ error: 'Error uploading file' });
         }
         try {
             const results = await uploadFile('profile-picture', req.file, currentUser.username + ".png")
-            console.log(results);
             try {
                 const objInfo = await getFile("profile-picture",   currentUser.username + ".png");
                 return res.json({ status: "success" , url: objInfo});
@@ -42,7 +40,7 @@ const ProfilePictureUpload = asyncHandler(async (req, res) => {
 // @access Private
 const ProfilePictureGet = asyncHandler(async (req, res) => {
     const {userid} = req.params
-    const currentUser = await prisma.User.findFirst({
+    const currentUser = await prisma.User.findUnique({
         where: {id: parseInt(userid)}
     })
     try {
