@@ -16,7 +16,7 @@ interface FormValues {
   email: string;
   phone_number: string;
   password: string;
-  companyName: string;
+  company_name: string;
   role?: string;
 }
 
@@ -51,12 +51,12 @@ const SignUp: React.FC = () => {
           phone_number: string;
           password: string;
           role?: string;
-          companyName?: string;
+          company_name?: string;
         };
 
         userType === "PublicUser"
           ? (commonUserData.role = "PublicUser")
-          : (commonUserData.companyName = values.companyName);
+          : (commonUserData.company_name = values.company_name);
         console.log(commonUserData);
 
         const registrationEndpoint =
@@ -111,24 +111,24 @@ const SignUp: React.FC = () => {
           <>
             <div
               className={`input-with-icon ${
-                formik.touched.companyName && formik.errors.companyName
+                formik.touched.company_name && formik.errors.company_name
                   ? "input-border-error"
                   : ""
               }`}
             >
               <img src="Assets/company.svg" alt="" />
               <input
-                id="companyName"
-                name="companyName"
+                id="company_name"
+                name="company_name"
                 type="text"
                 placeholder="Company Name"
-                value={formik.values.companyName}
+                value={formik.values.company_name}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               />
             </div>
-            {formik.touched.companyName && formik.errors.companyName ? (
-              <p className="error-msg">{formik.errors.companyName}</p>
+            {formik.touched.company_name && formik.errors.company_name ? (
+              <p className="error-msg">{formik.errors.company_name}</p>
             ) : (
               <p className="error-msg-alternative"></p>
             )}

@@ -84,7 +84,7 @@ const registerAdminCompany = asyncHandler(async (req, res) => {
     email,
     password,
     phone_number,
-    companyName,
+    company_name,
   } = req.body;
   if (
     !first_name ||
@@ -92,7 +92,7 @@ const registerAdminCompany = asyncHandler(async (req, res) => {
     !email ||
     !password ||
     !username ||
-    !companyName
+    !company_name
   ) {
     res.status(400);
     throw new Error("Please add all fields");
@@ -130,7 +130,7 @@ const registerAdminCompany = asyncHandler(async (req, res) => {
     });
     const newCompany = await prisma.Company.create({
       data: {
-        name: companyName,
+        name: company_name,
       },
     });
     const adminCompanyRelation = await prisma.Company_employee.create({
