@@ -120,12 +120,25 @@ loudflared access tcp --hostname dbcondos.happyfir.com --url localhost:5433
 
 # Diagrams
 ## Domain Model
+![Diagrams-Domain Model drawio](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/08fcadb1-b122-4081-a1f2-772e96e6f52d)
 
 ## Class Digram
 
 ## Deployment Diagram
+![Diagrams-Deployment Diagram drawio](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/08725aa6-bf52-4859-ab86-9d6279c1d21c)
 
 ## Component Diagram
+![Diagrams-Component Diagram drawio](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/6a25983e-5242-4ce3-a9f4-1c683d3d4b0a)
+
+## UseCase Diagrams
+### Tenant Use Case Diagram
+<img width="423" alt="Screenshot 2024-02-06 at 6 17 33 PM" src="https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/4036ade6-807f-4ecd-b61f-8fc6f8beb88d">
+
+### Condo Owner Use Case Diagram
+<img width="470" alt="Screenshot 2024-02-06 at 6 17 58 PM" src="https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/bb01444d-19f2-458a-bbf1-dd81a089b6a4">
+
+### Manager Use Case Diagram
+<img width="493" alt="Screenshot 2024-02-06 at 6 18 27 PM" src="https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/5b13037a-d793-48c0-9e4f-09eaf6064bc9">
 
 ## Activity Diagram
 
@@ -135,12 +148,16 @@ loudflared access tcp --hostname dbcondos.happyfir.com --url localhost:5433
 # Application UI
 ## HomePage
 <img width="525" alt="Screenshot 2024-02-06 at 6 09 26 PM" src="https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/7ad2c66f-28b2-4b67-8e53-31e8ce22a5f3">
+
 ## SignInPage
 <img width="524" alt="Screenshot 2024-02-06 at 6 09 50 PM" src="https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/a9ff95cd-3a3f-4f8f-9eeb-42ab634a05ac">
+
 ## SignUpPage
 <img width="527" alt="Screenshot 2024-02-06 at 6 10 11 PM" src="https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/025e7f1f-ff32-4506-864d-63930612c67c">
+
 ## ProfilePage
 <img width="521" alt="Screenshot 2024-02-06 at 6 10 31 PM" src="https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/7eb727cd-a422-4019-bc2b-7fb0615ec119">
+
 ## ManagerSignUpPage
 <img width="523" alt="Screenshot 2024-02-06 at 6 11 08 PM" src="https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/169a1f5a-d8af-42d5-ba35-ccf1a1a16e10">
 
