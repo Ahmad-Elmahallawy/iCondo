@@ -14,7 +14,7 @@ describe("Login component", () => {
     localStorage.clear();
   });
 
-  test("renders login form", () => {
+  it("renders login form", () => {
     setup();
 
     expect(screen.getByPlaceholderText("Email")).not.toBeNull();
@@ -22,7 +22,7 @@ describe("Login component", () => {
     expect(screen.getByText("Log in")).not.toBeNull();
   });
 
-  test("submits form successfully", async () => {
+  it("submits form successfully", async () => {
     (axios.get as jest.Mock).mockResolvedValue({
       data: {
         name: "user",
@@ -45,7 +45,45 @@ describe("Login component", () => {
     });
   });
 
-  test("handles login failure", async () => {
+  it("submits invalid email addr", async () => {
+    const errorMessage = /Invalid Email Address/i;
+
+    setup();
+
+    fireEvent.change(screen.getByPlaceholderText("Email"), {
+      target: { value: "12" },
+    });
+    fireEvent.change(screen.getByPlaceholderText("Password"), {
+      target: { value: "password" },
+    });
+
+    fireEvent.focusOut(screen.getByPlaceholderText("Email"));
+
+    await waitFor(() => {
+      expect(screen.getByText(errorMessage)).not.toBeNull();
+    });
+  });
+
+  it("submits invalid password", async () => {
+    const errorMessage = /Password must be at least 8 characters long/i;
+
+    setup();
+
+    fireEvent.change(screen.getByPlaceholderText("Email"), {
+      target: { value: "invalid@example.com" },
+    });
+    fireEvent.change(screen.getByPlaceholderText("Password"), {
+      target: { value: "1" },
+    });
+
+    fireEvent.focusOut(screen.getByPlaceholderText("Password"));
+
+    await waitFor(() => {
+      expect(screen.getByText(errorMessage)).not.toBeNull();
+    });
+  });
+
+  it("handles login failure", async () => {
     const errorMessage = /Email or Password is not correct/i;
     (axios.get as jest.Mock).mockRejectedValue({
       response: {
