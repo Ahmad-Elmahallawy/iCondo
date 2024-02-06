@@ -116,8 +116,38 @@ loudflared access tcp --hostname dbcondos.happyfir.com --url localhost:5433
 
 ## Introduction 
 
-## Project Description 
+## Project Description: Condo Management Systems
 
+The Condo Management Systems project aims to develop a comprehensive software solution encompassing a simplified condo management application and a companion website. This system is designed to streamline the management operations of condominium properties, catering to the needs of public users, condo owners, rental users, and condo management companies.
+
+### Key Features:
+
+#### User Profiles:
+- Public users can create unique profiles with essential information such as a profile picture, username, contact email, and phone number.
+- Registration keys obtained from condo management companies are required for both condo owners and rental users to access the system.
+
+#### Property Management:
+- Condo owners can access a personalized dashboard providing insights into their properties, including general information, financial status, and request statuses.
+- Condo management companies can create profiles for properties under their management, detailing property-specific information such as name, unit count, parking count, and address.
+- Upload and share condo files, such as declarations and meeting minutes, accessible to all condo owners.
+
+#### Unit Management:
+- Detailed information for each condo unit, parking spot, and locker can be entered, including ownership details, occupant information, and associated condo fees.
+- Condo management companies can send registration keys to link condo units with user profiles.
+
+#### Financial System:
+- Simplified financial management allows condo management companies to set condo fees, record operational budgets, costs, and generate annual reports.
+#### Reservation System:
+- Setup and manage common facilities for reservations, allowing users to book facilities via a calendar-like interface.
+- Show availabilities of common facilities and follow a first-come-first-serve booking system.
+#### Role-based Access Control:
+- Set up different roles for employees responsible for property management, such as managers or finance personnel.
+#### Request Management:
+- Condo owners can submit various requests, which are assigned to corresponding employees for resolution.
+- Users have access to a notification page to track the status of their requests.
+#### Additional Features:
+- Forum and Events: Users can participate in discussions via a forum and organize or attend events within the community.
+- Discounts and Offers: Condo management companies can list coupons/offers visible to property occupants.
 # Diagrams
 ## Domain Model
 ![Diagrams-Domain Model drawio](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/08fcadb1-b122-4081-a1f2-772e96e6f52d)
