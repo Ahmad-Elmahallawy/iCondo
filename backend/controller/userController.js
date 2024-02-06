@@ -6,6 +6,7 @@ const { PrismaClient } = require("@prisma/client");
 const { async } = require("sonarqube-scanner");
 const prisma = new PrismaClient();
 
+
 // Generate JWT
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
