@@ -75,6 +75,88 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 });
 
+//companyAdmin
+const registerAdminCompany = asyncHandler(async (req, res) => {
+  const {
+    first_name,
+    last_name,
+    username,
+    email,
+    password,
+    phone_number,
+    company_name,
+  } = req.body;
+  if (
+    !first_name ||
+    !last_name ||
+    !email ||
+    !password ||
+    !username ||
+    !company_name
+  ) {
+    res.status(400);
+    throw new Error("Please add all fields");
+  }
+  // Check if user exists
+  const userExists = await prisma.User.findUnique({
+    where: { email },
+  });
+  const roleRecord = await prisma.Role.findFirst({
+    where: { name: "Admin" },
+  });
+  if (!roleRecord) {
+    res.status(400);
+    throw new Error("Invalid role specified");
+  }
+  if (userExists) {
+    res.status(400);
+    throw new Error("User already exists");
+  }
+
+  //Hash password
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, salt);
+  try {
+    const newUser = await prisma.User.create({
+      data: {
+        first_name,
+        last_name,
+        email,
+        password: hashedPassword,
+        username,
+        role_id: roleRecord.id,
+        phone_number,
+      },
+    });
+    const newCompany = await prisma.Company.create({
+      data: {
+        name: company_name,
+      },
+    });
+    const adminCompanyRelation = await prisma.Company_employee.create({
+      data: {
+        user_id: newUser.id,
+        company_id: newCompany.id,
+      },
+    });
+
+    res.status(201).json({
+      id: newUser.id,
+      first_name: newUser.first_name,
+      last_name: newUser.last_name,
+      username: newUser.username,
+      email: newUser.email,
+      phone_number: newUser.phone_number,
+      token: generateToken(newUser.id),
+      role: roleRecord.name,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(400);
+    throw new Error("Invalid user data");
+  }
+});
+
 const login = asyncHandler(async (req, res) => {
   const { email, password } = req.query;
 
@@ -275,5 +357,6 @@ module.exports = {
   login,
   getUser,
   modifyUser,
+  registerAdminCompany,
   registerEmployee,
 };
