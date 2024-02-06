@@ -76,6 +76,11 @@
 [![MIT license](https://img.shields.io/badge/License-MIT-yellow.svg)](http://perso.crans.org/besson/LICENSE.html)
 [![npm version](https://badge.fury.io/js/npm.svg)](https://badge.fury.io/js/npm)
 
+## Host Websites
+
+- **Production**: [condos.happyfir.com](https://condos.happyfir.com/)
+- **Development**: [devcondos.happyfir.com](https://devcondos.happyfir.com/)
+
 ## Running & Building the project 🔨
 - For frontend
 ```
