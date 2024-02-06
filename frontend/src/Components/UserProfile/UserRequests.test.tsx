@@ -18,5 +18,4 @@ describe("Requests Component", () => {
     expect(defaultDescription).toBeInTheDocument();
   });
 
-  // Add more tests as needed for any additional functionality or edge cases
 });
