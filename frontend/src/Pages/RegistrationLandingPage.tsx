@@ -1,10 +1,13 @@
 import React from "react";
 import SignUp from "../Components/Authentication/SignUp";
-import "../Style/AuthenticationStyle/LoginAndRegistrationLandingPageStyle.css";
+import "../Style/LandingPageStyle/LoginAndRegistrationLandingPageStyle.css";
 
 const RegistrationLandingPage = () => {
   return (
-    <div className="registration-and-login-container">
+    <div
+      data-testid="registration-container"
+      className="registration-and-login-container"
+    >
       <div className="registration-and-login-title-and-image-container">
         <h1>
           Sign Up <br />

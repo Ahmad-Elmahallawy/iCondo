@@ -4,8 +4,10 @@ import * as Yup from "yup";
 import "../../Style/AuthenticationStyle/LoginAndRegistrationStyle.css";
 import "../../Style/AuthenticationStyle/SignUpStyle.css";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LoadingScreen from "../Common/LoadingScreen";
+import { signUpInitialValues } from "../Common/InitialValues";
+import { signUpValidationSchema } from "../Common/ValidationSchema";
 
 interface FormValues {
   first_name: string;
@@ -23,87 +25,41 @@ const SignUp: React.FC = () => {
     null
   );
   const [isLoading, setIsLoading] = useState(false);
-
-  const clearRegistrationError = () => {
-    setRegistrationError(null);
-  };
+  const navigate = useNavigate();
 
   const formik = useFormik<FormValues>({
-    initialValues: {
-      first_name: "",
-      last_name: "",
-      username: "",
-      email: "",
-      phone_number: "",
-      password: "",
-      company_name: "",
-    },
-    validationSchema: Yup.object({
-      first_name: Yup.string()
-        .max(15, "Must be 15 characters or less")
-        .required("Required"),
-      last_name: Yup.string()
-        .max(20, "Must be 20 characters or less")
-        .required("Required"),
-      username: Yup.string()
-        .max(20, "Must be 20 characters or less")
-        .required("Required"),
-      email: Yup.string().email("Invalid Email Address").required("Required"),
-      phone_number: Yup.string()
-        .matches(/^[0-9]{10,15}$/, "Invalid Phone Number")
-        .required("Required"),
-      password: Yup.string()
-        .min(8, "Password must be at least 8 characters long")
-        .required("Required"),
-      company_name: Yup.string().matches(/.*/, {
-        excludeEmptyString: userType === "PublicUser",
-        message: "Company Name is required",
-      }),
-    }),
+    initialValues: signUpInitialValues,
+    validationSchema: signUpValidationSchema,
     onSubmit: async (values) => {
       try {
-        setIsLoading(true); // Set loading state to true
+        setIsLoading(true);
         const registrationUrl = "http://localhost:8000/api/users/";
 
-        const {
-          first_name,
-          last_name,
-          username,
-          phone_number,
-          email,
-          password,
-        } = values;
-
         const userData = {
-          first_name,
-          last_name,
-          username,
-          phone_number,
-          email,
-          password,
+          ...values,
           role: "PublicUser",
         };
-        const response = await axios.post(registrationUrl, userData);
 
+        const response = await axios.post(registrationUrl, userData);
         console.log("Registration successful:", response.data);
 
-        clearRegistrationError();
+        setRegistrationError(null);
+        navigate("/Login");
       } catch (error: any) {
         console.error("Registration failed:", error.message);
 
         if (error.response && error.response.status === 400) {
           setRegistrationError(
-            "User with this email, username or phone # already exists"
+            "User with this email, username or phone number already exists"
           );
         } else {
           // Handle other error statuses here if needed
         }
       } finally {
-        setIsLoading(false); // Set loading state to false after the request is completed
+        setIsLoading(false);
       }
     },
   });
-
   return (
     <form
       onSubmit={formik.handleSubmit}
@@ -297,7 +253,7 @@ const SignUp: React.FC = () => {
       {isLoading && <LoadingScreen />}
       {registrationError && <p className="error-msg">{registrationError}</p>}
       <p className="registration-and-login-to-eachother">
-        Already Have an account?{" "}
+        Already have an account?{" "}
         {
           <Link to="/Login">
             <span>Log in here</span>
