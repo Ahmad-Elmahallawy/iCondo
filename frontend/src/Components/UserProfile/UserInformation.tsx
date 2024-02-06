@@ -31,8 +31,6 @@ const UserInformation: React.FC<UserInformationProps> = ({ data }) => {
     setUserData(data);
   }, [data]);
 
-  
-
   const handleEditPictureClick = (): void => {
     const fileInput = document.getElementById("profilePictureInput");
     fileInput?.click();
@@ -57,7 +55,6 @@ const UserInformation: React.FC<UserInformationProps> = ({ data }) => {
           pictureFormData
         );
       }
-      localStorage.setItem("userData", JSON.stringify(userData));
     } catch (error) {
       setErrorMessage("Error updating user details");
       setSuccessMessage(null);
@@ -91,8 +88,6 @@ const UserInformation: React.FC<UserInformationProps> = ({ data }) => {
     }
   };
 
-
-  
   return (
     <div
       className={`user-information-container ${editMode ? "edit-mode" : ""}`}

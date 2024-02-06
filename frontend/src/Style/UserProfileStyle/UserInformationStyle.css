@@ -81,16 +81,16 @@
 }
 
 .user-information-label {
-  margin-right: 10px; 
-  text-align: left !important; 
-  color: #fff;
+  margin-right: 10px;
+  text-align: left !important;
+  color: var(--color4);
 }
 
 .user-information-input,
 .user-information-text {
   padding: 8px;
   border-radius: 5px;
-  text-align: right; 
+  text-align: right;
   color: var(--color4);
 }
 
