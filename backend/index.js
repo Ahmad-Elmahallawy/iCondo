@@ -13,7 +13,8 @@ app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
-app.use("/api/users", require("./routes/userRoutes"));
+app.use('/api/users', require('./routes/userRoutes'));
+app.use('/api/files', require('./routes/fileRoutes'));
 // app.use(errorHandler)
 app.get("/", function (req, res, next) {
   res.json({ msg: "This is CORS-enabled for all origins!" });
