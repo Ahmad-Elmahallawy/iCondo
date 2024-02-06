@@ -26,10 +26,28 @@ const UserInformation: React.FC<UserInformationProps> = ({ data }) => {
   const [editMode, setEditMode] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [profilePictureUrl, setProfilePictureUrl] = useState<string | null>(
+    null
+  ); // New state to store the profile picture URL
 
   useEffect(() => {
     setUserData(data);
+
+    fetchProfilePicture(data.username);
   }, [data]);
+
+  // Function to fetch the profile picture URL
+  const fetchProfilePicture = async (username: string): Promise<void> => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8000/api/file/${username}`
+      );
+      console.log("Profile picture URL:", response.data.url);
+      setProfilePictureUrl(response.data.url);
+    } catch (error) {
+      console.error("Error fetching profile picture:", error);
+    }
+  };
 
   const handleEditPictureClick = (): void => {
     const fileInput = document.getElementById("profilePictureInput");
@@ -46,7 +64,6 @@ const UserInformation: React.FC<UserInformationProps> = ({ data }) => {
 
       setSuccessMessage("User details updated successfully");
       setErrorMessage(null);
-
       if (userData.profilePicture) {
         const pictureFormData = new FormData();
         pictureFormData.append("file", userData.profilePicture);
@@ -55,6 +72,7 @@ const UserInformation: React.FC<UserInformationProps> = ({ data }) => {
           pictureFormData
         );
       }
+      localStorage.setItem("userData", JSON.stringify(userData));
     } catch (error) {
       setErrorMessage("Error updating user details");
       setSuccessMessage(null);
@@ -85,6 +103,10 @@ const UserInformation: React.FC<UserInformationProps> = ({ data }) => {
         ...prevUserData,
         profilePicture: file,
       }));
+
+      // Update profilePictureUrl to show the newly selected image immediately
+      const imageUrl = URL.createObjectURL(file);
+      setProfilePictureUrl(imageUrl);
     }
   };
 
@@ -100,11 +122,7 @@ const UserInformation: React.FC<UserInformationProps> = ({ data }) => {
       <div className="user-information-profile-container">
         <img
           className="user-information-profile-picture"
-          src={
-            userData.profilePicture
-              ? URL.createObjectURL(userData.profilePicture)
-              : defaultProfilePicturePath
-          }
+          src={profilePictureUrl || defaultProfilePicturePath}
           alt="Profile"
         />
         {editMode && (
