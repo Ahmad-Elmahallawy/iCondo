@@ -51,7 +51,7 @@ const UserInformation: React.FC<UserInformationProps> = ({ data }) => {
         const pictureFormData = new FormData();
         pictureFormData.append("file", userData.profilePicture);
         await axios.post(
-          `http://localhost:8000/api/files/abc`,
+          `http://localhost:8000/api/files/${data.username}`,
           pictureFormData
         );
       }
