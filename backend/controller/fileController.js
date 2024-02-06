@@ -9,23 +9,20 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 // @desc Post file
-// @route Post /api/file/:id
+// @route Post /api/file/:username
 // @access Private
 const ProfilePictureUpload = asyncHandler(async (req, res) => {
-    const {userid} = req.params
-    console.log(parseInt(userid))
-    const currentUser = await prisma.User.findUnique({
-        where: {id: parseInt(userid)},
-    })
+    const {username} = req.params
 
     await upload(req, res, async (err) => {
         if (err) {
-            return res.status(400).json({ error: 'Error uploading file' });
+            return res.status(500).json({ error: 'Error uploading file' });
         }
         try {
-            const results = await uploadFile('profile-picture', req.file, currentUser.username + ".png")
+            const results = await uploadFile('profile-picture', req.file,
+                username + ".png")
             try {
-                const objInfo = await getFile("profile-picture",   currentUser.username + ".png");
+                const objInfo = await getFile("profile-picture",   username + ".png");
                 return res.json({ status: "success" , url: objInfo});
             } catch (error) {
                 res.status(500).json({ error: 'Internal Server Error' });
@@ -36,15 +33,12 @@ const ProfilePictureUpload = asyncHandler(async (req, res) => {
     })
 });
 // @desc Get file
-// @route Get /api/file/:id
+// @route Get /api/file/:username
 // @access Private
 const ProfilePictureGet = asyncHandler(async (req, res) => {
-    const {userid} = req.params
-    const currentUser = await prisma.User.findUnique({
-        where: {id: parseInt(userid)}
-    })
+    const {username} = req.params
     try {
-        const objInfo = await getFile("profile-picture",   currentUser.username + ".png");
+        const objInfo = await getFile("profile-picture", username + ".png");
         return res.json({ url: objInfo});
     } catch (error) {
         res.status(500).json({ error: 'Internal Server Error' });
