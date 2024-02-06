@@ -1,17 +1,18 @@
-/* UserInformationStyle.css */
-
 .user-information-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
   border-radius: 15px;
-  background-color: var(--color3);
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  background-color: #eeedeb;
+  border: 1px solid #3c3633;
+  border-radius: 10px;
+  box-shadow: 3px 4px 1px 1px rgba(0, 0, 0, 0.25);
   width: 100%;
-  max-width: 400px; 
+  max-width: 400px;
   margin: 20px;
   position: relative;
+  height: 100%;
 }
 
 .user-information-profile-container {
@@ -24,7 +25,7 @@
   height: 100px;
   object-fit: cover;
   border-radius: 50%;
-  border: 2px solid #fff;
+  border: 2px solid #eeedeb;
 }
 
 .user-information-edit-picture {
@@ -47,30 +48,43 @@
 
 .user-information-field {
   display: flex;
-  flex-direction: row; 
-  justify-content: space-between; 
+  flex-direction: row;
+  justify-content: space-between;
   width: 100%;
   align-items: center;
   margin-bottom: 15px;
 }
 
 .user-information-label {
-  margin-right: 10px; 
-  text-align: left !important; 
-  color: #fff;
+  margin-right: 10px;
+  text-align: left !important;
+  color: #3c3633;
 }
 
 .user-information-input,
 .user-information-text {
   padding: 8px;
   border-radius: 5px;
-  text-align: right; 
-  color: var(--color4);
+  text-align: right;
+  color: #3c3633;
+  background-color: #eeedeb;
+}
+
+.user-information-field {
+  padding: 8px;
+  border-radius: 5px;
+  text-align: right;
+  color: #3c3633;
+  background-color: #eeedeb;
+  border-radius: 10px;
+  border: 1px solid #3c3633;
 }
 
 .user-information-button {
   padding: 10px;
-  background-color: #4caf50;
+  background-color: #747264;
+  border: 1px solid #3c3633;
+  box-shadow: 3px 4px 1px 1px rgba(0, 0, 0, 0.25);
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -80,7 +94,5 @@
 
 .user-information-cancel-button {
   background-color: #ff4444;
+  box-shadow: 3px 4px 1px 1px rgba(0, 0, 0, 0.25);
 }
-
-
-
