@@ -52,6 +52,7 @@
     ]
   },
   "devDependencies": {
+    "cypress": "^13.6.4",
     "identity-obj-proxy": "^3.0.0",
     "react-router-dom": "^6.21.3"
   }
