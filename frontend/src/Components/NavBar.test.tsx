@@ -16,6 +16,14 @@ jest.mock("react-router-dom", () => ({
 }));
 
 describe("Navbar", () => {
+  const setup = () => {
+    render(
+      <BrowserRouter>
+        <Navbar />
+      </BrowserRouter>
+    );
+  };
+
   beforeEach(() => {
     // Clear all mocks before each test
     jest.clearAllMocks();
@@ -25,15 +33,11 @@ describe("Navbar", () => {
     const { isAuthenticated } = require("../Components/Common/AuthUtil");
     isAuthenticated.mockReturnValue(false);
 
-    render(
-      <BrowserRouter>
-        <Navbar />
-      </BrowserRouter>
-    );
+    setup();
 
     expect(screen.getByText("Log In")).toBeInTheDocument();
     expect(screen.getByText("Register")).toBeInTheDocument();
-    expect(screen.queryByText("My Profile")).toBeInTheDocument();
+    expect(screen.getByText("My Profile")).toBeInTheDocument();
     expect(screen.queryByText("Log Out")).not.toBeInTheDocument();
   });
 
@@ -44,11 +48,7 @@ describe("Navbar", () => {
       JSON.stringify({ token: "fake-token", role: "User" })
     );
 
-    render(
-      <BrowserRouter>
-        <Navbar />
-      </BrowserRouter>
-    );
+    setup();
 
     expect(screen.getByText("Log Out")).toBeInTheDocument();
     expect(screen.getByText("My Profile")).toBeInTheDocument();
@@ -76,6 +76,41 @@ describe("Navbar", () => {
     expect(screen.queryByText("Register")).not.toBeInTheDocument();
   });
 
+  it("Clicking logout", () => {
+    const { isAuthenticated } = require("../Components/Common/AuthUtil");
+    isAuthenticated.mockReturnValue(true);
+    Storage.prototype.getItem = jest.fn(() =>
+      JSON.stringify({ token: "fake-token", role: "Admin" })
+    );
 
+    setup();
+    fireEvent.click(screen.getByText("Log Out"));
+    expect(screen.getByText("Logout Confirmation")).toBeInTheDocument();
+  });
+
+  it("Cancel logout", () => {
+    const { isAuthenticated } = require("../Components/Common/AuthUtil");
+    isAuthenticated.mockReturnValue(true);
+    Storage.prototype.getItem = jest.fn(() =>
+      JSON.stringify({ token: "fake-token", role: "Admin" })
+    );
+
+    setup();
+    fireEvent.click(screen.getByText("Log Out"));
+    fireEvent.click(screen.getByText("Cancel"));
+    expect(screen.queryByText("Logout Confirmation")).toBeNull();
+  });
+
+  it("Confirm logout", async () => {
+    const { isAuthenticated } = require("../Components/Common/AuthUtil");
+    isAuthenticated.mockReturnValue(true);
+    Storage.prototype.getItem = jest.fn(() =>
+      JSON.stringify({ token: "fake-token", role: "Admin" })
+    );
+
+    setup();
+    fireEvent.click(screen.getByText("Log Out"));
+    fireEvent.click(screen.getAllByText("Log Out")[1]);
+    await waitFor(() => expect(mockNavigate).toHaveBeenCalled());
+  });
 });
-
