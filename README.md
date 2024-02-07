@@ -38,6 +38,9 @@
   <a aria-label="ExpressJS" href="https://www.npmjs.com/">
     <img alt="" src="https://img.shields.io/badge/ExpressJS-17202C?style=for-the-badge&logo=express&logoColor=white">
   </a>
+      <a aria-label="redis" href="https://redis.io/">
+    <img alt="" src="https://img.shields.io/badge/redis-DC382D?style=for-the-badge&logo=redis&logoColor=white">
+  </a>
 </p>
 <p align="center">
   <a aria-label="Jest" href="https://www.npmjs.com/">
@@ -63,14 +66,11 @@
   <a aria-label="Portainer" href="https://www.portainer.io/">
     <img alt="" src="https://img.shields.io/badge/Portainer-13BEF9?style=for-the-badge&logo=portainer&logoColor=white">
   </a>
-    <a aria-label="Minio" href="https://min.io/">
+  <a aria-label="Minio" href="https://min.io/">
     <img src="https://img.shields.io/badge/minio-C72E49?style=for-the-badge&logo=minio&logoColor=white">
   </a>
-    <a aria-label="cloudflare" href="https://www.cloudflare.com/>
+    <a aria-label="cloudflare" href="https://www.cloudflare.com/">
     <img alt="" src="https://img.shields.io/badge/cloudflare-F38020?style=for-the-badge&logo=cloudflare&logoColor=white">
-  </a>
-  <a aria-label="redis" href="https://redis.io/>
-    <img alt="" src="https://img.shields.io/badge/redis-DC382D?style=for-the-badge&logo=redis&logoColor=white">
   </a>
 </p>
 
