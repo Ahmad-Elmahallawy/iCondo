@@ -33,7 +33,6 @@ describe('login', () => {
 
     // After running the tests, delete the test user from the database
     afterAll(async () => {
-        console.log(testUser._id)
         await prisma.user.delete({
             where: {
                 id: testUser._id,
