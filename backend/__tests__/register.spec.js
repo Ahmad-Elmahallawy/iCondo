@@ -1,8 +1,24 @@
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+const {prisma} = require("../index");
 const {registerUser} = require('../controller/userController')
+
 describe('registerUser', () => {
-    let testUser
+    let testUser, testUserAlreadyExists;
+
+    beforeAll(async () => {
+
+        testUserAlreadyExists = await prisma.user.create({
+            data: {
+                first_name: 'UnitTest-firstname',
+                last_name: 'UnitTest-lastname',
+                email: 'UnitTest@email.test2',
+                password: '12345678',
+                role_id: 7,
+                username: 'UnitTest-username2',
+                phone_number: '1234567890123',
+            },
+        });
+    });
+
     afterAll(async () => {
         if (testUser) {
             // Delete the test user from the database
@@ -12,6 +28,117 @@ describe('registerUser', () => {
                 }
             });
         }
+        await prisma.User.delete({
+            where: {
+                email: testUserAlreadyExists.email
+            }
+        });
+    });
+
+    it('shouldn\'t register due to missing fields', async () => {
+        // Define a test user payload
+        testUser = {
+            first_name: 'John',
+            last_name: 'Doe',
+            email: 'test1@example.com',
+            password: 'testpassword',
+            role: 'Admin',
+        };
+        const req = { body: testUser };
+
+        // Simulate an HTTP response
+        const res = {
+            status: jest.fn().mockReturnThis(),
+            json: jest.fn(),
+        };
+        res.json.mockImplementation((body) => {
+            res.body = body;
+            return res;
+        });
+        await registerUser(req, res)
+        expect(res.status).toBeCalledWith(400);
+        expect(res.json).toBeCalledWith({ error: "Please add all fields" });
+    });
+
+    it('shouldn\'t register due to wrong role', async () => {
+        // Define a test user payload
+        testUser = {
+            first_name: 'John',
+            last_name: 'Doe',
+            email: 'test1@example.com',
+            password: 'testpassword',
+            role: 'testRolePlzDontExist',
+            username: 'johndoe123',
+            phone_number: '12333',
+        };
+        const req = { body: testUser };
+
+        // Simulate an HTTP response
+        const res = {
+            status: jest.fn().mockReturnThis(),
+            json: jest.fn(),
+        };
+        res.json.mockImplementation((body) => {
+            res.body = body;
+            return res;
+        });
+        await registerUser(req, res)
+        expect(res.status).toBeCalledWith(400);
+        expect(res.json).toBeCalledWith({ error: "Invalid role specified" });
+    });
+
+    it('shouldn\'t register due to user already exists (same email)', async () => {
+        // Define a test user payload
+        testUser = {
+            first_name: 'John',
+            last_name: 'Doe',
+            email: testUserAlreadyExists.email,
+            password: 'testpassword',
+            role: 'Admin',
+            username: 'johndoe123',
+            phone_number: '12333',
+        };
+        const req = { body: testUser };
+
+        // Simulate an HTTP response
+        const res = {
+            status: jest.fn().mockReturnThis(),
+            json: jest.fn(),
+        };
+        res.json.mockImplementation((body) => {
+            res.body = body;
+            return res;
+        });
+        await registerUser(req, res)
+        expect(res.status).toBeCalledWith(400);
+        expect(res.json).toBeCalledWith({ error: "User already exists" });
+    });
+
+    it('shouldn\'t register due to database constraint (same username as other user)', async () => {
+        // Define a test user payload
+        testUser = {
+            first_name: 'John',
+            last_name: 'Doe',
+            email: 'test1@example.com',
+            password: 'testpassword',
+            role: 'Admin',
+            username: testUserAlreadyExists.username,
+            phone_number: '12333',
+        };
+        const req = { body: testUser };
+
+        // Simulate an HTTP response
+        const res = {
+            status: jest.fn().mockReturnThis(),
+            json: jest.fn(),
+        };
+        res.json.mockImplementation((body) => {
+            res.body = body;
+            return res;
+        });
+        await registerUser(req, res)
+        expect(res.status).toBeCalledWith(400);
+        expect(res.json).toBeCalledWith({ error: "Invalid user data" });
     });
 
     it('should register a new user', async () => {

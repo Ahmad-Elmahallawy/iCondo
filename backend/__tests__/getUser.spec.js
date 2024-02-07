@@ -1,5 +1,4 @@
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+const {prisma} = require("../index");
 const {getUser} = require('../controller/userController')
 describe('getUser', () => {
     let testUser; // Declare testUser variable

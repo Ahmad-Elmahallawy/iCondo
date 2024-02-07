@@ -1,5 +1,4 @@
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+const {prisma} = require("../index");
 const { login, registerUser } = require('../controller/userController');
 
 describe('login', () => {
@@ -34,11 +33,51 @@ describe('login', () => {
 
     // After running the tests, delete the test user from the database
     afterAll(async () => {
+        console.log(testUser._id)
         await prisma.user.delete({
             where: {
                 id: testUser._id,
             },
         });
+    });
+
+    it('shouldn\'t log in due to missing fields', async () => {
+        const req = {
+            query: {
+                email: testUser.email,
+            },
+        };
+        const res = {
+            status: jest.fn().mockReturnThis(),
+            json: jest.fn(),
+        };
+        res.json.mockImplementation((body) => {
+            res.body = body;
+            return res;
+        });
+        await login(req, res)
+        expect(res.status).toBeCalledWith(400);
+        expect(res.json).toBeCalledWith({ error: "Please add all fields" });
+    });
+
+    it('shouldn\'t log in due to invalid credentials', async () => {
+        const req = {
+            query: {
+                email: testUser.email,
+                password: 'wrong password',
+            },
+        };
+        const res = {
+            status: jest.fn().mockReturnThis(),
+            json: jest.fn(),
+        };
+        res.json.mockImplementation((body) => {
+            res.body = body;
+            return res;
+        });
+        await login(req, res)
+        expect(res.status).toBeCalledWith(401);
+        expect(res.json).toBeCalledWith({ error: "Invalid credentials" });
     });
 
     it('should login successfully with correct credentials', async () => {
