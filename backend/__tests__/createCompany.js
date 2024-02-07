@@ -33,11 +33,11 @@ describe('createCompany', () => {
         testAdmin = {
             first_name: 'mo',
             last_name: 'moop',
-            username: 'mop14m3617omoo34p',
-            email: 'moabo4136671o@exampl34e.com',
+            username: 'mop14m36177omoo34p',
+            email: 'moabo41366771o@exampl34e.com',
             password: 'mopo6l23',
-            phone_number: '26341319335333',
-            company_name: 'BIG413am91oo4',
+            phone_number: '263413197335333',
+            company_name: 'BIG413am911oo4',
         };
 
         const req = { body: testAdmin };

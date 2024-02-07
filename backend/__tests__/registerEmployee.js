@@ -5,10 +5,10 @@ describe('registerEmployee', () => {
     let testEmployee
     afterAll(async () => {
         if (testEmployee) {
-            // Delete the test user from the database
+            // Delete the companyEmployee from the database
             await prisma.Company_employee.delete({
                 where: {
-                    email: testEmployee.email
+                    company_name: testEmployee.company_name
                 }
             });
         }
@@ -16,14 +16,15 @@ describe('registerEmployee', () => {
 
     it('should register a new user', async () => {
         // Define a test user payload
+        //company has to exist in order for test to pass
         testEmployee = {
             first_name: 'John',
             last_name: 'Doe',
-            email: 'test91@example.com',
-            username:'moj9o',
-            phone_number:'34355596788',
-            company_name:'bos9tonbeef',
-            password:'tumer9icSauces',
+            email: 'test01609@example.com',
+            username:'moj087906p0o',
+            phone_number:'36809743555906788',
+            company_name:'BIG413am911oo4',
+            password:'tumer96icSauces',
         };
         const req = { body: testEmployee };
 
@@ -47,7 +48,7 @@ describe('registerEmployee', () => {
         expect(response.body).toHaveProperty('username', testEmployee.username);
         expect(response.body).toHaveProperty('email', testEmployee.email);
         expect(response.body).toHaveProperty('phone_number', testEmployee.phone_number);
-        expect(response.body).toHaveProperty('role', testEmployee.role);
+        expect(response.body.role).toEqual('FinanceManager'); //will be changed after
 
     });
 });
