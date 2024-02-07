@@ -5,26 +5,47 @@ describe('createCompany', () => {
     let testAdmin
     let testCompany
     afterAll(async () => {
-        if (testAdmin) {
-            // Delete the test user from the database
-            await prisma.Company_employee.delete({
-                where: {
-                    user: testAdmin.user_id,
+        try {
+            if (testAdmin) {
+                // Find the test admin user
+                const user = await prisma.User.findUnique({
+                    where: {
+                        email: testAdmin.email,
+                    },
+                    include: {
+                        company_employees: true, // Include related company_employees
+                    },
+                });
+
+                if (user) {
+                    // Delete related company employees
+                    await prisma.Company_employee.deleteMany({
+                        where: {
+                            user_id: user.id,
+                        },
+                    });
+
+                    // Delete the test admin user
+                    await prisma.User.deleteMany({
+                        where: {
+                            email: testAdmin.email,
+                        },
+                    });
                 }
-            });
-            await prisma.User.delete({
-                where: {
-                    email: testAdmin.email
-                }
-            });
-        }
-        if (testCompany) {
-            // Delete the test company from the database
-            await prisma.Company.delete({
-                where: {
-                    name: testCompany.name
-                }
-            });
+            }
+
+            if (testCompany) {
+                // Delete the test company
+                await prisma.Company.deleteMany({
+                    where: {
+                        name: testCompany.name,
+                    },
+                });
+            }
+
+            console.log('Test data deleted successfully.');
+        } catch (error) {
+            console.error('Error deleting test data:', error);
         }
     });
 
@@ -33,11 +54,11 @@ describe('createCompany', () => {
         testAdmin = {
             first_name: 'mo',
             last_name: 'moop',
-            username: 'mop14m36177omoo34p',
-            email: 'moabo41366771o@exampl34e.com',
-            password: 'mopo6l23',
-            phone_number: '263413197335333',
-            company_name: 'BIG413am911oo4',
+            username: 'firemans',
+            email: 'fore@exampl34ens.com',
+            password: 'mopo6l23s',
+            phone_number: '777555343451',
+            company_name: 'BIG12',
         };
 
         const req = { body: testAdmin };

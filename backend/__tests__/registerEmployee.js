@@ -1,30 +1,37 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
-const {registerEmployee} = require('../controller/userController')
+const {registerEmployee, getEmployeeIdByEmail} = require('../controller/userController')
 describe('registerEmployee', () => {
     let testEmployee
     afterAll(async () => {
         if (testEmployee) {
-            // Delete the companyEmployee from the database
-            await prisma.Company_employee.delete({
-                where: {
-                    company_name: testEmployee.company_name
-                }
-            });
+            try {
+                // Delete the testEmployee from the database based on their email
+                await prisma.User.deleteMany({
+                    where: {
+                        email: 'test033122@example.com'
+                    },
+                });
+                console.log('Test employee deleted successfully.');
+            } catch (error) {
+                console.error('Error deleting test employee:', error);
+            }
         }
     });
+
 
     it('should register a new user', async () => {
         // Define a test user payload
         //company has to exist in order for test to pass
         testEmployee = {
+            //add userid and compare after
             first_name: 'John',
             last_name: 'Doe',
-            email: 'test01609@example.com',
-            username:'moj087906p0o',
-            phone_number:'36809743555906788',
-            company_name:'BIG413am911oo4',
-            password:'tumer96icSauces',
+            email: 'test033122@example.com',
+            username:'galapagos13334',
+            phone_number:'1111234563744',
+            company_name:'BIG12',
+            password:'abc',
         };
         const req = { body: testEmployee };
 

@@ -353,6 +353,27 @@ const registerEmployee = async (req, res) => {
   }
 };
 
+const getEmployeeIdByEmail = async (email) => {
+  try {
+    // Find the user by email
+    const user = await prisma.User.findUnique({
+      where: { email },
+    });
+
+    // If user not found or user is not an employee
+    if (!user) {
+      return res.status(400).json({ error: "Either user is does not exist or user is not an employee" });
+    }
+
+    // Return the user's ID
+    return user.id;
+  } catch (error) {
+    console.error("Error getting employee ID by email:", error);
+    throw new Error("Error getting employee ID by email");
+  }
+};
+
+
 module.exports = {
   registerUser,
   login,
@@ -360,4 +381,5 @@ module.exports = {
   modifyUser,
   registerAdminCompany,
   registerEmployee,
+  getEmployeeIdByEmail,
 };
