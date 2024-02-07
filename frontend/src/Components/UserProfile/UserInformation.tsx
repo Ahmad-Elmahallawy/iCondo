@@ -1,14 +1,18 @@
 import React, { useState, ChangeEvent, useEffect } from "react";
 import "../../Style/UserProfileStyle/UserInformationStyle.css";
-import { FaPen } from "react-icons/fa"; // Assuming you have a library for icons
+import { FaPen } from "react-icons/fa";
+import axios from "axios";
+import { log } from "console";
 
 interface UserData {
   profilePicture: File | null;
+  username: string;
   first_name: string;
   last_name: string;
   email: string;
   phone_number: string;
   password: string;
+  _id: string;
 }
 
 interface UserInformationProps {
@@ -20,24 +24,69 @@ const UserInformation: React.FC<UserInformationProps> = ({ data }) => {
 
   const [userData, setUserData] = useState<UserData>(data);
   const [editMode, setEditMode] = useState<boolean>(false);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [profilePictureUrl, setProfilePictureUrl] = useState<string | null>(
+    null
+  ); // New state to store the profile picture URL
 
   useEffect(() => {
-    // Set user data when the component mounts
     setUserData(data);
+
+    fetchProfilePicture(data.username);
   }, [data]);
+
+  // Function to fetch the profile picture URL
+  const fetchProfilePicture = async (username: string): Promise<void> => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8000/api/file/${username}`
+      );
+      console.log("Profile picture URL:", response.data.url);
+      if (response.data && response.data.url) {
+        setProfilePictureUrl(response.data.url);
+      }
+    } catch (error) {
+      console.error("Error fetching profile picture:", error);
+    }
+  };
 
   const handleEditPictureClick = (): void => {
     const fileInput = document.getElementById("profilePictureInput");
     fileInput?.click();
   };
 
-  const handleSaveClick = (): void => {
-    setEditMode(false);
-    // TODO: Save changes to the server or perform other actions
+  const handleSaveClick = async (): Promise<void> => {
+    try {
+      await axios.patch("http://localhost:8000/api/users", userData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      setSuccessMessage("User details updated successfully");
+      setErrorMessage(null);
+      if (userData.profilePicture) {
+        const pictureFormData = new FormData();
+        pictureFormData.append("file", userData.profilePicture);
+        await axios.post(
+          `http://localhost:8000/api/files/${data.username}`,
+          pictureFormData
+        );
+      }
+      localStorage.setItem("userData", JSON.stringify(userData));
+    } catch (error) {
+      setErrorMessage("Error updating user details");
+      setSuccessMessage(null);
+    } finally {
+      setEditMode(false);
+    }
   };
 
   const handleCancelClick = (): void => {
     setEditMode(false);
+    setSuccessMessage(null);
+    setErrorMessage(null);
   };
 
   const handleChange = (field: string, value: string): void => {
@@ -56,19 +105,26 @@ const UserInformation: React.FC<UserInformationProps> = ({ data }) => {
         ...prevUserData,
         profilePicture: file,
       }));
+
+      // Update profilePictureUrl to show the newly selected image immediately
+      const imageUrl = URL.createObjectURL(file);
+      setProfilePictureUrl(imageUrl);
     }
   };
 
   return (
-    <div className={`user-information-container ${editMode ? 'edit-mode' : ''}`}>
+    <div
+      className={`user-information-container ${editMode ? "edit-mode" : ""}`}
+    >
+      {successMessage && (
+        <div className="success-message">{successMessage}</div>
+      )}
+      {errorMessage && <div className="error-message">{errorMessage}</div>}
+
       <div className="user-information-profile-container">
         <img
           className="user-information-profile-picture"
-          src={
-            userData.profilePicture
-              ? URL.createObjectURL(userData.profilePicture)
-              : defaultProfilePicturePath
-          }
+          src={profilePictureUrl || defaultProfilePicturePath}
           alt="Profile"
         />
         {editMode && (
@@ -88,36 +144,65 @@ const UserInformation: React.FC<UserInformationProps> = ({ data }) => {
         />
       </div>
       <h2 className="user-information-heading">My Profile</h2>
+
       <div className="user-information-field">
-        <label className="user-information-label">First Name:</label>
+        <label className="user-information-label" htmlFor="username">
+          Username:
+        </label>
         {editMode ? (
           <input
+            id="username"
+            className="user-information-input"
+            type="text"
+            value={userData.username}
+            onChange={(e) => handleChange("username", e.target.value)}
+          />
+        ) : (
+          <span className="user-information-text">{userData.username}</span>
+        )}
+      </div>
+
+      <div className="user-information-field">
+        <label className="user-information-label" htmlFor="first_name">
+          First Name:
+        </label>
+        {editMode ? (
+          <input
+            id="first_name"
             className="user-information-input"
             type="text"
             value={userData.first_name}
-            onChange={(e) => handleChange("firstName", e.target.value)}
+            onChange={(e) => handleChange("first_name", e.target.value)}
           />
         ) : (
           <span className="user-information-text">{userData.first_name}</span>
         )}
       </div>
+
       <div className="user-information-field">
-        <label className="user-information-label">Last Name:</label>
+        <label className="user-information-label" htmlFor="last_name">
+          Last Name:
+        </label>
         {editMode ? (
           <input
+            id="last_name"
             className="user-information-input"
             type="text"
             value={userData.last_name}
-            onChange={(e) => handleChange("lastName", e.target.value)}
+            onChange={(e) => handleChange("last_name", e.target.value)}
           />
         ) : (
           <span className="user-information-text">{userData.last_name}</span>
         )}
       </div>
+
       <div className="user-information-field">
-        <label className="user-information-label">Email:</label>
+        <label className="user-information-label" htmlFor="email">
+          Email:
+        </label>
         {editMode ? (
           <input
+            id="email"
             className="user-information-input"
             type="email"
             value={userData.email}
@@ -127,23 +212,31 @@ const UserInformation: React.FC<UserInformationProps> = ({ data }) => {
           <span className="user-information-text">{userData.email}</span>
         )}
       </div>
+
       <div className="user-information-field">
-        <label className="user-information-label">Phone Number:</label>
+        <label className="user-information-label" htmlFor="phone_number">
+          Phone Number:
+        </label>
         {editMode ? (
           <input
+            id="phone_number"
             className="user-information-input"
             type="tel"
             value={userData.phone_number}
-            onChange={(e) => handleChange("phone", e.target.value)}
+            onChange={(e) => handleChange("phone_number", e.target.value)}
           />
         ) : (
           <span className="user-information-text">{userData.phone_number}</span>
         )}
       </div>
+
       <div className="user-information-field">
-        <label className="user-information-label">Password:</label>
+        <label className="user-information-label" htmlFor="password">
+          Password:
+        </label>
         {editMode ? (
           <input
+            id="password"
             className="user-information-input"
             type="password"
             value={userData.password}
@@ -153,6 +246,7 @@ const UserInformation: React.FC<UserInformationProps> = ({ data }) => {
           <span className="user-information-text">{userData.password}</span>
         )}
       </div>
+
       {editMode ? (
         <div>
           <button className="user-information-button" onClick={handleSaveClick}>
@@ -166,7 +260,10 @@ const UserInformation: React.FC<UserInformationProps> = ({ data }) => {
           </button>
         </div>
       ) : (
-        <button className="user-information-button" onClick={() => setEditMode(true)}>
+        <button
+          className="user-information-button"
+          onClick={() => setEditMode(true)}
+        >
           Edit
         </button>
       )}

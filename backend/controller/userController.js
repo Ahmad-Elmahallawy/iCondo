@@ -241,7 +241,7 @@ const modifyUser = asyncHandler(async (req, res) => {
 
   const updatedUser = await prisma.User.update({
     where: {
-      id: parseInt(id),
+      id: parseInt(_id),
     },
     data: user,
   });

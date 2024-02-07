@@ -43,7 +43,7 @@ const Properties: React.FC = () => {
                     </div>
                     <div className="text-container">
                         <div className="property-details">
-                            <h2 className="property-title">{property.title}</h2>
+                            <h2 className="property-title" data-testid="property-title" >{property.title}</h2>
                             <p className="property-rent-price">${property.rentPrice} per month</p>
                             <p className="property-description">{property.description}</p>
                         </div>
