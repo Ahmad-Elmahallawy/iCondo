@@ -7,15 +7,15 @@
 
 <p align="center">
   <a aria-label="Typescript" href="https://www.typescriptlang.org/">
-    <img alt="" src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white">
+    <img alt="" src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white"> 
   </a>
-  <a aria-label="Typescript" href="https://www.typescriptlang.org/">
+  <a aria-label="Javascript" href="">
     <img alt="" src="https://img.shields.io/badge/Javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=white">
   </a>
       <a aria-label="VSCode" href="https://code.visualstudio.com/">
     <img alt="" src="https://img.shields.io/badge/Visual_Studio_Code-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white">
     </a>
-    <a aria-label="VSCode" href="https://code.visualstudio.com/">
+    <a aria-label="Webstorm" href="https://code.visualstudio.com/">
     <img alt="" src="https://img.shields.io/badge/Webstorm-000000?style=for-the-badge&logo=webstorm&logoColor=white">
     </a>
         <a aria-label="Figma" href="https://www.figma.com">
@@ -26,47 +26,50 @@
   <a aria-label="React" href="https://www.npmjs.com/">
     <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB">
   </a>
-    <a aria-label="Typescript" href="https://www.typescriptlang.org/">
+    <a aria-label="Postgresql" href="https://www.postgresql.org/">
     <img alt="" src="https://img.shields.io/badge/Postgresql-4169E1?style=for-the-badge&logo=postgresql&logoColor=white">
   </a>
-  <a aria-label="MUI" href="https://mui.com/">
+  <a aria-label="Prisma" href="https://www.prisma.io/">
     <img alt="" src="https://img.shields.io/badge/prisma-2D3748?style=for-the-badge&logo=prisma&logoColor=white">
   </a>
   <a aria-label="GitKraken" href="https://www.gitkraken.com/">
     <img alt="" src="https://img.shields.io/badge/GitKraken-179287?style=for-the-badge&logo=GitKraken&logoColor=white">
   </a>
-  <a aria-label="Cypress" href="https://www.cypress.io/">
+  <a aria-label="ExpressJS" href="https://www.npmjs.com/">
     <img alt="" src="https://img.shields.io/badge/ExpressJS-17202C?style=for-the-badge&logo=express&logoColor=white">
+  </a>
+      <a aria-label="redis" href="https://redis.io/">
+    <img alt="" src="https://img.shields.io/badge/redis-DC382D?style=for-the-badge&logo=redis&logoColor=white">
   </a>
 </p>
 <p align="center">
-  <a aria-label="React" href="https://www.npmjs.com/">
+  <a aria-label="Jest" href="https://www.npmjs.com/">
     <img src="https://img.shields.io/badge/Jest-C21325?style=for-the-badge&logo=jest&logoColor=61DAFB">
   </a>
-    <a aria-label="Typescript" href="https://www.typescriptlang.org/">
+    <a aria-label="Sonarqube" href="https://www.sonarsource.com/products/sonarqube/">
     <img alt="" src="https://img.shields.io/badge/Sonarqube-4E9BCD?style=for-the-badge&logo=sonarqube&logoColor=white">
   </a>
-  <a aria-label="MUI" href="https://mui.com/">
+  <a aria-label="Cypress" href="https://www.cypress.io/">
     <img alt="" src="https://img.shields.io/badge/Cypress-69D3A7?style=for-the-badge&logo=cypress&logoColor=white">
   </a>
-      <a aria-label="Github Actions" href="">
+      <a aria-label="Github Actions" href="https://github.com/features/actions">
     <img src="https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white">
   </a>
-    <a aria-label="Figma" href="https://www.figma.com">
+    <a aria-label="Eslint" href="https://eslint.org/">
     <img alt="" src="https://img.shields.io/badge/eslint-4B32C3?style=for-the-badge&logo=eslint&logoColor=white">
   </a>
 </p>
 <p align="center">
-  <a aria-label="Typescript" href="https://www.typescriptlang.org/">
+  <a aria-label="Docker" href="https://www.docker.com/">
     <img alt="" src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white">
   </a>
-  <a aria-label="Typescript" href="https://www.typescriptlang.org/">
+  <a aria-label="Portainer" href="https://www.portainer.io/">
     <img alt="" src="https://img.shields.io/badge/Portainer-13BEF9?style=for-the-badge&logo=portainer&logoColor=white">
   </a>
-    <a aria-label="Github Actions" href="">
+  <a aria-label="Minio" href="https://min.io/">
     <img src="https://img.shields.io/badge/minio-C72E49?style=for-the-badge&logo=minio&logoColor=white">
   </a>
-    <a aria-label="Typescript" href="https://www.typescriptlang.org/">
+    <a aria-label="cloudflare" href="https://www.cloudflare.com/">
     <img alt="" src="https://img.shields.io/badge/cloudflare-F38020?style=for-the-badge&logo=cloudflare&logoColor=white">
   </a>
 </p>
@@ -140,7 +143,7 @@ The Condo Management Systems project aims to develop a comprehensive software so
 - Condo management companies can send registration keys to link condo units with user profiles.
 
 #### Financial System:
-- Simplified financial management allows condo management companies to set condo fees, record operational budgets, costs, and generate annual reports.
+- Simplified financial management allows condo management companies to set condo fees, record operational budgets and costs, and generate annual reports.
 #### Reservation System:
 - Setup and manage common facilities for reservations, allowing users to book facilities via a calendar-like interface.
 - Show availabilities of common facilities and follow a first-come-first-serve booking system.
@@ -157,6 +160,7 @@ The Condo Management Systems project aims to develop a comprehensive software so
 ![Diagrams-Domain Model drawio](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/08fcadb1-b122-4081-a1f2-772e96e6f52d)
 
 ## Class Digram
+![Diagrams-Class Diagram drawio](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/323bfa9d-6df0-475d-8653-fe6b6beeb0dc)
 
 ## Deployment Diagram
 ![Diagrams-Deployment Diagram drawio](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/08725aa6-bf52-4859-ab86-9d6279c1d21c)
