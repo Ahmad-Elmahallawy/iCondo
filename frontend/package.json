@@ -54,6 +54,7 @@
   },
   "devDependencies": {
     "cypress": "^13.6.4",
+    "axios-mock-adapter": "^1.22.0",
     "identity-obj-proxy": "^3.0.0",
     "react-router-dom": "^6.21.3"
   }
