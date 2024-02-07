@@ -181,7 +181,6 @@ describe("EmployeeRegistration Component", () => {
     expect(screen.getByText("Employee Added Successfully")).toBeInTheDocument();
   });
 
-
   it("registers a new employee with role 'Operator' successfully and displays success message", async () => {
     (axios.post as jest.Mock).mockResolvedValueOnce({
       data: {

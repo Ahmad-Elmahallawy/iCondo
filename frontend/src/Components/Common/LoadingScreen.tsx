@@ -4,7 +4,7 @@ import "../../Style/CommonStyle/LoadingScreenStyle.css";
 const LoadingScreen = () => {
   return (
     <div className="loading-background">
-      <BounceLoader size={60} color={"#3c3633"} loading={true} />
+      <BounceLoader size={60} color={"#3c3633"} loading={true} data-testid="loading-spinner"/>
     </div>
   );
 };

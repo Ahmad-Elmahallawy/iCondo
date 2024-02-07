@@ -134,4 +134,55 @@ describe("SignUp Component", () => {
       )
     ).toBeNull();
   });
+
+  it('displays "Required" for all empty fields on form submission', async () => {
+    render(
+      <MemoryRouter>
+        <SignUp />
+      </MemoryRouter>
+    );
+
+    fireEvent.click(screen.getByText("Register"));
+
+    // Wait for any async actions to complete
+    await waitFor(() => {
+      expect(screen.getAllByText("Required").length).toBeGreaterThan(0);
+    });
+  });
+
+  it("validates password minimum length", async () => {
+    render(
+      <MemoryRouter>
+        <SignUp />
+      </MemoryRouter>
+    );
+
+    fireEvent.change(screen.getByPlaceholderText("Password"), {
+      target: { value: "short" },
+    });
+    fireEvent.click(screen.getByText("Register"));
+
+    await waitFor(() => {
+      expect(
+        screen.getByText("Password must be at least 8 characters long")
+      ).toBeInTheDocument();
+    });
+  });
+
+  it("validates phone number format", async () => {
+    render(
+      <MemoryRouter>
+        <SignUp />
+      </MemoryRouter>
+    );
+
+    fireEvent.change(screen.getByPlaceholderText("Phone Number"), {
+      target: { value: "invalid" },
+    });
+    fireEvent.click(screen.getByText("Register"));
+
+    await waitFor(() => {
+      expect(screen.getByText("Invalid Phone Number")).toBeInTheDocument();
+    });
+  });
 });
