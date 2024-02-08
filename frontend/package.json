@@ -31,6 +31,7 @@
     "build": "react-scripts build",
     "test": "jest",
     "test-coverage": "jest --coverage --watchAll=false",
+    "test-e2e": "npx cypress open",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -52,6 +53,7 @@
     ]
   },
   "devDependencies": {
+    "cypress": "^13.6.4",
     "axios-mock-adapter": "^1.22.0",
     "identity-obj-proxy": "^3.0.0",
     "react-router-dom": "^6.21.3"
