@@ -99,9 +99,6 @@ const registerAdminCompany = asyncHandler(async (req, res) => {
   const roleRecord = await prisma.Role.findFirst({
     where: { name: "Admin" },
   });
-  if (!roleRecord) {
-    return res.status(400).json({error:"Missing role"})
-  }
   if (userExists) {
     res.status(400);
     return res.status(400).json({error:"User already exists"})
