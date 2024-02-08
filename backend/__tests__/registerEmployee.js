@@ -1,5 +1,4 @@
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+const {prisma} = require("../index");
 const {registerEmployee, registerAdminCompany,} = require('../controller/userController')
 describe('registerEmployee', () => {
      let testEmployee
@@ -27,9 +26,9 @@ describe('registerEmployee', () => {
             //add userid and compare after
             first_name: 'John',
             last_name: 'Doe',
-            email: 'testing2True7@example.com',
-            username:'TestManz2',
-            phone_number:'332144455551',
+            email: 'testing2True13@example.com',
+            username:'TestManz10',
+            phone_number:'332144455557',
             company_name:'BIGG87',
             password:'abc',
         };

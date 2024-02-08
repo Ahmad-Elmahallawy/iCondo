@@ -1,5 +1,4 @@
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+const {prisma} = require("../index");
 const {registerUser, registerAdminCompany} = require('../controller/userController')
 describe('createCompany', () => {
     let testAdmin, testCompany, testAdminMissingInfo, testAdminAlreadyExists
