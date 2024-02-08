@@ -1,24 +1,24 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
-const {registerEmployee, getEmployeeIdByEmail} = require('../controller/userController')
+const {registerEmployee,} = require('../controller/userController')
 describe('registerEmployee', () => {
-    let testEmployee
-    afterAll(async () => {
-        if (testEmployee) {
-            try {
-                // Delete the testEmployee from the database based on their email
-                await prisma.User.deleteMany({
-                    where: {
-                        email: 'test033122@example.com'
-                    },
-                });
-                console.log('Test employee deleted successfully.');
-            } catch (error) {
-                console.error('Error deleting test employee:', error);
-            }
-        }
-    });
-
+     let testEmployee
+    // afterAll(async () => {
+    //     if (testEmployee) {
+    //         try {
+    //             // Delete the testEmployee from the database based on their email
+    //             await prisma.User.deleteMany({
+    //                 where: {
+    //                     email: 'testify@example.com'
+    //                 },
+    //             });
+    //             console.log('Test employee deleted successfully.');
+    //         } catch (error) {
+    //             console.error('Error deleting test employee:', error);
+    //         }
+    //     }
+    // });
+    //
 
     it('should register a new user', async () => {
         // Define a test user payload
@@ -27,10 +27,10 @@ describe('registerEmployee', () => {
             //add userid and compare after
             first_name: 'John',
             last_name: 'Doe',
-            email: 'test033122@example.com',
-            username:'galapagos13334',
-            phone_number:'1111234563744',
-            company_name:'BIG12',
+            email: 'testingTrue7@example.com',
+            username:'TestManz',
+            phone_number:'3334445555',
+            company_name:'BIGG87',
             password:'abc',
         };
         const req = { body: testEmployee };

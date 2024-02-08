@@ -2,8 +2,8 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const {registerUser, registerAdminCompany} = require('../controller/userController')
 describe('createCompany', () => {
-    let testAdmin
-    let testCompany
+    let testAdmin, testCompany, testAdminMissingInfo, testAdminAlreadyExists
+
     afterAll(async () => {
         try {
             if (testAdmin) {
@@ -53,12 +53,12 @@ describe('createCompany', () => {
         // Define a test user payload
         testAdmin = {
             first_name: 'mo',
-            last_name: 'moop',
-            username: 'firemans',
-            email: 'fore@exampl34ens.com',
-            password: 'mopo6l23s',
-            phone_number: '777555343451',
-            company_name: 'BIG12',
+            last_name: 'mop',
+            username: 'firremmansi',
+            email: 'forerm@exampl34ensi.com',
+            password: 'moppo6l23s',
+            phone_number: '7777755',
+            company_name: 'BIGG87',
         };
 
         const req = { body: testAdmin };
@@ -86,5 +86,53 @@ describe('createCompany', () => {
         expect(response.body).toHaveProperty('token');
         expect(response.body.role).toEqual('Admin');
         expect(response.body).toHaveProperty('company_name', testAdmin.company_name);
+    });
+
+    it('shouldn\'t register due to missing fields', async () => {
+        // Define a test user payload
+        testAdminMissingInfo = {
+            first_name: 'John',
+        };
+        const req = { body: testAdminMissingInfo };
+
+        // Simulate an HTTP response
+        const res = {
+            status: jest.fn().mockReturnThis(),
+            json: jest.fn(),
+        };
+        res.json.mockImplementation((body) => {
+            res.body = body;
+            return res;
+        });
+        await registerAdminCompany(req, res)
+        expect(res.status).toBeCalledWith(400);
+        expect(res.json).toBeCalledWith({ error:"Please add all fields"});
+    });
+
+    it('shouldn\'t register due to user already existing', async () => {
+        // Define missing role
+        testAdminAlreadyExists = {
+            first_name: 'Please',
+            last_name: 'Keep',
+            username: 'nondeletable',
+            email: 'UnitTest@email.forever',
+            password: 'testpassword',
+            phone_number: '5147778888',
+            company_name: 'BIGG87',
+        };
+        const req = { body: testAdminAlreadyExists };
+
+        // Simulate an HTTP response
+        const res = {
+            status: jest.fn().mockReturnThis(),
+            json: jest.fn(),
+        };
+        res.json.mockImplementation((body) => {
+            res.body = body;
+            return res;
+        });
+        await registerAdminCompany(req, res)
+        expect(res.status).toBeCalledWith(400);
+        expect(res.json).toBeCalledWith({ error:"User already exists"});
     });
 });

@@ -90,8 +90,7 @@ const registerAdminCompany = asyncHandler(async (req, res) => {
     !username ||
     !company_name
   ) {
-    res.status(400);
-    throw new Error("Please add all fields");
+    return res.status(400).json({error:"Please add all fields"})
   }
   // Check if user exists
   const userExists = await prisma.User.findUnique({
@@ -101,12 +100,11 @@ const registerAdminCompany = asyncHandler(async (req, res) => {
     where: { name: "Admin" },
   });
   if (!roleRecord) {
-    res.status(400);
-    throw new Error("Invalid role specified");
+    return res.status(400).json({error:"Missing role"})
   }
   if (userExists) {
     res.status(400);
-    throw new Error("User already exists");
+    return res.status(400).json({error:"User already exists"})
   }
 
   //Hash password
@@ -336,25 +334,6 @@ const registerEmployee = async (req, res) => {
   }
 };
 
-const getEmployeeIdByEmail = async (email) => {
-  try {
-    // Find the user by email
-    const user = await prisma.User.findUnique({
-      where: { email },
-    });
-
-    // If user not found or user is not an employee
-    if (!user) {
-      return res.status(400).json({ error: "Either user is does not exist or user is not an employee" });
-    }
-
-    // Return the user's ID
-    return user.id;
-  } catch (error) {
-    console.error("Error getting employee ID by email:", error);
-    throw new Error("Error getting employee ID by email");
-  }
-};
 
 
 module.exports = {
@@ -364,5 +343,4 @@ module.exports = {
   modifyUser,
   registerAdminCompany,
   registerEmployee,
-  getEmployeeIdByEmail,
 };
