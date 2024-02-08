@@ -33,4 +33,4 @@ const getFile = async (bucket, fileName) => {
 };
 
 
-module.exports = {uploadFile, getFile};
+module.exports = {uploadFile, getFile, minioClient};
