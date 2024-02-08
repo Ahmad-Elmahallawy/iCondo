@@ -101,11 +101,11 @@ npm prisma studio
 ```
 - For db dev connection
 ```
-loudflared access tcp --hostname devdbcondos.happyfir.com --url localhost:5433
+cloudflared access tcp --hostname devdbcondos.happyfir.com --url localhost:5433
 ```
 - For db prod connection
 ```
-loudflared access tcp --hostname dbcondos.happyfir.com --url localhost:5433
+cloudflared access tcp --hostname dbcondos.happyfir.com --url localhost:5433
 ```
 ## Team Members (Team 6)
 | Name   | GitHub         | Student ID | Role |
