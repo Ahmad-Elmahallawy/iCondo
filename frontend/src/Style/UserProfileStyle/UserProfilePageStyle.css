@@ -1,81 +1,89 @@
 .user-profile-container {
-    display: flex;
-    justify-content: center;
-    align-items: stretch;
-    background-color: var(--color1);
-    height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  background-color: #eeedeb;
+  height: 100vh;
 }
 
 .my-profile-container,
 .properties-and-requests-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 50%;
-    padding: 2rem;
-    height: 100%;
-    margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  padding: 1rem;
+  height: 100%;
+  margin: 0.5rem;
 }
 
 .my-profile-content,
 .properties-content,
 .requests-content {
-    border-radius: 30px;
-    background: rgba(255, 255, 255, 0.1);
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    width: 100%;
-    padding: 2rem;
-    margin: 1rem 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  background-color: #747264;
+  border: 1px solid #747264;
+  border-radius: 10px;
+  box-shadow: 3px 4px 1px 1px rgba(0, 0, 0, 0.25);
+  width: 100%;
+  padding: 2rem;
+  margin: 1rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-
 .requests-content {
-    margin-top: 2%;
-    width: 700px;
-    height: auto;
+  margin-top: 2%;
+  width: 700px;
+  height: auto;
+  background-color: #eeedeb;
+  border: 1px solid #3c3633;
+  border-radius: 10px;
+  box-shadow: 3px 4px 1px 1px rgba(0, 0, 0, 0.25);
 }
 
 .properties-content {
-    margin-bottom: 2%;
+  margin-bottom: 2%;
+  background-color: #eeedeb;
+  border: 1px solid #3c3633;
+  border-radius: 10px;
+  box-shadow: 3px 4px 1px 1px rgba(0, 0, 0, 0.25);
 }
 
 .properties-and-requests-container {
-    margin-right: 2%;
-    width: 700px;
+  margin-right: 2%;
+  width: 700px;
 }
 
-
 @media only screen and (max-width: 1200px) {
-    .user-profile-container {
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      
-    }
+  .user-profile-container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
 
-    .my-profile-container, 
-    .properties-and-requests-container{
-        padding: 0;
-        margin: 0;
-      }
+  }
 
-    .user-profile-container {
-        height: auto;
-    }
+  .my-profile-container,
+  .properties-and-requests-container {
+    padding: 0;
+    margin: 0;
+  }
+
+  .user-profile-container {
+    height: auto;
+  }
 }
 
 @media only screen and (max-width: 768px) {
-    .properties-and-requests-container,
-    .properties-content,
-    .requests-content {
-        width: 90%;
-    }
 
-    .my-profile-container {
-        width: auto;
-    }
+  .properties-and-requests-container,
+  .properties-content,
+  .requests-content {
+    width: 90%;
+  }
+
+  .my-profile-container {
+    width: auto;
+  }
 }

@@ -1,16 +1,17 @@
 .property-box {
-    border: 1px solid #8da9e7;
     max-width: 600px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 3%;
     display: flex;
     flex-direction: column;
     overflow-y: auto;
+    border: 2px solid #3c3633;
+    border-radius: 10px;
+    box-shadow: 3px 4px 1px 1px rgba(0, 0, 0, 0.25);
 }
 
 .property-header {
     font-size: 1.5em;
     margin-bottom: 8px;
+    color: #3c3633;
 }
 
 .property-content {
@@ -38,6 +39,7 @@
 
 .property-details {
     flex: 1;
+    color: #3c3633;
 }
 
 .property-title {
@@ -70,7 +72,7 @@
 .like-button,
 .message-button {
     flex: 1;
-    background-color: #8da9e7;
+    background-color: #3c3633;
     color: #fff;
     border: none;
     padding: 8px 12px;
@@ -80,13 +82,13 @@
 }
 
 .like-button:hover {
-    background-color: #fff;
-    color: #8da9e7;
+    background-color: #e0ccbe;
+    color: #3c3633;
 }
 
 .message-button:hover {
-    background-color: #fff;
-    color: #8da9e7;
+    background-color: #e0ccbe;
+    color: #3c3633;
 }
 
 @media only screen and (max-width: 1200px) {

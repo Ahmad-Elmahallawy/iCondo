@@ -34,7 +34,7 @@ model Role {
 }
 
 model User {
-  id                Int                @id(map: "user_pkey") @default(autoincrement())
+  id                Int                @id(map: "user_pkey") @unique @default(autoincrement())
   email             String             @unique @db.VarChar(255)
   role_id           Int
   password          String?            @db.VarChar(500)

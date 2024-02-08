@@ -6,6 +6,7 @@ const { PrismaClient } = require("@prisma/client");
 const { async } = require("sonarqube-scanner");
 const prisma = new PrismaClient();
 
+
 // Generate JWT
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -23,9 +24,8 @@ const registerUser = asyncHandler(async (req, res) => {
     role,
     phone_number,
   } = req.body;
-  if (!first_name || !last_name || !email || !password || !role || !username) {
-    res.status(400);
-    throw new Error("Please add all fields");
+  if (first_name == null || last_name == null || email == null || password == null || role == null || username == null || phone_number == null) {
+    return res.status(400).json({ error: "Please add all fields" });
   }
   // Check if user exists
   const userExists = await prisma.User.findUnique({
@@ -35,12 +35,10 @@ const registerUser = asyncHandler(async (req, res) => {
     where: { name: role },
   });
   if (!roleRecord) {
-    res.status(400);
-    throw new Error("Invalid role specified");
+    return res.status(400).json({ error: "Invalid role specified" })
   }
   if (userExists) {
-    res.status(400);
-    throw new Error("User already exists");
+    return res.status(400).json({ error: "User already exists" });
   }
 
   //Hash password
@@ -69,9 +67,7 @@ const registerUser = asyncHandler(async (req, res) => {
       role: roleRecord.name,
     });
   } catch (error) {
-    console.error(error);
-    res.status(400);
-    throw new Error("Invalid user data");
+    return res.status(400).json({ error: "Invalid user data" });
   }
 });
 
@@ -94,8 +90,7 @@ const registerAdminCompany = asyncHandler(async (req, res) => {
     !username ||
     !company_name
   ) {
-    res.status(400);
-    throw new Error("Please add all fields");
+    return res.status(400).json({error:"Please add all fields"})
   }
   // Check if user exists
   const userExists = await prisma.User.findUnique({
@@ -104,13 +99,9 @@ const registerAdminCompany = asyncHandler(async (req, res) => {
   const roleRecord = await prisma.Role.findFirst({
     where: { name: "Admin" },
   });
-  if (!roleRecord) {
-    res.status(400);
-    throw new Error("Invalid role specified");
-  }
   if (userExists) {
     res.status(400);
-    throw new Error("User already exists");
+    return res.status(400).json({error:"User already exists"})
   }
 
   //Hash password
@@ -149,6 +140,7 @@ const registerAdminCompany = asyncHandler(async (req, res) => {
       phone_number: newUser.phone_number,
       token: generateToken(newUser.id),
       role: roleRecord.name,
+      company_name: newCompany.name,
     });
   } catch (error) {
     console.error(error);
@@ -161,19 +153,18 @@ const login = asyncHandler(async (req, res) => {
   const { email, password } = req.query;
 
   if (!email || !password) {
-    res.status(400);
-    throw new Error("Please add all fields");
+    return res.status(400).json({ error: "Please add all fields" });
   }
 
   const user = await prisma.User.findUnique({
     where: { email },
   });
+
   const roleRecord = await prisma.Role.findUnique({
     where: { id: user.role_id },
   });
-
   if (user && (await bcrypt.compare(password, user.password))) {
-    res.json({
+    res.status(200).json({
       _id: user.id,
       first_name: user.first_name,
       last_name: user.last_name,
@@ -184,8 +175,7 @@ const login = asyncHandler(async (req, res) => {
       role: roleRecord.name,
     });
   } else {
-    res.status(401);
-    throw new Error("Invalid credentials");
+    return res.status(401).json({ error: "Invalid credentials" });
   }
 });
 
@@ -194,15 +184,14 @@ const getUser = asyncHandler(async (req, res) => {
   const user = await prisma.User.findFirst({
     where: { id: parseInt(userid) },
   });
+  if (!user) {
+    return res.status(400).json({ error: 'User doesn\'t exist' });
+  }
   const roleRecord = await prisma.Role.findUnique({
     where: { id: user.role_id },
   });
 
-  if (!user) {
-    res.status(400);
-    throw new Error("User doesn't exist");
-  }
-  res.json({
+  res.status(201).json({
     _id: user.id,
     first_name: user.first_name,
     last_name: user.last_name,
@@ -215,34 +204,24 @@ const getUser = asyncHandler(async (req, res) => {
 
 const modifyUser = asyncHandler(async (req, res) => {
   const { id } = req.body;
-  const user = await prisma.User.findFirst({
+  const user = await prisma.user.findUnique({
     where: { id: parseInt(id) },
   });
 
   if (!user) {
-    res.status(400);
-    throw new Error("User doesn't exist");
+    return res.status(400).json({ error: "User doesn't exist" });
   }
 
   if (await doesNewUserExist("email", req.body.email, user.email)) {
-    res.status(400);
-    throw new Error("User with new email already exists");
+    return res.status(400).json({ error: "User with new email already exists" });
   }
 
   if (await doesNewUserExist("username", req.body.username, user.username)) {
-    res.status(400);
-    throw new Error("User with new username already exists");
+    return res.status(400).json({ error: "User with new username already exists" });
   }
 
-  if (
-    await doesNewUserExist(
-      "phone_number",
-      req.body.phone_number,
-      user.phone_number
-    )
-  ) {
-    res.status(400);
-    throw new Error("User with new phone number already exists");
+  if (await doesNewUserExist("phone_number", req.body.phone_number,user.phone_number)) {
+    return res.status(400).json({ error: "User with new phone number already exists" });
   }
 
   if (req.body.password) {
@@ -262,7 +241,7 @@ const modifyUser = asyncHandler(async (req, res) => {
     },
     data: user,
   });
-  res.json(updatedUser);
+  res.status(201).json(updatedUser);
 });
 
 const doesNewUserExist = asyncHandler(async (name, newValue, currentValue) => {
@@ -351,6 +330,8 @@ const registerEmployee = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+
 
 module.exports = {
   registerUser,
