@@ -159,7 +159,7 @@ The Condo Management Systems project aims to develop a comprehensive software so
 ## Domain Model
 ![Diagrams-Domain Model drawio](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/08fcadb1-b122-4081-a1f2-772e96e6f52d)
 
-## Class Digram
+## Class Diagram
 ![Diagrams-Class Diagram drawio](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/323bfa9d-6df0-475d-8653-fe6b6beeb0dc)
 
 ## Deployment Diagram
