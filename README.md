@@ -107,6 +107,50 @@ cloudflared access tcp --hostname devdbcondos.happyfir.com --url localhost:5433
 ```
 cloudflared access tcp --hostname dbcondos.happyfir.com --url localhost:5433
 ```
+
+## Naming Conventions
+In this project, we adhere to certain naming conventions to ensure consistency and clarity throughout the codebase. These conventions apply to variables, functions, classes, files, and any other identifiers used in the project.
+1. Variable Naming
+- Variables should be named using descriptive and meaningful names.
+- Use snake_case for variable names.
+- Avoid using single-letter variable names except for simple loop counters
+```
+// Good
+let first_name = "Alex";
+let last_name = "Smith";
+
+// Avoid
+let firstName = "Smith";
+```
+
+2. Function Naming
+- Function names should accurately describe the action or behavior performed by the function.
+- Use camelCase for function names.
+```
+// Good
+function calculateTotalPrice(){
+  // Function logic here
+}
+
+// Avoid
+function calc(){
+  // Function logic here
+}
+```
+3. File naming
+- File names should be descriptive and reflect the content or purpose of the file.
+- Use camelCase for file names.
+```
+userController.js
+condoController.js
+```
+4. Constant Naming
+- Constants should be named using all uppercase letters.
+- Use underscores (_) to separate words in constant names.
+```
+const MAX = 3;
+CONST PI = 3.41;
+```
 ## Team Members (Team 6)
 | Name   | GitHub         | Student ID | Role |
 |--------| -----          | -----------| -----|
