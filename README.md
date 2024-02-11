@@ -133,7 +133,7 @@ function calculateTotalPrice(){
 }
 
 // Avoid
-function calc(){
+function calc_price(){
   // Function logic here
 }
 ```
