@@ -137,7 +137,7 @@ function calc_price(){
   // Function logic here
 }
 ```
-3. File naming
+3. File Naming
 - File names should be descriptive and reflect the content or purpose of the file.
 - Use camelCase for file names.
 ```
