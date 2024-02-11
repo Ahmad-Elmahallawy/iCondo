@@ -149,7 +149,7 @@ condoController.js
 - Use underscores (_) to separate words in constant names.
 ```
 const MAX = 3;
-CONST PI = 3.41;
+const PI = 3.41;
 ```
 ## Team Members (Team 6)
 | Name   | GitHub         | Student ID | Role |
