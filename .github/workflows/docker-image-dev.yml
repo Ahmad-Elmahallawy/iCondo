@@ -19,10 +19,10 @@ jobs:
       run: docker build "frontend" --tag docker.happyfir.com/misc/soen390:dev
     - name: Deploy - frontend
       run: docker push docker.happyfir.com/misc/soen390:dev
-    - name: Build the Docker image - backend
-      run: docker build "backend" --tag docker.happyfir.com/misc/soen390-backend:dev
-    - name: Deploy - backend
-      run: docker push docker.happyfir.com/misc/soen390-backend:dev
+    - name: Build the Docker image - user-service
+      run: docker build "user-service" --tag docker.happyfir.com/misc/soen390-user-service:dev
+    - name: Deploy - user-service
+      run: docker push docker.happyfir.com/misc/soen390-user-service:dev
     - name: Webhook POST Action
       uses: muinmomin/webhook-action@v1.0.0
       with:

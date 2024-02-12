@@ -1,0 +1,103 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Company {
+  id               Int                @id(map: "company_pkey") @default(autoincrement())
+  name             String?            @db.VarChar(255)
+  company_employee company_Employee[]
+}
+
+model company_Employee {
+  id         Int      @id @default(autoincrement())
+  user_id    Int?
+  company_id Int?
+  company    Company? @relation(fields: [company_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_company")
+  user       User?    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_user")
+}
+
+model File {
+  id                Int         @id(map: "profile_image_pkey") @default(autoincrement())
+  bucket            String
+  name              String
+  user              User[]
+  condo_Unit        condo_Unit? @relation(fields: [condo_UnitUnit_ID], references: [unit_ID])
+  condo_UnitUnit_ID Int?
+}
+
+model Role {
+  id   Int     @id @default(autoincrement())
+  name String? @db.VarChar(255)
+  user User[]
+}
+
+model User {
+  id                Int                @id(map: "user_pkey") @unique @default(autoincrement())
+  email             String             @unique @db.VarChar(255)
+  role_id           Int
+  password          String?            @db.VarChar(500)
+  username          String             @unique(map: "user_username_key") @db.VarChar(255)
+  phone_number      String             @unique @db.VarChar(255)
+  first_name        String             @db.VarChar(255)
+  last_name         String             @db.VarChar(255)
+  profile_image_id  Int?
+  company_employees company_Employee[]
+  profile_images    File?              @relation(fields: [profile_image_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_image")
+  role              Role               @relation(fields: [role_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "rules")
+  condo_units       condo_Unit[]
+  registrationKey   registrationKey[]
+}
+
+model condo_Unit {
+  unit_ID             Int               @id @unique @default(autoincrement())
+  size                Float
+  condo_Fee           Float
+  property            Property?         @relation(fields: [propertyProperty_ID], references: [property_ID])
+  propertyProperty_ID Int?
+  parking_Spot        parkingSpot       @relation(fields: [parkingSpotSpot_ID], references: [spot_ID])
+  locker              Locker            @relation(fields: [lockerLocker_ID], references: [locker_ID])
+  parkingSpotSpot_ID  Int
+  lockerLocker_ID     Int
+  users               User[]
+  files               File[]
+  registrationKey     registrationKey[]
+}
+
+model Property {
+  property_ID   Int           @id @unique @default(autoincrement())
+  name          String
+  unit_Count    Int
+  parking_Count Int
+  locker_Count  Int
+  address       String
+  condo_Unit    condo_Unit[]
+  parkingSpot   parkingSpot[]
+  Locker        Locker[]
+}
+
+model parkingSpot {
+  spot_ID     Int          @id @unique @default(autoincrement())
+  property    Property     @relation(fields: [property_ID], references: [property_ID])
+  property_ID Int
+  condo_Unit  condo_Unit[]
+}
+
+model Locker {
+  locker_ID   Int          @id @unique @default(autoincrement())
+  property    Property     @relation(fields: [property_ID], references: [property_ID])
+  property_ID Int
+  condo_Unit  condo_Unit[]
+}
+
+model registrationKey {
+  id                Int        @id @unique @default(autoincrement())
+  user              User       @relation(fields: [userId], references: [id])
+  condo_Unit        condo_Unit @relation(fields: [condo_UnitUnit_ID], references: [unit_ID])
+  userId            Int
+  condo_UnitUnit_ID Int
+}
