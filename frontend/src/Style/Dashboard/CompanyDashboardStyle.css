@@ -7,10 +7,10 @@
 }
 
 .page-title {
-    font-size: 24px;
-    margin-bottom: 20px;
+    font-size: 30px;
     margin-left: 20px;
     text-align: left;
+    margin-bottom: 0px;
 }
 
 .dashboard {

@@ -13,8 +13,10 @@ const DashboardPage: React.FC = () => {
 
     return (
       <div className="dashboard-page">
-        <h2 className="page-title">Dashboard</h2>
         <div className="dashboard">
+          <div className= "row">
+            <h2 className="page-title">Dashboard</h2>
+          </div>
           <div className="row">
             <SquareCard title="Register Employee" icon= {RegisterEmployee} route="/RegisterEmployee" />
             <SquareCard title="Generate Key" icon={GenerateKey} route="/GenerateKey" />
