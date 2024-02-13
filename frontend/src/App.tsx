@@ -7,6 +7,7 @@ import UserProfileLandingPage from "./Pages/UserProfileLandingPage";
 import EmployeeRegistrationLandingPage from "./Pages/EmployeeRegistrationLandingPage";
 import Hero from "./Pages/Hero";
 import NavBar from "./Components/NavBar";
+import EmployeeRequestsLandingPage from "./Pages/EmployeeRequestsLandingPage";
 
 function App() {
   return (
@@ -17,8 +18,13 @@ function App() {
         <Route path="Login" element={<LogInLandingPage />} />
         <Route path="Register" element={<RegistrationLandingPage />} />
         <Route path="Profile" element={<UserProfileLandingPage />} />
-        <Route path="Employee/Registration" element={<EmployeeRegistrationLandingPage />} />
+        <Route
+          path="Employee/Registration"
+          element={<EmployeeRegistrationLandingPage />}
+        />
         <Route path="Profile" element={<UserProfileLandingPage />} />
+        <Route path="Requests" element={<EmployeeRequestsLandingPage />} />
+
         <Route path="*" element={<div>404 Page Not Found</div>} />
       </Routes>
     </div>
