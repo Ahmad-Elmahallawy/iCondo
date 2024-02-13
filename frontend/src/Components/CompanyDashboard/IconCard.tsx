@@ -1,15 +1,14 @@
-// Square.tsx
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../../Style/Dashboard/SquareCardStyle.css'; 
+import '../../Style/CompanyDashboard/IconCardStyle.css'; 
 
-interface SquareProps {
+interface IconProps {
   title: string;
   icon: string;
   route: string;
 }
 
-const SquareCard: React.FC<SquareProps> = ({ title, icon, route }) => {
+const IconCard: React.FC<IconProps> = ({ title, icon, route }) => {
     return (
       <Link to={route} className="square-link">
         <div className="square">
@@ -20,4 +19,4 @@ const SquareCard: React.FC<SquareProps> = ({ title, icon, route }) => {
     );
   };
   
-export default SquareCard;
+export default IconCard;

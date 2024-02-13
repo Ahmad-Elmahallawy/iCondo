@@ -1,15 +1,14 @@
-// DashboardPage.tsx
 import React from 'react';
-import SquareCard from '../Components/Dashboard/SquareCard';
-import "../Style/Dashboard/CompanyDashboardStyle.css";
+import IconCard from '../Components/CompanyDashboard/IconCard';
+import "../Style/CompanyDashboard/CompanyDashboardStyle.css";
 
 const DashboardPage: React.FC = () => {
-    const RegisterEmployee = "/Assets/RegisterEmployee.png";
-    const GenerateKey = "/Assets/GenerateKey.png";
-    const CreateProperty = "/Assets/CreateProperty.png";
-    const EmployeeList = "/Assets/EmployeeList.png";
-    const RegistrationKeyList = "/Assets/RegistrationKeyList.png";
-    const PropertiesList = "/Assets/PropertiesList.png";
+    const Register_employee = "/Assets/RegisterEmployee.png";
+    const Generate_key = "/Assets/GenerateKey.png";
+    const Create_property = "/Assets/CreateProperty.png";
+    const Employee_list = "/Assets/EmployeeList.png";
+    const Registration_key_list = "/Assets/RegistrationKeyList.png";
+    const Properties_list = "/Assets/PropertiesList.png";
 
     return (
       <div className="dashboard-page">
@@ -18,14 +17,14 @@ const DashboardPage: React.FC = () => {
             <h2 className="page-title">Dashboard</h2>
           </div>
           <div className="row">
-            <SquareCard title="Register Employee" icon= {RegisterEmployee} route="/RegisterEmployee" />
-            <SquareCard title="Generate Key" icon={GenerateKey} route="/GenerateKey" />
-            <SquareCard title="Create Property" icon={CreateProperty} route="/CreateProperty" />
+            <IconCard title="Register Employee" icon= {Register_employee} route="/RegisterEmployee" />
+            <IconCard title="Generate Key" icon={Generate_key} route="/GenerateKey" />
+            <IconCard title="Create Property" icon={Create_property} route="/CreateProperty" />
           </div>
           <div className="row">
-            <SquareCard title="Employees List" icon={EmployeeList} route="/EmployeeList" />
-            <SquareCard title="Registration Key List" icon={RegistrationKeyList} route="/RegistrationKeyList" />
-            <SquareCard title="Properties List" icon={PropertiesList} route="/PropertiesList" />
+            <IconCard title="Employees List" icon={Employee_list} route="/EmployeeList" />
+            <IconCard title="Registration Key List" icon={Registration_key_list} route="/RegistrationKeyList" />
+            <IconCard title="Properties List" icon={Properties_list} route="/PropertiesList" />
           </div>
         </div>
       </div>
