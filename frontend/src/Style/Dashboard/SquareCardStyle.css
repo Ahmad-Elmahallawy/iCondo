@@ -1,0 +1,29 @@
+.square-link {
+    text-decoration: none;
+}
+
+.square {
+    width: 200px;
+    height: 200px;
+    margin: 20px;
+    background-color: inherit;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    border: 2px solid var(--color4);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.icon {
+    width: 90%;
+    height: auto;
+    border-radius: 10px;
+    margin: auto;
+}
+
+.title {
+    font-size: 16px;
+    margin: 5px 0;
+    text-align: center;
+}
