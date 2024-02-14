@@ -32,7 +32,6 @@ h6 {
 
 input,
 select {
-  background-color: var(--color2);
   color: var(--color4);
   border: none;
   font-family: "inria-serif" !important;

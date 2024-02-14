@@ -8,6 +8,7 @@
 .employee-requests-key-generation,
 .employee-requests-user-list {
   width: 50%;
+  
 }
 
 @media only screen and (max-width: 768px) {
