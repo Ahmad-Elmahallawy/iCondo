@@ -2,7 +2,7 @@ import React, { useState, ChangeEvent, useEffect } from "react";
 import "../../Style/UserProfileStyle/UserInformationStyle.css";
 import { FaPen } from "react-icons/fa";
 import axios from "axios";
-import { log } from "console";
+import api from "../../api";
 
 interface UserData {
   profilePicture: File | null;
@@ -39,10 +39,7 @@ const UserInformation: React.FC<UserInformationProps> = ({ data }) => {
   // Function to fetch the profile picture URL
   const fetchProfilePicture = async (username: string): Promise<void> => {
     try {
-      const response = await axios.get(
-        `http://localhost:8000/api/file/${username}`
-      );
-      console.log("Profile picture URL:", response.data.url);
+      const response = await api.userInformation.fetchProfilePicture(username);
       if (response.data && response.data.url) {
         setProfilePictureUrl(response.data.url);
       }
