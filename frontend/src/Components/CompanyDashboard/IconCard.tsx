@@ -10,7 +10,7 @@ interface IconProps {
 
 const IconCard: React.FC<IconProps> = ({ title, icon, route }) => {
     return (
-      <Link to={route} className="square-link">
+      <Link to={route} className="square-link" data-testid="icon-card">
         <div className="square">
           <img src={icon} alt="Icon" className="icon"/>
           <h2 className="title">{title}</h2>

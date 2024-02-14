@@ -21,7 +21,7 @@
     max-width: 1200px;
 }
 
-.row {
+.dashboard-row {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
