@@ -4,7 +4,7 @@ import { FaPen } from "react-icons/fa";
 import axios from "axios";
 import api from "../../api";
 
-interface UserData {
+export interface UserData {
   profilePicture: File | null;
   username: string;
   first_name: string;
@@ -55,19 +55,15 @@ const UserInformation: React.FC<UserInformationProps> = ({ data }) => {
 
   const handleSaveClick = async (): Promise<void> => {
     try {
-      await axios.patch("http://localhost:8000/api/users", userData, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      await api.userInformation.handleSaveClick(userData);
 
       setSuccessMessage("User details updated successfully");
       setErrorMessage(null);
       if (userData.profilePicture) {
         const pictureFormData = new FormData();
         pictureFormData.append("file", userData.profilePicture);
-        await axios.post(
-          `http://localhost:8000/api/files/${data.username}`,
+        await api.userInformation.updateUserProfilePic(
+          data.username,
           pictureFormData
         );
       }

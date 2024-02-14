@@ -3,7 +3,7 @@ const urls = {
   users: {
     fetchProfilePicture: `${apiPrefix}/file`,
     updateUserDetails: `${apiPrefix}/users`,
-    updateUserProfile: `${apiPrefix}/files`,
+    updateUserProfilePic: `${apiPrefix}/files`,
   },
 };
 
