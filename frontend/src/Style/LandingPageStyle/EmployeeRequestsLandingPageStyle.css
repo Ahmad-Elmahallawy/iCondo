@@ -9,3 +9,14 @@
 .employee-requests-user-list {
   width: 50%;
 }
+
+@media only screen and (max-width: 768px) {
+  .employee-requests-landing-page-container {
+    flex-direction: column;
+  }
+
+  .employee-requests-key-generation,
+  .employee-requests-user-list {
+    width: 100%;
+  }
+}
