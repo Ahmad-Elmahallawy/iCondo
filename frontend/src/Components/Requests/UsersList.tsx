@@ -25,10 +25,22 @@ const users = [
 
 const UsersList: React.FC<UsersListProps> = ({ handleUserItemClick }) => {
   const [selectedUserId, setSelectedUserId] = useState<number>(NaN);
+  const [searchQuery, setSearchQuery] = useState<string>("");
+
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
+  };
+
   const handleClick = (user: User) => {
     setSelectedUserId(user.id);
     handleUserItemClick(user.id, user.name);
   };
+
+  // Filter users based on search query
+  const filteredUsers = users.filter((user) =>
+    user.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div className="users-list-container">
       <div className="users-list-header">
@@ -36,11 +48,16 @@ const UsersList: React.FC<UsersListProps> = ({ handleUserItemClick }) => {
       </div>
       <div className="users-list-content">
         <div className="users-list-user-result">
-          <input type="text" placeholder="Search for a Public User" />
+          <input
+            type="text"
+            placeholder="Search for a Public User"
+            value={searchQuery}
+            onChange={handleSearchChange}
+          />
         </div>
         <div className="users-scrollable-list">
-          {/* Render the list of users */}
-          {users.map((user) => (
+          {/* Render the list of filtered users */}
+          {filteredUsers.map((user) => (
             <div
               key={user.id}
               className={`user-item ${

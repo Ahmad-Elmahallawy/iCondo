@@ -34,6 +34,7 @@
   color: var(--color4);
   border-radius: 5px;
   padding: 1rem 0;
+  box-shadow: none;
 }
 
 .users-scrollable-list {

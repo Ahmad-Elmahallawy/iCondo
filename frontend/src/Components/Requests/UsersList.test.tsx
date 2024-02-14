@@ -34,4 +34,23 @@ describe("UsersList component", () => {
     });
   });
 
+  it('filters the list of users based on search query', () => {
+    const handleUserItemClick = jest.fn();
+    const { getByPlaceholderText, getByText, queryByText } = render(
+      <UsersList handleUserItemClick={handleUserItemClick} />
+    );
+
+    const searchInput = getByPlaceholderText('Search for a Public User');
+
+    // Search for 'John Doe'
+    fireEvent.change(searchInput, { target: { value: 'John Doe' } });
+    expect(getByText('John Doe')).toBeInTheDocument();
+    expect(queryByText('Jane Smith')).not.toBeInTheDocument();
+
+    // Clear the search query
+    fireEvent.change(searchInput, { target: { value: '' } });
+    expect(getByText('Jane Smith')).toBeInTheDocument();
+    expect(getByText('Alice Johnson')).toBeInTheDocument();
+  });
+
 });
