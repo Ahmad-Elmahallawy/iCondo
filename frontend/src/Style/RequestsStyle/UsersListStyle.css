@@ -32,6 +32,8 @@
   width: 100%;
   background-color: var(--color1);
   color: var(--color4);
+  border-radius: 5px;
+  padding: 1rem 0;
 }
 
 .users-scrollable-list {
