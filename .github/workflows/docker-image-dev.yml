@@ -19,13 +19,22 @@ jobs:
       run: docker build "frontend" --tag docker.happyfir.com/misc/soen390:dev
     - name: Deploy - frontend
       run: docker push docker.happyfir.com/misc/soen390:dev
+
+    - name: Sleep for 60 seconds
+      run: Start-Sleep -s 60
+      shell: powershell
+
     - name: Build the Docker image - backend
       run: docker build "backend" --tag docker.happyfir.com/misc/soen390-backend:dev
     - name: Deploy - backend
       run: docker push docker.happyfir.com/misc/soen390-backend:dev
+
+    - name: Sleep for 60 seconds
+      run: Start-Sleep -s 60
+      shell: powershell
+
     - name: Webhook POST Action
       uses: muinmomin/webhook-action@v1.0.0
-      timeout-minutes: 10
       with:
         # URL of webhook to send post request to
         url: ${{ secrets.DEV_WEBHOOK_URL }}
