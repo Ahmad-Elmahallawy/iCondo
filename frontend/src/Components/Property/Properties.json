@@ -4,34 +4,34 @@
       "title": "Windcreek Villa",
       "address": "123 Main Street, Cityville",
       "rep": "Abby Lee",
-      "imageUrl": "Assets/property1.png"
+      "image_url": "Assets/property1.png"
     },
     {
       "id": 2,
       "title": "Big Townhouse",
       "address": "456 Elm Street, Townsville",
       "rep": "Brett Borkgen",
-      "imageUrl": "Assets/property2.png"
+      "image_url": "Assets/property2.png"
     },
     {
       "id": 3,
       "title": "Another Condominium",
       "address": "222 One Street, Mainsville",
       "rep": "Abby Lee",
-      "imageUrl": "Assets/property3.png"
+      "image_url": "Assets/property3.png"
     },
     {
       "id": 4,
       "title": "Someone's Complex",
       "address": "555 Some Avenue, Hisville",
       "rep": "Brett Borkgen",
-      "imageUrl": "Assets/property4.png"
+      "image_url": "Assets/property4.png"
     },
     {
       "id": 5,
       "title": "One More Property",
       "address": "888 A Boulevard, Hersville",
       "rep": "Brett Borkgen",
-      "imageUrl": "Assets/property5.png"
+      "image_url": "Assets/property5.png"
     }
   ]

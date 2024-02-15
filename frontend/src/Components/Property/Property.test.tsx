@@ -10,7 +10,7 @@ test('renders property information correctly', () => {
     title: 'Windcreek Villa',
     address: '123 Main Street, Cityville',
     rep: 'Abby Lee',
-    imageUrl: 'Assets/property1.png'
+    image_url: 'Assets/property1.png'
   };
 
   const { getByAltText, getByText } = render(<PropertyComponent property={property} />);

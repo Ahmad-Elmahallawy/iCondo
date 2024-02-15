@@ -6,14 +6,14 @@ interface Property {
   title: string;
   address: string;
   rep: string; 
-  imageUrl: string;
+  image_url: string;
 }
 
 const PropertyComponent: React.FC<{ property: Property }> = ({ property }) => {
   return (
     <div className="property-container">
       <img
-        src={property.imageUrl}
+        src={property.image_url}
         alt={property.title}
         className="property-image"
       />

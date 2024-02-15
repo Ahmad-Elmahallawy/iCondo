@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import PropertyListPage from "./PropertyListPage";
+import PropertyListPage from "./PropertyListLandingPage";
 import "@testing-library/jest-dom/extend-expect";
 
 describe("PropertyListPage", () => {
