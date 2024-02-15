@@ -19,18 +19,13 @@ jobs:
       run: docker build "frontend" --tag docker.happyfir.com/misc/soen390:dev
     - name: Deploy - frontend
       run: docker push docker.happyfir.com/misc/soen390:dev
-
-    - name: Sleep for 60 seconds
-      run: sleep 60s
-      shell: bash
-
     - name: Build the Docker image - backend
       run: docker build "backend" --tag docker.happyfir.com/misc/soen390-backend:dev
     - name: Deploy - backend
       run: docker push docker.happyfir.com/misc/soen390-backend:dev
 
-    - name: Sleep for 60 seconds
-      run: sleep 60s
+    - name: Sleep for 10 minutes
+      run: sleep 10m
       shell: bash
 
     - name: Webhook POST Action
