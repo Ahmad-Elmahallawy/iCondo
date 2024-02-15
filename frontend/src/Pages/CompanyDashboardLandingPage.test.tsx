@@ -1,5 +1,5 @@
 import { render, fireEvent } from '@testing-library/react';
-import DashboardPage from './CompanyDashboardPage';
+import DashboardPage from './CompanyDashboardLandingPage';
 import { BrowserRouter } from 'react-router-dom';
 import '@testing-library/jest-dom/extend-expect';
 

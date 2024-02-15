@@ -1,6 +1,6 @@
 import React from 'react';
 import IconCard from '../Components/CompanyDashboard/IconCard';
-import "../Style/CompanyDashboard/CompanyDashboardStyle.css";
+import "../Style/CompanyDashboard/CompanyDashboardLandingPageStyle.css";
 
 const DashboardPage: React.FC = () => {
     const Register_employee = "/Assets/RegisterEmployee.svg";

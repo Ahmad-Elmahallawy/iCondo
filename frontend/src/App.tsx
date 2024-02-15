@@ -7,7 +7,7 @@ import UserProfileLandingPage from "./Pages/UserProfileLandingPage";
 import EmployeeRegistrationLandingPage from "./Pages/EmployeeRegistrationLandingPage";
 import Hero from "./Pages/Hero";
 import NavBar from "./Components/NavBar";
-import DashboardPage from "./Pages/CompanyDashboardPage";
+import DashboardPage from "./Pages/CompanyDashboardLandingPage";
 
 function App() {
   return (
