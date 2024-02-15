@@ -2,8 +2,8 @@
 .condoProfileContainer {
   width: 600px;
   padding: 20px;
-  border: 1px solid #515151;
-  background: #eeedeb;
+  border: 1px solid var(--color4);
+  background: var(--color1);
   border-radius: 5px;
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
   margin: auto;
@@ -11,7 +11,7 @@
 }
 
 .condoProfileContainer h2 {
-  color: #474747;
+  color: var(--color4);
   margin-bottom: 15px;
   margin-top: -10px;
 }
@@ -24,25 +24,25 @@
   cursor: pointer;
   border: none;
   border-radius: 6px;
-  color: #fff;
+  color: var(--color1);
   align-self: center;
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.35);
 }
 
 .editButton {
-  background: #747264;
-  border: 1px solid #747264;
+  background: var(--color3);
+  border: 1px solid var(--color3);
   width: 65px;
 }
 
 .editModeButton {
-  background: #57595b;
-  border: 1px solid #5a5a5c;
+  background: var(--color3);
+  border: 1px solid var(--color3);
 }
 
 .cancelButton {
-  background: #f90303;
-  border-color: #f80505;
+  background: var(--cancel);
+  border-color: var(--cancel);
   margin-left: 10px;
 }
 

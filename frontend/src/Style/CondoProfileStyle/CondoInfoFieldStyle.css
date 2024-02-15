@@ -6,8 +6,8 @@
   padding: 5px;
   border-radius: 7px;
   margin-bottom: 10px;
-  background: #eeedeb;
-  border: 0.5px solid #515151;
+  background: var(--color1);
+  border: 0.5px solid var(--color4);
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
 }
 
@@ -18,12 +18,13 @@
 
 .condoProfileContainer input[type="text"] {
   flex: 1;
-  color: #666;
+  color: var(--color4);
   border-radius: 4px;
-  background: #eeedeb;
   text-align: end;
+  box-shadow: none;
+  background: var(--color1);
 }
 
 .input-value {
-  color: #666;
+  color: var(--color4);
 }
