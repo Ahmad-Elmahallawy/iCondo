@@ -1,0 +1,51 @@
+/* condoProfileContainer.css */
+.condoProfileContainer {
+  width: 600px;
+  padding: 20px;
+  border: 1px solid #515151;
+  background: #eeedeb;
+  border-radius: 5px;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+  margin: auto;
+  height: auto;
+}
+
+.condoProfileContainer h2 {
+  color: #474747;
+  margin-bottom: 15px;
+  margin-top: -10px;
+}
+
+/* buttonsStyles.css */
+.editButton,
+.editModeButton,
+.cancelButton {
+  padding: 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  align-self: center;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.35);
+}
+
+.editButton {
+  background: #747264;
+  border: 1px solid #747264;
+  width: 65px;
+}
+
+.editModeButton {
+  background: #57595b;
+  border: 1px solid #5a5a5c;
+}
+
+.cancelButton {
+  background: #f90303;
+  border-color: #f80505;
+  margin-left: 10px;
+}
+
+.buttons-container {
+  text-align: center;
+}

@@ -1,0 +1,29 @@
+/* inputFieldStyles.css */
+.input-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  border-radius: 7px;
+  margin-bottom: 10px;
+  background: #eeedeb;
+  border: 0.5px solid #515151;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.input-label,
+.condoProfileContainer input[type="text"] {
+  font-size: 16px;
+}
+
+.condoProfileContainer input[type="text"] {
+  flex: 1;
+  color: #666;
+  border-radius: 4px;
+  background: #eeedeb;
+  text-align: end;
+}
+
+.input-value {
+  color: #666;
+}
