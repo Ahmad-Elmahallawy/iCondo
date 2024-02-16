@@ -8,12 +8,12 @@ datasource db {
 }
 
 model Company {
-  id               Int                @id(map: "company_pkey") @default(autoincrement())
-  name             String?            @db.VarChar(255)
-  company_employee company_Employee[]
+  id               Int               @id(map: "company_pkey") @default(autoincrement())
+  name             String?           @db.VarChar(255)
+  company_employee CompanyEmployee[]
 }
 
-model company_Employee {
+model CompanyEmployee {
   id         Int      @id @default(autoincrement())
   user_id    Int?
   company_id Int?
@@ -22,12 +22,13 @@ model company_Employee {
 }
 
 model File {
-  id           Int         @id(map: "profile_image_pkey") @default(autoincrement())
-  bucket       String
-  name         String
-  user         User[]
-  condo_unit   condo_Unit? @relation(fields: [condounit_id], references: [unit_ID])
-  condounit_id Int?
+  id          Int        @id(map: "profile_image_pkey") @default(autoincrement())
+  bucket      String
+  name        String
+  user        User?      @relation(fields: [userId], references: [id])
+  userId      Int?
+  CondoUnit   CondoUnit? @relation(fields: [condoUnitId], references: [id])
+  condoUnitId Int?
 }
 
 model Role {
@@ -37,67 +38,73 @@ model Role {
 }
 
 model User {
-  id                Int                @id(map: "user_pkey") @unique @default(autoincrement())
-  email             String             @unique @db.VarChar(255)
+  id                Int               @id(map: "user_pkey") @unique @default(autoincrement())
+  email             String            @unique @db.VarChar(255)
   role_id           Int
-  password          String?            @db.VarChar(500)
-  username          String             @unique(map: "user_username_key") @db.VarChar(255)
-  phone_number      String             @unique @db.VarChar(255)
-  first_name        String             @db.VarChar(255)
-  last_name         String             @db.VarChar(255)
-  profile_image_id  Int?
-  company_employees company_Employee[]
-  profile_images    File?              @relation(fields: [profile_image_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_image")
-  role              Role               @relation(fields: [role_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "rules")
-  condo_units       condo_Unit[]
-  registration_key  registration_Key[]
+  password          String?           @db.VarChar(500)
+  username          String            @unique(map: "user_username_key") @db.VarChar(255)
+  phone_number      String            @unique @db.VarChar(255)
+  first_name        String            @db.VarChar(255)
+  last_name         String            @db.VarChar(255)
+  company_employees CompanyEmployee[]
+  role              Role              @relation(fields: [role_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "rules")
+  UserCondo         UserCondo[]
+  profile_image     File[]
 }
 
-model condo_Unit {
-  unit_ID          Int                @id @unique @default(autoincrement())
-  size             Float
-  condo_Fee        Float
-  property         Property?          @relation(fields: [property_id], references: [property_id])
-  property_id      Int?
-  parking_Spot     parking_Spot       @relation(fields: [parkingspot_id], references: [spot_id])
-  locker           Locker             @relation(fields: [locker_id], references: [locker_id])
-  parkingspot_id   Int
-  locker_id        Int
-  users            User[]
-  files            File[]
-  registration_key registration_Key[]
+model CondoUnit {
+  id              Int               @id @unique @default(autoincrement())
+  size            Float
+  condo_Fee       Float
+  property        Property?         @relation(fields: [property_id], references: [property_id])
+  property_id     Int?
+  parking_Spot    ParkingSpot       @relation(fields: [parkingspot_id], references: [spot_id])
+  locker          Locker            @relation(fields: [locker_id], references: [locker_id])
+  parkingspot_id  Int               @unique
+  locker_id       Int               @unique
+  RegistrationKey RegistrationKey[]
+  UserCondo       UserCondo[]
+  file            File[]
 }
 
 model Property {
-  property_id   Int            @id @unique @default(autoincrement())
+  property_id   Int           @id @unique @default(autoincrement())
   name          String
   unit_count    Int
   parking_count Int
   locker_Count  Int
   address       String
-  condo_unit    condo_Unit[]
-  parking_spot  parking_Spot[]
+  condo_unit    CondoUnit[]
+  parking_spot  ParkingSpot[]
   Locker        Locker[]
 }
 
-model parking_Spot {
-  spot_id     Int          @id @unique @default(autoincrement())
-  property    Property     @relation(fields: [property_id], references: [property_id])
+model ParkingSpot {
+  spot_id     Int        @id @unique @default(autoincrement())
+  property    Property   @relation(fields: [property_id], references: [property_id])
   property_id Int
-  condo_unit  condo_Unit[]
+  condo_unit  CondoUnit?
 }
 
 model Locker {
-  locker_id   Int          @id @unique @default(autoincrement())
-  property    Property     @relation(fields: [property_id], references: [property_id])
+  locker_id   Int        @id @unique @default(autoincrement())
+  property    Property   @relation(fields: [property_id], references: [property_id])
   property_id Int
-  condo_unit  condo_Unit[]
+  CondoUnit   CondoUnit?
 }
 
-model registration_Key {
-  id            Int        @id @unique @default(autoincrement())
-  user          User       @relation(fields: [userId], references: [id])
-  condo_unit    condo_Unit @relation(fields: [condo_unit_id], references: [unit_ID])
-  userId        Int
+model RegistrationKey {
+  id            Int       @id @unique @default(autoincrement())
+  condo_unit    CondoUnit @relation(fields: [condo_unit_id], references: [id])
   condo_unit_id Int
+}
+
+model UserCondo {
+  userID  Int
+  condoID Int
+  roleID  Int
+  user    User      @relation(fields: [userID], references: [id])
+  condo   CondoUnit @relation(fields: [condoID], references: [id])
+
+  @@id([userID, condoID])
 }
