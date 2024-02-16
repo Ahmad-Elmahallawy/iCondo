@@ -7,7 +7,8 @@ import UserProfileLandingPage from "./Pages/UserProfileLandingPage";
 import EmployeeRegistrationLandingPage from "./Pages/EmployeeRegistrationLandingPage";
 import Hero from "./Pages/Hero";
 import NavBar from "./Components/NavBar";
-import CondoProfileLandingPage from "./Pages/CondoProfileLandingPage";
+import PropertiesListPage from "./Pages/PropertyListLandingPage";
+import DashboardPage from "./Pages/CompanyDashboardLandingPage";
 
 function App() {
   return (
@@ -23,7 +24,28 @@ function App() {
           element={<EmployeeRegistrationLandingPage />}
         />
         <Route path="Profile" element={<UserProfileLandingPage />} />
-        <Route path="CondoProfile" element={<CondoProfileLandingPage />} />
+        <Route path="CompanyDashboard" element={<DashboardPage />} />
+        <Route
+          path="GenerateKey"
+          element={<DashboardPage />} /*CHANGE PATH ONCE PAGE IS CREATED*/
+        />
+        <Route
+          path="RegisterEmployee"
+          element={<DashboardPage />} /*CHANGE PATH ONCE PAGE IS CREATED*/
+        />
+        <Route
+          path="CreateProperty"
+          element={<DashboardPage />} /*CHANGE PATH ONCE PAGE IS CREATED*/
+        />
+        <Route
+          path="EmployeeList"
+          element={<DashboardPage />} /*CHANGE PATH ONCE PAGE IS CREATED*/
+        />
+        <Route
+          path="RegistrationKeyList"
+          element={<DashboardPage />} /*CHANGE PATH ONCE PAGE IS CREATED*/
+        />
+        <Route path="PropertiesList" element={<PropertiesListPage />} />
         <Route path="*" element={<div>404 Page Not Found</div>} />
       </Routes>
     </div>
