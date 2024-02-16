@@ -18,7 +18,11 @@ jobs:
       - name: Deploy - frontend
         run: docker push docker.happyfir.com/misc/soen390:dev
       - name: Build the Docker image - backend
-        run: docker build "backend" --tag docker.happyfir.com/misc/soen390-backend:dev
+        run: docker build "user-service" --tag docker.happyfir.com/misc/soen390-backend:dev
+      - name: Build the Docker image - backend
+        run: docker build "condo-service" --tag docker.happyfir.com/misc/soen390-backend:dev
+      - name: Build the Docker image - backend
+        run: docker build "cost-service" --tag docker.happyfir.com/misc/soen390-backend:dev
       - name: Deploy - backend
         run: docker push docker.happyfir.com/misc/soen390-backend:dev
       - name: Webhook POST Action
