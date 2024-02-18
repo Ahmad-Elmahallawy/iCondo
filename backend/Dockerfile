@@ -1,7 +1,7 @@
 FROM node:18-alpine
 COPY . /home/node/app/
 WORKDIR /home/node/app/
-RUN npm install
+RUN npm install && npm cache clean --force
 
 EXPOSE 8000
 
