@@ -9,6 +9,7 @@ import Hero from "./Pages/Hero";
 import NavBar from "./Components/NavBar";
 import PropertiesListPage from "./Pages/PropertyListLandingPage";
 import DashboardPage from "./Pages/CompanyDashboardLandingPage";
+import CondoProfileLandingPage from "./Pages/CondoProfileLandingPage";
 
 function App() {
   return (
@@ -46,6 +47,10 @@ function App() {
           element={<DashboardPage />} /*CHANGE PATH ONCE PAGE IS CREATED*/
         />
         <Route path="PropertiesList" element={<PropertiesListPage />} />
+        <Route
+          path="CondoProfileLandingPage"
+          element={<CondoProfileLandingPage />}
+        />
         <Route path="*" element={<div>404 Page Not Found</div>} />
       </Routes>
     </div>

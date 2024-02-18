@@ -8,8 +8,6 @@ interface CondoInfo {
   condoId: string;
   netArea: string;
   occupantName: string;
-  parkingSpotCount: string;
-  lockerCount: string;
   bathrooms: string;
   bedrooms: string;
   condoType: string;

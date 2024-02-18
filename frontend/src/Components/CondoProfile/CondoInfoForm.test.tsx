@@ -9,8 +9,6 @@ describe("CondoInfoForm", () => {
     condoId: "1",
     netArea: "100",
     occupantName: "John Doe",
-    parkingSpotCount: "2",
-    lockerCount: "1",
     bathrooms: "2",
     bedrooms: "3",
     condoType: "Apartment",
