@@ -1,7 +1,9 @@
+// CondoCreation.js
 import React from "react";
 import { useFormik } from "formik";
 import { condoInitialValues } from "../Common/InitialValues";
 import { condoValidationSchema } from "../Common/ValidationSchema";
+import "../../Style/CondoProfileStyle/CondoCreationStyle.css";
 
 const CondoCreation = () => {
   const formik = useFormik({
@@ -11,47 +13,62 @@ const CondoCreation = () => {
       console.log(values); // Handle form submission
     },
   });
+
   return (
     <div className="condo-creation-form-container">
-      <div className="condo-creation-property-name-and-company-name"></div>
+      <div className="condo-creation-property-name-and-company-name">
+        <h1>Property Name Here</h1>
+        <h2>Company Name Here</h2>
+      </div>
       <form onSubmit={formik.handleSubmit}>
-        <label>
-          Condo Unit Number:
+        <div className="condo-creation-wrapper">
           <input
             type="text"
             name="unitNumber"
             value={formik.values.unitNumber}
             onChange={formik.handleChange}
+            placeholder="Condo Unit ID"
           />
-          {formik.errors.unitNumber && formik.touched.unitNumber && (
-            <div>{formik.errors.unitNumber}</div>
+          {formik.touched.unitNumber && formik.errors.unitNumber ? (
+            <p className="error-msg">{formik.errors.unitNumber}</p>
+          ) : (
+            <p className="error-msg-alternative"></p>
           )}
-        </label>
-        <label>
-          Net Area:
+        </div>
+        <div className="condo-creation-wrapper">
           <input
-            type="number"
+            type="text"
             name="netArea"
+            placeholder="Net Area"
             value={formik.values.netArea}
             onChange={formik.handleChange}
           />
-          {formik.errors.netArea && formik.touched.netArea && (
-            <div>{formik.errors.netArea}</div>
+          {formik.touched.netArea && formik.errors.netArea ? (
+            <p className="error-msg">{formik.errors.netArea}</p>
+          ) : (
+            <p className="error-msg-alternative"></p>
           )}
-        </label>
-        <label>
-          Condo Fee:
+        </div>
+        <div className="condo-creation-wrapper">
           <input
-            type="number"
+            type="text"
             name="condoFee"
+            placeholder="Condo Fee"
             value={formik.values.condoFee}
             onChange={formik.handleChange}
           />
-          {formik.errors.condoFee && formik.touched.condoFee && (
-            <div>{formik.errors.condoFee}</div>
+          {formik.touched.condoFee && formik.errors.condoFee ? (
+            <p className="error-msg">{formik.errors.condoFee}</p>
+          ) : (
+            <p className="error-msg-alternative"></p>
           )}
-        </label>
-        <button type="submit">Submit</button>
+        </div>
+        <textarea
+          className="extra-information-textarea"
+          name="extraInformation"
+          placeholder="Add extra information here"
+        />
+        <button type="submit">Create Condo Unit</button>
       </form>
     </div>
   );

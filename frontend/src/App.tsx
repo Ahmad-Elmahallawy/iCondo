@@ -49,7 +49,7 @@ function App() {
         />
         <Route path="PropertiesList" element={<PropertiesListPage />} />
         <Route
-          path="CondoProfileLandingPage"
+          path="CondoProfile"
           element={<CondoProfileLandingPage />}
         />
         <Route path="CondoCreation" element={<CondoCreationLandingPage />} />

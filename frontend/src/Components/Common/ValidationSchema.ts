@@ -32,6 +32,11 @@ export const loginValidationSchema = Yup.object({
 
 export const condoValidationSchema = Yup.object({
   unitNumber: Yup.string().required("Required"),
-  netArea: Yup.number().required("Required"),
-  condoFee: Yup.number().required("Required"),
+  netArea: Yup.string()
+    .required("Required")
+    .matches(/^[0-9]+$/, "Net Area must be a number"),
+
+  condoFee: Yup.string()
+    .required("Required")
+    .matches(/^[0-9]+$/, "Condo Fee must be a number"),
 });
