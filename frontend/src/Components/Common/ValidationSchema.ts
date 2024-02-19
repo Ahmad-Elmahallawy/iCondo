@@ -29,3 +29,9 @@ export const loginValidationSchema = Yup.object({
     .min(8, "Password must be at least 8 characters long")
     .required("Required"),
 });
+
+export const condoValidationSchema = Yup.object({
+  unitNumber: Yup.string().required("Required"),
+  netArea: Yup.number().required("Required"),
+  condoFee: Yup.number().required("Required"),
+});
