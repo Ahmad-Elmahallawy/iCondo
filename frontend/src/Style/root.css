@@ -58,3 +58,12 @@ select:focus {
   outline: none;
   box-shadow: 0 0 5px var(--color4);
 }
+.error-msg {
+  color: red;
+  margin: 0;
+}
+
+.error-msg-alternative {
+  margin-top: 3px;
+  visibility: hidden;
+}
