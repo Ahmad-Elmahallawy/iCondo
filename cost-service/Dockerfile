@@ -3,6 +3,6 @@ COPY . /home/node/app/
 WORKDIR /home/node/app/
 RUN npm install
 
-EXPOSE 8002
+EXPOSE 8000
 
 CMD ["node", "/home/node/app/index.js"]
