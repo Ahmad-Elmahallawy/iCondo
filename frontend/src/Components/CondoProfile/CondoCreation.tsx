@@ -68,7 +68,7 @@ const CondoCreation = () => {
           name="extraInformation"
           placeholder="Add extra information here"
         />
-        <button type="submit">Create Condo Unit</button>
+        <button  type="submit">Create Condo Unit</button>
       </form>
     </div>
   );
