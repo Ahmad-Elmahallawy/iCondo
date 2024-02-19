@@ -28,7 +28,7 @@ jobs:
       - name: Build the Docker image - cost-service
         run: docker build "cost-service" --tag docker.happyfir.com/misc/soen390-costservice:dev
       - name: Deploy - cost-service
-        run: docker push docker.happyfir.com/misc/soen390-cost-service:dev
+        run: docker push docker.happyfir.com/misc/soen390-costservice:dev
       - name: Webhook POST Action
         uses: muinmomin/webhook-action@v1.0.0
         id: post0
