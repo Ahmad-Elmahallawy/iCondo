@@ -23,8 +23,36 @@ jobs:
       run: docker build "backend" --tag docker.happyfir.com/misc/soen390-backend:dev
     - name: Deploy - backend
       run: docker push docker.happyfir.com/misc/soen390-backend:dev
+
     - name: Webhook POST Action
       uses: muinmomin/webhook-action@v1.0.0
+      id: post0
+      continue-on-error: true
+      with:
+        # URL of webhook to send post request to
+        url: ${{ secrets.DEV_WEBHOOK_URL }}
+
+    - name: Webhook POST Action - Retry 1
+      uses: muinmomin/webhook-action@v1.0.0
+      id: post1
+      if: steps.post0.outcome == 'failure'
+      continue-on-error: true
+      with:
+        # URL of webhook to send post request to
+        url: ${{ secrets.DEV_WEBHOOK_URL }}
+
+    - name: Webhook POST Action - Retry 2
+      uses: muinmomin/webhook-action@v1.0.0
+      id: post2
+      if: steps.post1.outcome == 'failure'
+      with:
+        # URL of webhook to send post request to
+        url: ${{ secrets.DEV_WEBHOOK_URL }}
+
+    - name: Webhook POST Action - Retry 3
+      uses: muinmomin/webhook-action@v1.0.0
+      id: post3
+      if: steps.post2.outcome == 'failure'
       with:
         # URL of webhook to send post request to
         url: ${{ secrets.DEV_WEBHOOK_URL }}
