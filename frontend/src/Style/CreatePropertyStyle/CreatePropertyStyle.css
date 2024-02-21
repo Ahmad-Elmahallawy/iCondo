@@ -1,0 +1,79 @@
+.create-property-container {
+    display: inline-block;
+    padding: 2rem;
+    border: 1px solid var(--color4);
+    border-radius: 5px;
+    width: 50%;
+}
+
+.create-property-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.create-property-container form .create-property-input,
+.create-property-container form .create-property-upload {
+    display: flex;
+    flex-direction: column;
+}
+
+.create-property-container form input,
+.create-property-container form button {
+    background-color: var(--color4);
+    color: var(--color1);
+    padding: 0.4rem;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.create-property-container form input::placeholder {
+    color: var(--color1);
+}
+
+.create-property-container form button:hover {
+    cursor: pointer;
+}
+
+.create-property-container form button {
+    align-self: stretch;
+}
+
+
+.create-property-file {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    border: 1px solid var(--color4);
+    border-radius: 5px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.create-property-file input[type="file"] {
+    display: none;
+}
+
+.create-property-drag-drop {
+    color: var(--color4);
+}
+
+.custom-file-upload {
+    border: 1px solid var(--color4);
+    background-color: var(--color4);
+    color:white;
+    border-radius: 5px;
+    padding: 0.5rem;
+}
+
+.create-property-file label {
+    cursor: pointer;
+}
+
+.create-property-upload button:hover {
+    background-color: var(--color1); 
+    color: var(--color4); 
+    cursor: pointer;
+}
