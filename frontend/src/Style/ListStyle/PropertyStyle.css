@@ -1,0 +1,13 @@
+/* PropertyStyle.css */
+.property-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.property-address {
+  font-size: 14px;
+}
+
+
+

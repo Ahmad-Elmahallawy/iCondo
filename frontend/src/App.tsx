@@ -10,6 +10,7 @@ import NavBar from "./Components/NavBar";
 import PropertiesListPage from "./Pages/PropertyListLandingPage";
 import DashboardPage from "./Pages/CompanyDashboardLandingPage";
 import CondoProfileLandingPage from "./Pages/CondoProfileLandingPage";
+import PropertyProfileLandingPage from "./Pages/PropertyProfileLandingPage";
 
 function App() {
   return (
@@ -47,6 +48,8 @@ function App() {
           element={<DashboardPage />} /*CHANGE PATH ONCE PAGE IS CREATED*/
         />
         <Route path="PropertiesList" element={<PropertiesListPage />} />
+        <Route path="PropertyProfile" element={<PropertyProfileLandingPage />} />
+ 
         <Route
           path="CondoProfileLandingPage"
           element={<CondoProfileLandingPage />}

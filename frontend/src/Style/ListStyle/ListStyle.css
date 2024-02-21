@@ -1,0 +1,71 @@
+/* List.css */
+.list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.items-container {
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap to next line if needed */
+  justify-content: center;
+}
+
+.item-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+  padding: 30px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: transform 0.2s;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Shadow around each item */
+}
+
+.item-wrapper:hover {
+    transform: translateY(-5px);
+    cursor: pointer;
+  }
+
+.item-image {
+  width: 200px;
+  height: 150px;
+  object-fit: cover;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.item-title {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem; /* Adjust top margin */
+}
+
+.scroll-button {
+  background-color: transparent; /* Set button background color to transparent */
+  color: var(--color4); /* Set button color to match color scheme */
+  padding: 5px; /* Add padding for spacing */
+}
+
+.scroll-button:hover {
+  background-color: var(--color2); /* Set hover background color to transparent */
+  color: var(--color4); /* Set hover color to match color scheme */
+}
+
+.nav-icon {
+  font-size: 24px; /* Adjust icon size */
+}
+
+/* Media query for smaller screens */
+@media only screen and (max-width: 768px) {
+  .items-container {
+    width: 90%; 
+  }
+}
