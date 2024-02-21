@@ -4,12 +4,14 @@ import {StyleSheet, Text, View, ImageBackground, SafeAreaView, Dimensions} from 
 import Splash from './screens/auth/Splash/index'
 import SignUp from './screens/auth/SignUp/index'
 import {useState} from "react";
+import SignIn from "./screens/auth/SignIn";
 export default function App() {
     const [theme, setTheme] = useState('light')
   return (
     <SafeAreaView>
-          <Splash/>
-        {/*<SignUp/>*/}
+          {/*<Splash/>*/}
+        {/*<SignIn/>*/}
+        <SignUp/>
       </SafeAreaView>
   )
 }
