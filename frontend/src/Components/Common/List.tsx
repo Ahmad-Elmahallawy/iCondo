@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Button } from "@mui/material";
 import { NavigateBefore, NavigateNext } from "@mui/icons-material";
-import "../../Style/ListStyle/ListStyle.css";
+import "../../Style/CommonStyle/ListStyle.css";
 
 interface ListProps<T> {
   items: T[];

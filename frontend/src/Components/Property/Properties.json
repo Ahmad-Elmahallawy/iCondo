@@ -3,45 +3,45 @@
     "id": 1,
     "title": "Windcreek Villa",
     "address": "123 Main Street, Cityville",
-    "unit_count": "50",
-    "parking_spot_count": "100",
-    "locker_count": "25",
-    "image_url": "Assets/property1.svg"
+    "unitCount": "50",
+    "parkingSpotCount": "100",
+    "lockerCount": "25",
+    "imageUrl": "Assets/property1.svg"
   },
   {
     "id": 2,
     "title": "Big Townhouse",
     "address": "456 Elm Street, Townsville",
-    "unit_count": "30",
-    "parking_spot_count": "60",
-    "locker_count": "15",
-    "image_url": "Assets/property2.svg"
+    "unitCount": "30",
+    "parkingSpotCount": "60",
+    "lockerCount": "15",
+    "imageUrl": "Assets/property2.svg"
   },
   {
     "id": 3,
     "title": "Another Condominium",
     "address": "222 One Street, Mainsville",
-    "unit_count": "40",
-    "parking_spot_count": "80",
-    "locker_count": "20",
-    "image_url": "Assets/property3.svg"
+    "unitCount": "40",
+    "parkingSpotCount": "80",
+    "lockerCount": "20",
+    "imageUrl": "Assets/property3.svg"
   },
   {
     "id": 4,
     "title": "Someone's Complex",
     "address": "555 Some Avenue, Hisville",
-    "unit_count": "20",
-    "parking_spot_count": "40",
-    "locker_count": "10",
-    "image_url": "Assets/property4.svg"
+    "unitCount": "20",
+    "parkingSpotCount": "40",
+    "lockerCount": "10",
+    "imageUrl": "Assets/property4.svg"
   },
   {
     "id": 5,
     "title": "One More Property",
     "address": "888 A Boulevard, Hersville",
-    "unit_count": "35",
-    "parking_spot_count": "70",
-    "locker_count": "18",
-    "image_url": "Assets/property5.svg"
+    "unitCount": "35",
+    "parkingSpotCount": "70",
+    "lockerCount": "18",
+    "imageUrl": "Assets/property5.svg"
   }
 ]

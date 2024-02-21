@@ -19,7 +19,7 @@
   width: 95%;
 }
 
-.addUnitButton {
+.add-unit-button {
   padding: 10px;
   cursor: pointer;
   border: none;
@@ -51,7 +51,7 @@
     margin: 1rem;
   }
 
-  .addUnitButton {
+  .add-unit-button {
     position: absolute;
     top: 0;
     right: 0;

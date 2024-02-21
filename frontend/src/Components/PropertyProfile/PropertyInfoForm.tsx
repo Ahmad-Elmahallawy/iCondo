@@ -1,4 +1,3 @@
-// PropertyInfoForm.tsx
 import React, { useState } from "react";
 import PropertyInfoField from "./PropertyInfoField"; // Adjust the path as needed
 import "../../Style/PropertyProfileStyle/PropertyInfoFormStyle.css";
@@ -6,19 +5,19 @@ import "../../Style/PropertyProfileStyle/PropertyInfoFormStyle.css";
 interface PropertyInfo {
   title: string;
   address: string;
-  unit_count: string;
-  parking_spot_count: string;
-  locker_count: string;
+  unitCount: string;
+  parkingSpotCount: string;
+  lockerCount: string;
 }
 
 type PropertyInfoFormProps = {
-  property_info: PropertyInfo;
+  propertyInfo: PropertyInfo;
   onSave: (info: PropertyInfo) => void;
 };
 
-const PropertyInfoForm: React.FC<PropertyInfoFormProps> = ({ property_info, onSave }) => {
+const PropertyInfoForm: React.FC<PropertyInfoFormProps> = ({ propertyInfo, onSave }) => {
   const [isEditMode, setEditMode] = useState(false);
-  const [tempInfo, setTempInfo] = useState<PropertyInfo>(property_info);
+  const [tempInfo, setTempInfo] = useState<PropertyInfo>(propertyInfo);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -37,14 +36,14 @@ const PropertyInfoForm: React.FC<PropertyInfoFormProps> = ({ property_info, onSa
   };
 
   const handleCancel = () => {
-    setTempInfo(property_info);
+    setTempInfo(propertyInfo);
     setEditMode(false);
   };
 
   return (
     <div className="property-form-container">
       <form onSubmit={isEditMode ? handleSave : undefined}>
-        {Object.keys(property_info).map((key) => (
+        {Object.keys(propertyInfo).map((key) => (
           <PropertyInfoField
             key={key}
             name={key}
@@ -60,19 +59,19 @@ const PropertyInfoForm: React.FC<PropertyInfoFormProps> = ({ property_info, onSa
         <div className="buttons-container">
           {isEditMode ? (
             <>
-              <button type="submit" className="editModeButton">
+              <button type="submit" className="edit-mode-button">
                 Save Changes
               </button>
               <button
                 type="button"
                 onClick={handleCancel}
-                className="cancelButton"
+                className="cancel-button"
               >
                 Cancel
               </button>
             </>
           ) : (
-            <button onClick={handleEdit} className="editButton">
+            <button onClick={handleEdit} className="edit-button">
               Edit
             </button>
           )}

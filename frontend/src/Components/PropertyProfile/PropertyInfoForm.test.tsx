@@ -9,15 +9,15 @@ describe("PropertyInfoForm", () => {
     id: 1,
     title: "Windcreek Villa",
     address: "123 Main Street, Cityville",
-    unit_count: "50",
-    parking_spot_count: "100",
-    locker_count: "25",
-    image_url: "Assets/property1.png",
+    unitCount: "50",
+    parkingSpotCount: "100",
+    lockerCount: "25",
+    imageUrl: "Assets/property1.png",
   };
 
   test("edit and save changes", async () => {
     const mockOnSave = jest.fn();
-    render(<PropertyInfoForm property_info={initialProperty} onSave={mockOnSave} />);
+    render(<PropertyInfoForm propertyInfo={initialProperty} onSave={mockOnSave} />);
 
     // Assuming there is a button that toggles the edit mode
     await userEvent.click(screen.getByRole("button", { name: /Edit/i }));

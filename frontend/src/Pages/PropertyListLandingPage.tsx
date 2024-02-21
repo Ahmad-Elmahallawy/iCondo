@@ -1,12 +1,12 @@
 // PropertyListLandingPage.tsx
 import React from "react";
-import List from "../Components/List/List";
+import List from "../Components/Common/List";
 import PropertyComponent from "../Components/Property/Property";
 import properties from "../Components/Property/Properties.json";
 import "../Style/LandingPageStyle/PropertyListLandingPageStyle.css";
 
 
-const PropertyListPage = () => {
+const PropertyListLandingPage = () => {
   return (
     <div className="property-list-page" data-testid="property-list-page">
       <h1>Properties List</h1>
@@ -20,4 +20,4 @@ const PropertyListPage = () => {
   );
 };
 
-export default PropertyListPage;
+export default PropertyListLandingPage;

@@ -9,7 +9,7 @@ describe('PropertyComponent', () => {
     id: 1,
     title: 'Windcreek Villa',
     address: '123 Main Street, Cityville',
-    image_url: 'Assets/property1.png',
+    imageUrl: 'Assets/property1.png',
   };
 
   test('renders property component with correct title and address', () => {
@@ -30,6 +30,6 @@ describe('PropertyComponent', () => {
     const propertyImage = getByAltText(property.title);
 
     expect(propertyImage).toBeInTheDocument();
-    expect(propertyImage.getAttribute('src')).toBe(property.image_url);
+    expect(propertyImage.getAttribute('src')).toBe(property.imageUrl);
   });
 });

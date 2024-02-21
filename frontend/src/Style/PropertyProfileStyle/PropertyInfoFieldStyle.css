@@ -12,11 +12,11 @@
   }
   
   .input-label,
-  .propertyProfileContainer input[type="text"] {
+  .property-profile-container input[type="text"] {
     font-size: 16px;
   }
   
-  .propertyProfileContainer input[type="text"] {
+  .property-profile-container input[type="text"] {
     flex: 1;
     color: var(--color4);
     border-radius: 4px;

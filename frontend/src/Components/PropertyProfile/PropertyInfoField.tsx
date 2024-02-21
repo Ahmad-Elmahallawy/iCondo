@@ -33,7 +33,7 @@ const PropertyInfoField: React.FC<PropertyInfoFieldProps> = ({
           name={name}
           value={value}
           onChange={onChange}
-          className="editModeInput"
+          className="edit-mode-input"
         />
       ) : (
         <span className="input-value">{value}</span>

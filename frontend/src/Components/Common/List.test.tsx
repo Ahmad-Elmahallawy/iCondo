@@ -8,129 +8,129 @@ import "@testing-library/jest-dom";
 
 const condos = [
   {
-    "condo_id": 1,
-    "size": "1000 sqft",
-    "occupant_name": "John Doe",
-    "bathrooms": "2",
-    "bedrooms": "3",
-    "condo_type": "Duplex",
-    "last_renovated": "2020-05-15",
-    "condo_fee": "500",
-    "image_url": "Assets/condo1.png"
+    condoId: 1,
+    size: "1000 sqft",
+    occupantName: "John Doe",
+    bathrooms: "2",
+    bedrooms: "3",
+    condoType: "Duplex",
+    lastRenovated: "2020-05-15",
+    condoFee: "500",
+    imageUrl: "Assets/condo1.png"
   },
   {
-    "condo_id": 2,
-    "size": "850 sqft",
-    "occupant_name": "Jane Smith",
-    "bathrooms": "1.5",
-    "bedrooms": "2",
-    "condo_type": "Apartment",
-    "last_renovated": "2019-10-20",
-    "condo_fee": "400",
-    "image_url": "Assets/condo2.png"
+    condoId: 2,
+    size: "850 sqft",
+    occupantName: "Jane Smith",
+    bathrooms: "1.5",
+    bedrooms: "2",
+    condoType: "Apartment",
+    lastRenovated: "2019-10-20",
+    condoFee: "400",
+    imageUrl: "Assets/condo2.png"
   },
   {
-    "condo_id": 3,
-    "size": "1200 sqft",
-    "occupant_name": "Michael Johnson",
-    "bathrooms": "2.5",
-    "bedrooms": "4",
-    "condo_type": "Townhouse",
-    "last_renovated": "2021-02-28",
-    "condo_fee": "600",
-    "image_url": "Assets/condo3.png"
+    condoId: 3,
+    size: "1200 sqft",
+    occupantName: "Michael Johnson",
+    bathrooms: "2.5",
+    bedrooms: "4",
+    condoType: "Townhouse",
+    lastRenovated: "2021-02-28",
+    condoFee: "600",
+    imageUrl: "Assets/condo3.png"
   },
   {
-    "condo_id": 4,
-    "size": "950 sqft",
-    "occupant_name": "Emily Williams",
-    "bathrooms": "2",
-    "bedrooms": "3",
-    "condo_type": "Studio",
-    "last_renovated": "2020-11-10",
-    "condo_fee": "450",
-    "image_url": "Assets/condo1.png"
+    condoId: 4,
+    size: "950 sqft",
+    occupantName: "Emily Williams",
+    bathrooms: "2",
+    bedrooms: "3",
+    condoType: "Studio",
+    lastRenovated: "2020-11-10",
+    condoFee: "450",
+    imageUrl: "Assets/condo1.png"
   },
   {
-    "condo_id": 5,
-    "size": "1100 sqft",
-    "occupant_name": "Christopher Brown",
-    "bathrooms": "2",
-    "bedrooms": "3",
-    "condo_type": "Penthouse",
-    "last_renovated": "2018-08-12",
-    "condo_fee": "700",
-    "image_url": "Assets/condo2.png"
+    condoId: 5,
+    size: "1100 sqft",
+    occupantName: "Christopher Brown",
+    bathrooms: "2",
+    bedrooms: "3",
+    condoType: "Penthouse",
+    lastRenovated: "2018-08-12",
+    condoFee: "700",
+    imageUrl: "Assets/condo2.png"
   },
   {
-    "condo_id": 6,
-    "size": "800 sqft",
-    "occupant_name": "Amanda Davis",
-    "bathrooms": "1",
-    "bedrooms": "2",
-    "condo_type": "Loft",
-    "last_renovated": "2019-04-25",
-    "condo_fee": "350",
-    "image_url": "Assets/condo3.png"
+    condoId: 6,
+    size: "800 sqft",
+    occupantName: "Amanda Davis",
+    bathrooms: "1",
+    bedrooms: "2",
+    condoType: "Loft",
+    lastRenovated: "2019-04-25",
+    condoFee: "350",
+    imageUrl: "Assets/condo3.png"
   },
   {
-    "condo_id": 7,
-    "size": "950 sqft",
-    "occupant_name": "Matthew Wilson",
-    "bathrooms": "1.5",
-    "bedrooms": "2",
-    "condo_type": "Apartment",
-    "last_renovated": "2021-08-05",
-    "condo_fee": "480",
-    "image_url": "Assets/condo1.png"
+    condoId: 7,
+    size: "950 sqft",
+    occupantName: "Matthew Wilson",
+    bathrooms: "1.5",
+    bedrooms: "2",
+    condoType: "Apartment",
+    lastRenovated: "2021-08-05",
+    condoFee: "480",
+    imageUrl: "Assets/condo1.png"
   }
 ];
 
 const properties = [
   {
-    "id": 1,
-    "title": "Windcreek Villa",
-    "address": "123 Main Street, Cityville",
-    "unit_count": "50",
-    "parking_spot_count": "100",
-    "locker_count": "25",
-    "image_url": "Assets/property1.png"
+    id: 1,
+    title: "Windcreek Villa",
+    address: "123 Main Street, Cityville",
+    unitCount: "50",
+    parkingSpotCount: "100",
+    lockerCount: "25",
+    imageUrl: "Assets/property1.png"
   },
   {
-    "id": 2,
-    "title": "Big Townhouse",
-    "address": "456 Elm Street, Townsville",
-    "unit_count": "30",
-    "parking_spot_count": "60",
-    "locker_count": "15",
-    "image_url": "Assets/property2.png"
+    id: 2,
+    title: "Big Townhouse",
+    address: "456 Elm Street, Townsville",
+    unitCount: "30",
+    parkingSpotCount: "60",
+    lockerCount: "15",
+    imageUrl: "Assets/property2.png"
   },
   {
-    "id": 3,
-    "title": "Another Condominium",
-    "address": "222 One Street, Mainsville",
-    "unit_count": "40",
-    "parking_spot_count": "80",
-    "locker_count": "20",
-    "image_url": "Assets/property3.png"
+    id: 3,
+    title: "Another Condominium",
+    address: "222 One Street, Mainsville",
+    unitCount: "40",
+    parkingSpotCount: "80",
+    lockerCount: "20",
+    imageUrl: "Assets/property3.png"
   },
   {
-    "id": 4,
-    "title": "Someone's Complex",
-    "address": "555 Some Avenue, Hisville",
-    "unit_count": "20",
-    "parking_spot_count": "40",
-    "locker_count": "10",
-    "image_url": "Assets/property4.png"
+    id: 4,
+    title: "Someone's Complex",
+    address: "555 Some Avenue, Hisville",
+    unitCount: "20",
+    parkingSpotCount: "40",
+    lockerCount: "10",
+    imageUrl: "Assets/property4.png"
   },
   {
-    "id": 5,
-    "title": "One More Property",
-    "address": "888 A Boulevard, Hersville",
-    "unit_count": "35",
-    "parking_spot_count": "70",
-    "locker_count": "18",
-    "image_url": "Assets/property5.png"
+    id: 5,
+    title: "One More Property",
+    address: "888 A Boulevard, Hersville",
+    unitCount: "35",
+    parkingSpotCount: "70",
+    lockerCount: "18",
+    imageUrl: "Assets/property5.png"
   }
 ];
 
