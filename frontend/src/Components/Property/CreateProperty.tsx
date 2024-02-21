@@ -25,7 +25,7 @@ const CreateProperty: React.FC = () => {
     };
   
     return (
-      <div className="create-property-container">
+      <div className="create-property-container" data-testid="create-property-component">
         <h2>Create Property</h2>
         <form onSubmit={formik.handleSubmit}>
           <div className="create-property-input">
@@ -83,7 +83,7 @@ const CreateProperty: React.FC = () => {
             </div>
           </div>
           <div className="create-property-upload">
-            <button type="submit">Create Property</button>
+            <button type="submit" data-testid="submit-button">Create Property</button>
           </div>
         </form>
       </div>
