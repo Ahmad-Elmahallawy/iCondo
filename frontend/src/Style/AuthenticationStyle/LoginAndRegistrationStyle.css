@@ -30,15 +30,7 @@
   color: white;
 }
 
-.error-msg {
-  color: red;
-  margin: 3px;
-}
 
-.error-msg-alternative {
-  margin-top: 3px;
-  visibility: hidden;
-}
 
 .input-border-error {
   border: 2px solid red;

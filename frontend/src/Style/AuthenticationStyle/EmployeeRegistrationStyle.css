@@ -43,15 +43,6 @@
   color: white;
 }
 
-.error-msg {
-  color: red;
-  margin: 3px;
-}
-
-.input-border-error {
-  border: 2px solid red;
-}
-
 .success-msg {
   color: green;
 }

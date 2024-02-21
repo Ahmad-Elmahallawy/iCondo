@@ -11,6 +11,7 @@ import PropertiesListPage from "./Pages/PropertyListLandingPage";
 import DashboardPage from "./Pages/CompanyDashboardLandingPage";
 import CondoProfileLandingPage from "./Pages/CondoProfileLandingPage";
 import PropertyProfileLandingPage from "./Pages/PropertyProfileLandingPage";
+import CondoCreationLandingPage from "./Pages/CondoCreationLandingPage";
 
 function App() {
   return (
@@ -51,9 +52,10 @@ function App() {
         <Route path="PropertyProfile" element={<PropertyProfileLandingPage />} />
  
         <Route
-          path="CondoProfileLandingPage"
+          path="CondoProfile"
           element={<CondoProfileLandingPage />}
         />
+        <Route path="CondoCreation" element={<CondoCreationLandingPage />} />
         <Route path="*" element={<div>404 Page Not Found</div>} />
       </Routes>
     </div>
