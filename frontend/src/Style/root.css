@@ -32,10 +32,10 @@ h6 {
 
 input,
 select {
-  background-color: var(--color2);
-  color: var(--color4);
   border: none;
   font-family: "inria-serif" !important;
+  padding-block: 0;
+  padding-inline: 0;
 }
 
 a {
@@ -57,4 +57,13 @@ input:focus,
 select:focus {
   outline: none;
   box-shadow: 0 0 5px var(--color4);
+}
+.error-msg {
+  color: red;
+  margin: 0;
+}
+
+.error-msg-alternative {
+  margin-top: 3px;
+  visibility: hidden;
 }

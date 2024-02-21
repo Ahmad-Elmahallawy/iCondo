@@ -12,11 +12,11 @@
 }
 
 .input-label,
-.condoProfileContainer input[type="text"] {
+.condoProfileContainer input {
   font-size: 16px;
 }
 
-.condoProfileContainer input[type="text"] {
+.condoProfileContainer input {
   flex: 1;
   color: var(--color4);
   border-radius: 4px;
