@@ -1,0 +1,7 @@
+/* PropertyListLandingPageStyle.css */
+.property-list-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem; /* Add some padding for spacing */
+}

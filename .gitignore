@@ -7,10 +7,11 @@
 
 
 # Node.js
-/backend/node_modules
+/user-service/node_modules
 
 # React
 /frontend/node_modules
+/frontend/coverage
 
 # testing
 /coverage
@@ -28,36 +29,36 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-backend/coverage/coverage-final.json
-backend/coverage/lcov-report/authMiddleware.js.html
-backend/coverage/lcov-report/backend/controller/fileController.js.html
-backend/coverage/lcov-report/backend/controller/index.html
-backend/coverage/lcov-report/backend/controller/userController.js.html
-backend/coverage/lcov-report/backend/index.html
-backend/coverage/lcov-report/backend/index.js.html
-backend/coverage/lcov-report/backend/middleware/authMiddleware.js.html
-backend/coverage/lcov-report/backend/middleware/errorMiddleware.js.html
-backend/coverage/lcov-report/backend/middleware/index.html
-backend/coverage/lcov-report/backend/middleware/minioMiddleware.js.html
-backend/coverage/lcov-report/backend/routes/fileRoutes.js.html
-backend/coverage/lcov-report/backend/routes/index.html
-backend/coverage/lcov-report/backend/routes/userRoutes.js.html
-backend/coverage/lcov-report/base.css
-backend/coverage/lcov-report/block-navigation.js
-backend/coverage/lcov-report/controller/index.html
-backend/coverage/lcov-report/controller/userController.js.html
-backend/coverage/lcov-report/favicon.png
-backend/coverage/lcov-report/index.html
-backend/coverage/lcov-report/middleware/authMiddleware.js.html
-backend/coverage/lcov-report/middleware/index.html
-backend/coverage/lcov-report/prettify.css
-backend/coverage/lcov-report/prettify.js
-backend/coverage/lcov-report/sort-arrow-sprite.png
-backend/coverage/lcov-report/sorter.js
-backend/coverage/lcov-report/userController.js.html
-backend/coverage/lcov.info
-backend/coverage/coverage-final.json
-backend/coverage/clover.xml
-backend/controller/userController.js
-backend/__tests__/login.spec.js
-backend/__tests__/authMiddleware.spec.js
+user-service/coverage/coverage-final.json
+user-service/coverage/lcov-report/authMiddleware.js.html
+user-service/coverage/lcov-report/backend/controller/fileController.js.html
+user-service/coverage/lcov-report/backend/controller/index.html
+user-service/coverage/lcov-report/backend/controller/userController.js.html
+user-service/coverage/lcov-report/backend/index.html
+user-service/coverage/lcov-report/backend/index.js.html
+user-service/coverage/lcov-report/backend/middleware/authMiddleware.js.html
+user-service/coverage/lcov-report/backend/middleware/errorMiddleware.js.html
+user-service/coverage/lcov-report/backend/middleware/index.html
+user-service/coverage/lcov-report/backend/middleware/minioMiddleware.js.html
+user-service/coverage/lcov-report/backend/routes/fileRoutes.js.html
+user-service/coverage/lcov-report/backend/routes/index.html
+user-service/coverage/lcov-report/backend/routes/userRoutes.js.html
+user-service/coverage/lcov-report/base.css
+user-service/coverage/lcov-report/block-navigation.js
+user-service/coverage/lcov-report/controller/index.html
+user-service/coverage/lcov-report/controller/userController.js.html
+user-service/coverage/lcov-report/favicon.png
+user-service/coverage/lcov-report/index.html
+user-service/coverage/lcov-report/middleware/authMiddleware.js.html
+user-service/coverage/lcov-report/middleware/index.html
+user-service/coverage/lcov-report/prettify.css
+user-service/coverage/lcov-report/prettify.js
+user-service/coverage/lcov-report/sort-arrow-sprite.png
+user-service/coverage/lcov-report/sorter.js
+user-service/coverage/lcov-report/userController.js.html
+user-service/coverage/lcov.info
+user-service/coverage/coverage-final.json
+user-service/coverage/clover.xml
+user-service/controller/userController.js
+user-service/__tests__/login.spec.js
+user-service/__tests__/authMiddleware.spec.js

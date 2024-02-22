@@ -12,3 +12,9 @@ export const loginInitialValues = {
   email: "",
   password: "",
 };
+
+export const condoInitialValues = {
+  unitNumber: "",
+  netArea: "",
+  condoFee: "",
+};
