@@ -1,4 +1,4 @@
-// SignUp.tsx
+// SignUpAsClient.tsx
 import React, { useState } from "react";
 import { useFormik } from "formik"; //hook
 import * as Yup from "yup";

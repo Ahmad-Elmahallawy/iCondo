@@ -6,21 +6,23 @@ import Input from '../../../Component/Input';
 import Separator from '../../../Component/Separator';
 import { styles } from './styles';
 
-const Signin = () => {
+const SignIn = ({navigation}) => {
     const onSignUp = () => {
-        console.log('Hello')
+        navigation.navigate('SignUp')
     }
-
+    const onBack = () => {
+        navigation.goBack()
+    }
     return (
         <ScrollView style={styles.container}>
-            <AuthHeader title="Sign In" />
+            <AuthHeader onBackPress={onBack} title="Sign In" />
 
             <Input label="E-mail" placeholder="example@gmail.com" />
             <Input isPassword label="Password" placeholder="*******" />
 
             <Button style={styles.button} title="Sign In"  />
 
-            <Separator text="Or sign in with" />
+            <Separator />
 
             <Text style={styles.footerText}>
                 Don't have an account?
@@ -30,4 +32,4 @@ const Signin = () => {
     )
 }
 
-export default React.memo(Signin);
+export default React.memo(SignIn);

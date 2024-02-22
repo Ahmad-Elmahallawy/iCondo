@@ -8,7 +8,7 @@ import SignUp from "./SignUp";
 
 jest.mock("axios");
 
-describe("SignUp Component", () => {
+describe("SignUpAsClient Component", () => {
   it("renders without crashing", () => {
     render(
       <MemoryRouter>
