@@ -1,28 +1,25 @@
-import React, { useState } from 'react';
-import { Pressable, Text, TextInput, View, Image } from 'react-native';
+import React from 'react';
+import { FlatList, ScrollView, Text } from 'react-native';
 import { styles } from './styles';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { products } from '../../data/products';
+import FavoriteItem from '../../Component/FavoriteItem';
+import Header from '../../Component/Header';
 
-const Input = ({ label, placeholder, isPassword }) => {
-    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-
-    const onEyePress = () => {
-        setIsPasswordVisible(!isPasswordVisible);
+const Favorites = () => {
+    const renderItem = ({item}) => {
+        return (
+            <FavoriteItem {...item} />
+        )
     }
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.label}>{label}</Text>
-            <View style={styles.inputContainer}>
-                <TextInput secureTextEntry={isPassword && !isPasswordVisible} placeholder={placeholder} style={styles.input} />
+        <SafeAreaView>
+            <Header title="Favorites" />
 
-                {isPassword ? (
-                    <Pressable onPress={onEyePress}>
-                        <Image style={styles.eye} source={isPasswordVisible ? require('../../assets/eye.png') : require('../../assets/eye_closed.png')} />
-                    </Pressable>
-                ) : null}
-            </View>
-        </View>
+            <FlatList data={products} renderItem={renderItem} keyExtractor={(item) => String(item?.id)} />
+        </SafeAreaView>
     )
 }
 
-export default React.memo(Input);
+export default React.memo(Favorites);

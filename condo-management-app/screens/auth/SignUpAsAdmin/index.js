@@ -22,13 +22,9 @@ const SignUpAsAdmin = ({navigation}) => {
             <Input label="E-mail" placeholder="example@gmail.com" />
             <Input isPassword label="Password" placeholder="*******" />
 
-            <View style={styles.agreeRow}>
-                <Checkbox checked={checked} onCheck={setChecked} />
-                <Text style={styles.agreeText}>I agree with <Text style={styles.agreeTextBold}>Terms</Text> & <Text style={styles.agreeTextBold}>Privacy</Text></Text>
-            </View>
-
+            <Separator/>
             <Button style={styles.button} title="Sign Up"  />
-
+            <Separator/>
             <Text style={styles.footerText}>
                 Already have an account?
                 <Text onPress={onSignIn} style={styles.footerLink}> Sign In</Text>
