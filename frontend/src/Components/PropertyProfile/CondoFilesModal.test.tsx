@@ -41,4 +41,7 @@ describe("CondoFilesModal component", () => {
     expect(handleClose).toHaveBeenCalled();
   });
 
+  // TODO: Download functionality test
+  // TODO: Upload functionality test
+
 });
