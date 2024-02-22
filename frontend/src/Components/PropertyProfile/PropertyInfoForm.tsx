@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import PropertyInfoField from "./PropertyInfoField"; // Adjust the path as needed
 import "../../Style/PropertyProfileStyle/PropertyInfoFormStyle.css";
+import CondoFilesModal from "./CondoFilesModal";
 
 interface PropertyInfo {
   title: string;
@@ -15,9 +16,13 @@ type PropertyInfoFormProps = {
   onSave: (info: PropertyInfo) => void;
 };
 
-const PropertyInfoForm: React.FC<PropertyInfoFormProps> = ({ propertyInfo, onSave }) => {
+const PropertyInfoForm: React.FC<PropertyInfoFormProps> = ({
+  propertyInfo,
+  onSave,
+}) => {
   const [isEditMode, setEditMode] = useState(false);
   const [tempInfo, setTempInfo] = useState<PropertyInfo>(propertyInfo);
+  const [isCondoFilesOpen, setIsCondoFilesOpen] = useState(false);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -38,6 +43,11 @@ const PropertyInfoForm: React.FC<PropertyInfoFormProps> = ({ propertyInfo, onSav
   const handleCancel = () => {
     setTempInfo(propertyInfo);
     setEditMode(false);
+  };
+
+  const handleCondoFileModal = (event: React.FormEvent) => {
+    event.preventDefault();
+    setIsCondoFilesOpen(true);
   };
 
   return (
@@ -71,12 +81,25 @@ const PropertyInfoForm: React.FC<PropertyInfoFormProps> = ({ propertyInfo, onSav
               </button>
             </>
           ) : (
-            <button onClick={handleEdit} className="edit-button">
-              Edit
-            </button>
+            <>
+              {" "}
+              <button onClick={handleEdit} className="edit-button">
+                Edit
+              </button>
+              <button
+                onClick={handleCondoFileModal}
+                className="view-condo-files-button"
+              >
+                View Condo Files
+              </button>
+            </>
           )}
         </div>
       </form>
+      <CondoFilesModal
+        isCondoFilesOpen={isCondoFilesOpen}
+        handleClose={() => setIsCondoFilesOpen(false)}
+      />
     </div>
   );
 };
