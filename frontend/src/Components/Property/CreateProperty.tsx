@@ -5,92 +5,123 @@ import { createPropertyValidationSchema } from "../Common/ValidationSchema";
 import "../../Style/CreatePropertyStyle/CreatePropertyStyle.css";
 
 const CreateProperty: React.FC = () => {
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const deleteIcon = "/Assets/delete.svg"
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+
   const formik = useFormik({
-    initialValues: createPropertyInitialValues,
+    initialValues: { ...createPropertyInitialValues, files: [] },
     validationSchema: createPropertyValidationSchema,
     onSubmit: (values) => {
       console.log(values);
-      console.log(selectedFile);
+      console.log(values.files); 
     },
+    
   });
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      setSelectedFile(e.target.files[0]);
-    }
-  };
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (e.target.files && e.target.files.length > 0) {
+        const newFiles = Array.from(e.target.files);
+        setSelectedFiles(prevFiles => [...prevFiles, ...newFiles]);
+      }
+    };
+    
+    const handleFileDelete = (fileName: string) => {
+      setSelectedFiles(selectedFiles.filter(file => file.name !== fileName));
+    };
 
-  return (
-    <div className="create-property-container" data-testid="create-property-component">
-      <h2>Create Property</h2>
-      <form onSubmit={formik.handleSubmit}>
-        <div className="create-property-input">
-          <input
-            type="text"
-            name="propertyName"
-            value={formik.values.propertyName}
-            onChange={formik.handleChange}
-            placeholder="Property Name"
-            data-testid="propertyName-input"
-          />
-          {formik.touched.propertyName && formik.errors.propertyName ? (
-            <p className="error-msg" data-testid="propertyName-input-error">{formik.errors.propertyName}</p>
-          ) : null}
-        </div>
-        <div className="create-property-input">
-          <input
-            type="text"
-            name="address"
-            value={formik.values.address}
-            onChange={formik.handleChange}
-            placeholder="Address"
-            data-testid="address-input"
-          />
-          {formik.touched.address && formik.errors.address ? (
-            <p className="error-msg" data-testid="address-input-error">{formik.errors.address}</p>
-          ) : null}
-        </div>
-        <div className="create-property-input">
-          <input
-            type="text"
-            name="unitCount"
-            value={formik.values.unitCount}
-            onChange={formik.handleChange}
-            placeholder="Unit Count"
-            data-testid="unitCount-input"
-          />
-          {formik.touched.unitCount && formik.errors.unitCount ? (
-            <p className="error-msg" data-testid="unitCount-input-error">{formik.errors.unitCount}</p>
-          ) : null}
-        </div>
-        <div className="create-property-input">
-          <input
-            type="text"
-            name="parkingCount"
-            value={formik.values.parkingCount}
-            onChange={formik.handleChange}
-            placeholder="Parking Count"
-            data-testid="parkingCount-input"
-          />
-          {formik.touched.parkingCount && formik.errors.parkingCount ? (
-            <p className="error-msg" data-testid="parkingCount-input-error">{formik.errors.parkingCount}</p>
-          ) : null}
-        </div>
-        <div className="create-property-input">
-          <input
-            type="text"
-            name="lockerCount"
-            value={formik.values.lockerCount}
-            onChange={formik.handleChange}
-            placeholder="Locker Count"
-            data-testid="lockerCount-input"
-          />
-          {formik.touched.lockerCount && formik.errors.lockerCount ? (
-            <p className="error-msg" data-testid="lockerCount-input-error">{formik.errors.lockerCount}</p>
-          ) : null}
-        </div>
-        <div className="create-property-file">
+    const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
+      e.preventDefault();
+      e.stopPropagation();
+    };
+  
+    const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
+      e.preventDefault();
+      e.stopPropagation();
+    };
+  
+    const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+      e.preventDefault();
+      e.stopPropagation();
+  
+      if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+        const newFiles = Array.from(e.dataTransfer.files);
+        setSelectedFiles(prevFiles => [...prevFiles, ...newFiles]);
+      }
+    };
+    
+    
+  
+    return (
+      <div className="create-property-container" data-testid="create-property-component">
+        <h2>Create Property</h2>
+        <form onSubmit={formik.handleSubmit}>
+          <div className="create-property-input">
+            <input
+              type="text"
+              name="propertyName"
+              value={formik.values.propertyName}
+              onChange={formik.handleChange}
+              placeholder="Property Name"
+            />
+            {formik.touched.propertyName && formik.errors.propertyName ? (
+              <p className="error-msg">{formik.errors.propertyName}</p>
+            ) : null}
+          </div>
+          <div className="create-property-input">
+            <input
+              type="text"
+              name="address"
+              value={formik.values.address}
+              onChange={formik.handleChange}
+              placeholder="Address"
+            />
+            {formik.touched.address && formik.errors.address ? (
+              <p className="error-msg">{formik.errors.address}</p>
+            ) : null}
+          </div>
+          <div className="create-property-input">
+            <input
+              type="text"
+              name="unitCount"
+              value={formik.values.unitCount}
+              onChange={formik.handleChange}
+              placeholder="Unit Count"
+            />
+            {formik.touched.unitCount && formik.errors.unitCount ? (
+              <p className="error-msg">{formik.errors.unitCount}</p>
+            ) : null}
+          </div>
+          <div className="create-property-input">
+            <input
+              type="text"
+              name="parkingCount"
+              value={formik.values.parkingCount}
+              onChange={formik.handleChange}
+              placeholder="Parking Count"
+            />
+            {formik.touched.parkingCount && formik.errors.parkingCount ? (
+              <p className="error-msg">{formik.errors.parkingCount}</p>
+            ) : null}
+          </div>
+          <div className="create-property-input">
+            <input
+              type="text"
+              name="lockerCount"
+              value={formik.values.lockerCount}
+              onChange={formik.handleChange}
+              placeholder="Locker Count"
+            />
+            {formik.touched.lockerCount && formik.errors.lockerCount ? (
+              <p className="error-msg">{formik.errors.lockerCount}</p>
+            ) : null}
+          </div>
+          <div
+          className="create-property-file"
+          onDrop={handleDrop}
+          onDragOver={(e) => e.preventDefault()}
+          onDragEnter={handleDragEnter}
+          onDragLeave={handleDragLeave}
+        >
           <label className="custom-file-upload">
             <input type="file" onChange={handleFileChange} data-testid="file-input" />
             Upload File
@@ -99,8 +130,22 @@ const CreateProperty: React.FC = () => {
             <p>Or drag and drop files here</p>
           </div>
         </div>
+        
+        <div className="selected-files-container">
+          {selectedFiles.map(file => (
+            <div key={file.name} className="selected-file-row">
+              <p>{file.name}</p>
+              <button type="button" className="delete-file" onClick={() => handleFileDelete(file.name)}>
+                <img src={deleteIcon} alt="Delete" />
+              </button>
+            </div>
+          ))}
+        </div>
+
         <div className="create-property-upload">
-          <button type="submit" data-testid="submit-button" disabled={Object.keys(formik.errors).length > 0}>Create Property</button>
+          <button type="submit" data-testid="submit-button" disabled={Object.keys(formik.errors).length > 0}>
+            Create Property
+          </button>
         </div>
       </form>
     </div>

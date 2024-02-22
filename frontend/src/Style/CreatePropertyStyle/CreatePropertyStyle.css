@@ -17,9 +17,14 @@
     flex-direction: column;
 }
 
-.create-property-container form input,
-.create-property-container form button {
+.create-property-container form input {
     background-color: var(--color4);
+    color: var(--color1);
+    padding: 0.4rem;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+.create-property-container form button {
     color: var(--color1);
     padding: 0.4rem;
     border-radius: 5px;
@@ -38,18 +43,23 @@
     align-self: stretch;
 }
 
+.create-property-upload button {
+    background-color: var(--color4);
+}
 
 .create-property-file {
     position: relative;
     width: 100%;
-    height: 180px;
-    border: 1px solid var(--color4);
+    height: 110px;
     border-radius: 5px;
     margin-bottom: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    border: 2px dashed #ccc;
+    cursor: pointer;
+    transition: border-color 0.3s ease-in-out;
 }
 
 .create-property-file input[type="file"] {
@@ -76,4 +86,47 @@
     background-color: var(--color1); 
     color: var(--color4); 
     cursor: pointer;
+    border: 1px solid var(--color4);
+    border-radius: 5px;
+}
+
+.selected-file-row {
+    display: flex;
+    align-items: center;
+    width: 100%; 
+    border: 1px solid var(--color4); 
+    border-radius: 5px;
+    margin-bottom: 10px;
+    background-color: var(--color2);
+}
+
+.selected-file-row p {
+    margin-right: auto; 
+    padding: 0 0.8rem;
+    color: var(--color4);
+    font-weight: bold;
+}
+
+.selected-file-row button {
+    display: flex; 
+    align-items: center; 
+    background-color: var(--color2);
+    border: none;
+    padding: 0; 
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.selected-file-row button img {
+    width: 28px; 
+    height: 28px; 
+    background-color: var(--color2); 
+}
+
+.selected-file-row button:hover img {
+    filter: brightness(85%);
+}
+
+.create-property-drag-drop p{
+    margin: 2px;
 }
