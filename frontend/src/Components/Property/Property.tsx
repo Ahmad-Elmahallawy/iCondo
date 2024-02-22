@@ -1,4 +1,6 @@
+// PropertyComponent.tsx
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "../../Style/PropertyStyle/PropertyStyle.css";
 
 interface Property {
@@ -6,11 +8,34 @@ interface Property {
   title: string;
   address: string;
   imageUrl: string;
+  unitCount: string;
+  parkingSpotCount: string;
+  lockerCount: string;
 }
 
-const PropertyComponent: React.FC<{ property: Property }> = ({ property }) => {
+interface PropertyComponentProps {
+  property: Property;
+  onClick: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void; // Accept event parameter
+}
+
+const PropertyComponent: React.FC<PropertyComponentProps> = ({
+  property,
+  onClick,
+}) => {
+  const navigate = useNavigate();
+
+  const handlePropertyClick = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
+    navigate(`/PropertyProfile/${property.id}`, { state: { property } });
+  };
+
   return (
-    <div className="property-container" data-testid="property-component">
+    <div
+      className="property-container"
+      data-testid="property-component"
+      onClick={handlePropertyClick}
+    >
       <img
         src={property.imageUrl}
         alt={property.title}

@@ -49,12 +49,13 @@ function App() {
           element={<DashboardPage />} /*CHANGE PATH ONCE PAGE IS CREATED*/
         />
         <Route path="PropertiesList" element={<PropertiesListPage />} />
-        <Route path="PropertyProfile" element={<PropertyProfileLandingPage />} />
- 
+
+        <Route path="CondoProfile" element={<CondoProfileLandingPage />} />
         <Route
-          path="CondoProfile"
-          element={<CondoProfileLandingPage />}
+          path="/PropertyProfile/:id"
+          element={<PropertyProfileLandingPage />}
         />
+
         <Route path="CondoCreation" element={<CondoCreationLandingPage />} />
         <Route path="*" element={<div>404 Page Not Found</div>} />
       </Routes>
