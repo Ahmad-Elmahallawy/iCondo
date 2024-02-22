@@ -1,18 +1,19 @@
 .property-list-page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.property-info-section, .condo-list-section {
-    display: flex;
-    flex-direction: column;
-    margin: 5rem;
-    justify-content: center;
-    align-items: center;
-    padding: 2rem 3rem;
-    border-radius: 5px;
-    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+.property-info-section,
+.condo-list-section {
+  display: flex;
+  flex-direction: column;
+  margin: 5rem;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 3rem;
+  border-radius: 5px;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 .property-form-container {
@@ -45,8 +46,9 @@
 }
 
 @media only screen and (max-width: 768px) {
-  .property-info-section, .condo-list-section {
-    width: 85%; 
+  .property-info-section,
+  .condo-list-section {
+    width: 85%;
     padding: 1rem;
     margin: 1rem;
   }
