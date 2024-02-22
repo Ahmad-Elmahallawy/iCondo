@@ -11,6 +11,7 @@ import PropertiesListPage from "./Pages/PropertyListLandingPage";
 import DashboardPage from "./Pages/CompanyDashboardLandingPage";
 import CondoProfileLandingPage from "./Pages/CondoProfileLandingPage";
 import CreatePropertyLandingPage from "./Pages/CreatePropertyLandingPage";
+import PropertyProfileLandingPage from "./Pages/PropertyProfileLandingPage";
 import CondoCreationLandingPage from "./Pages/CondoCreationLandingPage";
 
 function App() {
@@ -49,6 +50,8 @@ function App() {
           element={<DashboardPage />} /*CHANGE PATH ONCE PAGE IS CREATED*/
         />
         <Route path="PropertiesList" element={<PropertiesListPage />} />
+        <Route path="PropertyProfile" element={<PropertyProfileLandingPage />} />
+ 
         <Route
           path="CondoProfile"
           element={<CondoProfileLandingPage />}
