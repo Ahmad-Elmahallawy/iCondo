@@ -11,16 +11,12 @@ import "../Style/LandingPageStyle/EmployeeRequestsLandingPageStyle.css";
 // It contains a function handleUserItemClick that updates the selected user name when a user item is clicked.
 // The selected user name is passed to the KeyGeneration component as a prop.
 const EmployeeRequestsLandingPage = () => {
-  const [selectedUserName, setSelectedUserName] = useState<string>("");
 
-  const handleUserItemClick = (userId: number, userName: string) => {
-    setSelectedUserName(userName);
-  };
 
   return (
     <div className="employee-requests-landing-page-container">
       <div className="employee-requests-key-generation">
-        <KeyGeneration userName={selectedUserName} />
+        <KeyGeneration  />
       </div>
     </div>
   );

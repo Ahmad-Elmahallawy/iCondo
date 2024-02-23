@@ -10,10 +10,5 @@ describe("EmployeeRequestsLandingPage component", () => {
     render(<EmployeeRequestsLandingPage />);
   });
 
-  it("updates selectedUserName state when a user is clicked", () => {
-    const { getByText } = render(<EmployeeRequestsLandingPage />);
-    const userButton = getByText("John Doe"); // Assuming 'John Doe' is one of the user names rendered
-    fireEvent.click(userButton);
-    expect(userButton).toHaveClass("selected");
-  });
+
 });
