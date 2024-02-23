@@ -1,0 +1,51 @@
+/* CondoFilesModal.css */
+.condo-files-modal {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  background-color: var(--color1);
+  color: var(--color4);
+  border-radius: 5px;
+  box-shadow: 24px;
+  padding: 16px;
+}
+
+.condo-files-header {
+  width: 400px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.condo-files-button {
+  background-color: var(--color4) !important;
+  color: var(--color1) !important;
+}
+
+.condo-files-button:hover {
+  background-color: var(--color4);
+  color: var(--color1);
+}
+
+.condo-file-item {
+  border-top: 1px solid var(--color4);
+  display: flex;
+  justify-content: space-between;
+}
+
+.condo-file-item a {
+  color: var(--color4);
+}
+
+.condo-file-item:last-child {
+  border-bottom: 1px solid var(--color4);
+}
+
+.condo-file-item + .condo-file-item {
+  border-top: 1px solid var(--color4);
+}
+
+.condo-files-modal ul {
+  padding: 0;
+}

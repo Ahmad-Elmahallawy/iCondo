@@ -1,0 +1,30 @@
+/* PropertyInfoFieldStyle.css */
+.input-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    border-radius: 7px;
+    margin-bottom: 10px;
+    background: var(--color1);
+    border: 0.5px solid var(--color4);
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+  }
+  
+  .input-label,
+  .property-profile-container input[type="text"] {
+    font-size: 16px;
+  }
+  
+  .property-profile-container input[type="text"] {
+    flex: 1;
+    color: var(--color4);
+    border-radius: 4px;
+    text-align: end;
+    box-shadow: none;
+    background: var(--color1);
+  }
+  
+  .input-value {
+    color: var(--color4);
+  }

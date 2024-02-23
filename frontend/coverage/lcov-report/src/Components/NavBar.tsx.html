@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">79.31% </span>
+                <span class="strong">96.55% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>23/29</span>
+                <span class='fraction'>28/29</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>9/12</span>
+                <span class='fraction'>10/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">20% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/5</span>
+                <span class='fraction'>4/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">79.16% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>19/24</span>
+                <span class='fraction'>24/24</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -164,31 +164,31 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -263,21 +263,21 @@ const Navbar = () =&gt; {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("userData") || "{}");
 &nbsp;
-  const handleLogout = <span class="fstat-no" title="function not covered" >() =&gt; {</span>
+  const handleLogout = () =&gt; {
     // Show the logout confirmation modal
-<span class="cstat-no" title="statement not covered" >    setShowLogoutModal(true);</span>
+    setShowLogoutModal(true);
   };
 &nbsp;
-  const handleCancelLogout = <span class="fstat-no" title="function not covered" >() =&gt; {</span>
+  const handleCancelLogout = () =&gt; {
     // Hide the logout confirmation modal
-<span class="cstat-no" title="statement not covered" >    setShowLogoutModal(false);</span>
+    setShowLogoutModal(false);
   };
 &nbsp;
-  const handleConfirmLogout = <span class="fstat-no" title="function not covered" >() =&gt; {</span>
+  const handleConfirmLogout = () =&gt; {
     // Perform the logout action
-<span class="cstat-no" title="statement not covered" >    localStorage.removeItem("userData");</span>
-<span class="cstat-no" title="statement not covered" >    setShowLogoutModal(false);</span>
-<span class="cstat-no" title="statement not covered" >    navigate("/Login");</span>
+    localStorage.removeItem("userData");
+    setShowLogoutModal(false);
+    navigate("/Login");
   };
 &nbsp;
   return (
@@ -329,7 +329,7 @@ const Navbar = () =&gt; {
         )}
       &lt;/div&gt;
       {showLogoutModal &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >        &lt;LogOutModal</span>
+        &lt;LogOutModal
           onCancel={handleCancelLogout}
           onConfirm={handleConfirmLogout}
         /&gt;
@@ -346,7 +346,7 @@ export default Navbar;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-02-07T01:48:53.025Z
+                at 2024-02-17T20:44:59.829Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
