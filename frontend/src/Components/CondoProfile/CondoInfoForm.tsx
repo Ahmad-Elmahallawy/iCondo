@@ -1,5 +1,6 @@
 // CondoInfoForm.tsx
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import CondoInfoField from "./CondoInfoField"; // Adjust the path as needed
 import "../../Style/CondoProfileStyle/CondoInfoFormStyle.css";
 import { log } from "console";
@@ -22,6 +23,7 @@ type CondoInfoFormProps = {
 const CondoInfoForm: React.FC<CondoInfoFormProps> = ({ condoInfo, onSave }) => {
   const [isEditMode, setEditMode] = useState(false);
   const [tempInfo, setTempInfo] = useState<CondoInfo>(condoInfo);
+  const navigate = useNavigate();
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -32,6 +34,10 @@ const CondoInfoForm: React.FC<CondoInfoFormProps> = ({ condoInfo, onSave }) => {
     event.preventDefault();
     onSave(tempInfo);
     setEditMode(false);
+  };
+
+  const handleRegistrationKey = () => {
+    navigate("/GenerateKey");
   };
 
   const handleEdit = (event: React.FormEvent) => {
@@ -79,7 +85,9 @@ const CondoInfoForm: React.FC<CondoInfoFormProps> = ({ condoInfo, onSave }) => {
               <button onClick={handleEdit} className="editButton">
                 Edit
               </button>
-              <button className="editButton">Registration Key</button>
+              <button className="editButton" onClick={handleRegistrationKey}>
+                Create Registration Key
+              </button>
             </>
           )}
         </div>
