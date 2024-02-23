@@ -33,7 +33,7 @@ function App() {
           path="GenerateKey"
           element={
             <EmployeeRequestsLandingPage />
-          } /*CHANGE PATH ONCE PAGE IS CREATED*/
+          } 
         />
         <Route
           path="RegisterEmployee"
