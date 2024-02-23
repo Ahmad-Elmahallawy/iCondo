@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import KeyGeneration from "../Components/Requests/KeyGeneration";
 import "../Style/LandingPageStyle/EmployeeRequestsLandingPageStyle.css";
-import UsersList from "../Components/Requests/UsersList";
 
 const EmployeeRequestsLandingPage = () => {
   const [selectedUserName, setSelectedUserName] = useState<string>("");
@@ -15,9 +14,6 @@ const EmployeeRequestsLandingPage = () => {
     <div className="employee-requests-landing-page-container">
       <div className="employee-requests-key-generation">
         <KeyGeneration userName={selectedUserName} />
-      </div>
-      <div className="employee-requests-user-list">
-        <UsersList handleUserItemClick={handleUserItemClick} />
       </div>
     </div>
   );
