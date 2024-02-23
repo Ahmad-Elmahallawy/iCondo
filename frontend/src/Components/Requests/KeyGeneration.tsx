@@ -6,6 +6,13 @@ interface KeyGenerationProps {
   userName?: string; // Marking userName as optional
 }
 
+
+// KeyGeneration Component:
+// This component renders a form to generate registration keys for users.
+// It accepts one prop:
+// 1. userName: An optional string representing the name of the user. Defaults to "[Name Here]" if not provided.
+// The component displays the user's name, two buttons to specify whether the user is a condo owner or a rental user,
+// and a button to send the registration key to the user.
 const KeyGeneration: React.FC<KeyGenerationProps> = ({
   userName = "[Name Here]",
 }) => {
