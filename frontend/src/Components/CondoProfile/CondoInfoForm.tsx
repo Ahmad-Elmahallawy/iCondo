@@ -75,9 +75,12 @@ const CondoInfoForm: React.FC<CondoInfoFormProps> = ({ condoInfo, onSave }) => {
               </button>
             </>
           ) : (
-            <button onClick={handleEdit} className="editButton">
-              Edit
-            </button>
+            <>
+              <button onClick={handleEdit} className="editButton">
+                Edit
+              </button>
+              <button className="editButton">Registration Key</button>
+            </>
           )}
         </div>
       </form>
