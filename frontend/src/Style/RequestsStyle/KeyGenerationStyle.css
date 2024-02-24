@@ -57,3 +57,7 @@
 .key-generation-two-buttons button:hover {
   cursor: pointer;
 }
+
+.key-generation-two-buttons .selected {
+  background-color: var(--color3);
+}

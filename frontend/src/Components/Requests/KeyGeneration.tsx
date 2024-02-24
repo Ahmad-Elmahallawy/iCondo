@@ -10,6 +10,9 @@ const KeyGeneration = () => {
   const [registrationKey, setRegistrationKey] = useState(
     "No Key To Show Right Now"
   );
+  const [userType, setUserType] = useState<"condoOwner" | "rentalUser" | null>(
+    null
+  ); // Track user type selection
 
   // function to randomly generate a key of size 6
   const handleGenerateKey = () => {
@@ -27,6 +30,10 @@ const KeyGeneration = () => {
     setRegistrationKey(result);
     // TODO: add API to link it to condo
   };
+
+  const handleUserTypeSelect = (type: "condoOwner" | "rentalUser") => {
+    setUserType(type);
+  };
   return (
     <div className="key-generation-container">
       <div className="key-generation-header">
@@ -38,8 +45,18 @@ const KeyGeneration = () => {
           <p>{registrationKey}</p>
         </div>
         <div className="key-generation-two-buttons">
-          <button>Condo Owner</button>
-          <button>Rental User</button>
+          <button
+            onClick={() => handleUserTypeSelect("condoOwner")}
+            className={userType === "condoOwner" ? "selected" : ""}
+          >
+            Condo Owner
+          </button>
+          <button
+            onClick={() => handleUserTypeSelect("rentalUser")}
+            className={userType === "rentalUser" ? "selected" : ""}
+          >
+            Rental User
+          </button>
         </div>
         <div className="key-generation-submission">
           <button onClick={handleGenerateKey}>Generate Registration Key</button>
