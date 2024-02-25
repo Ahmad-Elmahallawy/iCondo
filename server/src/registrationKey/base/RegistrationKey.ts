@@ -58,6 +58,15 @@ class RegistrationKey {
   @IsJSONValue()
   @Field(() => GraphQLJSON)
   role!: JsonValue;
+
+
+  @ApiProperty({
+    required: true,
+    type: String,
+  })
+  @IsString()
+  @Field(() => String)
+  value!: string;
 }
 
 export { RegistrationKey as RegistrationKey };
