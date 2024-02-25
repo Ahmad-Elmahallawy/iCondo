@@ -12,8 +12,11 @@ https://docs.amplication.com/how-to/custom-code
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { CondoUnit } from "../../condoUnit/base/CondoUnit";
-import { ValidateNested, IsDate, IsInt } from "class-validator";
+import {ValidateNested, IsDate, IsInt, IsString, IsJSON} from "class-validator";
 import { Type } from "class-transformer";
+import {JsonValue} from "type-fest";
+import {IsJSONValue} from "../../validators";
+import {GraphQLJSON} from "graphql-type-json";
 
 @ObjectType()
 class RegistrationKey {
@@ -48,6 +51,13 @@ class RegistrationKey {
   @Type(() => Date)
   @Field(() => Date)
   updatedAt!: Date;
+
+  @ApiProperty({
+    required: true,
+  })
+  @IsJSONValue()
+  @Field(() => GraphQLJSON)
+  role!: JsonValue;
 }
 
 export { RegistrationKey as RegistrationKey };

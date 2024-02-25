@@ -65,6 +65,7 @@ export class RegistrationKeyControllerBase {
 
         createdAt: true,
         id: true,
+        role: true,
         updatedAt: true,
       },
     });
@@ -97,6 +98,7 @@ export class RegistrationKeyControllerBase {
 
         createdAt: true,
         id: true,
+        role: true,
         updatedAt: true,
       },
     });
@@ -128,6 +130,7 @@ export class RegistrationKeyControllerBase {
 
         createdAt: true,
         id: true,
+        role: true,
         updatedAt: true,
       },
     });
@@ -174,6 +177,7 @@ export class RegistrationKeyControllerBase {
 
           createdAt: true,
           id: true,
+          role: true,
           updatedAt: true,
         },
       });
@@ -213,6 +217,7 @@ export class RegistrationKeyControllerBase {
 
           createdAt: true,
           id: true,
+          role: true,
           updatedAt: true,
         },
       });

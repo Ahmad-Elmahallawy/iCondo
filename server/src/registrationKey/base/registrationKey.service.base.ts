@@ -45,6 +45,7 @@ export class RegistrationKeyServiceBase {
   async createRegistrationKey<T extends Prisma.RegistrationKeyCreateArgs>(
     args: Prisma.SelectSubset<T, Prisma.RegistrationKeyCreateArgs>
   ): Promise<RegistrationKey> {
+    console.log(args.data.value);
     return this.prisma.registrationKey.create<T>({
       ...args,
 
