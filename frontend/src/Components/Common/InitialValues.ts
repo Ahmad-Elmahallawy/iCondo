@@ -1,6 +1,6 @@
 export const signUpInitialValues = {
   firstName: "",
-  last_name: "",
+  lastName: "",
   username: "",
   email: "",
   phone_number: "",

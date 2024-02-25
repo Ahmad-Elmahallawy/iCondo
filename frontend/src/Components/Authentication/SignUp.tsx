@@ -11,7 +11,7 @@ import { signUpValidationSchema } from "../Common/ValidationSchema";
 
 interface FormValues {
   firstName: string;
-  last_name: string;
+  lastName: string;
   username: string;
   email: string;
   phone_number: string;
@@ -38,14 +38,14 @@ const SignUp: React.FC = () => {
         // Common data for both user types
         const commonUserData = {
           firstName: values.firstName,
-          last_name: values.last_name,
+          lastName: values.lastName,
           username: values.username,
           email: values.email,
           phone_number: values.phone_number,
           password: values.password,
         } as {
           firstName: string;
-          last_name: string;
+          lastName: string;
           username: string;
           email: string;
           phone_number: string;
@@ -160,24 +160,24 @@ const SignUp: React.FC = () => {
 
         <div
           className={`input-with-icon ${
-            formik.touched.last_name && formik.errors.last_name
+            formik.touched.lastName && formik.errors.lastName
               ? "input-border-error"
               : ""
           }`}
         >
           <img src="Assets/person.svg" alt="" />
           <input
-            id="last_name"
-            name="last_name"
+            id="lastName"
+            name="lastName"
             type="text"
             placeholder="Last Name"
-            value={formik.values.last_name}
+            value={formik.values.lastName}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
         </div>
-        {formik.touched.last_name && formik.errors.last_name ? (
-          <p className="error-msg">{formik.errors.last_name}</p>
+        {formik.touched.lastName && formik.errors.lastName ? (
+          <p className="error-msg">{formik.errors.lastName}</p>
         ) : (
           <p className="error-msg-alternative"></p>
         )}
