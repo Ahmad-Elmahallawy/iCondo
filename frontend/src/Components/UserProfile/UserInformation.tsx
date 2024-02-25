@@ -2,9 +2,9 @@ import React, { useState, ChangeEvent, useEffect } from "react";
 import "../../Style/UserProfileStyle/UserInformationStyle.css";
 import { FaPen } from "react-icons/fa";
 import axios from "axios";
-import { log } from "console";
+import api from "../../api";
 
-interface UserData {
+export interface UserData {
   profilePicture: File | null;
   username: string;
   first_name: string;
@@ -39,10 +39,7 @@ const UserInformation: React.FC<UserInformationProps> = ({ data }) => {
   // Function to fetch the profile picture URL
   const fetchProfilePicture = async (username: string): Promise<void> => {
     try {
-      const response = await axios.get(
-        `http://localhost:8000/api/file/${username}`
-      );
-      console.log("Profile picture URL:", response.data.url);
+      const response = await api.userInformation.fetchProfilePicture(username);
       if (response.data && response.data.url) {
         setProfilePictureUrl(response.data.url);
       }
@@ -58,19 +55,15 @@ const UserInformation: React.FC<UserInformationProps> = ({ data }) => {
 
   const handleSaveClick = async (): Promise<void> => {
     try {
-      await axios.patch("http://localhost:8000/api/users", userData, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      await api.userInformation.handleSaveClick(userData);
 
       setSuccessMessage("User details updated successfully");
       setErrorMessage(null);
       if (userData.profilePicture) {
         const pictureFormData = new FormData();
         pictureFormData.append("file", userData.profilePicture);
-        await axios.post(
-          `http://localhost:8000/api/files/${data.username}`,
+        await api.userInformation.updateUserProfilePic(
+          data.username,
           pictureFormData
         );
       }
