@@ -59,6 +59,3 @@ user-service/coverage/lcov-report/userController.js.html
 user-service/coverage/lcov.info
 user-service/coverage/coverage-final.json
 user-service/coverage/clover.xml
-user-service/controller/userController.js
-user-service/__tests__/login.spec.js
-user-service/__tests__/authMiddleware.spec.js
