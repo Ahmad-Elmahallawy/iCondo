@@ -41,6 +41,7 @@ const Login: React.FC = () => {
         };
 
         localStorage.setItem("userData", JSON.stringify(userData));
+
         setRegistrationError(null);
         navigate("/");
         // TODO: Handle the token (e.g., store it in localStorage) and redirect the user
