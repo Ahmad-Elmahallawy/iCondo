@@ -5,7 +5,7 @@ export const signUpInitialValues = {
   email: "",
   phoneNumber: "",
   password: "",
-  company_name: "",
+  companyName: "",
 };
 
 export const loginInitialValues = {
