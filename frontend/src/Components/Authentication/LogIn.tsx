@@ -48,7 +48,7 @@ const Login: React.FC = () => {
       } catch (error: any) {
         console.error("Login failed:", error.response.data.message);
         if (error.response && error.response.status === 401) {
-          setRegistrationError("username or Password is not correct");
+          setRegistrationError("Username or Password is not correct");
         } else {
           // Handle other error statuses here if needed
         }
