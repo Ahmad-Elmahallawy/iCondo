@@ -24,7 +24,7 @@ export const signUpValidationSchema = Yup.object({
 });
 
 export const loginValidationSchema = Yup.object({
-  email: Yup.string().email("Invalid Email Address").required("Required"),
+  username: Yup.string().required("Required"),
   password: Yup.string()
     .min(8, "Password must be at least 8 characters long")
     .required("Required"),

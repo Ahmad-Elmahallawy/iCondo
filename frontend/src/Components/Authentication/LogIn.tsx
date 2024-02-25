@@ -10,7 +10,7 @@ import { loginInitialValues } from "../Common/InitialValues";
 import { loginValidationSchema } from "../Common/ValidationSchema";
 
 interface FormValues {
-  email: string;
+  username: string;
   password: string;
 }
 
@@ -27,15 +27,14 @@ const Login: React.FC = () => {
     onSubmit: async (values) => {
       try {
         setIsLoading(true);
-        const response = await axios.get(
-          "http://localhost:8000/api/users/login",
-          {
-            params: {
-              email: values.email,
-              password: values.password,
-            },
-          }
-        );
+        const data = {
+          username: values.username,
+          password: values.password,
+        };
+        const registrationEndpoint = "http://localhost:8000/api/login";
+        console.log(data);
+
+        const response = await axios.post(registrationEndpoint, data);
         const userData = {
           ...response.data,
           password: values.password,
@@ -48,7 +47,7 @@ const Login: React.FC = () => {
       } catch (error: any) {
         console.error("Login failed:", error.response.data.message);
         if (error.response && error.response.status === 401) {
-          setRegistrationError("Email or Password is not correct");
+          setRegistrationError("username or Password is not correct");
         } else {
           // Handle other error statuses here if needed
         }
@@ -66,24 +65,24 @@ const Login: React.FC = () => {
       <div>
         <div
           className={`input-with-icon ${
-            formik.touched.email && formik.errors.email
+            formik.touched.username && formik.errors.username
               ? "input-border-error"
               : ""
           }`}
         >
           <img src="Assets/letter.svg" alt="" />
           <input
-            id="email"
-            name="email"
-            type="email"
-            placeholder="Email"
-            value={formik.values.email}
+            id="username"
+            name="username"
+            type="username"
+            placeholder="username"
+            value={formik.values.username}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
         </div>
-        {formik.touched.email && formik.errors.email ? (
-          <p className="error-msg">{formik.errors.email}</p>
+        {formik.touched.username && formik.errors.username ? (
+          <p className="error-msg">{formik.errors.username}</p>
         ) : (
           <p className="error-msg-alternative"></p>
         )}

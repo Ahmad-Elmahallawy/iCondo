@@ -10,7 +10,7 @@ export const signUpInitialValues = {
 };
 
 export const loginInitialValues = {
-  email: "",
+  username: "",
   password: "",
 };
 
