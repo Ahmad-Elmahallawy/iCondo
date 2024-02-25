@@ -1,5 +1,5 @@
 export const signUpInitialValues = {
-  first_name: "",
+  firstName: "",
   last_name: "",
   username: "",
   email: "",
