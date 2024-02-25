@@ -3,7 +3,7 @@ export const signUpInitialValues = {
   lastName: "",
   username: "",
   email: "",
-  phone_number: "",
+  phoneNumber: "",
   password: "",
   company_name: "",
 };

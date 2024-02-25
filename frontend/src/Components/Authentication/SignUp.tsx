@@ -14,7 +14,7 @@ interface FormValues {
   lastName: string;
   username: string;
   email: string;
-  phone_number: string;
+  phoneNumber: string;
   password: string;
   company_name: string;
   role?: string;
@@ -41,14 +41,14 @@ const SignUp: React.FC = () => {
           lastName: values.lastName,
           username: values.username,
           email: values.email,
-          phone_number: values.phone_number,
+          phoneNumber: values.phoneNumber,
           password: values.password,
         } as {
           firstName: string;
           lastName: string;
           username: string;
           email: string;
-          phone_number: string;
+          phoneNumber: string;
           password: string;
           role?: string;
           company_name?: string;
@@ -230,24 +230,24 @@ const SignUp: React.FC = () => {
 
         <div
           className={`input-with-icon ${
-            formik.touched.phone_number && formik.errors.phone_number
+            formik.touched.phoneNumber && formik.errors.phoneNumber
               ? "input-border-error"
               : ""
           }`}
         >
           <img src="Assets/phone.svg" alt="" />
           <input
-            id="phone_number"
-            name="phone_number"
+            id="phoneNumber"
+            name="phoneNumber"
             type="text"
             placeholder="Phone Number"
-            value={formik.values.phone_number}
+            value={formik.values.phoneNumber}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
         </div>
-        {formik.touched.phone_number && formik.errors.phone_number ? (
-          <p className="error-msg">{formik.errors.phone_number}</p>
+        {formik.touched.phoneNumber && formik.errors.phoneNumber ? (
+          <p className="error-msg">{formik.errors.phoneNumber}</p>
         ) : (
           <p className="error-msg-alternative"></p>
         )}
