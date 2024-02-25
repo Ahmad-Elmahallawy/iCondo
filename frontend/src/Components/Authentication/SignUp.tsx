@@ -17,7 +17,7 @@ interface FormValues {
   phoneNumber: string;
   password: string;
   companyName: string;
-  role?: string;
+  roles: string[];
 }
 
 const SignUp: React.FC = () => {
@@ -50,12 +50,12 @@ const SignUp: React.FC = () => {
           email: string;
           phoneNumber: string;
           password: string;
-          role?: string;
+          roles: string[];
           companyName?: string;
         };
 
         userType === "PublicUser"
-          ? (commonUserData.role = "PublicUser")
+          ? (commonUserData.roles = ["PublicUser"])
           : (commonUserData.companyName = values.companyName);
         console.log(commonUserData);
 
@@ -72,7 +72,7 @@ const SignUp: React.FC = () => {
         navigate("/Login");
       } catch (error: any) {
         console.error("Registration failed:", error.message);
-        setRegistrationError("Registration failed: ");
+        setRegistrationError(`Registration failed: ${error.message}`);
         if (error.response && error.response.status === 400) {
           if (userType === "PublicUser") {
             setRegistrationError(

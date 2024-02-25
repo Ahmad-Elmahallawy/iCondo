@@ -6,6 +6,7 @@ export const signUpInitialValues = {
   phoneNumber: "",
   password: "",
   companyName: "",
+  roles: [""],
 };
 
 export const loginInitialValues = {
