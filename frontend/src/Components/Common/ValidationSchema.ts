@@ -24,7 +24,9 @@ export const signUpValidationSchema = Yup.object({
 });
 
 export const loginValidationSchema = Yup.object({
-  username: Yup.string().required("Required"),
+  username: Yup.string()
+    .max(20, "Must be 20 characters or less")
+    .required("Required"),
   password: Yup.string()
     .min(8, "Password must be at least 8 characters long")
     .required("Required"),

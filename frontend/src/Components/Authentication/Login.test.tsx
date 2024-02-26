@@ -17,13 +17,13 @@ describe("Login component", () => {
   it("renders login form", () => {
     setup();
 
-    expect(screen.getByPlaceholderText("Email")).not.toBeNull();
+    expect(screen.getByPlaceholderText("username")).not.toBeNull();
     expect(screen.getByPlaceholderText("Password")).not.toBeNull();
     expect(screen.getByText("Log in")).not.toBeNull();
   });
 
   it("submits form successfully", async () => {
-    (axios.get as jest.Mock).mockResolvedValue({
+    (axios.post as jest.Mock).mockResolvedValue({
       data: {
         name: "user",
       },
@@ -31,8 +31,8 @@ describe("Login component", () => {
 
     setup();
 
-    fireEvent.change(screen.getByPlaceholderText("Email"), {
-      target: { value: "test@example.com" },
+    fireEvent.change(screen.getByPlaceholderText("username"), {
+      target: { value: "test123" },
     });
     fireEvent.change(screen.getByPlaceholderText("Password"), {
       target: { value: "password" },
@@ -45,19 +45,19 @@ describe("Login component", () => {
     });
   });
 
-  it("submits invalid email addr", async () => {
-    const errorMessage = /Invalid Email Address/i;
+  it("submits invalid username address", async () => {
+    const errorMessage = /Must be 20 characters or less/i;
 
     setup();
 
-    fireEvent.change(screen.getByPlaceholderText("Email"), {
-      target: { value: "12" },
+    fireEvent.change(screen.getByPlaceholderText("username"), {
+      target: { value: "12dsssssssssssssssssssssssssssssssssssssssssssssscfdfdfdfdf" },
     });
     fireEvent.change(screen.getByPlaceholderText("Password"), {
       target: { value: "password" },
     });
 
-    fireEvent.focusOut(screen.getByPlaceholderText("Email"));
+    fireEvent.blur(screen.getByPlaceholderText("username")); // Using blur instead of focusOut
 
     await waitFor(() => {
       expect(screen.getByText(errorMessage)).not.toBeNull();
@@ -69,14 +69,14 @@ describe("Login component", () => {
 
     setup();
 
-    fireEvent.change(screen.getByPlaceholderText("Email"), {
+    fireEvent.change(screen.getByPlaceholderText("username"), {
       target: { value: "invalid@example.com" },
     });
     fireEvent.change(screen.getByPlaceholderText("Password"), {
       target: { value: "1" },
     });
 
-    fireEvent.focusOut(screen.getByPlaceholderText("Password"));
+    fireEvent.blur(screen.getByPlaceholderText("Password")); // Using blur instead of focusOut
 
     await waitFor(() => {
       expect(screen.getByText(errorMessage)).not.toBeNull();
@@ -84,8 +84,8 @@ describe("Login component", () => {
   });
 
   it("handles login failure", async () => {
-    const errorMessage = /Email or Password is not correct/i;
-    (axios.get as jest.Mock).mockRejectedValue({
+    const errorMessage = /Username or Password is not correct/i;
+    (axios.post as jest.Mock).mockRejectedValue({
       response: {
         data: { message: errorMessage },
         status: 401,
@@ -94,7 +94,7 @@ describe("Login component", () => {
 
     setup();
 
-    fireEvent.change(screen.getByPlaceholderText("Email"), {
+    fireEvent.change(screen.getByPlaceholderText("username"), {
       target: { value: "invalid@example.com" },
     });
     fireEvent.change(screen.getByPlaceholderText("Password"), {
