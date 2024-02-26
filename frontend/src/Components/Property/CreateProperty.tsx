@@ -4,10 +4,16 @@ import { createPropertyInitialValues } from "../Common/InitialValues";
 import { createPropertyValidationSchema } from "../Common/ValidationSchema";
 import "../../Style/CreatePropertyStyle/CreatePropertyStyle.css";
 
+// CreateProperty Component:
+// This component renders a form to create a new property.
+// It utilizes Formik for form management and validation.
+// The component includes inputs for property name, address, unit count, parking count, locker count,
+// and allows users to upload files related to the property.
 const CreateProperty: React.FC = () => {
   const deleteIcon = "/Assets/delete.svg";
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
 
+  // Formik form initialization
   const formik = useFormik({
     initialValues: { ...createPropertyInitialValues, files: [] },
     validationSchema: createPropertyValidationSchema,
@@ -17,6 +23,7 @@ const CreateProperty: React.FC = () => {
     },
   });
 
+  // Handler for file input change
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       const newFiles = Array.from(e.target.files);
@@ -24,10 +31,12 @@ const CreateProperty: React.FC = () => {
     }
   };
 
+  // Handler for deleting selected file
   const handleFileDelete = (fileName: string) => {
     setSelectedFiles(selectedFiles.filter((file) => file.name !== fileName));
   };
 
+  // Drag and drop event handlers
   const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
