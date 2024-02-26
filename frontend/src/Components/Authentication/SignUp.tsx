@@ -42,7 +42,16 @@ const SignUp: React.FC = () => {
           email: values.email,
           phoneNumber: values.phoneNumber,
           password: values.password,
-        } as FormValues; // Typing for common user data
+        } as {
+          firstName: string;
+          lastName: string;
+          username: string;
+          email: string;
+          phoneNumber: string;
+          password: string;
+          roles?: string[];
+          companyName: string;
+        };
 
         // Set user type specific fields
         userType === "PublicUser" && (commonUserData.roles = ["PublicUser"]);
@@ -58,28 +67,42 @@ const SignUp: React.FC = () => {
           commonUserData.companyName = values.companyName;
         }
 
-        // Make API call based on user type
-        const response = await axios.post(registrationEndpoint, commonUserData);
-
-        // Log response
-        console.log(response);
-
         // If company type user, make additional API calls
         if (userType === "Company") {
-          // API call to create company
+          const response = await axios.post(registrationEndpoint, {
+            firstName: commonUserData.firstName,
+            lastName: commonUserData.lastName,
+            username: commonUserData.username,
+            email: commonUserData.email,
+            phoneNumber: commonUserData.phoneNumber,
+            password: commonUserData.password,
+            roles: commonUserData.roles,
+          });
+          commonUserData.roles = ["Admin"];
+          commonUserData.companyName = values.companyName;
           const response1 = await axios.post(
             "http://localhost:8000/api/companies",
-            { name: commonUserData.companyName }
+            {
+              name: commonUserData.companyName,
+            }
           );
+          console.log(response);
           console.log(response1);
-
-          // API call to link user with company
           const response2 = await axios.post(
             "http://localhost:8000/api/companyEmployees",
             {
-              company: { id: response.data.id },
-              user: { id: response.data.id },
+              company: {
+                id: response1.data.id,
+              },
+              user: {
+                id: response.data.id,
+              },
             }
+          );
+        } else {
+          const response = await axios.post(
+            registrationEndpoint,
+            commonUserData
           );
         }
 
