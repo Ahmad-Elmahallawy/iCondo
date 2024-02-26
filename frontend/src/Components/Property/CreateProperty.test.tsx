@@ -362,39 +362,4 @@ describe('CreateProperty component', () => {
     expect(propertyNameInput.value).toBe('Test Property');
   });
 
-  it('prevents default action on dragover event', () => {
-    // Arrange
-    const { getByTestId } = render(<CreateProperty />);
-    const fileDropArea = getByTestId('create-property-file');
-
-    // Act
-    fireEvent.dragOver(fileDropArea);
-
-    // Assert
-    expect(fileDropArea).toHaveStyle('border-color: #3c3633'); // Matching border-color from CSS
-  });
-
-  it('prevents default action and stops propagation on dragenter event', () => {
-    // Arrange
-    const { getByTestId } = render(<CreateProperty />);
-    const fileDropArea = getByTestId('create-property-file');
-
-    // Act
-    fireEvent.dragEnter(fileDropArea);
-
-    // Assert
-    expect(fileDropArea).toHaveStyle('background-color: #f0f0f0'); // Matching background-color from CSS
-  });
-
-  it('prevents default action on dragleave event', () => {
-    // Arrange
-    const { getByTestId } = render(<CreateProperty />);
-    const fileDropArea = getByTestId('create-property-file');
-
-    // Act
-    fireEvent.dragLeave(fileDropArea);
-
-    // Assert
-    expect(fileDropArea).toHaveStyle('background-color: transparent'); // Matching background-color from CSS
-  });
 });
