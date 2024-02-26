@@ -44,7 +44,7 @@ const PropertyProfileLandingPage: React.FC = () => {
   return (
     <div className="property-profile-landing-page">
       <div className="property-info-section">
-        <h1>{propertyInfo.title} Profile</h1>
+        <h1 data-testid="property-title">{propertyInfo.title} Profile</h1>
         <PropertyInfoForm
           propertyInfo={propertyInfo}
           onSave={handleSavePropertyInfo}
