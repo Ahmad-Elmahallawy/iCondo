@@ -1,6 +1,7 @@
 // CondoInfoField.tsx
-import "../../Style/CondoProfileStyle/CondoInfoFieldStyle.css";
+import "../../Style/CondoProfileStyle/CondoInfoFieldStyle.css"; // Styles import for the component
 
+// Interface definition for props expected by CondoInfoField
 interface CondoInfoFieldProps {
   label: string;
   value: string;
@@ -9,6 +10,7 @@ interface CondoInfoFieldProps {
   name: string;
 }
 
+// Functional component definition using destructuring to directly access props
 const CondoInfoField: React.FC<CondoInfoFieldProps> = ({
   label,
   value,
@@ -17,6 +19,7 @@ const CondoInfoField: React.FC<CondoInfoFieldProps> = ({
   name,
 }) => {
   return (
+    // Container for the entire field, including label and value/input
     <div className="input-container">
       <span className="input-label">{label}:</span>
       {isEditMode ? (
@@ -35,4 +38,5 @@ const CondoInfoField: React.FC<CondoInfoFieldProps> = ({
   );
 };
 
+// Exporting the component for use in other parts of the application
 export default CondoInfoField;
