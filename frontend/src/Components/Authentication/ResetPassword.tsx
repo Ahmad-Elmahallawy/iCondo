@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import LoadingScreen from "../Common/LoadingScreen";
 import { resetPasswordInitialValues } from "../Common/InitialValues";
 import { resetPasswordValidationSchema } from "../Common/ValidationSchema";
+import "../../Style/AuthenticationStyle/ResetPassword.css";
 
 interface FormValues {
   username: string;
@@ -38,8 +39,8 @@ const ResetPassword: React.FC = () => {
   });
   return (
     <div data-testid="reset-container" className="reset-password-container">
-      <div className="reset-password-container">
-        <div className="reset-password-content">
+      <div className="reset-password-information-container">
+        <div className="reset-password-information-content">
           <h2>Reset your password</h2>
           <form onSubmit={formik.handleSubmit} className="reset-password-form">
             <div>
