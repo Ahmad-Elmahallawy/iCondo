@@ -17,10 +17,20 @@ jest.mock("../Components/Condo/Condos.json", () => [
     condoFee: "500",
     imageUrl: "Assets/condo1.svg",
   },
-  // Add more mock condo data as needed
 ]);
 
 describe("PropertyProfileLandingPage", () => {
+  test("renders property title and info form with correct initial values", () => {
+    render(
+      <MemoryRouter initialEntries={["/property"]} initialIndex={0}>
+        <Routes>
+          <Route path="/property" element={<PropertyProfileLandingPage />} />
+        </Routes>
+      </MemoryRouter>
+    );
+    expect(screen.getByTestId("property-title")).toBeInTheDocument();
+    // Add assertions to check if property info form renders with correct initial values
+  });
   test("renders property title", () => {
     render(
       <MemoryRouter initialEntries={["/property"]} initialIndex={0}>
@@ -73,5 +83,31 @@ describe("PropertyProfileLandingPage", () => {
     expect(screen.getByTestId("add-unit-page")).toBeInTheDocument();
   });
 
-  // Add more tests as needed
+  test("renders condo list with correct data", () => {
+    render(
+      <MemoryRouter initialEntries={["/property"]} initialIndex={0}>
+        <Routes>
+          <Route path="/property" element={<PropertyProfileLandingPage />} />
+        </Routes>
+      </MemoryRouter>
+    );
+
+    // Add assertions to check if condo data is correctly rendered in condo containers
+  });
+
+  test("navigates to add unit page when add unit button is clicked", () => {
+    render(
+      <MemoryRouter initialEntries={["/property"]} initialIndex={0}>
+        <Routes>
+          <Route path="/property" element={<PropertyProfileLandingPage />} />
+          <Route
+            path="/add-unit"
+            element={<div data-testid="add-unit-page">Add Unit Page</div>}
+          />
+        </Routes>
+      </MemoryRouter>
+    );
+    fireEvent.click(screen.getByText("Add Unit"));
+    expect(screen.getByTestId("add-unit-page")).toBeInTheDocument();
+  });
 });

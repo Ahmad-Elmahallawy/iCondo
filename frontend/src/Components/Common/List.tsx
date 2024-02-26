@@ -24,7 +24,7 @@ function List<T>({ items, renderItem }: ListProps<T>) {
 
   return (
     <div className="list">
-      <div className="items-container" >
+      <div className="items-container" data-testid="list-container">
         {items.slice(startIndex, startIndex + 4).map((item, index) => (
           <div key={index} className="item-wrapper">
             {renderItem(item)}
