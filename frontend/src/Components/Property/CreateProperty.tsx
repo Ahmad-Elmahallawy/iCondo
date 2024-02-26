@@ -130,6 +130,7 @@ const CreateProperty: React.FC = () => {
           onDragOver={(e) => e.preventDefault()}
           onDragEnter={handleDragEnter}
           onDragLeave={handleDragLeave}
+          data-testid="create-property-file"
         >
           <label className="custom-file-upload">
             <input
