@@ -13,6 +13,7 @@ const Navbar = () => {
   const userIsAuthenticated = isAuthenticated();
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("userData") || "{}");
+  const isAdmin = user.roles && user.roles.includes("Admin");
 
   const handleLogout = () => {
     // Show the logout confirmation modal
@@ -51,10 +52,15 @@ const Navbar = () => {
             <li className="nav-item" onClick={handleLogout}>
               <span>Log Out</span>
             </li>
-            {user.role === "Admin" && (
-              <li className="nav-item">
-                <Link to="/Employee/Registration">Register Employees</Link>
-              </li>
+            {isAdmin && (
+              <>
+                <li className="nav-item">
+                  <Link to="/CompanyDashboard">Dashboard</Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/Employee/Registration">Register Employees</Link>
+                </li>
+              </>
             )}
           </>
         ) : (
