@@ -12,6 +12,7 @@ import DashboardPage from "./Pages/CompanyDashboardLandingPage";
 import CondoProfileLandingPage from "./Pages/CondoProfileLandingPage";
 import PropertyProfileLandingPage from "./Pages/PropertyProfileLandingPage";
 import CondoCreationLandingPage from "./Pages/CondoCreationLandingPage";
+import EmployeeRequestsLandingPage from "./Pages/EmployeeRequestsLandingPage";
 
 function App() {
   return (
@@ -30,7 +31,9 @@ function App() {
         <Route path="CompanyDashboard" element={<DashboardPage />} />
         <Route
           path="GenerateKey"
-          element={<DashboardPage />} /*CHANGE PATH ONCE PAGE IS CREATED*/
+          element={
+            <EmployeeRequestsLandingPage />
+          } 
         />
         <Route
           path="RegisterEmployee"

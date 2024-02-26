@@ -1,11 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
 # dependencies
 /node_modules
 /.pnp
 .pnp.js
-
-
 # Node.js
 /user-service/node_modules
 
@@ -13,19 +10,19 @@
 /frontend/node_modules
 /frontend/coverage
 
+# React-Native
+/condo-management-app/node_modules
 # testing
 /coverage
 
 # production
 /build
-
 # misc
 .DS_Store
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
-
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -59,6 +56,3 @@ user-service/coverage/lcov-report/userController.js.html
 user-service/coverage/lcov.info
 user-service/coverage/coverage-final.json
 user-service/coverage/clover.xml
-user-service/controller/userController.js
-user-service/__tests__/login.spec.js
-user-service/__tests__/authMiddleware.spec.js
