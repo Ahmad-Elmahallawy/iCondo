@@ -1,5 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom"; // Import MemoryRouter
 import userEvent from "@testing-library/user-event";
 import CondoInfoForm from "./CondoInfoForm";
 import "@testing-library/jest-dom"; // Ensure this import is here
@@ -17,7 +18,11 @@ describe("CondoInfoForm", () => {
 
   test("edit and save changes", async () => {
     const mockOnSave = jest.fn();
-    render(<CondoInfoForm condoInfo={initialInfo} onSave={mockOnSave} />);
+    render(
+      <MemoryRouter>
+        <CondoInfoForm condoInfo={initialInfo} onSave={mockOnSave} />
+      </MemoryRouter>
+    );
 
     // Assuming there is a button that toggles the edit mode
     await userEvent.click(screen.getByRole("button", { name: /Edit/i }));

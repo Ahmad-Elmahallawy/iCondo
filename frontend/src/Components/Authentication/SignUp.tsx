@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
-import * as Yup from "yup";
 import "../../Style/AuthenticationStyle/LoginAndRegistrationStyle.css";
 import "../../Style/AuthenticationStyle/SignUpStyle.css";
 import axios from "axios";
@@ -10,14 +9,14 @@ import { signUpInitialValues } from "../Common/InitialValues";
 import { signUpValidationSchema } from "../Common/ValidationSchema";
 
 interface FormValues {
-  first_name: string;
-  last_name: string;
+  firstName: string;
+  lastName: string;
   username: string;
   email: string;
-  phone_number: string;
+  phoneNumber: string;
   password: string;
-  company_name: string;
-  role?: string;
+  companyName: string; // Company-specific field
+  roles: string[]; // Common field
 }
 
 const SignUp: React.FC = () => {
@@ -37,43 +36,62 @@ const SignUp: React.FC = () => {
 
         // Common data for both user types
         const commonUserData = {
-          first_name: values.first_name,
-          last_name: values.last_name,
+          firstName: values.firstName,
+          lastName: values.lastName,
           username: values.username,
           email: values.email,
-          phone_number: values.phone_number,
+          phoneNumber: values.phoneNumber,
           password: values.password,
-        } as {
-          first_name: string;
-          last_name: string;
-          username: string;
-          email: string;
-          phone_number: string;
-          password: string;
-          role?: string;
-          company_name?: string;
-        };
+        } as FormValues; // Typing for common user data
 
-        userType === "PublicUser"
-          ? (commonUserData.role = "PublicUser")
-          : (commonUserData.company_name = values.company_name);
+        // Set user type specific fields
+        userType === "PublicUser" && (commonUserData.roles = ["PublicUser"]);
+
+        // Log common user data
         console.log(commonUserData);
 
-        const registrationEndpoint =
-          userType === "PublicUser"
-            ? "http://localhost:8000/api/users"
-            : "http://localhost:8000/api/users/adminCompanyCreation";
+        const registrationEndpoint = "http://localhost:8000/api/users";
 
+        if (userType === "Company") {
+          // Set fields for company type user
+          commonUserData.roles = ["Admin"];
+          commonUserData.companyName = values.companyName;
+        }
+
+        // Make API call based on user type
         const response = await axios.post(registrationEndpoint, commonUserData);
 
-        console.log("Registration successful:", response.data);
+        // Log response
+        console.log(response);
 
+        // If company type user, make additional API calls
+        if (userType === "Company") {
+          // API call to create company
+          const response1 = await axios.post(
+            "http://localhost:8000/api/companies",
+            { name: commonUserData.companyName }
+          );
+          console.log(response1);
+
+          // API call to link user with company
+          const response2 = await axios.post(
+            "http://localhost:8000/api/companyEmployees",
+            {
+              company: { id: response.data.id },
+              user: { id: response.data.id },
+            }
+          );
+        }
+
+        // Reset registration error and navigate to login page
         setRegistrationError(null);
         navigate("/Login");
       } catch (error: any) {
         console.error("Registration failed:", error.message);
-        setRegistrationError("Registration failed: ");
+        // Set registration error message based on error response
+        setRegistrationError(`Registration failed: ${error.message}`);
         if (error.response && error.response.status === 400) {
+          // Set specific error messages based on user type
           if (userType === "PublicUser") {
             setRegistrationError(
               "User with this email, username, or phone number already exists"
@@ -111,24 +129,24 @@ const SignUp: React.FC = () => {
           <>
             <div
               className={`input-with-icon ${
-                formik.touched.company_name && formik.errors.company_name
+                formik.touched.companyName && formik.errors.companyName
                   ? "input-border-error"
                   : ""
               }`}
             >
               <img src="Assets/company.svg" alt="" />
               <input
-                id="company_name"
-                name="company_name"
+                id="companyName"
+                name="companyName"
                 type="text"
                 placeholder="Company Name"
-                value={formik.values.company_name}
+                value={formik.values.companyName}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               />
             </div>
-            {formik.touched.company_name && formik.errors.company_name ? (
-              <p className="error-msg">{formik.errors.company_name}</p>
+            {formik.touched.companyName && formik.errors.companyName ? (
+              <p className="error-msg">{formik.errors.companyName}</p>
             ) : (
               <p className="error-msg-alternative"></p>
             )}
@@ -136,48 +154,48 @@ const SignUp: React.FC = () => {
         )}
         <div
           className={`input-with-icon ${
-            formik.touched.first_name && formik.errors.first_name
+            formik.touched.firstName && formik.errors.firstName
               ? "input-border-error"
               : ""
           }`}
         >
           <img src="Assets/person.svg" alt="" />
           <input
-            id="first_name"
-            name="first_name"
+            id="firstName"
+            name="firstName"
             type="text"
             placeholder="First Name"
-            value={formik.values.first_name}
+            value={formik.values.firstName}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
         </div>
-        {formik.touched.first_name && formik.errors.first_name ? (
-          <p className="error-msg">{formik.errors.first_name}</p>
+        {formik.touched.firstName && formik.errors.firstName ? (
+          <p className="error-msg">{formik.errors.firstName}</p>
         ) : (
           <p className="error-msg-alternative"></p>
         )}
 
         <div
           className={`input-with-icon ${
-            formik.touched.last_name && formik.errors.last_name
+            formik.touched.lastName && formik.errors.lastName
               ? "input-border-error"
               : ""
           }`}
         >
           <img src="Assets/person.svg" alt="" />
           <input
-            id="last_name"
-            name="last_name"
+            id="lastName"
+            name="lastName"
             type="text"
             placeholder="Last Name"
-            value={formik.values.last_name}
+            value={formik.values.lastName}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
         </div>
-        {formik.touched.last_name && formik.errors.last_name ? (
-          <p className="error-msg">{formik.errors.last_name}</p>
+        {formik.touched.lastName && formik.errors.lastName ? (
+          <p className="error-msg">{formik.errors.lastName}</p>
         ) : (
           <p className="error-msg-alternative"></p>
         )}
@@ -230,24 +248,24 @@ const SignUp: React.FC = () => {
 
         <div
           className={`input-with-icon ${
-            formik.touched.phone_number && formik.errors.phone_number
+            formik.touched.phoneNumber && formik.errors.phoneNumber
               ? "input-border-error"
               : ""
           }`}
         >
           <img src="Assets/phone.svg" alt="" />
           <input
-            id="phone_number"
-            name="phone_number"
+            id="phoneNumber"
+            name="phoneNumber"
             type="text"
             placeholder="Phone Number"
-            value={formik.values.phone_number}
+            value={formik.values.phoneNumber}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
         </div>
-        {formik.touched.phone_number && formik.errors.phone_number ? (
-          <p className="error-msg">{formik.errors.phone_number}</p>
+        {formik.touched.phoneNumber && formik.errors.phoneNumber ? (
+          <p className="error-msg">{formik.errors.phoneNumber}</p>
         ) : (
           <p className="error-msg-alternative"></p>
         )}

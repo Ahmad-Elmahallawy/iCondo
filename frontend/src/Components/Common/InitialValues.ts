@@ -1,15 +1,16 @@
 export const signUpInitialValues = {
-  first_name: "",
-  last_name: "",
+  firstName: "",
+  lastName: "",
   username: "",
   email: "",
-  phone_number: "",
+  phoneNumber: "",
   password: "",
-  company_name: "",
+  companyName: "",
+  roles: [""],
 };
 
 export const loginInitialValues = {
-  email: "",
+  username: "",
   password: "",
 };
 

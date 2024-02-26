@@ -19,6 +19,7 @@ body {
 
 p {
   color: var(--color3);
+  font-size: 14px;
 }
 
 h1,
