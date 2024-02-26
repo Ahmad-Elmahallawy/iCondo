@@ -17,7 +17,9 @@ const Splash = ({ navigation }) => {
             <Text style={styles.title}>Welcome to</Text>
             <Text style={styles.innerTitle}>Condo Management System</Text>
             </View>
-            <Button onPress={onSignUp} title="Sign Up"></Button>
+            <View style={styles.buttonCont}>
+                <Button onPress={onSignUp} title="Sign Up" />
+            </View>
             <Pressable onPress={onSignIn} hitSlop={20}>
                 <Text style={styles.footerTyper}>Sign In</Text>
             </Pressable>
