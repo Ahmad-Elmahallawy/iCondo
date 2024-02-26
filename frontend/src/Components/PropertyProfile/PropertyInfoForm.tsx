@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropertyInfoField from "./PropertyInfoField"; // Adjust the path as needed
 import "../../Style/PropertyProfileStyle/PropertyInfoFormStyle.css";
 import CondoFilesModal from "./CondoFilesModal";
@@ -17,12 +17,17 @@ type PropertyInfoFormProps = {
 };
 
 const PropertyInfoForm: React.FC<PropertyInfoFormProps> = ({
-  propertyInfo,
+  propertyInfo: initialPropertyInfo,
   onSave,
 }) => {
   const [isEditMode, setEditMode] = useState(false);
-  const [tempInfo, setTempInfo] = useState<PropertyInfo>(propertyInfo);
+  const [tempInfo, setTempInfo] = useState<PropertyInfo>(initialPropertyInfo);
   const [isCondoFilesOpen, setIsCondoFilesOpen] = useState(false);
+
+  // Synchronize internal state with prop changes
+  useEffect(() => {
+    setTempInfo(initialPropertyInfo);
+  }, [initialPropertyInfo]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -41,7 +46,7 @@ const PropertyInfoForm: React.FC<PropertyInfoFormProps> = ({
   };
 
   const handleCancel = () => {
-    setTempInfo(propertyInfo);
+    setTempInfo(initialPropertyInfo);
     setEditMode(false);
   };
 
@@ -53,7 +58,7 @@ const PropertyInfoForm: React.FC<PropertyInfoFormProps> = ({
   return (
     <div className="property-form-container">
       <form onSubmit={isEditMode ? handleSave : undefined}>
-        {Object.keys(propertyInfo).map((key) => (
+        {Object.keys(initialPropertyInfo).map((key) => (
           <PropertyInfoField
             key={key}
             name={key}
