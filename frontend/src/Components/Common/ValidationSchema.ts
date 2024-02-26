@@ -45,3 +45,17 @@ export const condoValidationSchema = Yup.object({
     .required("Required")
     .matches(/^[0-9]+$/, "Condo Fee must be a number"),
 });
+
+export const createPropertyValidationSchema = Yup.object({
+  propertyName: Yup.string().required("Required"),
+  address: Yup.string().required("Required"),
+  unitCount: Yup.number()
+    .typeError("Unit Count must be a number")
+    .required("Required"),
+  parkingCount: Yup.number()
+    .typeError("Parking Count must be a number")
+    .required("Required"),
+  lockerCount: Yup.number()
+    .typeError("Locker Count must be a number")
+    .required("Required"),
+});

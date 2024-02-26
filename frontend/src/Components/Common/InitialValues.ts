@@ -19,3 +19,11 @@ export const condoInitialValues = {
   netArea: "",
   condoFee: "",
 };
+
+export const createPropertyInitialValues = {
+  propertyName: "",
+  address: "",
+  unitCount: "",
+  parkingCount: "",
+  lockerCount: "",
+};
