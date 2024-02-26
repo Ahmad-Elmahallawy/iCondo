@@ -4,15 +4,14 @@ import CondoInfoForm from "../Components/CondoProfile/CondoInfoForm";
 import "../Style/LandingPageStyle/CondoProfileLandingPageStyle.css";
 
 const initialCondoInfo = {
-  condoId: "123",
-  netArea: "123 Cruise Street, 1A3 1A3, Montreal, QC",
-  occupantName: "Jane Doe",
-  bathrooms: "2",
-  bedrooms: "2",
-  condoType: "divided",
-  lastRenovated: "2019",
+  condoId: "1",
+  netArea: "100",
+  occupantName: "John Doe",
+  propertyId: "330",
+  parkingId: "4537",
+  condoFee: "890",
+  lockerId: "345",
 };
-
 const LandingPage: React.FC = () => {
   const [condoInfo, setCondoInfo] = useState(initialCondoInfo);
 

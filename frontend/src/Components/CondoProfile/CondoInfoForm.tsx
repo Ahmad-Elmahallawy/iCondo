@@ -9,10 +9,10 @@ interface CondoInfo {
   condoId: string;
   netArea: string;
   occupantName: string;
-  bathrooms: string;
-  bedrooms: string;
-  condoType: string;
-  lastRenovated: string;
+  propertyId: string;
+  parkingId: string;
+  condoFee: string;
+  lockerId: string;
 }
 
 // Define CondoInfoForm component
