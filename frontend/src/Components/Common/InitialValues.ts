@@ -18,3 +18,9 @@ export const condoInitialValues = {
   netArea: "",
   condoFee: "",
 };
+
+export const resetPasswordInitialValues = {
+  username: "",
+  password: "",
+  password_confirm: "",
+};
