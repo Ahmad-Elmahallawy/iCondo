@@ -1,5 +1,6 @@
 import * as Yup from "yup";
 
+// schema for signup input fields
 export const signUpValidationSchema = Yup.object({
   firstName: Yup.string()
     .max(15, "Must be 15 characters or less")
@@ -23,6 +24,7 @@ export const signUpValidationSchema = Yup.object({
   }),
 });
 
+// schema for login input fields
 export const loginValidationSchema = Yup.object({
   username: Yup.string()
     .max(20, "Must be 20 characters or less")
@@ -32,6 +34,7 @@ export const loginValidationSchema = Yup.object({
     .required("Required"),
 });
 
+// schema for condo input fields
 export const condoValidationSchema = Yup.object({
   unitNumber: Yup.string().required("Required"),
   netArea: Yup.string()

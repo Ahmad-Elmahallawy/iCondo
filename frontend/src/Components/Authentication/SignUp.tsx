@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
-import * as Yup from "yup";
 import "../../Style/AuthenticationStyle/LoginAndRegistrationStyle.css";
 import "../../Style/AuthenticationStyle/SignUpStyle.css";
 import axios from "axios";
@@ -16,8 +15,8 @@ interface FormValues {
   email: string;
   phoneNumber: string;
   password: string;
-  companyName: string;
-  roles: string[];
+  companyName: string; // Company-specific field
+  roles: string[]; // Common field
 }
 
 const SignUp: React.FC = () => {
@@ -43,72 +42,56 @@ const SignUp: React.FC = () => {
           email: values.email,
           phoneNumber: values.phoneNumber,
           password: values.password,
-        } as {
-          firstName: string;
-          lastName: string;
-          username: string;
-          email: string;
-          phoneNumber: string;
-          password: string;
-          roles: string[];
-          companyName: string;
-        };
+        } as FormValues; // Typing for common user data
 
+        // Set user type specific fields
         userType === "PublicUser" && (commonUserData.roles = ["PublicUser"]);
 
+        // Log common user data
         console.log(commonUserData);
 
         const registrationEndpoint = "http://localhost:8000/api/users";
+
         if (userType === "Company") {
+          // Set fields for company type user
           commonUserData.roles = ["Admin"];
           commonUserData.companyName = values.companyName;
         }
 
+        // Make API call based on user type
+        const response = await axios.post(registrationEndpoint, commonUserData);
+
+        // Log response
+        console.log(response);
+
+        // If company type user, make additional API calls
         if (userType === "Company") {
-          const response = await axios.post(registrationEndpoint, {
-            firstName: commonUserData.firstName,
-            lastName: commonUserData.lastName,
-            username: commonUserData.username,
-            email: commonUserData.email,
-            phoneNumber: commonUserData.phoneNumber,
-            password: commonUserData.password,
-            roles: commonUserData.roles,
-          });
-          commonUserData.roles = ["Admin"];
-          commonUserData.companyName = values.companyName;
+          // API call to create company
           const response1 = await axios.post(
             "http://localhost:8000/api/companies",
-            {
-              name: commonUserData.companyName,
-            }
+            { name: commonUserData.companyName }
           );
-          console.log(response);
           console.log(response1);
 
+          // API call to link user with company
           const response2 = await axios.post(
             "http://localhost:8000/api/companyEmployees",
             {
-              "company": {
-                "id": response.data.id,
-              },
-              "user": {
-                "id": response.data.id,
-              },
+              company: { id: response.data.id },
+              user: { id: response.data.id },
             }
-          );
-        } else {
-          const response = await axios.post(
-            registrationEndpoint,
-            commonUserData
           );
         }
 
+        // Reset registration error and navigate to login page
         setRegistrationError(null);
         navigate("/Login");
       } catch (error: any) {
         console.error("Registration failed:", error.message);
+        // Set registration error message based on error response
         setRegistrationError(`Registration failed: ${error.message}`);
         if (error.response && error.response.status === 400) {
+          // Set specific error messages based on user type
           if (userType === "PublicUser") {
             setRegistrationError(
               "User with this email, username, or phone number already exists"

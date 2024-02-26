@@ -1,48 +1,52 @@
-// components/EmployeeRegistration.js
-
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import axios from "axios";
 import "../../Style/AuthenticationStyle/LoginAndRegistrationStyle.css";
 import "../../Style/AuthenticationStyle/EmployeeRegistrationStyle.css";
-import { signUpInitialValues } from "../Common/InitialValues";
-import { signUpValidationSchema } from "../Common/ValidationSchema";
-import LoadingScreen from "../Common/LoadingScreen";
+import { signUpInitialValues } from "../Common/InitialValues"; // Initial form values
+import { signUpValidationSchema } from "../Common/ValidationSchema"; // Form validation schema
+import LoadingScreen from "../Common/LoadingScreen"; // Loading spinner component
+
+// Define the EmployeeRegistration component
 const EmployeeRegistration = () => {
+  // State variables for selected role, result message, and loading indicator
   const [selectedRole, setSelectedRole] = useState("Manager"); // Default value
   const [resultMessage, setResultMessage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  // Formik hook to handle form state, validation, and submission
   const formik = useFormik({
-    initialValues: { ...signUpInitialValues, role: selectedRole },
-    validationSchema: signUpValidationSchema,
+    initialValues: { ...signUpInitialValues, role: selectedRole }, // Set initial values including selected role
+    validationSchema: signUpValidationSchema, // Use the defined validation schema
     onSubmit: async (values) => {
-      setIsLoading(true);
-      values.role = selectedRole;
+      setIsLoading(true); // Set loading indicator to true on form submission
+      values.role = selectedRole; // Set the selected role to form values
       try {
-        const registrationUrl =
-          "http://localhost:8000/api/users/register/employee";
+        // Make API call to register employee
+        const registrationUrl = "http://localhost:8000/api/users/register/employee";
         const response = await axios.post(registrationUrl, values);
-        console.log("Employee registration successful:", response.data);
-        setResultMessage("Employee Added Successfully");
+        console.log("Employee registration successful:", response.data); // Log successful response
+        setResultMessage("Employee Added Successfully"); // Set success message
       } catch (error: any) {
-        console.error("Employee registration failed:", error.message);
+        console.error("Employee registration failed:", error.message); // Log error message
+        // Set appropriate error message based on error response
         if (error.response && error.response.status === 400) {
-          setResultMessage(
-            "User with this email, username or phone number already exists OR Company does not Exist"
-          );
+          setResultMessage("User with this email, username or phone number already exists OR Company does not Exist");
         } else {
           // Handle other error statuses here if needed
         }
       } finally {
-        setIsLoading(false);
+        setIsLoading(false); // Set loading indicator to false after API call
       }
     },
   });
 
+  // Function to handle role change
   const handleRoleChange = (event: any) => {
-    setSelectedRole(event.target.value);
+    setSelectedRole(event.target.value); // Update selected role
   };
+
+  // Render the component UI
 
   return (
     <div className="registration-and-login-content-main-div">
