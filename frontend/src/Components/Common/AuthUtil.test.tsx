@@ -37,7 +37,7 @@ const mockLocalStorage = (() => {
       // Simulate a user being authenticated with a token stored in localStorage
       mockLocalStorage.getItem.mockImplementation((key: string) => {
         if (key === 'userData') {
-          return JSON.stringify({ token: 'valid-token' });
+          return JSON.stringify({ accessToken: 'valid-token' });
         }
         return null;
       });
