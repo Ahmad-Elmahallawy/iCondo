@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">65% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>20/20</span>
+                <span class='fraction'>13/20</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.66% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/6</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">28.57% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>7/7</span>
+                <span class='fraction'>2/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">62.5% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>16/16</span>
+                <span class='fraction'>10/16</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -130,32 +130,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">41x</span>
-<span class="cline-any cline-yes">41x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">41x</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">41x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">140x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -163,7 +154,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -189,12 +189,12 @@ interface ListProps&lt;T&gt; {
 function List&lt;T&gt;({ items, renderItem }: ListProps&lt;T&gt;) {
   const [startIndex, setStartIndex] = useState(0);
 &nbsp;
-  const handleScroll = (direction: "prev" | "next") =&gt; {
-    if (direction === "prev") {
-      setStartIndex((prevIndex) =&gt; (prevIndex - 4 &gt;= 0 ? prevIndex - 4 : <span class="branch-1 cbranch-no" title="branch not covered" >0)</span>);
+  const handleScroll = <span class="fstat-no" title="function not covered" >(d</span>irection: "prev" | "next") =&gt; {
+<span class="cstat-no" title="statement not covered" >    if (direction === "prev") {</span>
+<span class="cstat-no" title="statement not covered" >      setStartIndex(<span class="fstat-no" title="function not covered" >(p</span>revIndex) =&gt; <span class="cstat-no" title="statement not covered" >(prevIndex - 4 &gt;= 0 ? prevIndex - 4 : 0));</span></span>
     } else {
-      setStartIndex((prevIndex) =&gt;
-        prevIndex + 4 &lt; items.length ? prevIndex + 4 : <span class="branch-1 cbranch-no" title="branch not covered" >prevIndex</span>
+<span class="cstat-no" title="statement not covered" >      setStartIndex(<span class="fstat-no" title="function not covered" >(p</span>revIndex) =&gt;</span>
+<span class="cstat-no" title="statement not covered" >        prevIndex + 4 &lt; items.length ? prevIndex + 4 : prevIndex</span>
       );
     }
   };
@@ -211,7 +211,7 @@ function List&lt;T&gt;({ items, renderItem }: ListProps&lt;T&gt;) {
       &lt;div className="button-container"&gt;
         &lt;Button
           className="scroll-button prev-button"
-          onClick={() =&gt; handleScroll("prev")}
+          onClick={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >h</span>andleScroll("prev")}</span>
           disabled={startIndex === 0}
           data-testid="prev-button"
         &gt;
@@ -219,7 +219,7 @@ function List&lt;T&gt;({ items, renderItem }: ListProps&lt;T&gt;) {
         &lt;/Button&gt;
         &lt;Button
           className="scroll-button next-button"
-          onClick={() =&gt; handleScroll("next")}
+          onClick={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >h</span>andleScroll("next")}</span>
           disabled={startIndex + 4 &gt;= items.length}
           data-testid="next-button"
         &gt;
@@ -238,7 +238,7 @@ export default List;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-02-22T04:45:17.987Z
+                at 2024-02-26T20:59:20.471Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
