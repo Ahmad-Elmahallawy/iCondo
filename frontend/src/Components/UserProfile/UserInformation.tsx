@@ -1,8 +1,8 @@
 import React, { useState, ChangeEvent, useEffect } from "react";
 import "../../Style/UserProfileStyle/UserInformationStyle.css";
 import { FaPen } from "react-icons/fa";
-import axios from "axios";
 import api from "../../api";
+import UserInfoFields from "./UserInfoFields";
 
 export interface UserData {
   profilePicture: File | null;
@@ -136,109 +136,11 @@ const UserInformation: React.FC<UserInformationProps> = ({ data }) => {
           style={{ display: "none" }}
         />
       </div>
-      <h2 className="user-information-heading">My Profile</h2>
-
-      <div className="user-information-field">
-        <label className="user-information-label" htmlFor="username">
-          Username:
-        </label>
-        {editMode ? (
-          <input
-            id="username"
-            className="user-information-input"
-            type="text"
-            value={userData.username}
-            onChange={(e) => handleChange("username", e.target.value)}
-          />
-        ) : (
-          <span className="user-information-text">{userData.username}</span>
-        )}
-      </div>
-
-      <div className="user-information-field">
-        <label className="user-information-label" htmlFor="first_name">
-          First Name:
-        </label>
-        {editMode ? (
-          <input
-            id="first_name"
-            className="user-information-input"
-            type="text"
-            value={userData.first_name}
-            onChange={(e) => handleChange("first_name", e.target.value)}
-          />
-        ) : (
-          <span className="user-information-text">{userData.first_name}</span>
-        )}
-      </div>
-
-      <div className="user-information-field">
-        <label className="user-information-label" htmlFor="last_name">
-          Last Name:
-        </label>
-        {editMode ? (
-          <input
-            id="last_name"
-            className="user-information-input"
-            type="text"
-            value={userData.last_name}
-            onChange={(e) => handleChange("last_name", e.target.value)}
-          />
-        ) : (
-          <span className="user-information-text">{userData.last_name}</span>
-        )}
-      </div>
-
-      <div className="user-information-field">
-        <label className="user-information-label" htmlFor="email">
-          Email:
-        </label>
-        {editMode ? (
-          <input
-            id="email"
-            className="user-information-input"
-            type="email"
-            value={userData.email}
-            onChange={(e) => handleChange("email", e.target.value)}
-          />
-        ) : (
-          <span className="user-information-text">{userData.email}</span>
-        )}
-      </div>
-
-      <div className="user-information-field">
-        <label className="user-information-label" htmlFor="phone_number">
-          Phone Number:
-        </label>
-        {editMode ? (
-          <input
-            id="phone_number"
-            className="user-information-input"
-            type="tel"
-            value={userData.phone_number}
-            onChange={(e) => handleChange("phone_number", e.target.value)}
-          />
-        ) : (
-          <span className="user-information-text">{userData.phone_number}</span>
-        )}
-      </div>
-
-      <div className="user-information-field">
-        <label className="user-information-label" htmlFor="password">
-          Password:
-        </label>
-        {editMode ? (
-          <input
-            id="password"
-            className="user-information-input"
-            type="password"
-            value={userData.password}
-            onChange={(e) => handleChange("password", e.target.value)}
-          />
-        ) : (
-          <span className="user-information-text">{userData.password}</span>
-        )}
-      </div>
+      <UserInfoFields
+        data={userData}
+        editMode={editMode}
+        handleChange={handleChange}
+      />
 
       {editMode ? (
         <div>
