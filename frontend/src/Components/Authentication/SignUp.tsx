@@ -51,22 +51,57 @@ const SignUp: React.FC = () => {
           phoneNumber: string;
           password: string;
           roles: string[];
-          companyName?: string;
+          companyName: string;
         };
 
-        userType === "PublicUser"
-          ? (commonUserData.roles = ["PublicUser"])
-          : (commonUserData.companyName = values.companyName);
+        userType === "PublicUser" && (commonUserData.roles = ["PublicUser"]);
+
         console.log(commonUserData);
 
-        const registrationEndpoint =
-          userType === "PublicUser"
-            ? "http://localhost:8000/api/users"
-            : "http://localhost:8000/api/users/adminCompanyCreation";
+        const registrationEndpoint = "http://localhost:8000/api/users";
+        if (userType === "Company") {
+          commonUserData.roles = ["Admin"];
+          commonUserData.companyName = values.companyName;
+        }
 
-        const response = await axios.post(registrationEndpoint, commonUserData);
+        if (userType === "Company") {
+          const response = await axios.post(registrationEndpoint, {
+            firstName: commonUserData.firstName,
+            lastName: commonUserData.lastName,
+            username: commonUserData.username,
+            email: commonUserData.email,
+            phoneNumber: commonUserData.phoneNumber,
+            password: commonUserData.password,
+            roles: commonUserData.roles,
+          });
+          commonUserData.roles = ["Admin"];
+          commonUserData.companyName = values.companyName;
+          const response1 = await axios.post(
+            "http://localhost:8000/api/companies",
+            {
+              name: commonUserData.companyName,
+            }
+          );
+          console.log(response);
+          console.log(response1);
 
-        console.log("Registration successful:", response.data);
+          const response2 = await axios.post(
+            "http://localhost:8000/api/companyEmployees",
+            {
+              "company": {
+                "id": response.data.id,
+              },
+              "user": {
+                "id": response.data.id,
+              },
+            }
+          );
+        } else {
+          const response = await axios.post(
+            registrationEndpoint,
+            commonUserData
+          );
+        }
 
         setRegistrationError(null);
         navigate("/Login");
