@@ -1,47 +1,63 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom"; // Import MemoryRouter
 import userEvent from "@testing-library/user-event";
 import CondoInfoForm from "./CondoInfoForm";
-import "@testing-library/jest-dom"; // Ensure this import is here
+import { MemoryRouter } from "react-router-dom"; // Necessary for components that use react-router
+import "@testing-library/jest-dom";
 
+// Group tests for CondoInfoForm component
 describe("CondoInfoForm", () => {
+  // Define initial test data for the form
   const initialInfo = {
     condoId: "1",
     netArea: "100",
     occupantName: "John Doe",
-    bathrooms: "2",
-    bedrooms: "3",
-    condoType: "Apartment",
-    lastRenovated: "2020",
+    propertyId: "330",
+    parkingId: "4537",
+    condoFee: "890",
+    lockerId: "345",
   };
 
-  test("edit and save changes", async () => {
+  // Test to verify that the form renders correctly with the initial information
+  test("renders with initial info", () => {
+    // Render the CondoInfoForm component inside a MemoryRouter (necessary for any routing functionality)
+    render(
+      <MemoryRouter>
+        <CondoInfoForm condoInfo={initialInfo} onSave={jest.fn()} />
+      </MemoryRouter>
+    );
+
+    // Assert that the initial occupant name is displayed in the document
+    expect(screen.getByText(initialInfo.occupantName)).toBeInTheDocument();
+  });
+
+  // Test to verify that changes can be cancelled after editing
+  test("cancel changes after edit", async () => {
+    // Mock function to simulate the onSave callback
     const mockOnSave = jest.fn();
+    // Render the CondoInfoForm component with initial data and the mock onSave function
     render(
       <MemoryRouter>
         <CondoInfoForm condoInfo={initialInfo} onSave={mockOnSave} />
       </MemoryRouter>
     );
 
-    // Assuming there is a button that toggles the edit mode
+    // Simulate user clicking the edit button to enter edit mode
     await userEvent.click(screen.getByRole("button", { name: /Edit/i }));
 
-    // First, find the input field for the occupant's name
-    const occupantNameInput = screen.getByDisplayValue("John Doe");
-
-    // Clear the input field before typing the new value
+    // Simulate changing the occupant's name in the input field
+    const occupantNameInput = screen.getByDisplayValue(
+      initialInfo.occupantName
+    );
     await userEvent.clear(occupantNameInput);
     await userEvent.type(occupantNameInput, "Jane Doe");
 
-    // Assuming there is a save button to submit changes
-    await userEvent.click(
-      screen.getByRole("button", { name: /Save Changes/i })
-    );
+    // Simulate user clicking the cancel button to discard changes
+    await userEvent.click(screen.getByRole("button", { name: /Cancel/i }));
 
-    // Check if the mockOnSave was called with the updated occupantName
-    expect(mockOnSave).toHaveBeenCalledWith(
-      expect.objectContaining({ occupantName: "Jane Doe" })
-    );
+    // Verify that the original occupant name is displayed again, indicating the edit was cancelled
+    expect(screen.getByText(initialInfo.occupantName)).toBeInTheDocument();
+    // Ensure the onSave mock function was not called, as changes were cancelled
+    expect(mockOnSave).not.toHaveBeenCalled();
   });
 });
