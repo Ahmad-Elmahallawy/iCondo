@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import CondoInfoField from "./CondoInfoField"; // Adjust the path as needed
+import { useNavigate } from "react-router-dom"; // Enables navigation to different routes
+import CondoInfoField from "./CondoInfoField"; // Custom input field component for condo information
 import "../../Style/CondoProfileStyle/CondoInfoFormStyle.css";
 import { log } from "console";
 
-// Define props for CondoInfoForm component
+// Props type definition for the component
 interface CondoInfo {
   condoId: string;
   netArea: string;
@@ -15,7 +15,7 @@ interface CondoInfo {
   lockerId: string;
 }
 
-// Define CondoInfoForm component
+// Component props including condoInfo object and onSave callback function
 type CondoInfoFormProps = {
   condoInfo: CondoInfo;
   onSave: (info: CondoInfo) => void;
@@ -34,37 +34,37 @@ const CondoInfoForm: React.FC<CondoInfoFormProps> = ({ condoInfo, onSave }) => {
   const [tempInfo, setTempInfo] = useState<CondoInfo>(condoInfo); // State to manage temporary condo information
   const navigate = useNavigate(); // to navigate when user clicks on "Create Registration Key" button
 
-  // Function to handle input change in form fields
+  // Updates tempInfo state based on form field changes
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setTempInfo({ ...tempInfo, [name]: value });
   };
 
-  // Function to handle save action
+  // Calls onSave prop with updated info and exits edit mode
   const handleSave = (event: React.FormEvent) => {
     event.preventDefault();
     onSave(tempInfo);
     setEditMode(false);
   };
 
-  // Function to navigate to key generation page
+  // Navigates to a different route (e.g., key generation page)
   const handleRegistrationKey = () => {
     navigate("/GenerateKey");
   };
 
-  // Function to handle edit action
+  // Enters edit mode, allowing the user to modify form fields
   const handleEdit = (event: React.FormEvent) => {
     event.preventDefault();
     setEditMode(true);
   };
 
-  // Function to handle cancel action
+  // Reverts changes and exits edit mode
   const handleCancel = () => {
     setTempInfo(condoInfo);
     setEditMode(false);
   };
 
-  // rendering the component
+  // Renders the form, conditionally displaying input fields or text based on isEditMode
   return (
     <div className="condoProfileContainer">
       <h2>Condo Profile</h2>
