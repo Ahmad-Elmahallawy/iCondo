@@ -20,6 +20,7 @@ import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 
 @InputType()
 class FileCreateInput {
+
   @ApiProperty({
     required: true,
     type: String,
@@ -57,6 +58,7 @@ class FileCreateInput {
     type: String,
   })
   @IsString()
+  @IsOptional()
   @Field(() => String)
   name!: string;
 

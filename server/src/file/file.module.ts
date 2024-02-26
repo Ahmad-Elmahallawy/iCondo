@@ -3,12 +3,12 @@ import { AuthModule } from "../auth/auth.module";
 import { FileModuleBase } from "./base/file.module.base";
 import { FileService } from "./file.service";
 import { FileController } from "./file.controller";
-import {MulterModule} from "@nestjs/platform-express";
+import { MinioServer } from "./minioServer";
 
 @Module({
-  imports: [FileModuleBase, forwardRef(() => AuthModule), MulterModule.register({ dest: './condofiles' }),],
+  imports: [FileModuleBase, forwardRef(() => AuthModule),],
   controllers: [FileController],
-  providers: [FileService],
+  providers: [FileService, MinioServer],
   exports: [FileService],
 })
 export class FileModule {}
