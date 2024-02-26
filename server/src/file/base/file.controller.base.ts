@@ -46,6 +46,7 @@ export class FileControllerBase {
     type: errors.ForbiddenException,
   })
   async createFile(@common.Body() data: FileCreateInput): Promise<File> {
+    console.log("CREATE FILEEEEEEEEEEEEEEEE")
     return await this.service.createFile({
       data: {
         ...data,
