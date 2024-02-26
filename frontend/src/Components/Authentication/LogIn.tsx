@@ -36,33 +36,37 @@ const Login: React.FC = () => {
           password: values.password,
         };
 
-        const registrationEndpoint = "http://localhost:8000/api/login"; // API endpoint for login
+        const loginEndpoint = "http://localhost:8000/api/login"; // API endpoint for login
 
         // Send login request to server
-        const response = await axios.post(registrationEndpoint, data);
+        const response = await axios.post(loginEndpoint, data);
 
-        // Prepare user data to store in localStorage
         const userData = {
           ...response.data,
-          password: values.password, // Assuming the server doesn't return passwords in response
+          password: values.password,
         };
 
         // Store user data in localStorage
         localStorage.setItem("userData", JSON.stringify(userData));
 
-        // Clear registration error and navigate to home page
+        // Redirect based on user's role
+        const user = JSON.parse(localStorage.getItem("userData") || "{}");
+        const isAdmin = user.roles && user.roles.includes("Admin");
+
+        if (isAdmin) {
+          navigate("/CompanyDashboard");
+        } else {
+          navigate("/");
+        }
+
+        // Clear registration error
         setRegistrationError(null);
-        navigate("/");
-
-        // TODO: Handle the token (e.g., store it in localStorage) and redirect the user
       } catch (error: any) {
-        console.error("Login failed:", error.response.data.message);
-
-        // Set registration error based on error response status
+        console.error("Login failed:", error); // Log the entire error object
         if (error.response && error.response.status === 401) {
           setRegistrationError("Username or Password is not correct");
         } else {
-          // Handle other error statuses here if needed
+          setRegistrationError("An unexpected error occurred. Please try again later.");
         }
       } finally {
         setIsLoading(false); // Set loading indicator to false after submission
@@ -78,11 +82,10 @@ const Login: React.FC = () => {
     >
       <div>
         <div
-          className={`input-with-icon ${
-            formik.touched.username && formik.errors.username
+          className={`input-with-icon ${formik.touched.username && formik.errors.username
               ? "input-border-error"
               : ""
-          }`}
+            }`}
         >
           <img src="Assets/letter.svg" alt="" />
           <input
@@ -102,11 +105,10 @@ const Login: React.FC = () => {
         )}
 
         <div
-          className={`input-with-icon ${
-            formik.touched.password && formik.errors.password
+          className={`input-with-icon ${formik.touched.password && formik.errors.password
               ? "input-border-error"
               : ""
-          }`}
+            }`}
         >
           <img src="Assets/lock.svg" alt="" />
           <input
