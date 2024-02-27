@@ -43,7 +43,7 @@ export class FileControllerBase {
   })
   async createFile(@UploadedFile() file: Express.Multer.File, @common.Body() data: FileCreateInput): Promise<File> {
     const uniqueSuffix =
-        Date.now() + '-' + Math.round(Math.random() * 1e9);
+        (new Date()).toISOString() + '-' + Math.round(Math.random() * 1e9);
     const ext = extname(file.originalname);
     const filename = `${file.originalname}-${uniqueSuffix}${ext}`;
     data.name = filename;
