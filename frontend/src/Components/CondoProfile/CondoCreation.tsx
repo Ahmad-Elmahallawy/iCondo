@@ -12,7 +12,7 @@ const CondoCreation = () => {
   const userDataString = localStorage.getItem("userData");
   let companyName = "";
   const location = useLocation();
-  const title = location.state ? location.state.title : '';
+  const title = location.state ? location.state.title : "";
 
   // Check if userData exists and is in the expected format
   if (userDataString) {
@@ -39,6 +39,7 @@ const CondoCreation = () => {
     },
   });
 
+  console.log(companyName);
   return (
     <div className="condo-creation-form-container">
       <div className="condo-creation-property-name-and-company-name">
