@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
+import axios from "axios"; // HTTP client
 import { createPropertyInitialValues } from "../Common/InitialValues";
 import { createPropertyValidationSchema } from "../Common/ValidationSchema";
 import "../../Style/CreatePropertyStyle/CreatePropertyStyle.css";
+import { useNavigate } from "react-router-dom";
 
 // CreateProperty Component:
 // This component renders a form to create a new property.
@@ -12,14 +14,45 @@ import "../../Style/CreatePropertyStyle/CreatePropertyStyle.css";
 const CreateProperty: React.FC = () => {
   const deleteIcon = "/Assets/delete.svg";
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
-
+  const navigate = useNavigate();
+  const userData = JSON.parse(localStorage.getItem("userData") || "{}");
+  const companyData = JSON.parse(
+    localStorage.getItem("companyDetails") || "{}"
+  )[0];
+  const token = userData.accessToken;
   // Formik form initialization
   const formik = useFormik({
     initialValues: { ...createPropertyInitialValues, files: [] },
     validationSchema: createPropertyValidationSchema,
-    onSubmit: (values) => {
-      console.log(values);
-      console.log(values.files);
+    onSubmit: async (values) => {
+      try {
+        const data = {
+          address: values.address,
+          lockerCount: Number(values.lockerCount),
+          name: values.propertyName,
+          parkingCount: Number(values.parkingCount),
+          unitCount: Number(values.unitCount),
+          company: {
+            id: companyData.company.id,
+          },
+        };
+
+        const propertiesEndpoint = "http://localhost:8000/api/properties";
+        const response = await axios.post(propertiesEndpoint, data, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
+
+        console.log("Property created successfully");
+        navigate("/PropertiesList");
+      } catch (error: any) {
+        console.error(
+          "There was a problem creating the property:",
+          error.message
+        );
+      }
     },
   });
 
@@ -152,6 +185,7 @@ const CreateProperty: React.FC = () => {
               <button
                 type="button"
                 className="delete-file"
+                data-testid="delete-file-button"
                 onClick={() => handleFileDelete(file.name)}
               >
                 <img src={deleteIcon} alt="Delete" />

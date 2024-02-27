@@ -229,7 +229,7 @@ The Condo Management Systems project aims to develop a comprehensive software so
 | <img width="510" alt="Screenshot 2024-02-06 at 6 22 48 PM" src="https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/921e50d3-b201-4760-89a4-67ff17c6f69a"> | <img width="509" alt="Screenshot 2024-02-06 at 6 23 12 PM" src="https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/cf39dd1b-d503-4e5f-ba75-9488c8c94654"> | <img width="538" alt="Screenshot 2024-02-06 at 6 23 31 PM" src="https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/e4572173-c97a-4f64-b5cd-4c93abf4854f"> |
 
 
-# Application UI
+# Web Application UI
 | HomePage | SignInPage |
 |----------|------------|
 | <img width="525" alt="HomePage" src="https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/7ad2c66f-28b2-4b67-8e53-31e8ce22a5f3"> | <img width="524" alt="SignInPage" src="https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/a9ff95cd-3a3f-4f8f-9eeb-42ab634a05ac"> |
@@ -241,6 +241,33 @@ The Condo Management Systems project aims to develop a comprehensive software so
 | ManagerSignUpPage |
 |--------------------|
 | <img width="523" alt="ManagerSignUpPage" src="https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/169a1f5a-d8af-42d5-ba35-ccf1a1a16e10"> |
+# Mobile Application UI
+## iOS
+| WelcomePage | SignInPage |SignUpPage |
+|----------|------------|------------|
+| ![Simulator Screenshot - iPhone 15 Pro - 2024-02-27 at 02 01 18](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/ec0e45f8-ad00-41c9-ad87-31700c03e4e8) | ![Simulator Screenshot - iPhone 15 Pro - 2024-02-27 at 02 01 33](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/44269025-088e-44ce-8ed9-111853221cf4) |![Simulator Screenshot - iPhone 15 Pro - 2024-02-27 at 02 01 13](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/491ec0c6-105c-4f4d-9203-b56c5a033d1e)|
+
+| CondoDetailPage | ProfilePage | CreateNewCondoPage |
+|------------|-------------|-------------|
+|![Simulator Screenshot - iPhone 15 Pro - 2024-02-27 at 03 53 53](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/b424cb23-626a-49e8-9458-0a5094dfa594)|![Simulator Screenshot - iPhone 15 Pro - 2024-02-27 at 03 25 53](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/3bf28d21-6544-486f-90a4-3a18caedc231) | ![Simulator Screenshot - iPhone 15 Pro - 2024-02-27 at 03 26 35](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/8475184a-05d9-40d2-8f78-da3e9c318c67)|
+
+
+| HomePage | FavoritePage | SettingPage |
+|------------|-------------|-------------|
+| ![Simulator Screenshot - iPhone 15 Pro - 2024-02-27 at 03 43 53](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/545d7357-36f6-4504-98cf-5fb64a521b97) | ![Simulator Screenshot - iPhone 15 Pro - 2024-02-27 at 03 25 43](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/ae0a60f4-6350-4c86-905c-e98ebbfc74e2) | ![Simulator Screenshot - iPhone 15 Pro - 2024-02-27 at 03 26 04](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/67d055d1-c961-422b-bd81-c0da3aa1cc0c) |
+
+## Android
+| WelcomePage | SignInPage | SignUpPage | 
+|----------|------------|------------|
+| ![Screenshot_20240227_034917](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/0a912825-7a22-41c1-99a6-b4d92ae107ce) | ![Screenshot_20240227_034937](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/4c54f004-d52b-4b2a-ab4f-f946c600986d) | ![Screenshot_20240227_034926](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/6f008e9f-dc8e-4f0b-bbbe-b8b31cb5dbe8) |
+
+| CondoDetailPage | ProfilePage | CreateNewCondoPage |
+|------------|-------------|-------------|
+|![Screenshot_20240227_033320](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/094fb2c5-a260-4596-bd1e-2add74901e1f)| ![Screenshot_20240227_033420](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/ff4af4d3-d295-4687-aa14-b96cbaf8dd2d) |![Screenshot_20240227_033447](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/0a2ef022-62fc-4402-a075-6c0704758257) |
+
+| HomePage | FavoritePage | SettingPage |
+|------------|-------------|-------------|
+| ![Screenshot_20240227_033258](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/195deb15-9e3a-4349-9792-a2ddb8a38e21) | ![Screenshot_20240227_033402](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/0a05aed9-bdb5-4d2d-abe1-ccd9b0c3d282) | ![Screenshot_20240227_033439](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/517840cc-1c43-4b37-b162-20a6eecfed9b)
 
 
 

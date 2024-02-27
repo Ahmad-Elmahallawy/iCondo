@@ -1,6 +1,7 @@
 // KeyGeneration.tsx
 import React, { useState } from "react";
 import "../../Style/RequestsStyle/KeyGenerationStyle.css";
+import { useLocation } from "react-router-dom";
 
 // KeyGeneration Component:
 // This component renders a form to generate registration keys for users.
@@ -13,6 +14,8 @@ const KeyGeneration = () => {
   const [userType, setUserType] = useState<"condoOwner" | "rentalUser" | null>(
     null
   ); // Track user type selection
+  const location = useLocation();
+  const condoId = location.state ? location.state.condoId : "";
 
   // function to randomly generate a key of size 6
   const handleGenerateKey = () => {
@@ -37,7 +40,7 @@ const KeyGeneration = () => {
   return (
     <div className="key-generation-container">
       <div className="key-generation-header">
-        <h1>Generate Key</h1>
+        <h1>Generate Key for Condo with ID {condoId}</h1>
       </div>
       <div className="key-generation-content">
         <div className="key-generation-user-result">

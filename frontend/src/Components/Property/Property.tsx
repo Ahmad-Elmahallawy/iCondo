@@ -1,11 +1,10 @@
-// PropertyComponent.tsx
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../../Style/PropertyStyle/PropertyStyle.css";
 
 interface Property {
   id: number;
-  title: string;
+  name: string;
   address: string;
   imageUrl: string;
   unitCount: string;
@@ -27,7 +26,9 @@ const PropertyComponent: React.FC<PropertyComponentProps> = ({
   const handlePropertyClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
-    navigate(`/PropertyProfile/${property.id}`, { state: { property } });
+    onClick(event);
+    const { id, imageUrl, ...rest } = property; // Extract id and imageUrl
+    navigate(`/PropertyProfile/${encodeURIComponent(rest.name)}`, { state: { property: rest } }); // Pass rest of the properties to the state
   };
 
   return (
@@ -37,12 +38,12 @@ const PropertyComponent: React.FC<PropertyComponentProps> = ({
       onClick={handlePropertyClick}
     >
       <img
-        src={property.imageUrl}
-        alt={property.title}
+        src={"Assets/property1.svg"}
+        alt={property.name}
         className="item-image"
       />
       <div className="property-details">
-        <h3 className="property-title">{property.title}</h3>
+        <h3 className="property-title">{property.name}</h3>
         <p className="property-address">{property.address}</p>
       </div>
     </div>

@@ -16,6 +16,13 @@ interface PropertyInfo {
   lockerCount: string;
 }
 
+// Define an interface for the state object passed to the Link component
+interface LinkStateProps {
+  state: {
+    propertyInfo: PropertyInfo;
+  };
+}
+
 const PropertyProfileLandingPage: React.FC = () => {
   // Use useState with an initializer function
   const [propertyInfo, setPropertyInfo] = useState<PropertyInfo>(() => ({
@@ -52,10 +59,11 @@ const PropertyProfileLandingPage: React.FC = () => {
       </div>
       <div className="condo-list-section">
         <h1>Condo List</h1>
-        <Link to="/add-unit">
+        <Link to={`/CondoCreation`} state={{ title: propertyInfo.title }}>
           <button className="add-unit-button">Add Unit</button>
         </Link>
         <List
+          data-testid="add-unit-page"
           items={condos}
           renderItem={(condo) => (
             <div key={condo.condoId} className="condo-wrapper">
