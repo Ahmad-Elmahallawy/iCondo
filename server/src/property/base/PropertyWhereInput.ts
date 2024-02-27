@@ -20,6 +20,7 @@ import { IntFilter } from "../../util/IntFilter";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
 import { LockerListRelationFilter } from "../../locker/base/LockerListRelationFilter";
 import { ParkingSpotListRelationFilter } from "../../parkingSpot/base/ParkingSpotListRelationFilter";
+import { CompanyWhereUniqueInput } from "../../company/base/CompanyWhereUniqueInput";
 
 @InputType()
 class PropertyWhereInput {
@@ -45,6 +46,18 @@ class PropertyWhereInput {
     nullable: true,
   })
   condoUnits?: CondoUnitListRelationFilter;
+  
+  @ApiProperty({
+    required: false,
+    type: () => CompanyWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => CompanyWhereUniqueInput)
+  @IsOptional()
+  @Field(() => CompanyWhereUniqueInput, {
+    nullable: true,
+  })
+  company?: CompanyWhereUniqueInput;
 
   @ApiProperty({
     required: false,

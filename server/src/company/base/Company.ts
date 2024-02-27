@@ -21,6 +21,7 @@ import {
 } from "class-validator";
 import { Type } from "class-transformer";
 import { File } from "../../file/base/File";
+import { Property } from "../../property/base/Property";
 
 @ObjectType()
 class Company {
@@ -66,6 +67,15 @@ class Company {
   @Field(() => String)
   name!: string;
 
+  @ApiProperty({
+    required: false,
+    type: () => [Property],
+  })
+  @ValidateNested()
+  @Type(() => Property)
+  @IsOptional()
+  properties?: Array<Property>;
+  
   @ApiProperty({
     required: false,
   })

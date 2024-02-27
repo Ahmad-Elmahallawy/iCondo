@@ -17,7 +17,8 @@ import {
   CondoUnit, // @ts-ignore
   File, // @ts-ignore
   Locker, // @ts-ignore
-  ParkingSpot,
+  ParkingSpot, // @ts-ignore
+  Company,
 } from "@prisma/client";
 
 export class PropertyServiceBase {
@@ -97,5 +98,14 @@ export class PropertyServiceBase {
         where: { id: parentId },
       })
       .ParkingSpots(args);
+  }
+
+
+  async getCompany(parentId: number): Promise<Company | null> {
+    return this.prisma.property
+        .findUnique({
+          where: { id: parentId },
+        })
+        .company();
   }
 }
