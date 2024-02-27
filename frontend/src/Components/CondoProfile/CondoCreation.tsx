@@ -3,9 +3,34 @@ import React from "react";
 import { useFormik } from "formik";
 import { condoInitialValues } from "../Common/InitialValues";
 import { condoValidationSchema } from "../Common/ValidationSchema";
+import { useLocation } from "react-router-dom";
 import "../../Style/CondoProfileStyle/CondoCreationStyle.css";
+import { log } from "console";
 
 const CondoCreation = () => {
+  // Retrieve userData from localStorage
+  const userDataString = localStorage.getItem("userData");
+  let companyName = "";
+  const location = useLocation();
+  const { title } = location.state;
+
+  // Check if userData exists and is in the expected format
+  if (userDataString) {
+    try {
+      // Parse the userData string into an object
+      const userData = JSON.parse(userDataString);
+
+      // Access the username property
+      companyName = userData.username;
+
+      // Now you can use companyName
+      console.log(companyName);
+    } catch (error) {
+      console.error("Error parsing userData:", error);
+    }
+  } else {
+    console.error("userData not found in localStorage");
+  }
   const formik = useFormik({
     initialValues: condoInitialValues,
     validationSchema: condoValidationSchema,
@@ -17,8 +42,8 @@ const CondoCreation = () => {
   return (
     <div className="condo-creation-form-container">
       <div className="condo-creation-property-name-and-company-name">
-        <h1>Property Name Here</h1>
-        <h2>Company Name Here</h2>
+        <h1>{title}</h1>
+        <h2>{companyName}</h2>
       </div>
       <form onSubmit={formik.handleSubmit}>
         <div className="condo-creation-wrapper">
@@ -68,7 +93,7 @@ const CondoCreation = () => {
           name="extraInformation"
           placeholder="Add extra information here"
         />
-        <button  type="submit">Create Condo Unit</button>
+        <button type="submit">Create Condo Unit</button>
       </form>
     </div>
   );
