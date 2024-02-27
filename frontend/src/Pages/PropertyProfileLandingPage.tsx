@@ -59,7 +59,6 @@ const PropertyProfileLandingPage: React.FC = () => {
       </div>
       <div className="condo-list-section">
         <h1>Condo List</h1>
-        {/* Use Link with state */}
         <Link to={`/CondoCreation`} state={{ title: propertyInfo.title }}>
           <button className="add-unit-button">Add Unit</button>
         </Link>

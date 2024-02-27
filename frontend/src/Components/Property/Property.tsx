@@ -1,4 +1,3 @@
-// PropertyComponent.tsx
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../../Style/PropertyStyle/PropertyStyle.css";
@@ -27,7 +26,9 @@ const PropertyComponent: React.FC<PropertyComponentProps> = ({
   const handlePropertyClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
-    navigate(`/PropertyProfile/${property.id}`, { state: { property } });
+    onClick(event);
+    const { id, imageUrl, ...rest } = property; // Extract id and imageUrl
+    navigate(`/PropertyProfile/${encodeURIComponent(rest.title)}`, { state: { property: rest } }); // Pass rest of the properties to the state
   };
 
   return (

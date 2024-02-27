@@ -12,7 +12,7 @@ const CondoCreation = () => {
   const userDataString = localStorage.getItem("userData");
   let companyName = "";
   const location = useLocation();
-  const title = location.state ? location.state.title : '';
+  const title = location.state ? location.state.title : "";
 
   // Check if userData exists and is in the expected format
   if (userDataString) {
@@ -22,9 +22,6 @@ const CondoCreation = () => {
 
       // Access the username property
       companyName = userData.username;
-
-      // Now you can use companyName
-      console.log(companyName);
     } catch (error) {
       console.error("Error parsing userData:", error);
     }
