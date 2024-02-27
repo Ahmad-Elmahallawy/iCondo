@@ -19,7 +19,6 @@ import {FileInterceptor} from "@nestjs/platform-express";
 import {MinioServer} from "../minioServer";
 import {UploadedFile} from "@nestjs/common";
 import {extname} from "path";
-import {Response} from "express";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -43,7 +42,7 @@ export class FileControllerBase {
   })
   async createFile(@UploadedFile() file: Express.Multer.File, @common.Body() data: FileCreateInput): Promise<File> {
     const uniqueSuffix =
-        (new Date()).toISOString() + '-' + Math.round(Math.random() * 1e9);
+        Date.now() + '-' + Math.round(Math.random() * 1e9);
     const ext = extname(file.originalname);
     const filename = `${file.originalname}-${uniqueSuffix}${ext}`;
     data.name = filename;
@@ -178,7 +177,7 @@ export class FileControllerBase {
   })
   async file(
     @common.Param() params: FileWhereUniqueInput
-  ): Promise<{ result: File; url: unknown }> {
+  ): Promise<e.Response<any, Record<string, any>>> {
 
     const result = await this.service.file({
       where: params,
@@ -222,197 +221,14 @@ export class FileControllerBase {
         `No resource was found for ${JSON.stringify(params)}`
       );
     }
-    const link= await this.minioServer.getFile(result?.bucket, result?.name)
-    const response = {
-      result,
-      url: link
-    }
-    return response;
+    console.log(result)
+    const link= await this.minioServer.getFile(result?.bucket, result.name)
+    console.log(result)
+    console.log(link)
+    return response.json({result, url: link})
 
   }
 
-  @common.UseInterceptors(AclValidateRequestInterceptor)
-  @common.Patch("/:id")
-  @swagger.ApiOkResponse({ type: File })
-  @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
-  @nestAccessControl.UseRoles({
-    resource: "File",
-    action: "read",
-    possession: "own",
-  })
-  @swagger.ApiForbiddenResponse({
-    type: errors.ForbiddenException,
-  })
-  async getFile(
-      @common.Param() params: FileWhereUniqueInput,
-      @common.Body() data: FileUpdateInput
-  ): Promise<File | null> {
-    try {
-      return await this.service.updateFile({
-        where: params,
-        data: {
-          ...data,
-
-          company: data.company
-              ? {
-                connect: data.company,
-              }
-              : undefined,
-
-          condoUnit: data.condoUnit
-              ? {
-                connect: data.condoUnit,
-              }
-              : undefined,
-
-          property: data.property
-              ? {
-                connect: data.property,
-              }
-              : undefined,
-
-          user: data.user
-              ? {
-                connect: data.user,
-              }
-              : undefined,
-        },
-
-        select: {
-          bucket: true,
-
-          company: {
-            select: {
-              id: true,
-            },
-          },
-
-          condoUnit: {
-            select: {
-              id: true,
-            },
-          },
-
-          createdAt: true,
-          id: true,
-          name: true,
-
-          property: {
-            select: {
-              id: true,
-            },
-          },
-
-          updatedAt: true,
-
-          user: {
-            select: {
-              id: true,
-            },
-          },
-        },
-      });
-    } catch (error) {
-      if (isRecordNotFoundError(error)) {
-        throw new errors.NotFoundException(
-            `No file was found for ${JSON.stringify(params)}`
-        );
-      }
-      throw error;
-    }
-  }
-
-
-  @common.UseInterceptors(AclValidateRequestInterceptor)
-  @common.Patch("/:id")
-  @swagger.ApiOkResponse({ type: File })
-  @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
-  @nestAccessControl.UseRoles({
-    resource: "File",
-    action: "read",
-    possession: "own",
-  })
-  @swagger.ApiForbiddenResponse({
-    type: errors.ForbiddenException,
-  })
-  async getFileUrl(
-      @common.Param() params: FileWhereUniqueInput,
-      @common.Body() data: FileUpdateInput
-  ): Promise<File | null> {
-    try {
-      return await this.service.updateFile({
-        where: params,
-        data: {
-          ...data,
-
-          company: data.company
-              ? {
-                connect: data.company,
-              }
-              : undefined,
-
-          condoUnit: data.condoUnit
-              ? {
-                connect: data.condoUnit,
-              }
-              : undefined,
-
-          property: data.property
-              ? {
-                connect: data.property,
-              }
-              : undefined,
-
-          user: data.user
-              ? {
-                connect: data.user,
-              }
-              : undefined,
-        },
-
-        select: {
-          bucket: true,
-
-          company: {
-            select: {
-              id: true,
-            },
-          },
-
-          condoUnit: {
-            select: {
-              id: true,
-            },
-          },
-
-          createdAt: true,
-          id: true,
-          name: true,
-
-          property: {
-            select: {
-              id: true,
-            },
-          },
-
-          updatedAt: true,
-
-          user: {
-            select: {
-              id: true,
-            },
-          },
-        },
-      });
-    } catch (error) {
-      if (isRecordNotFoundError(error)) {
-        throw new errors.NotFoundException(
-            `No file was found for ${JSON.stringify(params)}`
-        );
-      }
-      throw error;
-    }
-  }
   @common.UseInterceptors(AclValidateRequestInterceptor)
   @common.Patch("/:id")
   @swagger.ApiOkResponse({ type: File })

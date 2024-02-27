@@ -4,11 +4,7 @@ import * as nestAccessControl from "nest-access-control";
 import {FileService} from "./file.service";
 import {FileControllerBase} from "./base/file.controller.base";
 import {MinioServer} from "./minioServer";
-import {UploadedFile, UseInterceptors, Post} from "@nestjs/common";
-import {FileInterceptor} from "@nestjs/platform-express";
-import {diskStorage} from "multer";
-import {extname} from 'path';
-import {FileCreateInput} from "./base/FileCreateInput";
+
 
 @swagger.ApiTags("files")
 @common.Controller("files")
