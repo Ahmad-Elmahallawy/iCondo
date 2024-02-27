@@ -244,6 +244,30 @@ const modifyUser = asyncHandler(async (req, res) => {
   res.status(201).json(updatedUser);
 });
 
+const resetPassword = asyncHandler(async (req, res) => {
+  const { username } =   req.body;
+  const user = await prisma.user.findUnique({
+    where: { username },
+  });
+
+  if (!user) {
+    return res.status(400).json({ error: "User doesn't exist" });
+  }
+  if (req.body.password) {
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(req.body.password, salt);
+    user.password = hashedPassword || user.password;
+  }
+
+  const updatedUser = await prisma.User.update({
+    where: {
+      username: username,
+    },
+    data: user,
+  });
+  res.status(201).json(updatedUser);
+});
+
 const doesNewUserExist = asyncHandler(async (name, newValue, currentValue) => {
   if (!newValue || newValue === currentValue) return false;
 
@@ -340,4 +364,5 @@ module.exports = {
   modifyUser,
   registerAdminCompany,
   registerEmployee,
+  resetPassword
 };
