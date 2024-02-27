@@ -2,7 +2,7 @@ import * as common from "@nestjs/common";
 import * as swagger from "@nestjs/swagger";
 import { isRecordNotFoundError } from "../../prisma.util";
 import * as errors from "../../errors";
-import { Request } from "express";
+import e, {Request, response} from "express";
 import { plainToClass } from "class-transformer";
 import { ApiNestedQuery } from "../../decorators/api-nested-query.decorator";
 import * as nestAccessControl from "nest-access-control";
@@ -177,7 +177,8 @@ export class FileControllerBase {
   })
   async file(
     @common.Param() params: FileWhereUniqueInput
-  ): Promise<File | null> {
+  ): Promise<e.Response<any, Record<string, any>>> {
+
     const result = await this.service.file({
       where: params,
       select: {
@@ -214,14 +215,202 @@ export class FileControllerBase {
         },
       },
     });
+
     if (result === null) {
       throw new errors.NotFoundException(
         `No resource was found for ${JSON.stringify(params)}`
       );
     }
-    return result;
+    console.log(result)
+    const link= await this.minioServer.getFile(result?.bucket, result.name)
+    console.log(result)
+    console.log(link)
+    return response.json({result, url: link})
+
   }
 
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @common.Patch("/:id")
+  @swagger.ApiOkResponse({ type: File })
+  @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
+  @nestAccessControl.UseRoles({
+    resource: "File",
+    action: "read",
+    possession: "own",
+  })
+  @swagger.ApiForbiddenResponse({
+    type: errors.ForbiddenException,
+  })
+  async getFile(
+      @common.Param() params: FileWhereUniqueInput,
+      @common.Body() data: FileUpdateInput
+  ): Promise<File | null> {
+    try {
+      return await this.service.updateFile({
+        where: params,
+        data: {
+          ...data,
+
+          company: data.company
+              ? {
+                connect: data.company,
+              }
+              : undefined,
+
+          condoUnit: data.condoUnit
+              ? {
+                connect: data.condoUnit,
+              }
+              : undefined,
+
+          property: data.property
+              ? {
+                connect: data.property,
+              }
+              : undefined,
+
+          user: data.user
+              ? {
+                connect: data.user,
+              }
+              : undefined,
+        },
+
+        select: {
+          bucket: true,
+
+          company: {
+            select: {
+              id: true,
+            },
+          },
+
+          condoUnit: {
+            select: {
+              id: true,
+            },
+          },
+
+          createdAt: true,
+          id: true,
+          name: true,
+
+          property: {
+            select: {
+              id: true,
+            },
+          },
+
+          updatedAt: true,
+
+          user: {
+            select: {
+              id: true,
+            },
+          },
+        },
+      });
+    } catch (error) {
+      if (isRecordNotFoundError(error)) {
+        throw new errors.NotFoundException(
+            `No file was found for ${JSON.stringify(params)}`
+        );
+      }
+      throw error;
+    }
+  }
+
+
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @common.Patch("/:id")
+  @swagger.ApiOkResponse({ type: File })
+  @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
+  @nestAccessControl.UseRoles({
+    resource: "File",
+    action: "read",
+    possession: "own",
+  })
+  @swagger.ApiForbiddenResponse({
+    type: errors.ForbiddenException,
+  })
+  async getFileUrl(
+      @common.Param() params: FileWhereUniqueInput,
+      @common.Body() data: FileUpdateInput
+  ): Promise<File | null> {
+    try {
+      return await this.service.updateFile({
+        where: params,
+        data: {
+          ...data,
+
+          company: data.company
+              ? {
+                connect: data.company,
+              }
+              : undefined,
+
+          condoUnit: data.condoUnit
+              ? {
+                connect: data.condoUnit,
+              }
+              : undefined,
+
+          property: data.property
+              ? {
+                connect: data.property,
+              }
+              : undefined,
+
+          user: data.user
+              ? {
+                connect: data.user,
+              }
+              : undefined,
+        },
+
+        select: {
+          bucket: true,
+
+          company: {
+            select: {
+              id: true,
+            },
+          },
+
+          condoUnit: {
+            select: {
+              id: true,
+            },
+          },
+
+          createdAt: true,
+          id: true,
+          name: true,
+
+          property: {
+            select: {
+              id: true,
+            },
+          },
+
+          updatedAt: true,
+
+          user: {
+            select: {
+              id: true,
+            },
+          },
+        },
+      });
+    } catch (error) {
+      if (isRecordNotFoundError(error)) {
+        throw new errors.NotFoundException(
+            `No file was found for ${JSON.stringify(params)}`
+        );
+      }
+      throw error;
+    }
+  }
   @common.UseInterceptors(AclValidateRequestInterceptor)
   @common.Patch("/:id")
   @swagger.ApiOkResponse({ type: File })
