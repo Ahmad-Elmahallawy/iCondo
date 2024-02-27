@@ -105,6 +105,7 @@ model RegistrationKey {
   id          Int       @id @default(autoincrement())
   updatedAt   DateTime  @updatedAt
   value       String
+  role        Json
 }
 
 model Role {
