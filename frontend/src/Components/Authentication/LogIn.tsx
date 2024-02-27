@@ -54,6 +54,17 @@ const Login: React.FC = () => {
         const isAdmin = user.roles && user.roles.includes("Admin");
 
         if (isAdmin) {
+          const userIdEndpoint = `http://localhost:8000/api/users/${userData.id}/companyEmployees`;
+
+          const companyID = await axios.get(userIdEndpoint, {
+            headers: {
+              Authorization: `Bearer ${user.accessToken}`,
+            },
+          });
+          localStorage.setItem(
+            "companyDetails",
+            JSON.stringify(companyID.data)
+          );
           navigate("/CompanyDashboard");
         } else {
           navigate("/");
@@ -66,7 +77,9 @@ const Login: React.FC = () => {
         if (error.response && error.response.status === 401) {
           setRegistrationError("Username or Password is not correct");
         } else {
-          setRegistrationError("An unexpected error occurred. Please try again later.");
+          setRegistrationError(
+            "An unexpected error occurred. Please try again later."
+          );
         }
       } finally {
         setIsLoading(false); // Set loading indicator to false after submission
@@ -82,10 +95,11 @@ const Login: React.FC = () => {
     >
       <div>
         <div
-          className={`input-with-icon ${formik.touched.username && formik.errors.username
+          className={`input-with-icon ${
+            formik.touched.username && formik.errors.username
               ? "input-border-error"
               : ""
-            }`}
+          }`}
         >
           <img src="Assets/letter.svg" alt="" />
           <input
@@ -105,10 +119,11 @@ const Login: React.FC = () => {
         )}
 
         <div
-          className={`input-with-icon ${formik.touched.password && formik.errors.password
+          className={`input-with-icon ${
+            formik.touched.password && formik.errors.password
               ? "input-border-error"
               : ""
-            }`}
+          }`}
         >
           <img src="Assets/lock.svg" alt="" />
           <input
