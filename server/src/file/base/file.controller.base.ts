@@ -19,6 +19,7 @@ import {FileInterceptor} from "@nestjs/platform-express";
 import {MinioServer} from "../minioServer";
 import {UploadedFile} from "@nestjs/common";
 import {extname} from "path";
+import {Response} from "express";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -177,7 +178,7 @@ export class FileControllerBase {
   })
   async file(
     @common.Param() params: FileWhereUniqueInput
-  ): Promise<e.Response<any, Record<string, any>>> {
+  ): Promise<{ result: File; url: unknown }> {
 
     const result = await this.service.file({
       where: params,
@@ -221,11 +222,12 @@ export class FileControllerBase {
         `No resource was found for ${JSON.stringify(params)}`
       );
     }
-    console.log(result)
-    const link= await this.minioServer.getFile(result?.bucket, result.name)
-    console.log(result)
-    console.log(link)
-    return response.json({result, url: link})
+    const link= await this.minioServer.getFile(result?.bucket, result?.name)
+    const response = {
+      result,
+      url: link
+    }
+    return response;
 
   }
 
