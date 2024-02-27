@@ -1,15 +1,24 @@
 import React from "react";
 import { render, fireEvent, waitFor, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect"; 
+import { MemoryRouter } from "react-router-dom";
 import CondoCreation from "./CondoCreation";
 
 describe("CondoCreation component", () => {
   it("renders without crashing", () => {
-    render(<CondoCreation />);
+    render(
+      <MemoryRouter>
+        <CondoCreation />
+      </MemoryRouter>
+    );
   });
 
   it("submits form with valid input", async () => {
-    render(<CondoCreation />);
+    render(
+      <MemoryRouter>
+        <CondoCreation />
+      </MemoryRouter>
+    );
     fireEvent.change(screen.getByPlaceholderText("Condo Unit ID"), {
       target: { value: "123" },
     });
@@ -27,7 +36,11 @@ describe("CondoCreation component", () => {
   });
 
   it("displays error message for condoFee input field when it is empty", async () => {
-    render(<CondoCreation />);
+    render(
+      <MemoryRouter>
+        <CondoCreation />
+      </MemoryRouter>
+    );
     fireEvent.change(screen.getByPlaceholderText("Condo Fee"), {
       target: { value: "test this" },
     });
@@ -42,7 +55,11 @@ describe("CondoCreation component", () => {
   });
 
   it("displays error messages for all required fields when submitted without filling them", async () => {
-    render(<CondoCreation />);
+    render(
+      <MemoryRouter>
+        <CondoCreation />
+      </MemoryRouter>
+    );
     fireEvent.click(screen.getByRole("button", { name: /create condo unit/i }));
 
     await waitFor(() => {
