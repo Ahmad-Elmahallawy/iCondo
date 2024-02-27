@@ -41,7 +41,7 @@ export const styles = StyleSheet.create({
         marginVertical: 8,
     },
     bookmarkContainer: {
-        backgroundColor: colors.olive,
+        backgroundColor: colors.grey,
         padding: 18,
         borderRadius: 8,
         marginRight: 16,

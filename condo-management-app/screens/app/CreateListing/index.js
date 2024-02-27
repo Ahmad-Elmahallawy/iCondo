@@ -7,6 +7,7 @@ import * as ImagePicker from 'expo-image-picker';
 import Input from '../../../Component/Input';
 import Button from '../../../Component/Button';
 import { categories } from '../../../data/categories';
+import Separator from "../../../Component/Separator";
 
 const CreateListing = ({ navigation }) => {
     const [images, setImages] = useState([]);
@@ -83,6 +84,8 @@ const CreateListing = ({ navigation }) => {
                 </KeyboardAvoidingView>
 
                 <Button title="Submit" style={styles.button} />
+                <Separator/>
+
             </ScrollView>
         </SafeAreaView>
     )

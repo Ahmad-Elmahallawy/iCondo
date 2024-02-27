@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
     name: {
         fontSize: 20,
         fontWeight: 'bold',
-        color: colors.white,
+        color: colors.darkBlack,
         marginBottom: 12,
     },
     email: {

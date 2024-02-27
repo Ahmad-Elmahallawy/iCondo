@@ -63,7 +63,7 @@ const Tabs = () => (
     </Tab.Navigator>
 )
 const App = () => {
-    const isSignedIn = false;
+    const isSignedIn = true;
     const theme = {
         colors: {
             background: colors.white,

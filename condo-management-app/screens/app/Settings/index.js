@@ -6,10 +6,13 @@ import Header from '../../../Component/Header';
 import ListItem from '../../../Component/ListCondo';
 import EditableBox from '../../../Component/EditableBox';
 import Button from '../../../Component/Button';
+import Input from "../../../Component/Input";
+import Separator from "../../../Component/Separator";
 
 const Settings = ({ navigation }) => {
     const [editing, setEditing] = useState(false);
-    const [values, setValues] = useState({name: 'User', email: 'user@mail.com'})
+    const [values, setValues] = useState({firstName: 'Joe',lastName: 'Doe',
+        phoneNumber: '111-111-111',password: '******', email: 'user@mail.com'})
 
     const onEditPress = () => {
         setEditing(true);
@@ -41,16 +44,24 @@ const Settings = ({ navigation }) => {
                         <Image style={styles.icon} source={require('../../../assets/edit.png')} />
                     </Pressable>
                 </View>
-                <EditableBox label="Name" onChangeText={(v) => onChange('name', v)} value={values.name} editable={editing} />
+                <EditableBox label="First Name" onChangeText={(v) => onChange('firstName', v)} value={values.firstName} editable={editing} />
+                <EditableBox label="Last Name" onChangeText={(v) => onChange('lastName', v)} value={values.lastName} editable={editing} />
                 <EditableBox label="Email" onChangeText={(v) => onChange('email', v)} value={values.email} editable={editing} />
+                <EditableBox label="Phone Number" onChangeText={(v) => onChange('phoneNumber', v)} value={values.phoneNumber} editable={editing} />
+                <EditableBox label="Password" onChangeText={(v) => onChange('password', v)} value={values.password} editable={editing} />
+
                 {editing ? (
                     <Button style={styles.button} onPress={onSave} title="Save" />
                 ) : null}
+                <Text style={[styles.sectionTitle, {marginTop: 40}]}>Submit Registration Key</Text>
+                <Input placeholder="Registration Key" label="Registration Key" value={values.registrationKey} onChangeText={(v) => onChange(v, 'registrationKey')} />
+                <Button title="Submit" style={styles.button} />
 
                 <Text style={[styles.sectionTitle, {marginTop: 40}]}>Help Center</Text>
                 <ListItem onPress={onItemPress} style={styles.item} title="FAQ" />
                 <ListItem onPress={onItemPress} style={styles.item} title="Contact Us" />
                 <ListItem onPress={onItemPress} style={styles.item} title="Privacy & Terms" />
+                <Separator/>
             </ScrollView>
         </SafeAreaView>
     )

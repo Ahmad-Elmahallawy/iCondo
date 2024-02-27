@@ -17,7 +17,7 @@ const SignUpAsAdmin = ({navigation}) => {
     }
     return (
         <ScrollView style={styles.container}>
-            <AuthHeader onBackPress={onBack} title="Sign Up" />
+            <AuthHeader onBackPress={onBack} title="Sign Up As Admin" />
             <Input value={values.companyName} onChangeText={(v) => onChange('companyName', v)} label="Company Name" placeholder="ABC Inc" />
             <Input value={values.firstName} onChangeText={(v) => onChange('firstName', v)} label="First Name" placeholder="John" />
             <Input value={values.lastName} onChangeText={(v) => onChange('lastName', v)} label="Last Name" placeholder="Doe" />
