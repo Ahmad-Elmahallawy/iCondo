@@ -15,6 +15,7 @@ import { CondoUnitWhereUniqueInput } from "../../condoUnit/base/CondoUnitWhereUn
 import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
 import { IntFilter } from "../../util/IntFilter";
+import {StringFilter} from "../../util/StringFilter";
 
 @InputType()
 class RegistrationKeyWhereInput {
@@ -40,6 +41,18 @@ class RegistrationKeyWhereInput {
     nullable: true,
   })
   id?: IntFilter;
+
+
+  @ApiProperty({
+    required: false,
+    type: StringFilter,
+  })
+  @Type(() => StringFilter)
+  @IsOptional()
+  @Field(() => StringFilter, {
+    nullable: true,
+  })
+  value?: StringFilter;
 }
 
 export { RegistrationKeyWhereInput as RegistrationKeyWhereInput };

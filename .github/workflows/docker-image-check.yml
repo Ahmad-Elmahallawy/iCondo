@@ -17,7 +17,5 @@ jobs:
       run: docker build "frontend" --tag docker.happyfir.com/misc/soen390:latest
     - name: Build the Docker image - user-service
       run: docker build "user-service" --tag docker.happyfir.com/misc/soen390-userservice:latest
-    - name: Build the Docker image - condo-service
-      run: docker build "condo-service" --tag docker.happyfir.com/misc/soen390-condoservice:latest
-    - name: Build the Docker image - cost-service
-      run: docker build "cost-service" --tag docker.happyfir.com/misc/soen390-costservice:latest
+    - name: Build the Docker image - server
+      run: docker build "server" --tag docker.happyfir.com/misc/soen390-server:latest

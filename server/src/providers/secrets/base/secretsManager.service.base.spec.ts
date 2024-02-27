@@ -13,7 +13,7 @@ describe("Testing the secrets manager base class", () => {
   beforeEach(() => {
     configService.get.mockClear();
   });
-  it("should return value from env", async () => {
+  it("should return value from .env", async () => {
     //ARRANGE
     configService.get.mockReturnValue(SECRET_VALUE);
     //ACT

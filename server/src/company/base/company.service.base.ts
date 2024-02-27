@@ -15,7 +15,8 @@ import {
   Prisma,
   Company, // @ts-ignore
   CompanyEmployee, // @ts-ignore
-  File,
+  File, // @ts-ignore
+  Property,
 } from "@prisma/client";
 
 export class CompanyServiceBase {
@@ -73,5 +74,16 @@ export class CompanyServiceBase {
         where: { id: parentId },
       })
       .file(args);
+  }
+
+  async findProperties(
+      parentId: number,
+      args: Prisma.PropertyFindManyArgs
+  ): Promise<Property[]> {
+    return this.prisma.company
+        .findUniqueOrThrow({
+          where: { id: parentId },
+        })
+        .properties(args);
   }
 }

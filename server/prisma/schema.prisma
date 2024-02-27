@@ -51,6 +51,8 @@ model Property {
   parkingCount Int
   ParkingSpots ParkingSpot[]
   unitCount    Int
+  company      Company?      @relation(fields: [companyID], references: [id])
+  companyID    Int?
   updatedAt    DateTime      @updatedAt
 }
 
@@ -80,6 +82,7 @@ model Company {
   id               Int               @id @default(autoincrement())
   name             String
   updatedAt        DateTime?         @updatedAt
+  properties       Property[]
 }
 
 model File {
@@ -105,6 +108,7 @@ model RegistrationKey {
   id          Int       @id @default(autoincrement())
   updatedAt   DateTime  @updatedAt
   value       String
+  role        Json
 }
 
 model Role {

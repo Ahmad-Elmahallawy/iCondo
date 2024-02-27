@@ -1,4 +1,5 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 import PropertyListPage from "./PropertyListLandingPage";
 import "@testing-library/jest-dom/extend-expect";
 
@@ -7,20 +8,32 @@ import properties from '../Components/Property/Properties.json';
 
 describe('PropertyListPage Component', () => {
   test('renders properties list page', () => {
-    const { getByTestId } = render(<PropertyListPage />);
-    const propertyListPageElement = getByTestId('property-list-page');
+    render(
+      <MemoryRouter>
+        <PropertyListPage />
+      </MemoryRouter>
+    );
+    const propertyListPageElement = screen.getByTestId('property-list-page');
     expect(propertyListPageElement).toBeInTheDocument();
   });
 
   test('renders heading correctly', () => {
-    const { getByText } = render(<PropertyListPage />);
-    const headingElement = getByText('Properties List');
+    render(
+      <MemoryRouter>
+        <PropertyListPage />
+      </MemoryRouter>
+    );
+    const headingElement = screen.getByText('Properties List');
     expect(headingElement).toBeInTheDocument();
   });
 
   test('renders property list items correctly', () => {
-    const { getAllByTestId } = render(<PropertyListPage />);
-    const propertyListItems = getAllByTestId('property-component');
+    render(
+      <MemoryRouter>
+        <PropertyListPage />
+      </MemoryRouter>
+    );
+    const propertyListItems = screen.getAllByTestId('property-component');
     if (properties.length > 4) {
       expect(propertyListItems.length).toBe(4);
     } else {

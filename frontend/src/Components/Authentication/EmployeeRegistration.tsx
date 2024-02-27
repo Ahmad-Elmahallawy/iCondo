@@ -1,48 +1,52 @@
-// components/EmployeeRegistration.js
-
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import axios from "axios";
 import "../../Style/AuthenticationStyle/LoginAndRegistrationStyle.css";
 import "../../Style/AuthenticationStyle/EmployeeRegistrationStyle.css";
-import { signUpInitialValues } from "../Common/InitialValues";
-import { signUpValidationSchema } from "../Common/ValidationSchema";
-import LoadingScreen from "../Common/LoadingScreen";
+import { signUpInitialValues } from "../Common/InitialValues"; // Initial form values
+import { signUpValidationSchema } from "../Common/ValidationSchema"; // Form validation schema
+import LoadingScreen from "../Common/LoadingScreen"; // Loading spinner component
+
+// Define the EmployeeRegistration component
 const EmployeeRegistration = () => {
+  // State variables for selected role, result message, and loading indicator
   const [selectedRole, setSelectedRole] = useState("Manager"); // Default value
   const [resultMessage, setResultMessage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  // Formik hook to handle form state, validation, and submission
   const formik = useFormik({
-    initialValues: { ...signUpInitialValues, role: selectedRole },
-    validationSchema: signUpValidationSchema,
+    initialValues: { ...signUpInitialValues, role: selectedRole }, // Set initial values including selected role
+    validationSchema: signUpValidationSchema, // Use the defined validation schema
     onSubmit: async (values) => {
-      setIsLoading(true);
-      values.role = selectedRole;
+      setIsLoading(true); // Set loading indicator to true on form submission
+      values.role = selectedRole; // Set the selected role to form values
       try {
-        const registrationUrl =
-          "http://localhost:8000/api/users/register/employee";
+        // Make API call to register employee
+        const registrationUrl = "http://localhost:8000/api/users/register/employee";
         const response = await axios.post(registrationUrl, values);
-        console.log("Employee registration successful:", response.data);
-        setResultMessage("Employee Added Successfully");
+        console.log("Employee registration successful:", response.data); // Log successful response
+        setResultMessage("Employee Added Successfully"); // Set success message
       } catch (error: any) {
-        console.error("Employee registration failed:", error.message);
+        console.error("Employee registration failed:", error.message); // Log error message
+        // Set appropriate error message based on error response
         if (error.response && error.response.status === 400) {
-          setResultMessage(
-            "User with this email, username or phone number already exists OR Company does not Exist"
-          );
+          setResultMessage("User with this email, username or phone number already exists OR Company does not Exist");
         } else {
           // Handle other error statuses here if needed
         }
       } finally {
-        setIsLoading(false);
+        setIsLoading(false); // Set loading indicator to false after API call
       }
     },
   });
 
+  // Function to handle role change
   const handleRoleChange = (event: any) => {
-    setSelectedRole(event.target.value);
+    setSelectedRole(event.target.value); // Update selected role
   };
+
+  // Render the component UI
 
   return (
     <div className="registration-and-login-content-main-div">
@@ -63,66 +67,66 @@ const EmployeeRegistration = () => {
           </div>
           <div
             className={`input-with-icon ${
-              formik.touched.company_name && formik.errors.company_name
+              formik.touched.companyName && formik.errors.companyName
                 ? "input-border-error"
                 : ""
             }`}
           >
             <img src="Assets/company.svg" alt="" />
             <input
-              id="company_name"
-              name="company_name"
+              id="companyName"
+              name="companyName"
               type="text"
               placeholder="Company Name"
-              value={formik.values.company_name}
+              value={formik.values.companyName}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
-            {formik.touched.company_name && formik.errors.company_name && (
-              <p className="error-msg">{formik.errors.company_name}</p>
+            {formik.touched.companyName && formik.errors.companyName && (
+              <p className="error-msg">{formik.errors.companyName}</p>
             )}
           </div>
 
           <div
             className={`input-with-icon ${
-              formik.touched.first_name && formik.errors.first_name
+              formik.touched.firstName && formik.errors.firstName
                 ? "input-border-error"
                 : ""
             }`}
           >
             <img src="Assets/person.svg" alt="" />
             <input
-              id="first_name"
-              name="first_name"
+              id="firstName"
+              name="firstName"
               type="text"
               placeholder="First Name"
-              value={formik.values.first_name}
+              value={formik.values.firstName}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
-            {formik.touched.first_name && formik.errors.first_name && (
-              <p className="error-msg">{formik.errors.first_name}</p>
+            {formik.touched.firstName && formik.errors.firstName && (
+              <p className="error-msg">{formik.errors.firstName}</p>
             )}
           </div>
           <div
             className={`input-with-icon ${
-              formik.touched.last_name && formik.errors.last_name
+              formik.touched.lastName && formik.errors.lastName
                 ? "input-border-error"
                 : ""
             }`}
           >
             <img src="Assets/person.svg" alt="" />
             <input
-              id="last_name"
-              name="last_name"
+              id="lastName"
+              name="lastName"
               type="text"
               placeholder="Last Name"
-              value={formik.values.last_name}
+              value={formik.values.lastName}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
-            {formik.touched.last_name && formik.errors.last_name && (
-              <p className="error-msg">{formik.errors.last_name}</p>
+            {formik.touched.lastName && formik.errors.lastName && (
+              <p className="error-msg">{formik.errors.lastName}</p>
             )}
           </div>
           <div
@@ -169,23 +173,23 @@ const EmployeeRegistration = () => {
           </div>
           <div
             className={`input-with-icon ${
-              formik.touched.phone_number && formik.errors.phone_number
+              formik.touched.phoneNumber && formik.errors.phoneNumber
                 ? "input-border-error"
                 : ""
             }`}
           >
             <img src="Assets/phone.svg" alt="" />
             <input
-              id="phone_number"
-              name="phone_number"
+              id="phoneNumber"
+              name="phoneNumber"
               type="text"
               placeholder="Phone Number"
-              value={formik.values.phone_number}
+              value={formik.values.phoneNumber}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
-            {formik.touched.phone_number && formik.errors.phone_number && (
-              <p className="error-msg">{formik.errors.phone_number}</p>
+            {formik.touched.phoneNumber && formik.errors.phoneNumber && (
+              <p className="error-msg">{formik.errors.phoneNumber}</p>
             )}
           </div>
           <div

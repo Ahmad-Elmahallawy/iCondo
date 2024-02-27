@@ -1,116 +1,132 @@
-generator client {
-  provider = "prisma-client-js"
-}
-
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-model Company {
-  id               Int               @id(map: "company_pkey") @default(autoincrement())
-  name             String?           @db.VarChar(255)
-  company_employee CompanyEmployee[]
-  file             File[]
-}
-
-model CompanyEmployee {
-  id         Int      @id @default(autoincrement())
-  user_id    Int?
-  company_id Int?
-  company    Company? @relation(fields: [company_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_company")
-  user       User?    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_user")
-}
-
-model File {
-  id          Int        @id(map: "profile_image_pkey") @default(autoincrement())
-  bucket      String
-  name        String
-  user        User?      @relation(fields: [userId], references: [id])
-  userId      Int?
-  CondoUnit   CondoUnit? @relation(fields: [condoUnitID], references: [id])
-  condoUnitID Int?
-  Property    Property?  @relation(fields: [propertyID], references: [propertyID])
-  propertyID  Int?
-  Company     Company?   @relation(fields: [companyID], references: [id])
-  companyID   Int?
-}
-
-model Role {
-  id   Int     @id @default(autoincrement())
-  name String? @db.VarChar(255)
-  user User[]
+generator client {
+  provider = "prisma-client-js"
 }
 
 model User {
-  id                Int               @id(map: "user_pkey") @unique @default(autoincrement())
-  email             String            @unique @db.VarChar(255)
-  role_id           Int
-  password          String?           @db.VarChar(500)
-  username          String            @unique(map: "user_username_key") @db.VarChar(255)
-  phone_number      String            @unique @db.VarChar(255)
-  first_name        String            @db.VarChar(255)
-  last_name         String            @db.VarChar(255)
-  company_employees CompanyEmployee[]
-  role              Role              @relation(fields: [role_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "rules")
-  UserCondo         UserCondo[]
-  profile_image     File[]
+  companyEmployees CompanyEmployee[]
+  createdAt        DateTime          @default(now())
+  email            String            @unique
+  files            File[]
+  firstName        String?
+  id               Int               @id @default(autoincrement())
+  lastName         String?
+  password         String
+  phoneNumber      String            @unique
+  roles            Json
+  updatedAt        DateTime          @updatedAt
+  userCondos       UserCondo[]
+  username         String            @unique
 }
 
 model CondoUnit {
-  id              Int               @id @unique @default(autoincrement())
-  size            Float
-  condoFee        Float
-  property        Property?         @relation(fields: [propertyID], references: [propertyID])
-  propertyID      Int?
-  parkingSpot     ParkingSpot       @relation(fields: [parkingspotID], references: [spotID])
-  locker          Locker            @relation(fields: [lockerID], references: [lockerID])
-  parkingspotID   Int               @unique
-  lockerID        Int               @unique
-  RegistrationKey RegistrationKey[]
-  UserCondo       UserCondo[]
-  file            File[]
+  condoFee         Decimal?
+  createdAt        DateTime         @default(now())
+  file             File[]
+  id               Int              @id @default(autoincrement())
+  locker           Locker?          @relation(fields: [lockerID], references: [id])
+  lockerID         Int?             @unique
+  parkingSpot      ParkingSpot[]
+  propertyID       Property?        @relation(fields: [propertyIDId], references: [id])
+  propertyIDId     Int?
+  registrationKeys RegistrationKey?
+  size             String
+  updatedAt        DateTime         @updatedAt
+  userCondos       UserCondo[]
 }
 
 model Property {
-  propertyID   Int           @id @unique @default(autoincrement())
-  name         String
-  unitCount    Int
-  parkingCount Int
-  lockerCount  Int
   address      String
-  condoUnit    CondoUnit[]
-  parkingSpot  ParkingSpot[]
-  Locker       Locker[]
-  file         File[]
+  condoUnits   CondoUnit[]
+  createdAt    DateTime      @default(now())
+  files        File[]
+  id           Int           @id @default(autoincrement())
+  lockerCount  Int?
+  Lockers      Locker[]
+  name         String
+  parkingCount Int
+  ParkingSpots ParkingSpot[]
+  unitCount    Int
+  updatedAt    DateTime      @updatedAt
 }
 
 model ParkingSpot {
-  spotID     Int        @id @unique @default(autoincrement())
-  property   Property   @relation(fields: [propertyID], references: [propertyID])
-  propertyID Int
-  condo_unit CondoUnit?
+  condoUnit   CondoUnit? @relation(fields: [condoUnitId], references: [id])
+  condoUnitId Int?
+  createdAt   DateTime   @default(now())
+  id          Int        @id @default(autoincrement())
+  property    Property?  @relation(fields: [propertyID], references: [id])
+  propertyID  Int?
+  updatedAt   DateTime   @updatedAt
 }
 
 model Locker {
-  lockerID   Int        @id @unique @default(autoincrement())
-  property   Property   @relation(fields: [propertyID], references: [propertyID])
-  propertyID Int
-  CondoUnit  CondoUnit?
+  condoUnits CondoUnit?
+  createdAt  DateTime   @default(now())
+  id         Int        @id @default(autoincrement())
+  property   Property?  @relation(fields: [propertyID], references: [id])
+  propertyID Int?
+  updatedAt  DateTime   @updatedAt
+}
+
+model Company {
+  companyEmployees CompanyEmployee[]
+  createdAt        DateTime          @default(now())
+  file             File[]
+  id               Int               @id @default(autoincrement())
+  name             String
+  updatedAt        DateTime?         @updatedAt
+}
+
+model File {
+  bucket      String
+  company     Company?   @relation(fields: [companyID], references: [id])
+  companyID   Int?
+  condoUnit   CondoUnit? @relation(fields: [condoUnitID], references: [id])
+  condoUnitID Int?
+  createdAt   DateTime   @default(now())
+  id          Int        @id @default(autoincrement())
+  name        String
+  property    Property?  @relation(fields: [propertyID], references: [id])
+  propertyID  Int?
+  updatedAt   DateTime   @updatedAt
+  user        User?      @relation(fields: [userID], references: [id])
+  userID      Int?
 }
 
 model RegistrationKey {
-  id          Int       @id @unique @default(autoincrement())
   condoUnit   CondoUnit @relation(fields: [condoUnitID], references: [id])
-  condoUnitID Int
+  condoUnitID Int       @unique
+  createdAt   DateTime  @default(now())
+  id          Int       @id @default(autoincrement())
+  updatedAt   DateTime  @updatedAt
+  value       String
+  role        Json
+}
+
+model Role {
+  id   String  @id @default(cuid())
+  name String?
+}
+
+model CompanyEmployee {
+  company   Company? @relation(fields: [companyID], references: [id])
+  companyID Int?
+  id        Int      @id @default(autoincrement())
+  user      User?    @relation(fields: [userID], references: [id])
+  userID    Int?
 }
 
 model UserCondo {
-  userID  Int
-  condoID Int
-  roleID  Int
-  user    User      @relation(fields: [userID], references: [id])
-  condo   CondoUnit @relation(fields: [condoID], references: [id])
-
-  @@id([userID, condoID])
+  condo     CondoUnit? @relation(fields: [condoID], references: [id])
+  condoID   Int?
+  createdAt DateTime   @default(now())
+  id        Int        @id @default(autoincrement())
+  updatedAt DateTime   @updatedAt
+  user      User?      @relation(fields: [userID], references: [id])
+  userID    Int?
 }

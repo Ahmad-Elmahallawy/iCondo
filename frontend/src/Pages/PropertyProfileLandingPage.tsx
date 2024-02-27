@@ -1,23 +1,49 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+
 import CondoComponent from "../Components/Condo/Condo";
 import PropertyInfoForm from "../Components/PropertyProfile/PropertyInfoForm";
 import List from "../Components/Common/List";
 import condos from "../Components/Condo/Condos.json";
 import "../Style/LandingPageStyle/PropertyProfileLandingPageStyle.css";
 
-const initialPropertyInfo = {
-  title: "Windcreek Villa",
-  address: "123 Main Street, Cityville",
-  unitCount: "50",
-  parkingSpotCount: "100",
-  lockerCount: "25",
-};
+// Define the type for the property info
+interface PropertyInfo {
+  title: string;
+  address: string;
+  unitCount: string;
+  parkingSpotCount: string;
+  lockerCount: string;
+}
+
+// Define an interface for the state object passed to the Link component
+interface LinkStateProps {
+  state: {
+    propertyInfo: PropertyInfo;
+  };
+}
 
 const PropertyProfileLandingPage: React.FC = () => {
-  const [propertyInfo, setPropertyInfo] = useState(initialPropertyInfo);
+  // Use useState with an initializer function
+  const [propertyInfo, setPropertyInfo] = useState<PropertyInfo>(() => ({
+    title: "",
+    address: "",
+    unitCount: "",
+    parkingSpotCount: "",
+    lockerCount: "",
+  }));
 
-  const handleSavePropertyInfo = (updatedInfo: typeof initialPropertyInfo) => {
+  const location = useLocation();
+
+  // Use useEffect to update propertyInfo when location changes
+  useEffect(() => {
+    if (location.state && location.state.property) {
+      const receivedPropertyInfo: PropertyInfo = location.state.property;
+      setPropertyInfo(receivedPropertyInfo);
+    }
+  }, [location.state]);
+
+  const handleSavePropertyInfo = (updatedInfo: PropertyInfo) => {
     setPropertyInfo(updatedInfo);
     // Add logic to persist changes, e.g., update the state, local storage, or send to a server
   };
@@ -25,7 +51,7 @@ const PropertyProfileLandingPage: React.FC = () => {
   return (
     <div className="property-profile-landing-page">
       <div className="property-info-section">
-        <h1>{propertyInfo.title} Profile</h1>
+        <h1 data-testid="property-title">{propertyInfo.title} Profile</h1>
         <PropertyInfoForm
           propertyInfo={propertyInfo}
           onSave={handleSavePropertyInfo}
@@ -33,10 +59,11 @@ const PropertyProfileLandingPage: React.FC = () => {
       </div>
       <div className="condo-list-section">
         <h1>Condo List</h1>
-        <Link to="/add-unit">
+        <Link to={`/CondoCreation`} state={{ title: propertyInfo.title }}>
           <button className="add-unit-button">Add Unit</button>
         </Link>
         <List
+          data-testid="add-unit-page"
           items={condos}
           renderItem={(condo) => (
             <div key={condo.condoId} className="condo-wrapper">

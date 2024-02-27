@@ -10,6 +10,7 @@ import NavBar from "./Components/NavBar";
 import PropertiesListPage from "./Pages/PropertyListLandingPage";
 import DashboardPage from "./Pages/CompanyDashboardLandingPage";
 import CondoProfileLandingPage from "./Pages/CondoProfileLandingPage";
+import CreatePropertyLandingPage from "./Pages/CreatePropertyLandingPage";
 import PropertyProfileLandingPage from "./Pages/PropertyProfileLandingPage";
 import CondoCreationLandingPage from "./Pages/CondoCreationLandingPage";
 import EmployeeRequestsLandingPage from "./Pages/EmployeeRequestsLandingPage";
@@ -41,7 +42,7 @@ function App() {
         />
         <Route
           path="CreateProperty"
-          element={<DashboardPage />} /*CHANGE PATH ONCE PAGE IS CREATED*/
+          element={<CreatePropertyLandingPage />}
         />
         <Route
           path="EmployeeList"
@@ -52,12 +53,13 @@ function App() {
           element={<DashboardPage />} /*CHANGE PATH ONCE PAGE IS CREATED*/
         />
         <Route path="PropertiesList" element={<PropertiesListPage />} />
+
+        <Route path="CondoProfile" element={<CondoProfileLandingPage />} />
         <Route
-          path="PropertyProfile"
+          path="/PropertyProfile/:id"
           element={<PropertyProfileLandingPage />}
         />
 
-        <Route path="CondoProfile" element={<CondoProfileLandingPage />} />
         <Route path="CondoCreation" element={<CondoCreationLandingPage />} />
         <Route path="*" element={<div>404 Page Not Found</div>} />
       </Routes>

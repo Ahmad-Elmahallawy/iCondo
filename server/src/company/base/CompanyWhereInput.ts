@@ -18,6 +18,7 @@ import { FileListRelationFilter } from "../../file/base/FileListRelationFilter";
 import { IntFilter } from "../../util/IntFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
+import { PropertyListRelationFilter } from "../../property/base/PropertyListRelationFilter";
 
 @InputType()
 class CompanyWhereInput {
@@ -77,6 +78,18 @@ class CompanyWhereInput {
     nullable: true,
   })
   updatedAt?: DateTimeNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => PropertyListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => PropertyListRelationFilter)
+  @IsOptional()
+  @Field(() => PropertyListRelationFilter, {
+    nullable: true,
+  })
+  properties?: PropertyListRelationFilter;
 }
 
 export { CompanyWhereInput as CompanyWhereInput };

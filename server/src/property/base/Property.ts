@@ -23,6 +23,7 @@ import { Type } from "class-transformer";
 import { File } from "../../file/base/File";
 import { Locker } from "../../locker/base/Locker";
 import { ParkingSpot } from "../../parkingSpot/base/ParkingSpot";
+import { Company } from "../../company/base/Company";
 
 @ObjectType()
 class Property {
@@ -42,6 +43,15 @@ class Property {
   @Type(() => CondoUnit)
   @IsOptional()
   condoUnits?: Array<CondoUnit>;
+
+  @ApiProperty({
+    required: false,
+    type: () => Company,
+  })
+  @ValidateNested()
+  @Type(() => Company)
+  @IsOptional()
+  company?: Company | null;
 
   @ApiProperty({
     required: true,
