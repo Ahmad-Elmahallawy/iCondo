@@ -38,7 +38,7 @@ const PropertyComponent: React.FC<PropertyComponentProps> = ({
       onClick={handlePropertyClick}
     >
       <img
-        src={property.imageUrl}
+        src={"Assets/property1.svg"}
         alt={property.title}
         className="item-image"
       />
