@@ -7,7 +7,7 @@ import { log } from "console";
 
 interface Property {
   id: number;
-  title: string;
+  name: string;
   address: string;
   imageUrl: string;
   unitCount: string;
@@ -31,8 +31,7 @@ const PropertyListLandingPage = () => {
             },
           }
         );
-        console.log(response.data);
-        console.log(userData.username);
+
         const filteredList = response.data.filter((item: any) => {
           return item.name
             .toLowerCase()

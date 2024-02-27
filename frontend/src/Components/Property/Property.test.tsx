@@ -12,7 +12,7 @@ jest.mock("react-router-dom", () => ({
 describe("PropertyComponent", () => {
   const property = {
     id: 1,
-    title: "Windcreek Villa",
+    name: "Windcreek Villa",
     address: "123 Main Street, Cityville",
     unitCount: "50",
     parkingSpotCount: "100",
@@ -20,7 +20,7 @@ describe("PropertyComponent", () => {
     imageUrl: "Assets/property1.png",
   };
 
-  test("renders property component with correct title and address", () => {
+  test("renders property component with correct name and address", () => {
     const onClickMock = jest.fn(); // Mock the onClick function
     const { getByTestId, getByText } = render(
       <MemoryRouter>
@@ -28,11 +28,11 @@ describe("PropertyComponent", () => {
       </MemoryRouter>
     );
     const propertyItem = getByTestId("property-component");
-    const titleElement = getByText(property.title);
+    const nameElement = getByText(property.name);
     const addressElement = getByText(property.address);
 
     expect(propertyItem).toBeInTheDocument();
-    expect(titleElement).toBeInTheDocument();
+    expect(nameElement).toBeInTheDocument();
     expect(addressElement).toBeInTheDocument();
   });
 
@@ -42,7 +42,7 @@ describe("PropertyComponent", () => {
         <PropertyComponent property={property} onClick={() => {}} />
       </MemoryRouter>
     );
-    const propertyImage = getByAltText(property.title);
+    const propertyImage = getByAltText(property.name);
 
     expect(propertyImage).toBeInTheDocument();
     expect(propertyImage.getAttribute("src")).toBe(property.imageUrl);
