@@ -3,6 +3,8 @@ import { render, fireEvent, waitFor, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect"; 
 import { MemoryRouter } from "react-router-dom";
 import CondoCreation from "./CondoCreation";
+import axios from "axios";
+import MockAdapter from "axios-mock-adapter";
 
 describe("CondoCreation component", () => {
   it("renders without crashing", () => {
@@ -71,4 +73,38 @@ describe("CondoCreation component", () => {
       });
     });
   });
+
+  let mock: MockAdapter;
+
+  beforeEach(() => {
+    mock = new MockAdapter(axios);
+    mock.reset();
+  });
+
+  it("displays specific error message if condo unit creation fails due to conflict", async () => {
+    mock.onPost("http://localhost:8000/api/condoUnits").reply(409);
+
+    render(
+      <MemoryRouter>
+        <CondoCreation />
+      </MemoryRouter>
+    );
+
+    fireEvent.change(screen.getByPlaceholderText("Condo Unit ID"), {
+      target: { value: "123" },
+    });
+    fireEvent.change(screen.getByPlaceholderText("Net Area"), {
+      target: { value: "100" },
+    });
+    fireEvent.change(screen.getByPlaceholderText("Condo Fee"), {
+      target: { value: "200" },
+    });
+
+    fireEvent.click(screen.getByRole("button", { name: /create condo unit/i }));
+
+    await waitFor(() => {
+      expect(screen.getByText("Invalid condo unit, must be unique")).toBeInTheDocument();
+    });
+  });
+  
 });
