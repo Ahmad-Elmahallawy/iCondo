@@ -13,19 +13,13 @@ const DashboardPage: React.FC = () => {
 
   // Check if the user is logged in
   const user = JSON.parse(localStorage.getItem("userData") || "{}");
-  const isAdmin = user.roles && user.roles.includes("Admin");
   const navigate = useNavigate(); // Navigation function from React Router
 
   if (user === "{}") {
     // Redirect to login page if not logged in
     navigate("/login");
   }
-  else {
-    if (isAdmin) {
-      // Redirect to home page
-      navigate("/");
-    }
-  }
+
   return (
     <div className="dashboard-page">
       <div className="dashboard">
