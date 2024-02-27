@@ -5,6 +5,7 @@ import LoadingScreen from "../Common/LoadingScreen";
 import { resetPasswordInitialValues } from "../Common/InitialValues";
 import { resetPasswordValidationSchema } from "../Common/ValidationSchema";
 import "../../Style/AuthenticationStyle/ResetPassword.css";
+import api from "../../api";
 
 interface FormValues {
   username: string;
@@ -12,6 +13,9 @@ interface FormValues {
   password_confirm: string;
 }
 
+// ResetPassword Component:
+// This component renders a form to reset user password.
+// Formik is used for form management & validation.
 const ResetPassword: React.FC = () => {
   const [resetPasswordError, setResetPasswordError] = useState<string | null>(
     null
@@ -27,6 +31,7 @@ const ResetPassword: React.FC = () => {
     onSubmit: async (values) => {
       try {
         setIsLoading(true);
+        await api.userAuthentication.resetPassword(values);
         setResetPasswordError(null);
         navigate("/Login");
       } catch (error: any) {
