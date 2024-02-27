@@ -258,6 +258,9 @@ const resetPassword = asyncHandler(async (req, res) => {
     const hashedPassword = await bcrypt.hash(req.body.password, salt);
     user.password = hashedPassword || user.password;
   }
+  else{
+    return res.status(400).json({ error: "No password is entered." });
+  }
 
   const updatedUser = await prisma.User.update({
     where: {
