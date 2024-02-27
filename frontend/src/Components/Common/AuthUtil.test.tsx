@@ -37,7 +37,10 @@ describe("isAuthenticated", () => {
     // Simulate a user being authenticated with a token stored in localStorage
     mockLocalStorage.getItem.mockImplementation((key: string) => {
       if (key === "userData") {
-        return JSON.stringify({ accessToken: "valid-token" });
+        return JSON.stringify({
+          accessToken:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjM1LCJ1c2VybmFtZSI6ImNvbXBhbnlCIiwiaWF0IjoxNzA5MDE3MTg2LCJleHAiOjE3MDkxODk5ODZ9.3P-TnDwReL6aUywtKhAwIDDJWHBcutUA5UAFyG9leb4",
+        });
       }
       return null;
     });

@@ -20,7 +20,6 @@ const CreateProperty: React.FC = () => {
     localStorage.getItem("companyDetails") || "{}"
   )[0];
   const token = userData.accessToken;
-  console.log(companyData.company.id);
   // Formik form initialization
   const formik = useFormik({
     initialValues: { ...createPropertyInitialValues, files: [] },
@@ -186,6 +185,7 @@ const CreateProperty: React.FC = () => {
               <button
                 type="button"
                 className="delete-file"
+                data-testid="delete-file-button"
                 onClick={() => handleFileDelete(file.name)}
               >
                 <img src={deleteIcon} alt="Delete" />

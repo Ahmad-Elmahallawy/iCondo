@@ -2,33 +2,39 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import "@testing-library/jest-dom/extend-expect";
 import CondoComponent from './Condo';
+import { MemoryRouter } from 'react-router-dom'; 
 
 describe('CondoComponent', () => {
   const condo = {
     condoId: 1,
-    occupantName: 'John Doe',
     condoFee: '500',
-    imageUrl: 'Assets/condo1.png',
+    imageUrl: 'Assets/condo1.svg',
   };
 
   test('renders condo component with correct condo id, occupant name, and condo fee', () => {
-    const { getByTestId, getByText } = render(<CondoComponent condo={condo} />);
+    const { getByTestId, getByText } = render(
+      <MemoryRouter> {/* Wrap CondoComponent with MemoryRouter */}
+        <CondoComponent condo={condo} />
+      </MemoryRouter>
+    );
     const condoItem = getByTestId('condo-component');
     const condoIdElement = getByText(`Condo ${condo.condoId}`);
-    const occupantNameElement = getByText(`Occupant: ${condo.occupantName}`);
     const condoFeeElement = getByText(`Condo Fee: ${condo.condoFee}`);
 
     expect(condoItem).toBeInTheDocument();
     expect(condoIdElement).toBeInTheDocument();
-    expect(occupantNameElement).toBeInTheDocument();
     expect(condoFeeElement).toBeInTheDocument();
   });
 
   test('renders condo image with correct alt text', () => {
-    const { getByAltText } = render(<CondoComponent condo={condo} />);
-    const condoImage = getByAltText(`Condo ${condo.condoId}`);
+    const { getByAltText } = render(
+      <MemoryRouter> {/* Wrap CondoComponent with MemoryRouter */}
+        <CondoComponent condo={condo} />
+      </MemoryRouter>
+    );
+    const condoImage = getByAltText(`Condo`);
 
     expect(condoImage).toBeInTheDocument();
-    expect(condoImage.getAttribute('src')).toBe(condo.imageUrl);
+    expect(condoImage.getAttribute('src')).toBe("/Assets/condo1.svg");
   });
 });

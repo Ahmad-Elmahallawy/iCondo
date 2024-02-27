@@ -17,7 +17,7 @@ describe("PropertyComponent", () => {
     unitCount: "50",
     parkingSpotCount: "100",
     lockerCount: "25",
-    imageUrl: "Assets/property1.png",
+    imageUrl: "Assets/property1.svg",
   };
 
   test("renders property component with correct name and address", () => {

@@ -3,7 +3,6 @@ import axios from "axios"; // Import Axios
 import List from "../Components/Common/List";
 import PropertyComponent from "../Components/Property/Property";
 import "../Style/LandingPageStyle/PropertyListLandingPageStyle.css";
-import { log } from "console";
 
 interface Property {
   id: number;
@@ -23,8 +22,6 @@ const PropertyListLandingPage = () => {
   )[0];
   const token = userData.accessToken;
 
-  console.log(companyData.company.id);
-
   useEffect(() => {
     // Fetch properties from backend when component mounts
     const fetchProperties = async () => {
@@ -43,10 +40,6 @@ const PropertyListLandingPage = () => {
           }
         );
 
-        // const filteredList = response.data.filter((item: any) => {
-        //   console.log(companyData, item.id, response.data);
-        //   return companyData.company.id === item.id;
-        // });
         setProperties(response.data);
       } catch (error) {
         console.error("Error fetching properties:", error);
