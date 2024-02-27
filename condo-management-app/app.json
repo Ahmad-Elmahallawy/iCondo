@@ -11,6 +11,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "extra": {
+      "API_BASE_URL": "https://example.com/api/"
+    },
     "plugins": [
       [
         "expo-image-picker",
