@@ -20,7 +20,7 @@ app.get("/", function (req, res, next) {
   res.json({ msg: "This is CORS-enabled for all origins!" });
 });
 
-module.exports = {prisma}
+// module.exports = {prisma}
 app.listen(process.env.PORT, function () {
   console.log("CORS-enabled web server listening on port " + process.env.PORT);
 });

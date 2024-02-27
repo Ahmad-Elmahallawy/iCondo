@@ -8,10 +8,11 @@ const {
   getUser,
   modifyUser,
   registerEmployee,
-  registerAdminCompany
+  registerAdminCompany,
+  resetPassword
 } = require("../controller/userController");
 
-router.route("/").post(registerUser).patch(modifyUser);
+router.route("/").post(registerUser).patch(resetPassword);
 router.route('/adminCompanyCreation').post(registerAdminCompany)
 router.route("/login").get(login);
 router.route("/:userid").get(getUser);
