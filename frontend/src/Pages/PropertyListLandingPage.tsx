@@ -18,7 +18,13 @@ interface Property {
 const PropertyListLandingPage = () => {
   const [properties, setProperties] = useState<Property[]>([]);
   const userData = JSON.parse(localStorage.getItem("userData") || "{}");
+  const companyData = JSON.parse(
+    localStorage.getItem("companyDetails") || "{}"
+  )[0];
   const token = userData.accessToken;
+
+  console.log(companyData.company.id);
+
   useEffect(() => {
     // Fetch properties from backend when component mounts
     const fetchProperties = async () => {
@@ -29,15 +35,19 @@ const PropertyListLandingPage = () => {
             headers: {
               Authorization: `Bearer ${token}`, // Set Authorization header with token
             },
+            data: {
+              company: {
+                id: parseInt(companyData.company.id),
+              },
+            },
           }
         );
 
-        const filteredList = response.data.filter((item: any) => {
-          return item.name
-            .toLowerCase()
-            .includes(userData.username.toLowerCase());
-        });
-        setProperties(filteredList);
+        // const filteredList = response.data.filter((item: any) => {
+        //   console.log(companyData, item.id, response.data);
+        //   return companyData.company.id === item.id;
+        // });
+        setProperties(response.data);
       } catch (error) {
         console.error("Error fetching properties:", error);
       }
