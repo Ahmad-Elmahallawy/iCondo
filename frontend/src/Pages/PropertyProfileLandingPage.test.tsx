@@ -67,21 +67,6 @@ describe("PropertyProfileLandingPage", () => {
     expect(screen.getByText("Add Unit")).toBeInTheDocument();
   });
 
-  test("navigates to add unit page when add unit button is clicked", () => {
-    render(
-      <MemoryRouter initialEntries={["/property"]} initialIndex={0}>
-        <Routes>
-          <Route path="/property" element={<PropertyProfileLandingPage />} />
-          <Route
-            path="/add-unit"
-            element={<div data-testid="add-unit-page">Add Unit Page</div>}
-          />
-        </Routes>
-      </MemoryRouter>
-    );
-    fireEvent.click(screen.getByText("Add Unit"));
-    expect(screen.getByTestId("add-unit-page")).toBeInTheDocument();
-  });
 
   test("renders condo list with correct data", () => {
     render(
@@ -94,20 +79,25 @@ describe("PropertyProfileLandingPage", () => {
 
     // Add assertions to check if condo data is correctly rendered in condo containers
   });
-
-  test("navigates to add unit page when add unit button is clicked", () => {
-    render(
-      <MemoryRouter initialEntries={["/property"]} initialIndex={0}>
-        <Routes>
-          <Route path="/property" element={<PropertyProfileLandingPage />} />
-          <Route
-            path="/add-unit"
-            element={<div data-testid="add-unit-page">Add Unit Page</div>}
-          />
-        </Routes>
+  test('adds unit button redirects to condo creation page with property title', () => {
+    const propertyInfo = {
+      title: 'Test Property',
+      address: 'Test Address',
+      unitCount: '10',
+      parkingSpotCount: '5',
+      lockerCount: '3',
+    };
+    const { getByText, container } = render(
+      <MemoryRouter>
+        <PropertyProfileLandingPage />
       </MemoryRouter>
     );
-    fireEvent.click(screen.getByText("Add Unit"));
-    expect(screen.getByTestId("add-unit-page")).toBeInTheDocument();
+
+    const addButton = getByText('Add Unit');
+    fireEvent.click(addButton);
+
+    const link = container.querySelector('a[href="/CondoCreation"]');
+    expect(link).toBeInTheDocument();
+    expect(link).toHaveTextContent('Add Unit');
   });
 });

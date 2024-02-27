@@ -12,7 +12,7 @@ const CondoCreation = () => {
   const userDataString = localStorage.getItem("userData");
   let companyName = "";
   const location = useLocation();
-  const { title } = location.state;
+  const title = location.state ? location.state.title : '';
 
   // Check if userData exists and is in the expected format
   if (userDataString) {
