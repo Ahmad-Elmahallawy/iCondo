@@ -14,6 +14,7 @@ import CreatePropertyLandingPage from "./Pages/CreatePropertyLandingPage";
 import PropertyProfileLandingPage from "./Pages/PropertyProfileLandingPage";
 import CondoCreationLandingPage from "./Pages/CondoCreationLandingPage";
 import EmployeeRequestsLandingPage from "./Pages/EmployeeRequestsLandingPage";
+import ResetPassword from "./Components/Authentication/ResetPassword";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/" element={<Hero />} />
         <Route path="Login" element={<LogInLandingPage />} />
         <Route path="Register" element={<RegistrationLandingPage />} />
+        <Route path="ResetPassword" element={<ResetPassword />} />
         <Route path="Profile" element={<UserProfileLandingPage />} />
         <Route
           path="Employee/Registration"
@@ -30,12 +32,7 @@ function App() {
         />
         <Route path="Profile" element={<UserProfileLandingPage />} />
         <Route path="CompanyDashboard" element={<DashboardPage />} />
-        <Route
-          path="GenerateKey"
-          element={
-            <EmployeeRequestsLandingPage />
-          } 
-        />
+        <Route path="GenerateKey" element={<EmployeeRequestsLandingPage />} />
         <Route
           path="RegisterEmployee"
           element={<DashboardPage />} /*CHANGE PATH ONCE PAGE IS CREATED*/

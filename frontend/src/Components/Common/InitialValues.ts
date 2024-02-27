@@ -20,6 +20,11 @@ export const condoInitialValues = {
   condoFee: "",
 };
 
+export const resetPasswordInitialValues = {
+  username: "",
+  password: "",
+  password_confirm: "",
+};
 export const createPropertyInitialValues = {
   propertyName: "",
   address: "",

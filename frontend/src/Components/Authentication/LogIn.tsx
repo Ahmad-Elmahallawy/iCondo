@@ -151,6 +151,11 @@ const Login: React.FC = () => {
           <Link to="/Register">
             <span>Sign Up here</span>
           </Link>
+        }{" "}
+        {
+          <Link to="/ResetPassword">
+            <span>Forgot Password?</span>
+          </Link>
         }
       </p>
       <button type="submit" className="registration-and-login-button">

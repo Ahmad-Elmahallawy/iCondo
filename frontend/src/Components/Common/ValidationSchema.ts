@@ -46,6 +46,17 @@ export const condoValidationSchema = Yup.object({
     .matches(/^[0-9]+$/, "Condo Fee must be a number"),
 });
 
+export const resetPasswordValidationSchema = Yup.object({
+  username: Yup.string()
+    .max(20, "Must be 20 characters or less")
+    .required("Required"),
+  password: Yup.string()
+    .min(8, "Password must be at least 8 characters long")
+    .required("Required"),
+  password_confirm: Yup.string()
+    .min(8, "Password must be at least 8 characters long")
+    .required("Required"),
+});
 export const createPropertyValidationSchema = Yup.object({
   propertyName: Yup.string().required("Required"),
   address: Yup.string().required("Required"),
