@@ -35,7 +35,6 @@ const ResetPassword: React.FC = () => {
         setResetPasswordError(null);
         navigate("/Login");
       } catch (error: any) {
-        console.error("Password reset failed:", error.message);
         setResetPasswordError("Password reset failed: ");
       } finally {
         setIsLoading(false);
