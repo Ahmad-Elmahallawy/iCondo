@@ -1,45 +1,55 @@
 export const products = [
     {
         id: 1,
-        title: 'Loft Style Chair',
-        image: 'https://grandrapidschair.com/wp-content/uploads/2016/01/250_Brady_Graphite_Honey-1.jpg',
+        title: 'Tranquil Bayview Suites',
+        image: 'https://houseandhome.com/wp-content/uploads/2019/04/feature-CHH_PersonalStyle_PattiRosati_Mar2019_127_HH_MR19_51.jpg',
+        images: [
+            'https://houseandhome.com/wp-content/uploads/2019/04/feature-CHH_PersonalStyle_PattiRosati_Mar2019_127_HH_MR19_51.jpg',
+            'https://houseandhome.com/wp-content/uploads/2019/04/crop-CHH_PersonalStyle_PattiRosati_Mar2019_072_HH_MR19_53.jpg',
+            'https://houseandhome.com/wp-content/uploads/2019/04/crop-CHH_PersonalStyle_PattiRosati_Mar2019_091_HH_MR19_24.jpg'
+        ],
         category: 1,
-        price: '$ 20.00',
-        description: 'Minimal Stand is made of by natural wood. The design that is very simple and minimal. This is truly one of the best furnitures in any family for now. With 3 different colors, you can easily select the best match for your home. ',
+        price: '$ 2 000.00',
+        description: 'Embrace a life of tranquility and sophistication at Tranquil Bayview Suites. Perched on the shores of a serene bay, our luxurious condominiums offer unrivaled waterfront living. Immerse yourself in stunning views of the bay and lush landscapes from your private balcony. With lavish amenities and impeccable service, Tranquil Bayview Suites is the epitome of coastal elegance and relaxation.',
     },
     {
         id: 2,
-        title: 'Wood Mini Table',
-        image: 'https://ii1.pepperfry.com/media/catalog/product/f/o/800x880/foldable-table-in-natural-colour-by-clasicraft-foldable-table-in-natural-colour-by-clasicraft-ahmtub.jpg',
+        title: 'Serenity Heights Condos',
+        image: 'https://houseandhome.com/wp-content/uploads/2020/05/crop-CHH_AlisonSchwartz_Jan2019_392_HH_MA20_55.jpg',
+    images: ['https://houseandhome.com/wp-content/uploads/2020/05/feature-CHH_AlisonSchwartz_Jan2019_082_HH_MAY20_90.jpg',
+        'https://houseandhome.com/wp-content/uploads/2020/05/crop-CHH_AlisonSchwartz_Jan2019_392_HH_MA20_55.jpg'],
         category: 2,
-        price: '$ 25.00',
-        description: 'Minimal Stand is made of by natural wood. The design that is very simple and minimal. This is truly one of the best furnitures in any family for now. With 3 different colors, you can easily select the best match for your home. ',
+        price: '$ 4 500.00',
+        description: 'Nestled amidst tranquil surroundings, Serenity Heights Condos provides a peaceful retreat from the hustle and bustle of everyday life. Experience serenity and relaxation in our thoughtfully designed residences, complemented by lush greenery and panoramic views. With resort-style amenities and impeccable attention to detail, Serenity Heights offers a harmonious blend of comfort and nature.',
     },
     {
         id: 3,
-        title: 'Luxe Yellow Armchair',
-        image: 'https://www.woods-furniture.co.uk/images/products/standard/7706_8118.jpg',
+        title: 'Urban Oasis Condominium',
+        image: 'https://images.wsj.net/im-550847/?width=2000&size=1.947',
         category: 3,
-        price: '$ 45.00',
-        description: 'Minimal Stand is made of by natural wood. The design that is very simple and minimal. This is truly one of the best furnitures in any family for now. With 3 different colors, you can easily select the best match for your home. ',
+        price: '$ 1 500.00',
+        description: 'Discover the epitome of urban living with our Urban Oasis Condominium. Situated in the heart of the bustling city, this modern condominium offers unparalleled convenience and luxury. Enjoy breathtaking skyline views, state-of-the-art amenities, and easy access to vibrant dining and entertainment options. Elevate your lifestyle with comfort and sophistication at Urban Oasis.',
     },
     {
         id: 4,
-        title: 'Cozy Armchair',
-        image: 'https://cdn.shopify.com/s/files/1/0079/2539/9616/products/myakka-chairs-jalkamal-block-print-footstool-28730051264703_2000x.jpg?v=1629217511',
+        title: 'Skyline Tower \nCondominiums',
+        image: 'https://www.homz.io/wp-content/themes/gh/pub/auto/12136/xl-a28719d0-244e-4e6b-8736-27f3f58ed24c-ut-1707423639-ut.jpg',
+        images: [
+            'https://www.homz.io/wp-content/themes/gh/pub/auto/12136/xl-a28719d0-244e-4e6b-8736-27f3f58ed24c-ut-1707423639-ut.jpg',
+            'https://www.homz.io/wp-content/themes/gh/pub/auto/12136/xl-a28719d0-244e-4e6b-8736-27f3f58ed24c-ut-1707423639-ut.jpg',
+            'https://www.homz.io/wp-content/themes/gh/pub/auto/12136/xl-9ad8b432-399f-4fa8-8bf6-5448b42b3738-ut-1707423644-ut.jpg'
+        ],
         category: 3,
-        price: '$ 80.00'
+        price: '$ 3 500.00',
+        description: 'Reach new heights of luxury living at Skyline Tower Condominiums. Rising majestically above the city skyline, our iconic tower redefines urban living with its sleek architecture and unparalleled views. From spacious interiors to world-class amenities, every detail is crafted to perfection. Elevate your lifestyle and embrace the extraordinary at Skyline Tower.'
     },
     {
         id: 5,
-        title: 'Velvet Sofa',
-        image: 'https://www.housingunits.co.uk/media/catalog/product/cache/60968cec045f20fb06ab5f7720001507/5/5/555685b1a8eecf2133f18451526a4ede.jpg',
-        images: [
-            'https://collinsandhayes-cdn-1.s3.eu-west-2.amazonaws.com/wp-content/uploads/2022/02/14101256/V7A1199-800x800.jpg',
-            'https://www.housingunits.co.uk/media/catalog/product/cache/60968cec045f20fb06ab5f7720001507/5/5/555685b1a8eecf2133f18451526a4ede.jpg',
-            'https://media.sofa.com/thumbor/unsafe/https%3A%2F%2Fmedia.sofa.com%2Fmedias%2FSS22-Homepage-Category-Tiles-1-SOFAS.jpg%3Fcontext%3DbWFzdGVyfHJvb3R8MTM1MzYyfGltYWdlL2pwZWd8aDUyL2g0ZC84OTk4ODEwNTgzMDcwLmpwZ3xjNWUzZDYzMjY2NGNhNWJkYjUwNjg4MDlkNzBiZTFlYmNiNmE1YWEyNDEwMTFhYWRlYTI0OGMwZGVlZTE1OWE1',
-        ],
+        title: 'Luxury Lakeside ' +
+            '\nResidences',
+        image: 'https://www.homz.io/wp-content/themes/gh/pub/auto/10406/xl-b50295c8-e057-4e1c-9601-61be84fa4113.jpg',
         category: 4,
-        price: '$ 120.00'
+        price: '$ 5 000.00',
+        description: 'Indulge in luxury living at Luxury Lakeside Residences, where sophistication meets tranquility. Perched beside a picturesque lake, our exquisite condominiums offer unparalleled elegance and breathtaking views. Immerse yourself in a world of refined amenities, including a private marina, infinity pool, and lush landscaped gardens. Experience the epitome of waterfront living at Luxury Lakeside Residences.',
     },
 ]
