@@ -22,9 +22,6 @@ const CondoCreation = () => {
 
       // Access the username property
       companyName = userData.username;
-
-      // Now you can use companyName
-      console.log(companyName);
     } catch (error) {
       console.error("Error parsing userData:", error);
     }
@@ -39,7 +36,6 @@ const CondoCreation = () => {
     },
   });
 
-  console.log(companyName);
   return (
     <div className="condo-creation-form-container">
       <div className="condo-creation-property-name-and-company-name">
