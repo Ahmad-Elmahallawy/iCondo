@@ -61,9 +61,22 @@ export class PropertyControllerBase {
     @common.Body() data: PropertyCreateInput
   ): Promise<Property> {
     return await this.service.createProperty({
-      data: data,
+          data: {
+            ...data,
+
+            company: data.company
+                ? {
+                  connect: data.company,
+                }
+                : undefined,
+          },
       select: {
         address: true,
+        company: {
+          select: {
+            id: true,
+          },
+        },
         createdAt: true,
         id: true,
         lockerCount: true,
@@ -159,7 +172,15 @@ export class PropertyControllerBase {
     try {
       return await this.service.updateProperty({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          company: data.company
+              ? {
+                connect: data.company,
+              }
+              : undefined,
+        },
         select: {
           address: true,
           createdAt: true,
