@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
 import CondoComponent from "../Components/Condo/Condo";
 import PropertyInfoForm from "../Components/PropertyProfile/PropertyInfoForm";
 import List from "../Components/Common/List";
