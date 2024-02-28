@@ -44,7 +44,6 @@ const CondoCreation = () => {
       try {
         const data = {
           condoFee: Number(values.condoFee),
-          id: Number(values.unitNumber),
           size: String(values.netArea),
           propertyID: {
             id: propertyID,
