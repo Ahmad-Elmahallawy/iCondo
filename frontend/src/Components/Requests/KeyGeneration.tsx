@@ -17,10 +17,10 @@ const KeyGeneration = () => {
   const location = useLocation();
   const condoId = location.state ? location.state.condoId : "";
   console.log(condoId);
-  // function to randomly generate a key of size 6
-  const handleGenerateKey = () => {
+  // function to randomly generate a key of size 8
+  const generateKeyValue = () => {
     let result = "",
-      length = 6;
+      length = 8;
 
     const characters =
       "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -31,6 +31,9 @@ const KeyGeneration = () => {
       counter += 1;
     }
     setRegistrationKey(result);
+  };
+
+  const handleGenerateKey = () => {
     // TODO: add API to link it to condo
   };
 
