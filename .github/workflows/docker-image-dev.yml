@@ -28,35 +28,9 @@ jobs:
         run: docker push docker.happyfir.com/misc/soen390-server:dev
 
       - name: Webhook POST Action
-        uses: muinmomin/webhook-action@v1.0.0
-        id: post0
-        continue-on-error: true
+      - uses: Wandalen/wretry.action@master
         with:
-          # URL of webhook to send post request to
-          url: ${{ secrets.DEV_WEBHOOK_URL }}
-
-      - name: Webhook POST Action - Retry 1
-        uses: muinmomin/webhook-action@v1.0.0
-        id: post1
-        if: steps.post0.outcome == 'failure'
-        continue-on-error: true
-        with:
-          # URL of webhook to send post request to
-          url: ${{ secrets.DEV_WEBHOOK_URL }}
-
-      - name: Webhook POST Action - Retry 2
-        uses: muinmomin/webhook-action@v1.0.0
-        id: post2
-        if: steps.post1.outcome == 'failure'
-        continue-on-error: true
-        with:
-          # URL of webhook to send post request to
-          url: ${{ secrets.DEV_WEBHOOK_URL }}
-
-      - name: Webhook POST Action - Retry 3
-        uses: muinmomin/webhook-action@v1.0.0
-        id: post3
-        if: steps.post2.outcome == 'failure'
-        with:
-          # URL of webhook to send post request to
-          url: ${{ secrets.DEV_WEBHOOK_URL }}
+          action: muinmomin/webhook-action@v1.0.0
+          with: |
+            url: ${{ secrets.DEV_WEBHOOK_URL }}
+          attempt_limit: 5
