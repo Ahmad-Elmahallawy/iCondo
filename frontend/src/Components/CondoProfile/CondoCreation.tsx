@@ -9,7 +9,6 @@ import { log } from "console";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-
 const CondoCreation = () => {
   // Retrieve userData from localStorage
   const userDataString = localStorage.getItem("userData");
@@ -17,16 +16,16 @@ const CondoCreation = () => {
   let token = "";
   const location = useLocation();
   const title = location.state ? location.state.title : "";
+  const propertyID = location.state ? location.state.id : "";
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
-
 
   // Check if userData exists and is in the expected format
   if (userDataString) {
     try {
       // Parse the userData string into an object
       const userData = JSON.parse(userDataString);
-      
+
       // Access the username property
       companyName = userData.username;
 
@@ -45,8 +44,10 @@ const CondoCreation = () => {
       try {
         const data = {
           condoFee: Number(values.condoFee),
-          id: Number(values.unitNumber),
-          size: String(values.netArea),    
+          size: String(values.netArea),
+          propertyID: {
+            id: propertyID,
+          },
         };
 
         const condoUnitsEndpoint = "http://localhost:8000/api/condoUnits";

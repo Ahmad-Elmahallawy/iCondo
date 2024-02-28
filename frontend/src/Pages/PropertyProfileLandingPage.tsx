@@ -9,6 +9,7 @@ import "../Style/LandingPageStyle/PropertyProfileLandingPageStyle.css";
 
 // Define the type for the property info
 interface PropertyInfo {
+  id: number;
   title: string;
   address: string;
   unitCount: string;
@@ -31,6 +32,7 @@ const PropertyProfileLandingPage: React.FC = () => {
     unitCount: "",
     parkingSpotCount: "",
     lockerCount: "",
+    id: 0,
   }));
 
   const location = useLocation();
@@ -40,10 +42,11 @@ const PropertyProfileLandingPage: React.FC = () => {
     if (location.state && location.state.property) {
       const receivedPropertyInfo: PropertyInfo = location.state.property;
       setPropertyInfo(receivedPropertyInfo);
+      console.log(propertyInfo);
     }
   }, [location.state]);
 
-  const handleSavePropertyInfo = (updatedInfo: PropertyInfo) => {
+  const handleSavePropertyInfo = (updatedInfo: any) => {
     setPropertyInfo(updatedInfo);
     // Add logic to persist changes, e.g., update the state, local storage, or send to a server
   };
@@ -59,7 +62,10 @@ const PropertyProfileLandingPage: React.FC = () => {
       </div>
       <div className="condo-list-section">
         <h1>Condo List</h1>
-        <Link to={`/CondoCreation`} state={{ title: propertyInfo.title }}>
+        <Link
+          to={`/CondoCreation`}
+          state={{ title: propertyInfo.title, id: propertyInfo.id }}
+        >
           <button className="add-unit-button">Add Unit</button>
         </Link>
         <List

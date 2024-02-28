@@ -46,23 +46,27 @@ describe('PropertyListLandingPage', () => {
 
   test('handles property click event', async () => {
     (axios.get as jest.Mock).mockResolvedValueOnce({ data: mockProperties });
-
+  
     const mockNavigate = jest.fn();
     (useNavigate as jest.Mock).mockReturnValue(mockNavigate);
-
+  
+    // Mock the handleSavePropertyInfo function
+    const mockHandleSavePropertyInfo = jest.fn();
+    jest.spyOn(React, 'useState').mockReturnValueOnce([{}, mockHandleSavePropertyInfo]);
+  
     render(
       <MemoryRouter>
         <PropertyListLandingPage />
       </MemoryRouter>
     );
-
+  
     await waitFor(() => {
       const propertyElement = screen.getByText('Property 1');
       expect(propertyElement).toBeInTheDocument();
       propertyElement.click();
       expect(mockNavigate).toHaveBeenCalledWith(
         '/PropertyProfile/Property%201',
-        { state: { property: { ...mockProperties[0], imageUrl: undefined, id: undefined } } }
+        { state: { property: { ...mockProperties[0], imageUrl: undefined } } }
       );
     });
   });
