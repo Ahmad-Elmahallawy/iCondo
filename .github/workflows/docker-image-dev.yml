@@ -28,7 +28,7 @@ jobs:
         run: docker push docker.happyfir.com/misc/soen390-server:dev
 
       - name: Webhook POST Action
-      - uses: Wandalen/wretry.action@master
+        uses: Wandalen/wretry.action@master
         with:
           action: muinmomin/webhook-action@v1.0.0
           with: |
