@@ -144,7 +144,6 @@ describe("PropertyProfileLandingPage", () => {
       }
     });
   
-    // Add additional assertions as needed
   });
   
   test("updates property info when location state changes", async () => {
