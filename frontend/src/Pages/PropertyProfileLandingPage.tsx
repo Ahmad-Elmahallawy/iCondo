@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-
+import axios from "axios";
 import CondoComponent from "../Components/Condo/Condo";
 import PropertyInfoForm from "../Components/PropertyProfile/PropertyInfoForm";
 import List from "../Components/Common/List";
-import condos from "../Components/Condo/Condos.json";
 import "../Style/LandingPageStyle/PropertyProfileLandingPageStyle.css";
 
-// Define the type for the property info
 interface PropertyInfo {
   id: number;
   title: string;
@@ -17,7 +15,6 @@ interface PropertyInfo {
   lockerCount: string;
 }
 
-// Define an interface for the state object passed to the Link component
 interface LinkStateProps {
   state: {
     propertyInfo: PropertyInfo;
@@ -25,7 +22,6 @@ interface LinkStateProps {
 }
 
 const PropertyProfileLandingPage: React.FC = () => {
-  // Use useState with an initializer function
   const [propertyInfo, setPropertyInfo] = useState<PropertyInfo>(() => ({
     title: "",
     address: "",
@@ -35,24 +31,65 @@ const PropertyProfileLandingPage: React.FC = () => {
     id: 0,
   }));
 
-  const location = useLocation();
+  const [condos, setCondos] = useState<any[]>([]);
+  const [fetchTrigger, setFetchTrigger] = useState<boolean>(true);
+  const [isMounted, setIsMounted] = useState<boolean>(false); // Track whether the component has mounted
 
-  // Use useEffect to update propertyInfo when location changes
+  const location = useLocation();
+  const user = JSON.parse(localStorage.getItem("userData") || "{}");
+
+  // Effect to update propertyInfo when location state changes
   useEffect(() => {
     if (location.state && location.state.property) {
       const receivedPropertyInfo: PropertyInfo = location.state.property;
       setPropertyInfo(receivedPropertyInfo);
-      console.log(propertyInfo);
     }
   }, [location.state]);
 
+  // Effect to fetch condos data when propertyInfo.id or fetchTrigger changes
+  useEffect(() => {
+    // Check if component is mounted, propertyInfo.id is truthy, and fetchTrigger is true
+    if (isMounted && propertyInfo.id && fetchTrigger) {
+      const fetchCondos = async () => {
+        try {
+          const response = await axios.get(
+            "http://localhost:8000/api/condoUnits",
+            {
+              params: {
+                where: {
+                  propertyID: {
+                    id: propertyInfo.id,
+                  },
+                },
+              },
+              headers: {
+                Authorization: `Bearer ${user.accessToken}`,
+              },
+            }
+          );
+          setCondos(response.data);
+          console.log(response.data);
+        } catch (error) {
+          console.error("Error fetching condos:", error);
+        }
+      };
+
+      fetchCondos(); // Initiate fetch operation
+      setFetchTrigger(false); // Reset fetchTrigger after initiating fetch
+    } else {
+      setIsMounted(true); // Set isMounted to true after the first render
+    }
+  }, [propertyInfo.id, fetchTrigger, isMounted, user.accessToken]);
+
+  // Function to handle saving property info and trigger fetch
   const handleSavePropertyInfo = (updatedInfo: any) => {
     setPropertyInfo(updatedInfo);
-    // Add logic to persist changes, e.g., update the state, local storage, or send to a server
+    setFetchTrigger(true); // Trigger fetch when propertyInfo changes
   };
 
   return (
     <div className="property-profile-landing-page">
+      {/* Property info section */}
       <div className="property-info-section">
         <h1 data-testid="property-title">{propertyInfo.title} Profile</h1>
         <PropertyInfoForm
@@ -60,6 +97,8 @@ const PropertyProfileLandingPage: React.FC = () => {
           onSave={handleSavePropertyInfo}
         />
       </div>
+
+      {/* Condo list section */}
       <div className="condo-list-section">
         <h1>Condo List</h1>
         <Link
