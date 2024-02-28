@@ -134,7 +134,7 @@ const PropertyProfileLandingPage: React.FC = () => {
       </div>
 
       {/* Condo list section */}
-      <div className="condo-list-section">
+      <div className="condo-list-section" data-testid="condo-list">
         <h1>Condo List</h1>
         <Link
           to={`/CondoCreation`}

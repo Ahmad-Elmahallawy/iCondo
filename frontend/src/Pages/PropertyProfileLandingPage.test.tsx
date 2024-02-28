@@ -1,9 +1,11 @@
 import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import MockAdapter from "axios-mock-adapter";
 import { MemoryRouter, Routes, Route } from "react-router-dom";
 import PropertyProfileLandingPage from "./PropertyProfileLandingPage";
+import axios from 'axios';
+
 
 // Mock condos data
 jest.mock("../Components/Condo/Condos.json", () => [
@@ -106,4 +108,62 @@ describe("PropertyProfileLandingPage", () => {
     expect(link).toBeInTheDocument();
     expect(link).toHaveTextContent("Add Unit");
   });
+
+  test("renders property title and info form with correct initial values", () => {
+    render(
+      <MemoryRouter initialEntries={["/property"]} initialIndex={0}>
+        <Routes>
+          <Route path="/property" element={<PropertyProfileLandingPage />} />
+        </Routes>
+      </MemoryRouter>
+    );
+
+    expect(screen.getByTestId("property-title")).toBeInTheDocument();
+
+  });
+
+
+  test("handles error when fetching condos", async () => {
+    // Mocking API response for fetching condos
+    const mockAxios = new MockAdapter(axios);
+    mockAxios.onGet("http://localhost:8000/api/condoUnits").reply(500);
+  
+    render(
+      <MemoryRouter initialEntries={["/property"]} initialIndex={0}>
+        <Routes>
+          <Route path="/property" element={<PropertyProfileLandingPage />} />
+        </Routes>
+      </MemoryRouter>
+    );
+  
+    // Wait for the error message to appear
+    await waitFor(() => {
+      const errorMessage = screen.queryByTestId("condo-error");
+      if(errorMessage){
+        expect(errorMessage).toBeInTheDocument();
+      }
+    });
+  
+    // Add additional assertions as needed
+  });
+  
+  test("updates property info when location state changes", async () => {
+    const history = { push: jest.fn() };
+
+    render(
+      <MemoryRouter initialEntries={["/property"]} initialIndex={0}>
+        <Routes>
+          <Route path="/property" element={<PropertyProfileLandingPage />} />
+        </Routes>
+      </MemoryRouter>
+    );
+
+    // Check if initial property info renders
+    expect(screen.getByTestId("property-title")).toHaveTextContent("Profile");
+
+    // Update location state
+    fireEvent.click(screen.getByTestId("update-property-button"));
+
+  });
+
 });

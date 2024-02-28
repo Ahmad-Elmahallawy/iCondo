@@ -7,10 +7,10 @@ import "@testing-library/jest-dom";
 describe("PropertyInfoForm", () => {
   const initialProperty = {
     id: 1,
-    title: "Windcreek Villa",
+    name: "Windcreek Villa",
     address: "123 Main Street, Cityville",
     unitCount: "50",
-    parkingSpotCount: "100",
+    parkingCount: "100",
     lockerCount: "25",
     imageUrl: "Assets/property1.png",
   };
@@ -36,7 +36,7 @@ describe("PropertyInfoForm", () => {
 
     // Check if the mockOnSave was called with the updated title
     expect(mockOnSave).toHaveBeenCalledWith(
-      expect.objectContaining({ title: "Stormcreek Villa" })
+      expect.objectContaining({ name: "Stormcreek Villa" })
     );
   });
 });
