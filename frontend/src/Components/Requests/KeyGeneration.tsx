@@ -1,8 +1,9 @@
 // KeyGeneration.tsx
 import React, { useState } from "react";
-import { Axios } from "axios";
+import axios from "axios";
 import "../../Style/RequestsStyle/KeyGenerationStyle.css";
 import { useLocation } from "react-router-dom";
+import { ErrorMessage } from "formik";
 
 // KeyGeneration Component:
 // This component renders a form to generate registration keys for users.
@@ -10,13 +11,15 @@ import { useLocation } from "react-router-dom";
 // and a button to send the registration key to the user.
 const KeyGeneration = () => {
   const location = useLocation();
-
   const [registrationData, setRegistrationData] = useState({
-    condoId: location.state ? location.state.condoId : "",
+    condoId: location.state ? Number(location.state.condoId) : "",
     registrationKey: "No Key To Show Right Now",
     userType: "condoOwner",
   });
   const { condoId, registrationKey, userType } = registrationData;
+  const [responseMessage, setResponseMessage] = useState("");
+  const userData = JSON.parse(localStorage.getItem("userData") || "{}");
+  const token = userData.accessToken;
 
   // function to randomly generate a key of size 8
   const generateKeyValue = () => {
@@ -34,12 +37,32 @@ const KeyGeneration = () => {
     setRegistrationData({ ...registrationData, registrationKey: result }); // assign registration key to the use state and keep the rest of the results the same
   };
 
-  const handleGenerateKey = () => {
+  const handleGenerateKey = async () => {
     generateKeyValue(); // call the function to generate a random key that is unique
 
-    const response = axios.post("http://localhost:8000/api/registrationKeys");
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/api/registrationKeys",
+        {
+          condoUnit: {
+            id: condoId,
+          },
+          value: registrationKey,
+          role: [userType],
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Set Authorization header with token
+          },
+        }
+      );
+      setResponseMessage("Key was added successfully");
+    } catch (error) {
+      setResponseMessage("Something went wrong, please try again later");
+    }
   };
 
+  // function to set the user type when user clicks on either condo owner or rental user button
   const handleUserTypeSelect = (type: "condoOwner" | "rentalUser") => {
     setRegistrationData({
       ...registrationData,
@@ -49,6 +72,8 @@ const KeyGeneration = () => {
   return (
     <div className="key-generation-container">
       <div className="key-generation-header">
+        {responseMessage && <p>{responseMessage}</p>}
+
         <h1>Generate Key for Condo with ID {condoId}</h1>
       </div>
       <div className="key-generation-content">
