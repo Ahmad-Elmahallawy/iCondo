@@ -1,5 +1,5 @@
 // KeyGeneration.tsx
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../../Style/RequestsStyle/KeyGenerationStyle.css";
 import { useLocation } from "react-router-dom";
@@ -20,7 +20,41 @@ const KeyGeneration = () => {
   const [responseMessage, setResponseMessage] = useState("");
   const userData = JSON.parse(localStorage.getItem("userData") || "{}");
   const token = userData.accessToken;
+  
+  // fetch registration key if it exists
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:8000/api/registrationKeys",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            params: {
+              where: {
+                condoUnit: {
+                  id: condoId,
+                },
+              },
+            },
+          }
+        );
+        // Update registration data if response contains registration key
 
+        if (response.data && response.data[0].value) {
+          setRegistrationData({
+            ...registrationData,
+            registrationKey: response.data[0].value,
+          });
+        }
+      } catch (error) {
+        console.error("Error fetching registration key:", error);
+      }
+    };
+
+    fetchData();
+  }, [condoId, token]);
   // function to randomly generate a key of size 8
   const generateKeyValue = () => {
     let result = "",
