@@ -2,20 +2,28 @@
 import React, { useState } from "react"; // Imports React library and useState hook for component state management.
 import CondoInfoForm from "../Components/CondoProfile/CondoInfoForm"; // Imports the CondoInfoForm component to be used within this landing page.
 import "../Style/LandingPageStyle/CondoProfileLandingPageStyle.css"; // Imports CSS styles for the landing page.
+import { useLocation } from "react-router-dom";
 
 // Initial state for the condo information, establishing the default values for the form.
-const initialCondoInfo = {
+let initialCondoInfo = {
   condoId: "1",
   netArea: "100",
-  occupantName: "John Doe",
-  propertyId: "330",
-  parkingId: "4537",
+  occupantName: "Will be done Sprint 3",
   condoFee: "890",
-  lockerId: "345",
 };
 
 // Functional component definition for LandingPage.
 const LandingPage: React.FC = () => {
+  const location = useLocation();
+  const condo = location.state;
+
+  initialCondoInfo = {
+    condoId: condo.id,
+    netArea: condo.size,
+    condoFee: condo.condoFee,
+    occupantName: "Will be done Sprint 3",
+  };
+  console.log(initialCondoInfo);
   // useState hook to manage the state of condoInfo based on the initialCondoInfo.
   const [condoInfo, setCondoInfo] = useState(initialCondoInfo);
 
