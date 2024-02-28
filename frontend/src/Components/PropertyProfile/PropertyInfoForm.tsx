@@ -4,10 +4,10 @@ import "../../Style/PropertyProfileStyle/PropertyInfoFormStyle.css";
 import CondoFilesModal from "./CondoFilesModal";
 
 interface PropertyInfo {
-  title: string;
+  name: string;
   address: string;
   unitCount: string;
-  parkingSpotCount: string;
+  parkingCount: string;
   lockerCount: string;
 }
 
@@ -34,7 +34,7 @@ const PropertyInfoForm: React.FC<PropertyInfoFormProps> = ({
     setTempInfo({ ...tempInfo, [name]: value });
   };
 
-  const handleSave = (event: React.FormEvent) => {
+  const handleSave =  (event: React.FormEvent) => {
     event.preventDefault();
     onSave(tempInfo);
     setEditMode(false);
@@ -59,6 +59,10 @@ const PropertyInfoForm: React.FC<PropertyInfoFormProps> = ({
     <div className="property-form-container">
       <form onSubmit={isEditMode ? handleSave : undefined}>
         {Object.keys(initialPropertyInfo).map((key) => (
+          //Hide the updatedAt, id and createdAt input fields
+          key !== "updatedAt" &&
+          key !== "id" &&
+          key != "createdAt" &&
           <PropertyInfoField
             key={key}
             name={key}
