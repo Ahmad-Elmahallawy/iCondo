@@ -3,6 +3,7 @@ import axios from "axios"; // Import Axios
 import List from "../Components/Common/List";
 import PropertyComponent from "../Components/Property/Property";
 import "../Style/LandingPageStyle/PropertyListLandingPageStyle.css";
+import LoadingScreen from "../Components/Common/LoadingScreen";
 
 interface Property {
   id: number;
@@ -16,6 +17,7 @@ interface Property {
 
 const PropertyListLandingPage = () => {
   const [properties, setProperties] = useState<Property[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
   const userData = JSON.parse(localStorage.getItem("userData") || "{}");
   const companyData = JSON.parse(
     localStorage.getItem("companyDetails") || "{}"
@@ -26,13 +28,14 @@ const PropertyListLandingPage = () => {
     // Fetch properties from backend when component mounts
     const fetchProperties = async () => {
       try {
+        setIsLoading(true);
         const response = await axios.get(
           "http://localhost:8000/api/properties",
           {
             headers: {
               Authorization: `Bearer ${token}`, // Set Authorization header with token
             },
-            data: {
+            params: {
               where: {
                 company: {
                   id: parseInt(companyData.company.id),
@@ -45,6 +48,8 @@ const PropertyListLandingPage = () => {
         setProperties(response.data);
       } catch (error) {
         console.error("Error fetching properties:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -74,6 +79,7 @@ const PropertyListLandingPage = () => {
       ) : (
         <h1>You Do Not Have Any Property</h1>
       )}
+      {isLoading && <LoadingScreen/>}
     </div>
   );
 };
