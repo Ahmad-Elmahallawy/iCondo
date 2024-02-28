@@ -46,6 +46,7 @@ jobs:
         uses: muinmomin/webhook-action@v1.0.0
         id: post2
         if: steps.post1.outcome == 'failure'
+        continue-on-error: true
         with:
           # URL of webhook to send post request to
           url: ${{ secrets.WEBHOOK_URL }}
