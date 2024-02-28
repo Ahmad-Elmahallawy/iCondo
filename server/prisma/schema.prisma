@@ -30,6 +30,7 @@ model CondoUnit {
   id               Int              @id @default(autoincrement())
   locker           Locker?          @relation(fields: [lockerID], references: [id])
   lockerID         Int?             @unique
+  unitNumber       String?
   parkingSpot      ParkingSpot[]
   propertyID       Property?        @relation(fields: [propertyIDId], references: [id])
   propertyIDId     Int?
