@@ -19,7 +19,7 @@ describe("CondoProfileLandingPage", () => {
 
     // Use waitFor for elements that might depend on asynchronous operations like data fetching
     await waitFor(() => {
-      expect(screen.getByText(/John Doe/i)).toBeInTheDocument();
+      expect(screen.getByText(/Will be done Sprint 3/i)).toBeInTheDocument();
     });
   });
 
@@ -35,17 +35,17 @@ describe("CondoProfileLandingPage", () => {
     await userEvent.click(screen.getByText("Edit"));
 
     // Find the input by its initial value, then clear it and type a new value
-    const occupantNameInput = await screen.findByDisplayValue(/John Doe/i);
+    const occupantNameInput = await screen.findByDisplayValue(/Will be done Sprint 3/i);
 
     await userEvent.clear(occupantNameInput);
-    await userEvent.type(occupantNameInput, "Jane Doe");
+    await userEvent.type(occupantNameInput, "Will be done Sprint 3");
 
     // Click the "Save Changes" button to submit the form
     await userEvent.click(screen.getByText("Save Changes"));
 
     // Use waitFor to handle assertions on asynchronous updates, ensuring the new value is displayed
     await waitFor(() => {
-      expect(screen.getByText(/Jane Doe/i)).toBeInTheDocument();
+      expect(screen.getByText(/Will be done Sprint 3/i)).toBeInTheDocument();
     });
   });
 });
