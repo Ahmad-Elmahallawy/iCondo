@@ -10,7 +10,6 @@ interface CondoInfo {
   netArea: string;
   occupantName: string;
   condoFee: string;
-
 }
 
 // Component props including condoInfo object and onSave callback function
@@ -47,7 +46,7 @@ const CondoInfoForm: React.FC<CondoInfoFormProps> = ({ condoInfo, onSave }) => {
 
   // Navigates to a different route (e.g., key generation page)
   const handleRegistrationKey = () => {
-    navigate("/GenerateKey");
+    navigate("/GenerateKey", { state: tempInfo });
   };
 
   // Enters edit mode, allowing the user to modify form fields

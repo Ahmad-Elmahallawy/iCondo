@@ -16,7 +16,7 @@ const KeyGeneration = () => {
   ); // Track user type selection
   const location = useLocation();
   const condoId = location.state ? location.state.condoId : "";
-
+  console.log(condoId);
   // function to randomly generate a key of size 6
   const handleGenerateKey = () => {
     let result = "",
