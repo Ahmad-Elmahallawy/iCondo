@@ -27,7 +27,7 @@ const PropertyComponent: React.FC<PropertyComponentProps> = ({
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
     onClick(event);
-    const { id, imageUrl, ...rest } = property; // Extract id and imageUrl
+    const { imageUrl, ...rest } = property; // Extract id and imageUrl
     navigate(`/PropertyProfile/${encodeURIComponent(rest.name)}`, { state: { property: rest } }); // Pass rest of the properties to the state
   };
 
