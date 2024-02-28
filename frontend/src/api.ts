@@ -24,6 +24,20 @@ const api = {
       );
     },
   },
+  userAuthentication: {
+    async resetPassword(userData: { username: string; password: string }) {
+      const response = await axios.patch(
+        `${urls.users.resetUserPassword}`,
+        userData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      return response;
+    },
+  },
 };
 
 export default api;
