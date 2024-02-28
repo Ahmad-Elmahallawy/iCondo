@@ -1,5 +1,6 @@
 // KeyGeneration.tsx
 import React, { useState } from "react";
+import { Axios } from "axios";
 import "../../Style/RequestsStyle/KeyGenerationStyle.css";
 import { useLocation } from "react-router-dom";
 
@@ -8,15 +9,15 @@ import { useLocation } from "react-router-dom";
 // The component displays the user's name, two buttons to specify whether the user is a condo owner or a rental user,
 // and a button to send the registration key to the user.
 const KeyGeneration = () => {
-  const [registrationKey, setRegistrationKey] = useState(
-    "No Key To Show Right Now"
-  );
-  const [userType, setUserType] = useState<"condoOwner" | "rentalUser" | null>(
-    null
-  ); // Track user type selection
   const location = useLocation();
-  const condoId = location.state ? location.state.condoId : "";
-  console.log(condoId);
+
+  const [registrationData, setRegistrationData] = useState({
+    condoId: location.state ? location.state.condoId : "",
+    registrationKey: "No Key To Show Right Now",
+    userType: "condoOwner",
+  });
+  const { condoId, registrationKey, userType } = registrationData;
+
   // function to randomly generate a key of size 8
   const generateKeyValue = () => {
     let result = "",
@@ -30,15 +31,20 @@ const KeyGeneration = () => {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
       counter += 1;
     }
-    setRegistrationKey(result);
+    setRegistrationData({ ...registrationData, registrationKey: result }); // assign registration key to the use state and keep the rest of the results the same
   };
 
   const handleGenerateKey = () => {
-    // TODO: add API to link it to condo
+    generateKeyValue(); // call the function to generate a random key that is unique
+
+    const response = axios.post("http://localhost:8000/api/registrationKeys");
   };
 
   const handleUserTypeSelect = (type: "condoOwner" | "rentalUser") => {
-    setUserType(type);
+    setRegistrationData({
+      ...registrationData,
+      userType: type,
+    });
   };
   return (
     <div className="key-generation-container">
