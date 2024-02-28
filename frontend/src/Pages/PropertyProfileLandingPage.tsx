@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import CondoComponent from "../Components/Condo/Condo";
 import PropertyInfoForm from "../Components/PropertyProfile/PropertyInfoForm";
@@ -38,6 +38,7 @@ const PropertyProfileLandingPage: React.FC = () => {
   const [apiError, setApiError] = useState<string | null>(null);
   const location = useLocation();
   const user = JSON.parse(localStorage.getItem("userData") || "{}");
+  const navigate = useNavigate();
 
   // Effect to update propertyInfo when location state changes
   useEffect(() => {
@@ -88,6 +89,10 @@ const PropertyProfileLandingPage: React.FC = () => {
     setFetchTrigger(true); // Trigger fetch when propertyInfo changes
   };
 
+  const handleCondoClick = (condo: any) => {
+    navigate("/CondoProfile", { state: condo });
+    console.log(condo);
+  };
   return (
     <div className="property-profile-landing-page">
       {/* Property info section */}
@@ -112,7 +117,11 @@ const PropertyProfileLandingPage: React.FC = () => {
           data-testid="add-unit-page"
           items={condos}
           renderItem={(condo) => (
-            <div key={condo.condoId} className="condo-wrapper">
+            <div
+              key={condo.id}
+              className="condo-wrapper"
+              onClick={() => handleCondoClick(condo)}
+            >
               <CondoComponent condo={condo} />
             </div>
           )}

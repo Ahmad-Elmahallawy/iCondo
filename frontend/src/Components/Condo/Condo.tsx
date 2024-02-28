@@ -10,15 +10,13 @@ interface Condo {
 
 const CondoComponent: React.FC<{ condo: Condo }> = ({ condo }) => {
   return (
-    <Link to={"/CondoProfile"} state={{ condoId: condo.condoId }}>
-      <div className="condo-container" data-testid="condo-component">
-        <img src={"/Assets/condo1.svg"} alt={`Condo`} className="item-image" />
-        <div className="condo-details">
-          <h3 className="item-title">Condo {condo.condoId}</h3>
-          <p className="condo-fee">Condo Fee: {condo.condoFee}</p>
-        </div>
+    <div className="condo-container" data-testid="condo-component">
+      <img src={"/Assets/condo1.svg"} alt={`Condo`} className="item-image" />
+      <div className="condo-details">
+        <h3 className="item-title">Condo {condo.condoId}</h3>
+        <p className="condo-fee">Condo Fee: {condo.condoFee}</p>
       </div>
-    </Link>
+    </div>
   );
 };
 
