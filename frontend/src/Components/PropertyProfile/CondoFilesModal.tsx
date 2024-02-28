@@ -4,15 +4,79 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import "../../Style/PropertyProfileStyle/CondoFilesModalStyle.css";
+import axios from "axios";
 
 export default function CondoFilesModal(props: any) {
   const { isCondoFilesOpen, handleClose } = props;
   const [selectedFiles, setSelectedFiles] = React.useState<File[]>([]);
 
+  React.useEffect(() => {
+    if (isCondoFilesOpen) {
+      fetchFiles();
+    }
+  }, [isCondoFilesOpen]);
+
+  const fetchFiles = async () => {
+    try {
+      const userData = JSON.parse(localStorage.getItem("userData") || "{}");
+      const token = userData.accessToken;
+      const property = JSON.parse(localStorage.getItem("property") || "{}");
+      const id = property.id;
+      console.log("id is " + id);
+      const getFilesEndpoint = `http://localhost:8000/api/properties/${id}/files`
+
+      const response = await axios.get(
+        getFilesEndpoint,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Set Authorization header with token
+          },
+        }
+      );
+
+      setSelectedFiles(response.data);
+    } catch (error) {
+      console.error("Error fetching files:", error);
+    }
+  };
+
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       const newFiles: File[] = Array.from(event.target.files);
       setSelectedFiles((prevFiles) => [...prevFiles, ...newFiles]);
+    }
+  };
+
+  const postFiles = async () => {
+    try {
+      const userData = JSON.parse(localStorage.getItem("userData") || "{}");
+      const token = userData.accessToken;
+      const property = JSON.parse(localStorage.getItem("property") || "{}");
+      const id = property.id;
+      const postFilesEndpoint = `http://localhost:8000/api/properties/${id}/files`;
+
+      var formData = new FormData();
+      selectedFiles.forEach(file => {
+        formData.append('files', file);
+      });
+
+      console.log(formData);
+      console.log(selectedFiles);
+      await axios.post(
+        postFilesEndpoint,
+        selectedFiles,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Set Authorization header with token
+            'Content-Type': 'multipart/form-data'
+          },
+        }
+      );
+
+      // Reset selectedFiles after posting
+      setSelectedFiles([]);
+    } catch (error) {
+      console.error("Error posting files:", error);
     }
   };
 
@@ -65,7 +129,10 @@ export default function CondoFilesModal(props: any) {
         )}
         <Button
           className="condo-files-button condo-files-close-button"
-          onClick={handleClose}
+          onClick={() => {
+            postFiles();
+            handleClose();
+          }}
           sx={{ mt: 2 }}
         >
           Close

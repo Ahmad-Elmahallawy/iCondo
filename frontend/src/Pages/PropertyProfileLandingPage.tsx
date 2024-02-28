@@ -40,6 +40,13 @@ const PropertyProfileLandingPage: React.FC = () => {
   const user = JSON.parse(localStorage.getItem("userData") || "{}");
   const navigate = useNavigate();
 
+  const property = {
+    id: propertyInfo.id,
+  };
+
+  // Store propertyId in localStorage
+  localStorage.setItem("property", JSON.stringify(property));
+
   // Effect to update propertyInfo when location state changes
   useEffect(() => {
     if (location.state && location.state.property) {
