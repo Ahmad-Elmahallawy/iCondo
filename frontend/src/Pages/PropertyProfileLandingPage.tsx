@@ -6,6 +6,8 @@ import PropertyInfoForm from "../Components/PropertyProfile/PropertyInfoForm";
 import List from "../Components/Common/List";
 import condos from "../Components/Condo/Condos.json";
 import "../Style/LandingPageStyle/PropertyProfileLandingPageStyle.css";
+import axios from 'axios'; // Import Axios
+
 
 // Define the type for the property info
 interface PropertyInfo {
@@ -43,8 +45,26 @@ const PropertyProfileLandingPage: React.FC = () => {
     }
   }, [location.state]);
 
-  const handleSavePropertyInfo = (updatedInfo: PropertyInfo) => {
+  const handleSavePropertyInfo = async (updatedInfo: PropertyInfo) => {
+    const userData = JSON.parse(localStorage.getItem("userData") || "{}");
+    const token = userData.accessToken;
+
     setPropertyInfo(updatedInfo);
+    try {
+
+      const updateProfileEndpoint = "http://localhost:8000/api/properties/${}";
+      const response = await axios.patch(updateProfileEndpoint, updatedInfo, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      const updatedPropertyInfo: PropertyInfo = response.data;
+      setPropertyInfo(updatedPropertyInfo);
+    } catch (error) {
+      console.error('Error updating property info:', error);
+      // Handle error gracefully, e.g., show a message to the user
+    }
     // Add logic to persist changes, e.g., update the state, local storage, or send to a server
   };
 
