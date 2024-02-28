@@ -18,8 +18,7 @@ const KeyGeneration = () => {
   });
   const { condoId, registrationKey, userType } = registrationData;
   const [responseMessage, setResponseMessage] = useState("");
-  const userData = JSON.parse(localStorage.getItem("userData") || "{}");
-  const token = userData.accessToken;
+  const token = JSON.parse(localStorage.getItem("userData") || "{}").accessToken; // Retrieve token from localStorage
   
   // fetch registration key if it exists
   useEffect(() => {
