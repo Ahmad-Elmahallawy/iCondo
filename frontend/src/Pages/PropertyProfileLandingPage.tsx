@@ -23,7 +23,7 @@ interface LinkStateProps {
 
 const PropertyProfileLandingPage: React.FC = () => {
   const [propertyInfo, setPropertyInfo] = useState<PropertyInfo>(() => ({
-    title: "",
+    title: "Loading",
     address: "",
     unitCount: "",
     parkingSpotCount: "",
@@ -46,7 +46,6 @@ const PropertyProfileLandingPage: React.FC = () => {
       setPropertyInfo(receivedPropertyInfo);
     }
   }, [location.state]);
-
   // Effect to fetch condos data when propertyInfo.id or fetchTrigger changes
   useEffect(() => {
     // Check if component is mounted, propertyInfo.id is truthy, and fetchTrigger is true

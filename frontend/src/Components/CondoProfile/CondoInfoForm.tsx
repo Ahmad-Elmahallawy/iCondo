@@ -9,10 +9,8 @@ interface CondoInfo {
   condoId: string;
   netArea: string;
   occupantName: string;
-  propertyId: string;
-  parkingId: string;
   condoFee: string;
-  lockerId: string;
+
 }
 
 // Component props including condoInfo object and onSave callback function

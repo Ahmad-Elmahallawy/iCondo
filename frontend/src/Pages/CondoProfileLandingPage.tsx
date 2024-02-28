@@ -7,11 +7,8 @@ import "../Style/LandingPageStyle/CondoProfileLandingPageStyle.css"; // Imports 
 const initialCondoInfo = {
   condoId: "1",
   netArea: "100",
-  occupantName: "John Doe",
-  propertyId: "330",
-  parkingId: "4537",
+  occupantName: "Will be done Sprint 3",
   condoFee: "890",
-  lockerId: "345",
 };
 
 // Functional component definition for LandingPage.
