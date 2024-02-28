@@ -34,7 +34,8 @@ const PropertyProfileLandingPage: React.FC = () => {
   const [condos, setCondos] = useState<any[]>([]);
   const [fetchTrigger, setFetchTrigger] = useState<boolean>(true);
   const [isMounted, setIsMounted] = useState<boolean>(false); // Track whether the component has mounted
-
+  // State to track API error
+  const [apiError, setApiError] = useState<string | null>(null);
   const location = useLocation();
   const user = JSON.parse(localStorage.getItem("userData") || "{}");
 
@@ -68,9 +69,10 @@ const PropertyProfileLandingPage: React.FC = () => {
             }
           );
           setCondos(response.data);
-          console.log(response.data);
+          setApiError(null); // Reset API error state
         } catch (error) {
           console.error("Error fetching condos:", error);
+          setApiError("Error fetching condos. Please try again later."); // Set API error state
         }
       };
 
@@ -117,6 +119,7 @@ const PropertyProfileLandingPage: React.FC = () => {
           )}
         />
       </div>
+      {apiError && <div data-testid="condo-error">{apiError}</div>}
     </div>
   );
 };
