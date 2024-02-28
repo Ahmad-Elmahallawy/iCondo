@@ -11,6 +11,11 @@ import "@testing-library/jest-dom/extend-expect";
 
 import CondoFilesModal from "./CondoFilesModal";
 
+// Mock URL.createObjectURL
+beforeAll(() => {
+  global.URL.createObjectURL = jest.fn(() => "blob:test-url");
+});
+
 describe("CondoFilesModal component", () => {
   it("renders without crashing", () => {
     const handleClose = jest.fn();
@@ -41,7 +46,37 @@ describe("CondoFilesModal component", () => {
     expect(handleClose).toHaveBeenCalled();
   });
 
-  // TODO: Download functionality test
-  // TODO: Upload functionality test
+  it("adds selected files to the list when files are uploaded", async () => {
+    const handleClose = jest.fn();
+    const { getByLabelText, findByText } = render(
+      <CondoFilesModal isCondoFilesOpen={true} handleClose={handleClose} />
+    );
 
+    const file = new File(["test content"], "test-file.pdf", {
+      type: "application/pdf",
+    });
+
+    const input = getByLabelText("Upload File(s)") as HTMLInputElement;
+    fireEvent.change(input, { target: { files: [file] } });
+
+    const uploadedFile = await findByText("test-file.pdf");
+    expect(uploadedFile).toBeInTheDocument();
+  });
+
+  it("displays download links for selected files", async () => {
+    const handleClose = jest.fn();
+    const { getByLabelText, findByText } = render(
+      <CondoFilesModal isCondoFilesOpen={true} handleClose={handleClose} />
+    );
+
+    const file = new File(["test content"], "test-file.pdf", {
+      type: "application/pdf",
+    });
+
+    const input = getByLabelText("Upload File(s)") as HTMLInputElement;
+    fireEvent.change(input, { target: { files: [file] } });
+
+    const downloadLink = await findByText("Download");
+    expect(downloadLink).toHaveAttribute("href", "blob:test-url");
+  });
 });

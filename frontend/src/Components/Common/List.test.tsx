@@ -1,105 +1,507 @@
 // List.test.tsx
 import React from "react";
-import { render, fireEvent } from "@testing-library/react";
-import "@testing-library/jest-dom/extend-expect"; 
+import { render, screen, fireEvent } from "@testing-library/react";
 import List from "./List";
+import CondoComponent from "../Condo/Condo";
+import PropertyComponent from "../Property/Property";
+import "@testing-library/jest-dom";
+import { MemoryRouter } from "react-router-dom";
 
-describe("List Component", () => {
-  it("renders items correctly", () => {
-    const items = ["Item 1", "Item 2", "Item 3", "Item 4"];
-    const renderItem = jest.fn((item) => <div>{item}</div>);
-    const { getByText } = render(<List items={items} renderItem={renderItem} />);
+const condos = [
+  {
+    condoId: 1,
+    condoFee: "500",
+    imageUrl: "Assets/condo1.png",
+  },
+  {
+    condoId: 2,
 
-    items.forEach((item) => {
-      expect(getByText(item)).toBeInTheDocument();
-    });
+    condoFee: "400",
+    imageUrl: "Assets/condo2.png",
+  },
+  {
+    condoId: 3,
+    condoFee: "600",
+    imageUrl: "Assets/condo3.png",
+  },
+  {
+    condoId: 4,
+    condoFee: "450",
+    imageUrl: "Assets/condo1.png",
+  },
+  {
+    condoId: 5,
+
+    condoFee: "700",
+    imageUrl: "Assets/condo2.png",
+  },
+  {
+    condoId: 6,
+    condoFee: "350",
+    imageUrl: "Assets/condo3.png",
+  },
+  {
+    condoId: 7,
+    lastRenovated: "2021-08-05",
+    condoFee: "480",
+    imageUrl: "Assets/condo3.png",
+  },
+];
+
+const properties = [
+  {
+    id: 1,
+    name: "Windcreek Villa",
+    address: "123 Main Street, Cityville",
+    unitCount: "50",
+    parkingSpotCount: "100",
+    lockerCount: "25",
+    imageUrl: "/property1.png",
+  },
+  {
+    id: 2,
+    name: "Big Townhouse",
+    address: "456 Elm Street, Townsville",
+    unitCount: "30",
+    parkingSpotCount: "60",
+    lockerCount: "15",
+    imageUrl: "Assets/property2.png",
+  },
+  {
+    id: 3,
+    name: "Another Condominium",
+    address: "222 One Street, Mainsville",
+    unitCount: "40",
+    parkingSpotCount: "80",
+    lockerCount: "20",
+    imageUrl: "Assets/property3.png",
+  },
+  {
+    id: 4,
+    name: "Someone's Complex",
+    address: "555 Some Avenue, Hisville",
+    unitCount: "20",
+    parkingSpotCount: "40",
+    lockerCount: "10",
+    imageUrl: "Assets/property4.png",
+  },
+  {
+    id: 5,
+    name: "One More Property",
+    address: "888 A Boulevard, Hersville",
+    unitCount: "35",
+    parkingSpotCount: "70",
+    lockerCount: "18",
+    imageUrl: "Assets/property5.png",
+  },
+];
+
+describe("List", () => {
+  // Condos
+  it("renders a list of CondoComponents", () => {
+    render(
+      <MemoryRouter>
+        <List
+          items={condos}
+          renderItem={(condo) => <CondoComponent condo={condo} />}
+        />
+      </MemoryRouter>
+    );
+    const condoComponents = screen.getAllByTestId("condo-component");
+    if (condos.length > 4) {
+      expect(condoComponents.length).toBe(4);
+    } else {
+      expect(condoComponents.length).toBe(condos.length);
+    }
   });
 
-  it("disables prev button when startIndex is 0", () => {
-    const items = ["Item 1", "Item 2", "Item 3", "Item 4"];
-    const { getByTestId } = render(<List items={items} renderItem={() => null} />);
-    const prevButton = getByTestId("prev-button");
-
+  it("disables the previous button initially", () => {
+    render(
+      <MemoryRouter>
+        <List
+          items={condos}
+          renderItem={(condo) => <CondoComponent condo={condo} />}
+        />
+      </MemoryRouter>
+    );
+    const prevButton = screen.getByTestId("prev-button");
     expect(prevButton).toBeDisabled();
   });
 
-  it("disables next button when startIndex + 4 >= items.length", () => {
-    const items = ["Item 1", "Item 2", "Item 3", "Item 4"];
-    const { getByTestId } = render(<List items={items} renderItem={() => null} />);
-    const nextButton = getByTestId("next-button");
-
-    expect(nextButton).toBeDisabled();
+  it("enables the next button initially", () => {
+    render(
+      <MemoryRouter>
+        <List
+          items={condos}
+          renderItem={(condo) => <CondoComponent condo={condo} />}
+        />
+      </MemoryRouter>
+    );
+    const nextButton = screen.getByTestId("next-button");
+    expect(nextButton).toBeEnabled();
   });
 
-  it("handles click on prev button correctly", () => {
-    const items = ["Item 1", "Item 2", "Item 3", "Item 4"];
-    const { getByTestId } = render(<List items={items} renderItem={() => null} />);
-    const prevButton = getByTestId("prev-button");
-
+  it("does not update the displayed condos when previous button is clicked at start", () => {
+    render(
+      <MemoryRouter>
+        <List
+          items={condos}
+          renderItem={(condo) => <CondoComponent condo={condo} />}
+        />
+      </MemoryRouter>
+    );
+    const condoComponentsBefore = screen.getAllByTestId("condo-component");
+    const prevButton = screen.getByTestId("prev-button");
     fireEvent.click(prevButton);
+    const condoComponentsAfter = screen.getAllByTestId("condo-component");
+    expect(condoComponentsBefore).toHaveLength(condoComponentsAfter.length);
+  });
 
+  it("updates the displayed condos when next button is clicked", () => {
+    render(
+      <MemoryRouter>
+        <List
+          items={condos}
+          renderItem={(condo) => <CondoComponent condo={condo} />}
+        />
+      </MemoryRouter>
+    );
+    const nextButton = screen.getByTestId("next-button");
+    fireEvent.click(nextButton);
+    const condoComponents = screen.getAllByTestId("condo-component");
+    expect(condoComponents).toHaveLength(3);
+  });
+
+  it("disables the next button when condos at the end of condos list is displayed", () => {
+    render(
+      <MemoryRouter>
+        <List
+          items={condos}
+          renderItem={(condo) => <CondoComponent condo={condo} />}
+        />
+      </MemoryRouter>
+    );
+    const nextButton = screen.getByTestId("next-button");
+    fireEvent.click(nextButton);
+    const updatedNextButton = screen.getByTestId("next-button");
+    expect(updatedNextButton).toBeDisabled();
+  });
+
+  it("enables the previous button when next button is clicked after being disabled", () => {
+    render(
+      <MemoryRouter>
+        <List
+          items={condos}
+          renderItem={(condo) => <CondoComponent condo={condo} />}
+        />
+      </MemoryRouter>
+    );
+    const nextButton = screen.getByTestId("next-button");
+    fireEvent.click(nextButton);
+    const prevButton = screen.getByTestId("prev-button");
+    expect(prevButton).toBeEnabled();
+  });
+
+  it("disables the previous button after clicking next button and then previous button", () => {
+    render(
+      <MemoryRouter>
+        <List
+          items={condos}
+          renderItem={(condo) => <CondoComponent condo={condo} />}
+        />
+      </MemoryRouter>
+    );
+    const nextButton = screen.getByTestId("next-button");
+    const prevButton = screen.getByTestId("prev-button");
+    fireEvent.click(nextButton);
+    fireEvent.click(prevButton);
+    const updatedPrevButton = screen.getByTestId("prev-button");
+    expect(updatedPrevButton).toBeDisabled();
+  });
+
+  it("enables the previous button after clicking next button", () => {
+    render(
+      <MemoryRouter>
+        <List
+          items={condos}
+          renderItem={(condo) => <CondoComponent condo={condo} />}
+        />
+      </MemoryRouter>
+    );
+    const nextButton = screen.getByTestId("next-button");
+    fireEvent.click(nextButton);
+    const prevButton = screen.getByTestId("prev-button");
+    // fireEvent.click(prevButton);
+    expect(prevButton).toBeEnabled();
+  });
+
+  it("does not update the displayed condos when next button is clicked at end", () => {
+    render(
+      <MemoryRouter>
+        <List
+          items={condos}
+          renderItem={(condo) => <CondoComponent condo={condo} />}
+        />
+      </MemoryRouter>
+    );
+    const nextButton = screen.getByTestId("next-button");
+    fireEvent.click(nextButton);
+    // fireEvent.click(nextButton);
+    const condoComponentsBefore = screen.getAllByTestId("condo-component");
+    fireEvent.click(nextButton);
+    const condoComponentsAfter = screen.getAllByTestId("condo-component");
+    expect(condoComponentsBefore).toHaveLength(condoComponentsAfter.length);
+  });
+
+  // Properties
+  it("renders a list of PropertyComponents", () => {
+    render(
+      <MemoryRouter>
+        <List
+          items={properties}
+          renderItem={(property) => (
+            <PropertyComponent
+              property={property}
+              onClick={function (
+                event: React.MouseEvent<HTMLDivElement, MouseEvent>
+              ): void {
+                throw new Error("Function not implemented.");
+              }}
+            />
+          )}
+        />
+      </MemoryRouter>
+    );
+    const propertyComponents = screen.getAllByTestId("property-component");
+    if (properties.length > 4) {
+      expect(propertyComponents.length).toBe(4);
+    } else {
+      expect(propertyComponents.length).toBe(properties.length);
+    }
+  });
+
+  it("disables the previous button initially", () => {
+    render(
+      <MemoryRouter>
+        <List
+          items={properties}
+          renderItem={(property) => (
+            <PropertyComponent
+              property={property}
+              onClick={function (
+                event: React.MouseEvent<HTMLDivElement, MouseEvent>
+              ): void {
+                throw new Error("Function not implemented.");
+              }}
+            />
+          )}
+        />
+      </MemoryRouter>
+    );
+    const prevButton = screen.getByTestId("prev-button");
     expect(prevButton).toBeDisabled();
   });
 
-  it("handles click on next button correctly", () => {
-    const items = ["Item 1", "Item 2", "Item 3", "Item 4"];
-    const { getByTestId } = render(<List items={items} renderItem={() => null} />);
-    const nextButton = getByTestId("next-button");
+  it("enables the next button initially", () => {
+    render(
+      <MemoryRouter>
+        <List
+          items={properties}
+          renderItem={(property) => (
+            <PropertyComponent
+              property={property}
+              onClick={function (
+                event: React.MouseEvent<HTMLDivElement, MouseEvent>
+              ): void {
+                throw new Error("Function not implemented.");
+              }}
+            />
+          )}
+        />
+      </MemoryRouter>
+    );
+    const nextButton = screen.getByTestId("next-button");
+    expect(nextButton).toBeEnabled();
+  });
 
+  it("does not update the displayed properties when previous button is clicked at start", () => {
+    render(
+      <MemoryRouter>
+        <List
+          items={properties}
+          renderItem={(property) => (
+            <PropertyComponent
+              property={property}
+              onClick={function (
+                event: React.MouseEvent<HTMLDivElement, MouseEvent>
+              ): void {
+                throw new Error("Function not implemented.");
+              }}
+            />
+          )}
+        />
+      </MemoryRouter>
+    );
+    const propertyComponentsBefore =
+      screen.getAllByTestId("property-component");
+    const prevButton = screen.getByTestId("prev-button");
+    fireEvent.click(prevButton);
+    const propertyComponentsAfter = screen.getAllByTestId("property-component");
+    expect(propertyComponentsBefore).toHaveLength(
+      propertyComponentsAfter.length
+    );
+  });
+
+  it("updates the displayed properties when next button is clicked", () => {
+    render(
+      <MemoryRouter>
+        <List
+          items={properties}
+          renderItem={(property) => (
+            <PropertyComponent
+              property={property}
+              onClick={function (
+                event: React.MouseEvent<HTMLDivElement, MouseEvent>
+              ): void {
+                throw new Error("Function not implemented.");
+              }}
+            />
+          )}
+        />
+      </MemoryRouter>
+    );
+    const nextButton = screen.getByTestId("next-button");
     fireEvent.click(nextButton);
-
-    expect(nextButton).toBeDisabled();
-  });
-  it("handles scroll correctly", () => {
-    const items = ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6"];
-    const { getByTestId } = render(<List items={items} renderItem={() => null} />);
-    const prevButton = getByTestId("prev-button");
-    const nextButton = getByTestId("next-button");
-    const listContainer = getByTestId("list-container");
-  
-    fireEvent.click(nextButton); // Click once to go to the next page
-    fireEvent.click(nextButton); // Click again to go to the next page
-    fireEvent.scroll(listContainer, { target: { scrollLeft: 200 } }); // Simulate scrolling
-  
-    // Since we scrolled, startIndex should have changed
-    expect(prevButton).not.toBeDisabled(); // Prev button should be enabled after scrolling
-    expect(nextButton).toBeDisabled(); // Next button should be enabled after scrolling
+    const propertyComponents = screen.getAllByTestId("property-component");
+    expect(propertyComponents).toHaveLength(1);
   });
 
-  it("enables next button after scrolling", () => {
-    const items = ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6"];
-    const { getByTestId } = render(<List items={items} renderItem={() => null} />);
-    const prevButton = getByTestId("prev-button");
-    const nextButton = getByTestId("next-button");
-    const listContainer = getByTestId("list-container");
-  
-    // Scroll to a position where the start index becomes greater than 0
-    fireEvent.scroll(listContainer, { target: { scrollLeft: 200 } });
-  
-    // Since we scrolled, startIndex should have changed and nextButton should be enabled
-    expect(prevButton).toBeDisabled(); // Prev button should still be disabled after scrolling
-    expect(nextButton).not.toBeDisabled(); // Next button should be enabled after scrolling
-  });
-
-  it("handles scroll correctly for next button", () => {
-    const items = ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8","Item 9","Item 10"];
-    const { getByTestId } = render(<List items={items} renderItem={() => null} />);
-    const prevButton = getByTestId("prev-button");
-    const nextButton = getByTestId("next-button");
-    const listContainer = getByTestId("list-container");
-  
-    // Scroll to a position where the start index becomes greater than 0
-    fireEvent.scroll(listContainer, { target: { scrollLeft: 200 } });
-  
-    // Since we scrolled, startIndex should have changed and nextButton should be enabled
-    expect(prevButton).toBeDisabled(); // Prev button should still be disabled after scrolling
-    expect(nextButton).not.toBeDisabled(); // Next button should be enabled after scrolling
-  
-    // Click the next button to move to the next page
+  it("disables the next button when properties at the end of properties list is displayed", () => {
+    render(
+      <MemoryRouter>
+        <List
+          items={properties}
+          renderItem={(property) => (
+            <PropertyComponent
+              property={property}
+              onClick={function (
+                event: React.MouseEvent<HTMLDivElement, MouseEvent>
+              ): void {
+                throw new Error("Function not implemented.");
+              }}
+            />
+          )}
+        />
+      </MemoryRouter>
+    );
+    const nextButton = screen.getByTestId("next-button");
     fireEvent.click(nextButton);
-  
-    // Since we clicked next, startIndex should have incremented by 4
-    expect(prevButton).not.toBeDisabled(); // Prev button should be enabled after clicking next
-    expect(nextButton).not.toBeDisabled(); // Next button should still be enabled
+    const updatedNextButton = screen.getByTestId("next-button");
+    expect(updatedNextButton).toBeDisabled();
+  });
+
+  it("enables the previous button when next button is clicked after being disabled", () => {
+    render(
+      <MemoryRouter>
+        <List
+          items={properties}
+          renderItem={(property) => (
+            <PropertyComponent
+              property={property}
+              onClick={function (
+                event: React.MouseEvent<HTMLDivElement, MouseEvent>
+              ): void {
+                throw new Error("Function not implemented.");
+              }}
+            />
+          )}
+        />
+      </MemoryRouter>
+    );
+    const nextButton = screen.getByTestId("next-button");
+    fireEvent.click(nextButton);
+    const prevButton = screen.getByTestId("prev-button");
+    expect(prevButton).toBeEnabled();
+  });
+
+  it("disables the previous button after clicking next button and then previous button", () => {
+    render(
+      <MemoryRouter>
+        <List
+          items={properties}
+          renderItem={(property) => (
+            <PropertyComponent
+              property={property}
+              onClick={function (
+                event: React.MouseEvent<HTMLDivElement, MouseEvent>
+              ): void {
+                throw new Error("Function not implemented.");
+              }}
+            />
+          )}
+        />
+      </MemoryRouter>
+    );
+    const nextButton = screen.getByTestId("next-button");
+    const prevButton = screen.getByTestId("prev-button");
+    fireEvent.click(nextButton);
+    fireEvent.click(prevButton);
+    const updatedPrevButton = screen.getByTestId("prev-button");
+    expect(updatedPrevButton).toBeDisabled();
+  });
+
+  it("enables the previous button after clicking next button", () => {
+    render(
+      <MemoryRouter>
+        <List
+          items={properties}
+          renderItem={(property) => (
+            <PropertyComponent
+              property={property}
+              onClick={function (
+                event: React.MouseEvent<HTMLDivElement, MouseEvent>
+              ): void {
+                throw new Error("Function not implemented.");
+              }}
+            />
+          )}
+        />
+      </MemoryRouter>
+    );
+    const nextButton = screen.getByTestId("next-button");
+    fireEvent.click(nextButton);
+    const prevButton = screen.getByTestId("prev-button");
+    // fireEvent.click(prevButton);
+    expect(prevButton).toBeEnabled();
+  });
+
+  it("does not update the displayed properties when next button is clicked at end", () => {
+    render(
+      <MemoryRouter>
+        <List
+          items={properties}
+          renderItem={(property) => (
+            <PropertyComponent
+              property={property}
+              onClick={function (
+                event: React.MouseEvent<HTMLDivElement, MouseEvent>
+              ): void {
+                throw new Error("Function not implemented.");
+              }}
+            />
+          )}
+        />
+      </MemoryRouter>
+    );
+    const nextButton = screen.getByTestId("next-button");
+    fireEvent.click(nextButton);
+    // fireEvent.click(nextButton);
+    const propertyComponentsBefore =
+      screen.getAllByTestId("property-component");
+    fireEvent.click(nextButton);
+    const propertyComponentsAfter = screen.getAllByTestId("property-component");
+    expect(propertyComponentsBefore).toHaveLength(
+      propertyComponentsAfter.length
+    );
   });
 });
