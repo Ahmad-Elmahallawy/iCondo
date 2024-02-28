@@ -43,6 +43,21 @@
   box-shadow: 3px 4px 1px 1px rgba(0, 0, 0, 0.25);
 }
 
+.registration-key-content {
+  padding: 2rem;
+  margin: 1rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2%;
+  width: 700px;
+  height: auto;
+  background-color: #eeedeb;
+  border: 1px solid #3c3633;
+  border-radius: 10px;
+  box-shadow: 3px 4px 1px 1px rgba(0, 0, 0, 0.25);
+}
+
 .properties-content {
   margin-bottom: 2%;
   background-color: #eeedeb;
@@ -78,6 +93,10 @@
   .properties-and-requests-container,
   .properties-content,
   .requests-content {
+    width: 90%;
+  }
+
+  .registration-key-content {
     width: 90%;
   }
 
