@@ -66,3 +66,7 @@
 .condo-creation-form-container form button:hover {
   cursor: pointer;
 }
+
+.condo-error-message {
+  color:red;
+}
