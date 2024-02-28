@@ -5,7 +5,7 @@ import "../Style/LandingPageStyle/CondoProfileLandingPageStyle.css"; // Imports 
 import { useLocation } from "react-router-dom";
 
 // Initial state for the condo information, establishing the default values for the form.
-const initialCondoInfo = {
+let initialCondoInfo = {
   condoId: "1",
   netArea: "100",
   occupantName: "Will be done Sprint 3",
@@ -14,9 +14,18 @@ const initialCondoInfo = {
 
 // Functional component definition for LandingPage.
 const LandingPage: React.FC = () => {
+  const location = useLocation();
+  const condo = location.state;
+
+  initialCondoInfo = {
+    condoId: condo.id,
+    netArea: condo.size,
+    condoFee: condo.condoFee,
+    occupantName: "Will be done Sprint 3",
+  };
+  console.log(initialCondoInfo);
   // useState hook to manage the state of condoInfo based on the initialCondoInfo.
   const [condoInfo, setCondoInfo] = useState(initialCondoInfo);
-  const location = useLocation();
 
   // Handler function to update the condoInfo state with the new information passed from CondoInfoForm.
   const handleSaveCondoInfo = (updatedInfo: typeof initialCondoInfo) => {
