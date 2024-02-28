@@ -31,6 +31,7 @@ jobs:
         uses: Wandalen/wretry.action@master
         with:
           action: muinmomin/webhook-action@v1.0.0
+          # URL of webhook to send post request to
           with: |
             url: ${{ secrets.DEV_WEBHOOK_URL }}
-          attempt_limit: 5
+          attempt_limit: 10
