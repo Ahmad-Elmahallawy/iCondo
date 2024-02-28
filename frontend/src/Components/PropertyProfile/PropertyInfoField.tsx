@@ -34,6 +34,7 @@ const PropertyInfoField: React.FC<PropertyInfoFieldProps> = ({
           value={value}
           onChange={onChange}
           className="edit-mode-input"
+          data-testid={`property-${name}-input`} // Add data-testid attribute
         />
       ) : (
         <span className="input-value">{value}</span>
