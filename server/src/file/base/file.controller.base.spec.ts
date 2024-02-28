@@ -14,9 +14,10 @@ import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateReq
 import { map } from "rxjs";
 import { FileController } from "../file.controller";
 import { FileService } from "../file.service";
+import { MinioServer } from "../minioServer";
 
 const nonExistingId = "nonExistingId";
-const existingId = "existingId";
+const existingId = "1";
 const CREATE_INPUT = {
   bucket: "exampleBucket",
   createdAt: new Date(),
@@ -47,6 +48,16 @@ const FIND_ONE_RESULT = {
   name: "exampleName",
   updatedAt: new Date(),
 };
+// @ts-ignore
+const mockFile : Express.Multer.File = {
+  fieldname: 'file',
+  originalname: 'test.txt',
+  mimetype: 'text/plain',
+  destination: '/tmp',
+  filename: 'test.txt',
+  path: '/tmp/test.txt',
+  size: 123
+};
 
 const service = {
   createFile() {
@@ -61,6 +72,10 @@ const service = {
         return null;
     }
   },
+};
+const minioServerMock = {
+  uploadFile: jest.fn(),
+  getFile: jest.fn(),
 };
 
 const basicAuthGuard = {
@@ -105,6 +120,10 @@ describe("File", () => {
           provide: FileService,
           useValue: service,
         },
+        {
+          provide: MinioServer,
+          useValue: minioServerMock,
+        }
       ],
       controllers: [FileController],
       imports: [ACLModule],
@@ -126,7 +145,8 @@ describe("File", () => {
   test("POST /files", async () => {
     await request(app.getHttpServer())
       .post("/files")
-      .send(CREATE_INPUT)
+      .attach("file", Buffer.from("", "utf-8"), "test.txt") // Attaching the file
+      .field('data', JSON.stringify(CREATE_INPUT)) // Sending mock data as a field
       .expect(HttpStatus.CREATED)
       .expect({
         ...CREATE_RESULT,
@@ -174,7 +194,8 @@ describe("File", () => {
     const agent = request(app.getHttpServer());
     await agent
       .post("/files")
-      .send(CREATE_INPUT)
+      .attach("file", Buffer.from("", "utf-8"), "test.txt") // Attaching the file
+      .field('data', JSON.stringify(CREATE_INPUT)) // Sending mock data as a field
       .expect(HttpStatus.CREATED)
       .expect({
         ...CREATE_RESULT,
