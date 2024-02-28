@@ -32,7 +32,7 @@ const PropertyListLandingPage = () => {
             headers: {
               Authorization: `Bearer ${token}`, // Set Authorization header with token
             },
-            data: {
+            params: {
               where: {
                 company: {
                   id: parseInt(companyData.company.id),
