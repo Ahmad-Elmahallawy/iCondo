@@ -27,6 +27,7 @@ export default function CondoFilesModal(props: any) {
       const userData = JSON.parse(localStorage.getItem("userData") || "{}");
       const token = userData.accessToken;
       const property = JSON.parse(localStorage.getItem("property") || "{}");
+      const id = property.id;
       const getFilesEndpoint = `http://localhost:8000/api/files`
 
       const response = await axios.get(
@@ -35,12 +36,19 @@ export default function CondoFilesModal(props: any) {
           headers: {
             Authorization: `Bearer ${token}`, // Set Authorization header with token
           },
+          params: {
+            where: {
+              property: {
+                id: id,
+              }
+            },
+          },
           responseType: "json", // Change responseType to json
         }
       );
 
       const filesData: any[] = response.data; // Assuming filesData is an array of file objects
-      
+
       if (filesData.length > 0) {
         const files: File[] = filesData.map((fileObj: any) => ({
           name: fileObj.name,
@@ -64,7 +72,7 @@ export default function CondoFilesModal(props: any) {
     link.click();
     document.body.removeChild(link);
   };
-  
+
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       const newFiles: File[] = Array.from(event.target.files).map((file) => ({
@@ -162,10 +170,10 @@ export default function CondoFilesModal(props: any) {
                 >
                   <span>{file.name}</span>
                   <Button
-                    style={{ backgroundColor: '#3c3633'}}
+                    style={{ backgroundColor: '#3c3633' }}
                     onClick={() => downloadFile(file)}
                     variant="contained"
-                    sx={{ mt: 2, mr:1 , mb: 1}}
+                    sx={{ mt: 2, mr: 1, mb: 1 }}
                   >
                     Download
                   </Button>
@@ -185,7 +193,7 @@ export default function CondoFilesModal(props: any) {
             onClick={() => {
               postFiles();
             }}
-            sx={{ mt: 2, mr:2}}
+            sx={{ mt: 2, mr: 2 }}
           >
             Submit
           </Button>
