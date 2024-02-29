@@ -162,8 +162,10 @@ export default function CondoFilesModal(props: any) {
                 >
                   <span>{file.name}</span>
                   <Button
+                    style={{ backgroundColor: '#3c3633'}}
                     onClick={() => downloadFile(file)}
                     variant="contained"
+                    sx={{ mt: 2, mr:1 , mb: 1}}
                   >
                     Download
                   </Button>
@@ -183,7 +185,7 @@ export default function CondoFilesModal(props: any) {
             onClick={() => {
               postFiles();
             }}
-            sx={{ mt: 2 }}
+            sx={{ mt: 2, mr:2}}
           >
             Submit
           </Button>
@@ -192,7 +194,7 @@ export default function CondoFilesModal(props: any) {
             onClick={() => {
               handleClose();
             }}
-            sx={{ mt: 2 }}
+            sx={{ mt: 2, ml: 1 }}
           >
             Close
           </Button>
