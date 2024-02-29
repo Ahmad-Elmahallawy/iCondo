@@ -7,6 +7,9 @@ const urls = {
     resetUserPassword: `${apiPrefixUserService}/users`,
     updateUserProfilePic: `${apiPrefix}/files`,
   },
+  registrationKeys: {
+    userRegister: `${apiPrefix}/registrationKeys`,
+  },
 };
 
 export default urls;
