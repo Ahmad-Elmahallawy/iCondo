@@ -16,8 +16,7 @@ let initialCondoInfo = {
 // Functional component definition for LandingPage.
 const LandingPage: React.FC = () => {
   const location = useLocation();
-  const condo = location.state;
-
+  const condo = location.state || { id: "", size: "", condoFee: "" };
   initialCondoInfo = {
     unitNumber: condo.unitNumber,
     condoId: condo.id,

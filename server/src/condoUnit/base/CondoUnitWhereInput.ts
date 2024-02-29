@@ -22,6 +22,7 @@ import { PropertyWhereUniqueInput } from "../../property/base/PropertyWhereUniqu
 import { RegistrationKeyWhereUniqueInput } from "../../registrationKey/base/RegistrationKeyWhereUniqueInput";
 import { StringFilter } from "../../util/StringFilter";
 import { UserCondoListRelationFilter } from "../../userCondo/base/UserCondoListRelationFilter";
+import {StringNullableFilter} from "../../util/StringNullableFilter";
 
 @InputType()
 class CondoUnitWhereInput {
@@ -47,6 +48,17 @@ class CondoUnitWhereInput {
     nullable: true,
   })
   file?: FileListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  unitNumber?: StringNullableFilter;
 
   @ApiProperty({
     required: false,
