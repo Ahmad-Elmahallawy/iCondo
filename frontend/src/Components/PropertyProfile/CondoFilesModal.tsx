@@ -54,6 +54,16 @@ export default function CondoFilesModal(props: any) {
       console.error("Error fetching files:", error);
     }
   };
+
+  const downloadFile = (file: File) => {
+    const blobUrl = URL.createObjectURL(file.data);
+    const link = document.createElement("a");
+    link.href = blobUrl;
+    link.setAttribute("download", file.name);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
   
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
@@ -71,10 +81,11 @@ export default function CondoFilesModal(props: any) {
       const token = userData.accessToken;
       const property = JSON.parse(localStorage.getItem("property") || "{}");
       const id = property.id;
-      const postFilesEndpoint = `http://localhost:8000/api/files`;
+      const postFilesEndpoint = "http://localhost:8000/api/files";
+      console.log(selectedFiles[0].data);
 
       const data = {
-        file: selectedFiles[0],
+        file: selectedFiles[0].data,
         bucket: "propertyfiles",
         property: {
           id: id,
@@ -119,7 +130,7 @@ export default function CondoFilesModal(props: any) {
             </Button>
           </label>
         </Box>
-        {selectedFiles.length > 0 ? (
+        {selectedFiles.length > 0 && (
           <div>
             <ul>
               {selectedFiles.map((file, index) => (
@@ -129,7 +140,33 @@ export default function CondoFilesModal(props: any) {
                   data-testid={"file-item"}
                 >
                   <span>{file.name}</span>
-                  <a download={file.name}>Download</a>
+                  <Button
+                    onClick={() => downloadFile(file)}
+                    variant="contained"
+                  >
+                    Download
+                  </Button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+        {fetchedFiles.length > 0 ? (
+          <div>
+            <ul>
+              {fetchedFiles.map((file, index) => (
+                <li
+                  className="condo-file-item"
+                  key={index}
+                  data-testid={"file-item"}
+                >
+                  <span>{file.name}</span>
+                  <Button
+                    onClick={() => downloadFile(file)}
+                    variant="contained"
+                  >
+                    Download
+                  </Button>
                 </li>
               ))}
             </ul>
@@ -139,16 +176,27 @@ export default function CondoFilesModal(props: any) {
             No Files Are Available Right Now For This Property
           </Typography>
         )}
-        <Button
-          className="condo-files-button condo-files-close-button"
-          onClick={() => {
-            postFiles();
-            handleClose();
-          }}
-          sx={{ mt: 2 }}
-        >
-          Close
-        </Button>
+        <Box>
+          {" "}
+          <Button
+            className="condo-files-button condo-files-close-button"
+            onClick={() => {
+              postFiles();
+            }}
+            sx={{ mt: 2 }}
+          >
+            Submit
+          </Button>
+          <Button
+            className="condo-files-button condo-files-close-button"
+            onClick={() => {
+              handleClose();
+            }}
+            sx={{ mt: 2 }}
+          >
+            Close
+          </Button>
+        </Box>
       </Box>
     </Modal>
   );
