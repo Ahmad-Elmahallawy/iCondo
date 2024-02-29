@@ -30,12 +30,13 @@ const UserKeyRegister: React.FC = () => {
     >
       <h2>Submit Registration Key</h2>
       <TextField
-        sx={{ padding: "10px" }}
         fullWidth
         id="registrationKey"
         error={!!errorText}
         helperText={errorText}
+        label="Registration Key"
         onInput={(e) => setKey((e.target as HTMLInputElement).value)}
+        data-testid="registrationKey"
       />
       <button className="user-information-button" type="submit">
         Submit
