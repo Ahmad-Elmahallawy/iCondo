@@ -103,6 +103,7 @@ export class CondoUnitControllerBase {
         },
 
         size: true,
+        unitNumber: true,
         updatedAt: true,
       },
     });
@@ -149,6 +150,7 @@ export class CondoUnitControllerBase {
 
         size: true,
         updatedAt: true,
+        unitNumber: true,
       },
     });
   }
@@ -194,6 +196,7 @@ export class CondoUnitControllerBase {
         },
 
         size: true,
+        unitNumber: true,
         updatedAt: true,
       },
     });
@@ -269,6 +272,7 @@ export class CondoUnitControllerBase {
           },
 
           size: true,
+          unitNumber: true,
           updatedAt: true,
         },
       });
@@ -323,6 +327,7 @@ export class CondoUnitControllerBase {
           },
 
           size: true,
+          unitNumber: true,
           updatedAt: true,
         },
       });

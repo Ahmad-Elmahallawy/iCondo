@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
 import CondoComponent from "../Components/Condo/Condo";
 import PropertyInfoForm from "../Components/PropertyProfile/PropertyInfoForm";
 import List from "../Components/Common/List";
 import "../Style/LandingPageStyle/PropertyProfileLandingPageStyle.css";
+import axios from 'axios'; // Import Axios
+
 
 interface PropertyInfo {
   id: number;
-  title: string;
+  name: string;
   address: string;
   unitCount: string;
-  parkingSpotCount: string;
+  parkingCount: string;
   lockerCount: string;
 }
 
@@ -23,10 +24,10 @@ interface LinkStateProps {
 
 const PropertyProfileLandingPage: React.FC = () => {
   const [propertyInfo, setPropertyInfo] = useState<PropertyInfo>(() => ({
-    title: "Loading",
+    name: "",
     address: "",
     unitCount: "",
-    parkingSpotCount: "",
+    parkingCount: "",
     lockerCount: "",
     id: 0,
   }));
@@ -91,8 +92,40 @@ const PropertyProfileLandingPage: React.FC = () => {
   }, [propertyInfo.id, fetchTrigger, isMounted, user.accessToken]);
 
   // Function to handle saving property info and trigger fetch
-  const handleSavePropertyInfo = (updatedInfo: any) => {
-    setPropertyInfo(updatedInfo);
+  const handleSavePropertyInfo = async (updatedInfo: any) => {
+    setPropertyInfo(updatedInfo); 
+    const id = updatedInfo.id; //retrieved id of property for the api call
+
+    try {
+    const data = {
+      address: updatedInfo.address,
+      id: Number(updatedInfo.id),
+      lockerCount: Number(updatedInfo.lockerCount),
+      name: updatedInfo.name,
+      parkingCount: Number(updatedInfo.parkingCount),
+      unitCount: Number(updatedInfo.unitCount)
+    };
+
+    const updatePropertiesEndpoint = `http://localhost:8000/api/properties/${id}`;
+    const userData = JSON.parse(localStorage.getItem("userData") || "{}");
+    const token = userData.accessToken;
+
+    const response = await axios.patch(updatePropertiesEndpoint, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    console.log("Property updated successfully");
+  }
+  catch (error: any) {
+    console.error(
+      "There was a problem updating the property:",
+      error.message
+    );
+  }
+  
     setFetchTrigger(true); // Trigger fetch when propertyInfo changes
   };
 
@@ -104,7 +137,7 @@ const PropertyProfileLandingPage: React.FC = () => {
     <div className="property-profile-landing-page">
       {/* Property info section */}
       <div className="property-info-section">
-        <h1 data-testid="property-title">{propertyInfo.title} Profile</h1>
+        <h1 data-testid="property-title">{propertyInfo.name} Profile</h1>
         <PropertyInfoForm
           propertyInfo={propertyInfo}
           onSave={handleSavePropertyInfo}
@@ -112,11 +145,11 @@ const PropertyProfileLandingPage: React.FC = () => {
       </div>
 
       {/* Condo list section */}
-      <div className="condo-list-section">
+      <div className="condo-list-section" data-testid="condo-list">
         <h1>Condo List</h1>
         <Link
           to={`/CondoCreation`}
-          state={{ title: propertyInfo.title, id: propertyInfo.id }}
+          state={{ title: propertyInfo.name, id: propertyInfo.id }}
         >
           <button className="add-unit-button">Add Unit</button>
         </Link>
