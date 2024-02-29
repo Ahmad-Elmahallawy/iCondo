@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -6,9 +6,15 @@ import Modal from "@mui/material/Modal";
 import "../../Style/PropertyProfileStyle/CondoFilesModalStyle.css";
 import axios from "axios";
 
+interface File {
+  name: string;
+  data: Blob; // Change data type to Blob
+}
+
 export default function CondoFilesModal(props: any) {
   const { isCondoFilesOpen, handleClose } = props;
   const [selectedFiles, setSelectedFiles] = React.useState<File[]>([]);
+  const [fetchedFiles, setFetchedFiles] = useState<File[]>([]);
 
   React.useEffect(() => {
     if (isCondoFilesOpen) {
@@ -21,9 +27,7 @@ export default function CondoFilesModal(props: any) {
       const userData = JSON.parse(localStorage.getItem("userData") || "{}");
       const token = userData.accessToken;
       const property = JSON.parse(localStorage.getItem("property") || "{}");
-      const id = property.id;
-      console.log("id is " + id);
-      const getFilesEndpoint = `http://localhost:8000/api/properties/${id}/files`
+      const getFilesEndpoint = `http://localhost:8000/api/files`
 
       const response = await axios.get(
         getFilesEndpoint,
@@ -31,18 +35,32 @@ export default function CondoFilesModal(props: any) {
           headers: {
             Authorization: `Bearer ${token}`, // Set Authorization header with token
           },
+          responseType: "json", // Change responseType to json
         }
       );
 
-      setSelectedFiles(response.data);
+      const filesData: any[] = response.data; // Assuming filesData is an array of file objects
+      
+      if (filesData.length > 0) {
+        const files: File[] = filesData.map((fileObj: any) => ({
+          name: fileObj.name,
+          data: new Blob([JSON.stringify(fileObj.data)], {
+            type: "application/json",
+          }), // Create blob with appropriate type
+        }));
+        setFetchedFiles(files);
+      }
     } catch (error) {
       console.error("Error fetching files:", error);
     }
   };
-
+  
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
-      const newFiles: File[] = Array.from(event.target.files);
+      const newFiles: File[] = Array.from(event.target.files).map((file) => ({
+        name: file.name,
+        data: file,
+      }));
       setSelectedFiles((prevFiles) => [...prevFiles, ...newFiles]);
     }
   };
@@ -53,25 +71,21 @@ export default function CondoFilesModal(props: any) {
       const token = userData.accessToken;
       const property = JSON.parse(localStorage.getItem("property") || "{}");
       const id = property.id;
-      const postFilesEndpoint = `http://localhost:8000/api/properties/${id}/files`;
+      const postFilesEndpoint = `http://localhost:8000/api/files`;
 
-      var formData = new FormData();
-      selectedFiles.forEach(file => {
-        formData.append('files', file);
+      const data = {
+        file: selectedFiles[0],
+        bucket: "propertyfiles",
+        property: {
+          id: id,
+        },
+      };
+      await axios.post(postFilesEndpoint, data, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Set Authorization header with token
+          "Content-Type": "multipart/form-data",
+        },
       });
-
-      console.log(formData);
-      console.log(selectedFiles);
-      await axios.post(
-        postFilesEndpoint,
-        selectedFiles,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`, // Set Authorization header with token
-            'Content-Type': 'multipart/form-data'
-          },
-        }
-      );
 
       // Reset selectedFiles after posting
       setSelectedFiles([]);
@@ -115,9 +129,7 @@ export default function CondoFilesModal(props: any) {
                   data-testid={"file-item"}
                 >
                   <span>{file.name}</span>
-                  <a href={URL.createObjectURL(file)} download={file.name}>
-                    Download
-                  </a>
+                  <a download={file.name}>Download</a>
                 </li>
               ))}
             </ul>
