@@ -42,7 +42,6 @@ const CondoCreation = () => {
     validationSchema: condoValidationSchema,
     onSubmit: async (values) => {
       try {
-        console.log( values.unitNumber);
         const data = {
           unitNumber: values.unitNumber,
           condoFee: Number(values.condoFee),
