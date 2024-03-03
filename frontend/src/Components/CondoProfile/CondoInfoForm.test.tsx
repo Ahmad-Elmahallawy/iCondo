@@ -9,13 +9,11 @@ import "@testing-library/jest-dom";
 describe("CondoInfoForm", () => {
   // Define initial test data for the form
   const initialInfo = {
-    condoId: "1",
     netArea: "100",
-    occupantName: "John Doe",
-    propertyId: "330",
-    parkingId: "4537",
     condoFee: "890",
-    lockerId: "345",
+    unitNumber: "22",
+    occupantName: "Will be done Sprint 3",
+    condoId: "1"
   };
 
   // Test to verify that the form renders correctly with the initial information
@@ -46,17 +44,17 @@ describe("CondoInfoForm", () => {
     await userEvent.click(screen.getByRole("button", { name: /Edit/i }));
 
     // Simulate changing the occupant's name in the input field
-    const occupantNameInput = screen.getByDisplayValue(
-      initialInfo.occupantName
+    const condoFeeInput = screen.getByDisplayValue(
+      initialInfo.condoFee
     );
-    await userEvent.clear(occupantNameInput);
-    await userEvent.type(occupantNameInput, "Jane Doe");
+    await userEvent.clear(condoFeeInput);
+    await userEvent.type(condoFeeInput, "Jane Doe");
 
     // Simulate user clicking the cancel button to discard changes
     await userEvent.click(screen.getByRole("button", { name: /Cancel/i }));
 
     // Verify that the original occupant name is displayed again, indicating the edit was cancelled
-    expect(screen.getByText(initialInfo.occupantName)).toBeInTheDocument();
+    expect(screen.getByText(initialInfo.condoFee)).toBeInTheDocument();
     // Ensure the onSave mock function was not called, as changes were cancelled
     expect(mockOnSave).not.toHaveBeenCalled();
   });

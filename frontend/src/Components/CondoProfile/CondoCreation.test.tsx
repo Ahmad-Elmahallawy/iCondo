@@ -21,7 +21,7 @@ describe("CondoCreation component", () => {
         <CondoCreation />
       </MemoryRouter>
     );
-    fireEvent.change(screen.getByPlaceholderText("Condo Unit ID"), {
+    fireEvent.change(screen.getByPlaceholderText("unitNumber"), {
       target: { value: "123" },
     });
     fireEvent.change(screen.getByPlaceholderText("Net Area"), {
@@ -90,7 +90,7 @@ describe("CondoCreation component", () => {
       </MemoryRouter>
     );
 
-    fireEvent.change(screen.getByPlaceholderText("Condo Unit ID"), {
+    fireEvent.change(screen.getByPlaceholderText("unitNumber"), {
       target: { value: "123" },
     });
     fireEvent.change(screen.getByPlaceholderText("Net Area"), {

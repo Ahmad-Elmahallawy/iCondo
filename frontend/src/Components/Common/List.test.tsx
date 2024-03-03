@@ -9,42 +9,53 @@ import { MemoryRouter } from "react-router-dom";
 
 const condos = [
   {
-    condoId: 1,
-    condoFee: "500",
-    imageUrl: "Assets/condo1.png",
+    size: "100",
+    condoFee: "890",
+    unitNumber: "22",
+    imageUrl: "Assets/public",
+    condoId: 1
   },
   {
-    condoId: 2,
-
-    condoFee: "400",
-    imageUrl: "Assets/condo2.png",
+    size: "100",
+    condoFee: "890",
+    unitNumber: "22",
+    imageUrl: "Assets/public",
+    condoId: 1
   },
   {
-    condoId: 3,
-    condoFee: "600",
-    imageUrl: "Assets/condo3.png",
+    size: "100",
+    condoFee: "890",
+    unitNumber: "22",
+    imageUrl: "Assets/public",
+    condoId: 1
   },
   {
-    condoId: 4,
-    condoFee: "450",
-    imageUrl: "Assets/condo1.png",
+    size: "100",
+    condoFee: "890",
+    unitNumber: "22",
+    imageUrl: "Assets/public",
+    condoId: 1
   },
   {
-    condoId: 5,
-
-    condoFee: "700",
-    imageUrl: "Assets/condo2.png",
+    size: "100",
+    condoFee: "890",
+    unitNumber: "22",
+    imageUrl: "Assets/public",
+    condoId: 1
   },
   {
-    condoId: 6,
-    condoFee: "350",
-    imageUrl: "Assets/condo3.png",
+    size: "100",
+    condoFee: "890",
+    unitNumber: "22",
+    imageUrl: "Assets/public",
+    condoId: 1
   },
   {
-    condoId: 7,
-    lastRenovated: "2021-08-05",
-    condoFee: "480",
-    imageUrl: "Assets/condo3.png",
+    size: "100",
+    condoFee: "890",
+    unitNumber: "22",
+    imageUrl: "Assets/public",
+    condoId: 1
   },
 ];
 
