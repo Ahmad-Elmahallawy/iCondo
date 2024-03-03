@@ -52,6 +52,9 @@ const service = {
   createCondoUnit() {
     return CREATE_RESULT;
   },
+  updateCondoUnit() {
+    return CREATE_RESULT;
+  },
   condoUnits: () => FIND_MANY_RESULT,
   condoUnit: ({ where }: { where: { id: string } }) => {
     switch (where.id) {
@@ -196,7 +199,6 @@ describe("CondoUnit", () => {
       const agent = request(app.getHttpServer());
       await agent
         .patch(`${"/condoUnits"}/${nonExistingId}`)
-        .send({})
         .expect(HttpStatus.NOT_FOUND)
         .expect({
           statusCode: HttpStatus.NOT_FOUND,
