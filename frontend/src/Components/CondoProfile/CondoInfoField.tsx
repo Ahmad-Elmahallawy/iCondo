@@ -22,7 +22,7 @@ const CondoInfoField: React.FC<CondoInfoFieldProps> = ({
     // Container for the entire field, including label and value/input
     <div className="input-container">
       <span className="input-label">{label}:</span>
-      {isEditMode ? (
+      {isEditMode && name !== "condoId" ? (
         <input
           type="text"
           id={name}

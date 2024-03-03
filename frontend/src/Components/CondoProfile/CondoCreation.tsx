@@ -43,6 +43,7 @@ const CondoCreation = () => {
     onSubmit: async (values) => {
       try {
         const data = {
+          unitNumber: values.unitNumber,
           condoFee: Number(values.condoFee),
           size: String(values.netArea),
           propertyID: {
@@ -87,7 +88,7 @@ const CondoCreation = () => {
             name="unitNumber"
             value={formik.values.unitNumber}
             onChange={formik.handleChange}
-            placeholder="Condo Unit ID"
+            placeholder="unitNumber"
           />
           {formik.touched.unitNumber && formik.errors.unitNumber ? (
             <p className="error-msg">{formik.errors.unitNumber}</p>

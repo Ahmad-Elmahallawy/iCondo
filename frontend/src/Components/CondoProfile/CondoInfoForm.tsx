@@ -6,6 +6,7 @@ import { log } from "console";
 
 // Props type definition for the component
 interface CondoInfo {
+  unitNumber: string;
   condoId: string;
   netArea: string;
   occupantName: string;
@@ -66,19 +67,22 @@ const CondoInfoForm: React.FC<CondoInfoFormProps> = ({ condoInfo, onSave }) => {
     <div className="condoProfileContainer">
       <h2>Condo Profile</h2>
       <form onSubmit={isEditMode ? handleSave : undefined}>
-        {Object.keys(condoInfo).map((key) => (
-          <CondoInfoField
-            key={key}
-            name={key}
-            label={
-              key.charAt(0).toUpperCase() +
-              key.slice(1).replace(/([A-Z])/g, " $1")
-            }
-            value={tempInfo[key as keyof CondoInfo]}
-            isEditMode={isEditMode}
-            onChange={handleInputChange}
-          />
-        ))}
+        {Object.keys(condoInfo).map(
+          (key) =>
+            key !== "condoId" && (
+              <CondoInfoField
+                key={key}
+                name={key}
+                label={
+                  key.charAt(0).toUpperCase() +
+                  key.slice(1).replace(/([A-Z])/g, " $1")
+                }
+                value={tempInfo[key as keyof CondoInfo]}
+                isEditMode={isEditMode}
+                onChange={handleInputChange}
+              />
+            )
+        )}
         <div className="buttons-container">
           {isEditMode ? (
             <>

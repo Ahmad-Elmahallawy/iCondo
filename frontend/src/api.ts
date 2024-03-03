@@ -38,6 +38,21 @@ const api = {
       return response;
     },
   },
+  registerationKeys: {
+    async userRegisterKey(key: string) {
+      const response = await axios.get(
+        `${urls.registrationKeys.userRegister}`,
+        {
+          params: {
+            where: {
+              value: `${key}`,
+            },
+          },
+        }
+      );
+      return response;
+    },
+  },
 };
 
 export default api;

@@ -6,10 +6,11 @@ import { useLocation } from "react-router-dom";
 
 // Initial state for the condo information, establishing the default values for the form.
 let initialCondoInfo = {
+  unitNumber: "1",
   condoId: "1",
   netArea: "100",
   occupantName: "Will be done Sprint 3",
-  condoFee: "890",
+  condoFee: "890"
 };
 
 // Functional component definition for LandingPage.
@@ -17,6 +18,7 @@ const LandingPage: React.FC = () => {
   const location = useLocation();
   const condo = location.state || { id: "", size: "", condoFee: "" };
   initialCondoInfo = {
+    unitNumber: condo.unitNumber,
     condoId: condo.id,
     netArea: condo.size,
     condoFee: condo.condoFee,
