@@ -18,8 +18,10 @@ const KeyGeneration = () => {
   });
   const { condoId, registrationKey, userType } = registrationData;
   const [responseMessage, setResponseMessage] = useState("");
-  const token = JSON.parse(localStorage.getItem("userData") || "{}").accessToken; // Retrieve token from localStorage
-  
+  const token = JSON.parse(
+    localStorage.getItem("userData") || "{}"
+  ).accessToken; // Retrieve token from localStorage
+
   // fetch registration key if it exists
   useEffect(() => {
     const fetchData = async () => {
@@ -68,11 +70,11 @@ const KeyGeneration = () => {
       counter += 1;
     }
     setRegistrationData({ ...registrationData, registrationKey: result }); // assign registration key to the use state and keep the rest of the results the same
+    return result;
   };
 
   const handleGenerateKey = async () => {
-    generateKeyValue(); // call the function to generate a random key that is unique
-
+    const newKey = generateKeyValue(); // call the function to generate a random key that is unique
     try {
       const response = await axios.post(
         "http://localhost:8000/api/registrationKeys",
@@ -80,7 +82,7 @@ const KeyGeneration = () => {
           condoUnit: {
             id: condoId,
           },
-          value: registrationKey,
+          value: newKey,
           role: [userType],
         },
         {
