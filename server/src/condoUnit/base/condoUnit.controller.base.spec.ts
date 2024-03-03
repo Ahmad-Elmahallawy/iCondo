@@ -192,6 +192,77 @@ describe("CondoUnit", () => {
       });
   });
 
+  test("PATCH /condoUnits/:id non existing", async () => {
+      const agent = request(app.getHttpServer());
+      await agent
+        .patch(`${"/condoUnits"}/${nonExistingId}`)
+        .send({})
+        .expect(HttpStatus.NOT_FOUND)
+        .expect({
+          statusCode: HttpStatus.NOT_FOUND,
+          message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
+          error: "Not Found",
+        });
+  });
+
+//   test("DELETE /condoUnits/:id non existing", async () => {
+//       const agent = request(app.getHttpServer());
+//       await agent
+//         .delete(`${"/condoUnits"}/${nonExistingId}`)
+//         .expect(HttpStatus.NOT_FOUND)
+//         .expect({
+//           statusCode: HttpStatus.NOT_FOUND,
+//           message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
+//           error: "Not Found",
+//         });
+//   });
+//
+//   test("GET /condoUnits/:id/file non existing", async () => {
+//       const agent = request(app.getHttpServer());
+//       await agent
+//         .get(`${"/condoUnits"}/${nonExistingId}/file`)
+//         .expect(HttpStatus.NOT_FOUND)
+//         .expect({
+//           statusCode: HttpStatus.NOT_FOUND,
+//           message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
+//           error: "Not Found",
+//         });
+//   });
+//
+//
+//
+//   test("POST /condoUnits/:id/file existing resource", async () => {
+//     const agent = request(app.getHttpServer());
+//     await agent
+//         .post(`${"/condoUnits"}/${existingId}/file`)
+//         .send([])
+//         .expect(HttpStatus.OK);
+//   });
+//
+//
+//
+//   test("POST /condoUnits/:id/file non existing resource", async () => {
+//       const agent = request(app.getHttpServer());
+//       await agent
+//         .post(`${"/condoUnits"}/${nonExistingId}/file`)
+//         .send([])
+//         .expect(HttpStatus.NOT_FOUND)
+//         .expect({
+//           statusCode: HttpStatus.NOT_FOUND,
+//           message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
+//           error: "Not Found",
+//         });
+//   });
+
+
+
+
+
+
+
+
+
+
   afterAll(async () => {
     await app.close();
   });
