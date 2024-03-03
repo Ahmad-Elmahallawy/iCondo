@@ -4,7 +4,7 @@ import CondoComponent from "../Components/Condo/Condo";
 import PropertyInfoForm from "../Components/PropertyProfile/PropertyInfoForm";
 import List from "../Components/Common/List";
 import "../Style/LandingPageStyle/PropertyProfileLandingPageStyle.css";
-import axios from "axios"; // Import Axios
+import axios from "axios";
 
 interface PropertyInfo {
   id: number;
@@ -39,7 +39,13 @@ const PropertyProfileLandingPage: React.FC = () => {
   const location = useLocation();
   const user = JSON.parse(localStorage.getItem("userData") || "{}");
   const navigate = useNavigate();
+  
+  const property = {
+    id: propertyInfo.id,
+  };
 
+  // Store propertyId in localStorage
+  localStorage.setItem("property", JSON.stringify(property));
   // Effect to update propertyInfo when location state changes
   useEffect(() => {
     if (location.state && location.state.property) {

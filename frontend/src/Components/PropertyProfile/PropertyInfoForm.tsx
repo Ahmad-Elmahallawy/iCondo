@@ -92,7 +92,7 @@ const PropertyInfoForm: React.FC<PropertyInfoFormProps> = ({
           ) : (
             <>
               {" "}
-              <button onClick={handleEdit} className="edit-button">
+              <button onClick={handleEdit} className="edit-button" data-testid="update-property-button">
                 Edit
               </button>
               <button

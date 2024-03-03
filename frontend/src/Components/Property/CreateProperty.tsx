@@ -13,13 +13,19 @@ import { useNavigate } from "react-router-dom";
 // and allows users to upload files related to the property.
 const CreateProperty: React.FC = () => {
   const deleteIcon = "/Assets/delete.svg";
-  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const [selectedFiles, setSelectedFiles] = React.useState<File[]>([]);
   const navigate = useNavigate();
   const userData = JSON.parse(localStorage.getItem("userData") || "{}");
   const companyData = JSON.parse(
     localStorage.getItem("companyDetails") || "{}"
   )[0];
   const token = userData.accessToken;
+  const property = JSON.parse(localStorage.getItem("property") || "{}");
+  const id = property.id;
+
+  //Bug with id being one off of what it should be, TODO for next sprint
+  const newId = id + 1;
+
   // Formik form initialization
   const formik = useFormik({
     initialValues: { ...createPropertyInitialValues, files: [] },
@@ -52,6 +58,34 @@ const CreateProperty: React.FC = () => {
           "There was a problem creating the property:",
           error.message
         );
+      }
+
+      try {
+        const postFilesEndpoint = "http://localhost:8000/api/files";
+
+        // Iterate through each selected file
+        selectedFiles.forEach(async (file) => {
+          const data = {
+            file: file,
+            bucket: "propertyfiles",
+            property: {
+              id: newId,
+            },
+          };
+
+          await axios.post(postFilesEndpoint, data, {
+            headers: {
+              Authorization: `Bearer ${token}`, // Set Authorization header with token
+              "Content-Type": "multipart/form-data",
+            },
+          });
+        });
+
+        // Reset selectedFiles after posting
+        setSelectedFiles([]);
+        alert("File(s) uploaded successfully");
+      } catch (error) {
+        console.error("Error posting files:", error);
       }
     },
   });
