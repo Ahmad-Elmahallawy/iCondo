@@ -16,6 +16,11 @@ export default function CondoFilesModal(props: any) {
   const [selectedFiles, setSelectedFiles] = React.useState<File[]>([]);
   const [fetchedFiles, setFetchedFiles] = useState<File[]>([]);
 
+  const userData = JSON.parse(localStorage.getItem("userData") || "{}");
+  const token = userData.accessToken;
+  const property = JSON.parse(localStorage.getItem("property") || "{}");
+  const id = property.id;
+
   React.useEffect(() => {
     if (isCondoFilesOpen) {
       fetchFiles();
@@ -24,10 +29,6 @@ export default function CondoFilesModal(props: any) {
 
   const fetchFiles = async () => {
     try {
-      const userData = JSON.parse(localStorage.getItem("userData") || "{}");
-      const token = userData.accessToken;
-      const property = JSON.parse(localStorage.getItem("property") || "{}");
-      const id = property.id;
       const getFilesEndpoint = `http://localhost:8000/api/files`
 
       const response = await axios.get(
@@ -63,6 +64,7 @@ export default function CondoFilesModal(props: any) {
     }
   };
 
+  //creates a downloadable version of the file to be viewed
   const downloadFile = (file: File) => {
     const blobUrl = URL.createObjectURL(file.data);
     const link = document.createElement("a");
@@ -85,29 +87,30 @@ export default function CondoFilesModal(props: any) {
 
   const postFiles = async () => {
     try {
-      const userData = JSON.parse(localStorage.getItem("userData") || "{}");
-      const token = userData.accessToken;
-      const property = JSON.parse(localStorage.getItem("property") || "{}");
-      const id = property.id;
       const postFilesEndpoint = "http://localhost:8000/api/files";
-      console.log(selectedFiles[0].data);
 
-      const data = {
-        file: selectedFiles[0].data,
-        bucket: "propertyfiles",
-        property: {
-          id: id,
-        },
-      };
-      await axios.post(postFilesEndpoint, data, {
-        headers: {
-          Authorization: `Bearer ${token}`, // Set Authorization header with token
-          "Content-Type": "multipart/form-data",
-        },
+      // Iterate through each selected file
+      selectedFiles.forEach(async (file) => {
+        const data = {
+          file: file.data,
+          bucket: "propertyfiles",
+          property: {
+            id: id,
+          },
+        };
+
+        console.log(id);
+        await axios.post(postFilesEndpoint, data, {
+          headers: {
+            Authorization: `Bearer ${token}`, // Set Authorization header with token
+            "Content-Type": "multipart/form-data",
+          },
+        });
       });
 
       // Reset selectedFiles after posting
       setSelectedFiles([]);
+      alert("File(s) uploaded successfully");
     } catch (error) {
       console.error("Error posting files:", error);
     }
@@ -149,8 +152,10 @@ export default function CondoFilesModal(props: any) {
                 >
                   <span>{file.name}</span>
                   <Button
+                    style={{ backgroundColor: '#3c3633' }}
                     onClick={() => downloadFile(file)}
                     variant="contained"
+                    sx={{ mt: 2, mr: 1, mb: 1 }}
                   >
                     Download
                   </Button>
