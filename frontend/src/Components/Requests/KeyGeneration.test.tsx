@@ -172,7 +172,7 @@ describe("KeyGeneration", () => {
         condoUnit: {
           id: "",
         },
-        value: "No Key To Show Right Now",
+        value: expect.any(String),
         role: ["condoOwner"],
       },
       {

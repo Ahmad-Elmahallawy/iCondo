@@ -4,8 +4,7 @@ import CondoComponent from "../Components/Condo/Condo";
 import PropertyInfoForm from "../Components/PropertyProfile/PropertyInfoForm";
 import List from "../Components/Common/List";
 import "../Style/LandingPageStyle/PropertyProfileLandingPageStyle.css";
-import axios from 'axios'; // Import Axios
-
+import axios from "axios";
 
 interface PropertyInfo {
   id: number;
@@ -40,14 +39,13 @@ const PropertyProfileLandingPage: React.FC = () => {
   const location = useLocation();
   const user = JSON.parse(localStorage.getItem("userData") || "{}");
   const navigate = useNavigate();
-
+  
   const property = {
     id: propertyInfo.id,
   };
 
   // Store propertyId in localStorage
   localStorage.setItem("property", JSON.stringify(property));
-
   // Effect to update propertyInfo when location state changes
   useEffect(() => {
     if (location.state && location.state.property) {
@@ -77,6 +75,7 @@ const PropertyProfileLandingPage: React.FC = () => {
             }
           );
           setCondos(response.data);
+
           setApiError(null); // Reset API error state
         } catch (error) {
           console.error("Error fetching condos:", error);
@@ -93,39 +92,38 @@ const PropertyProfileLandingPage: React.FC = () => {
 
   // Function to handle saving property info and trigger fetch
   const handleSavePropertyInfo = async (updatedInfo: any) => {
-    setPropertyInfo(updatedInfo); 
+    setPropertyInfo(updatedInfo);
     const id = updatedInfo.id; //retrieved id of property for the api call
 
     try {
-    const data = {
-      address: updatedInfo.address,
-      id: Number(updatedInfo.id),
-      lockerCount: Number(updatedInfo.lockerCount),
-      name: updatedInfo.name,
-      parkingCount: Number(updatedInfo.parkingCount),
-      unitCount: Number(updatedInfo.unitCount)
-    };
+      const data = {
+        address: updatedInfo.address,
+        id: Number(updatedInfo.id),
+        lockerCount: Number(updatedInfo.lockerCount),
+        name: updatedInfo.name,
+        parkingCount: Number(updatedInfo.parkingCount),
+        unitCount: Number(updatedInfo.unitCount),
+      };
 
-    const updatePropertiesEndpoint = `http://localhost:8000/api/properties/${id}`;
-    const userData = JSON.parse(localStorage.getItem("userData") || "{}");
-    const token = userData.accessToken;
+      const updatePropertiesEndpoint = `http://localhost:8000/api/properties/${id}`;
+      const userData = JSON.parse(localStorage.getItem("userData") || "{}");
+      const token = userData.accessToken;
 
-    const response = await axios.patch(updatePropertiesEndpoint, data, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    });
+      const response = await axios.patch(updatePropertiesEndpoint, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
 
-    console.log("Property updated successfully");
-  }
-  catch (error: any) {
-    console.error(
-      "There was a problem updating the property:",
-      error.message
-    );
-  }
-  
+      console.log("Property updated successfully");
+    } catch (error: any) {
+      console.error(
+        "There was a problem updating the property:",
+        error.message
+      );
+    }
+
     setFetchTrigger(true); // Trigger fetch when propertyInfo changes
   };
 
