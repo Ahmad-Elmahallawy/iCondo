@@ -1,4 +1,5 @@
-import { Test } from "@nestjs/testing";
+import { Test, TestingModule } from "@nestjs/testing";
+
 import {
   INestApplication,
   HttpStatus,
@@ -16,6 +17,7 @@ import { CondoUnitController } from "../condoUnit.controller";
 import { CondoUnitService } from "../condoUnit.service";
 
 const nonExistingId = "nonExistingId";
+const failId = 0;
 const existingId = "existingId";
 const CREATE_INPUT = {
   condoFee: 42.424242424,
@@ -30,6 +32,11 @@ const CREATE_RESULT = {
   id: 42,
   size: "exampleSize",
   updatedAt: new Date(),
+};
+const NOT_FOUND = {
+  statusCode: HttpStatus.NOT_FOUND,
+  message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
+  error: "Not Found",
 };
 const FIND_MANY_RESULT = [
   {
@@ -48,13 +55,49 @@ const FIND_ONE_RESULT = {
   updatedAt: new Date(),
 };
 
+const FIND_ONE_FILE = {
+    statusCode: HttpStatus.OK,
+};
+
+const FIND_PARKING = {
+    createdAt:new Date(),
+    id: 45,
+    size: "exampleSize",
+    property:"property5",
+    statusCode: HttpStatus.OK,
+};
+const GET_USER_CONDOS={
+    id: 9,
+    statusCode:HttpStatus.OK,
+}
+
 const service = {
   createCondoUnit() {
     return CREATE_RESULT;
   },
   updateCondoUnit() {
-    return CREATE_RESULT;
+    return NOT_FOUND;
   },
+  deleteCondoUnit(){
+    return NOT_FOUND;
+  },
+    findFile(){
+        return NOT_FOUND;
+    },
+    connectParkingSpot(){
+      return FIND_PARKING;
+    },
+    findParkingSpot(){
+        return FIND_PARKING;
+    },
+    findUserCondos(){
+        return GET_USER_CONDOS;
+    },
+
+
+
+
+
   condoUnits: () => FIND_MANY_RESULT,
   condoUnit: ({ where }: { where: { id: string } }) => {
     switch (where.id) {
@@ -126,6 +169,7 @@ describe("CondoUnit", () => {
     await app.init();
   });
 
+
   test("POST /condoUnits", async () => {
     await request(app.getHttpServer())
       .post("/condoUnits")
@@ -196,10 +240,10 @@ describe("CondoUnit", () => {
   });
 
   test("PATCH /condoUnits/:id non existing", async () => {
-      const agent = request(app.getHttpServer());
-      await agent
+    const agent = request(app.getHttpServer());
+    await agent
         .patch(`${"/condoUnits"}/${nonExistingId}`)
-        .expect(HttpStatus.NOT_FOUND)
+        .send(NOT_FOUND)
         .expect({
           statusCode: HttpStatus.NOT_FOUND,
           message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
@@ -207,54 +251,95 @@ describe("CondoUnit", () => {
         });
   });
 
-//   test("DELETE /condoUnits/:id non existing", async () => {
-//       const agent = request(app.getHttpServer());
-//       await agent
-//         .delete(`${"/condoUnits"}/${nonExistingId}`)
-//         .expect(HttpStatus.NOT_FOUND)
-//         .expect({
-//           statusCode: HttpStatus.NOT_FOUND,
-//           message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
-//           error: "Not Found",
-//         });
-//   });
-//
-//   test("GET /condoUnits/:id/file non existing", async () => {
-//       const agent = request(app.getHttpServer());
-//       await agent
-//         .get(`${"/condoUnits"}/${nonExistingId}/file`)
-//         .expect(HttpStatus.NOT_FOUND)
-//         .expect({
-//           statusCode: HttpStatus.NOT_FOUND,
-//           message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
-//           error: "Not Found",
-//         });
-//   });
-//
-//
-//
-//   test("POST /condoUnits/:id/file existing resource", async () => {
-//     const agent = request(app.getHttpServer());
-//     await agent
-//         .post(`${"/condoUnits"}/${existingId}/file`)
-//         .send([])
-//         .expect(HttpStatus.OK);
-//   });
-//
-//
-//
-//   test("POST /condoUnits/:id/file non existing resource", async () => {
-//       const agent = request(app.getHttpServer());
-//       await agent
-//         .post(`${"/condoUnits"}/${nonExistingId}/file`)
-//         .send([])
-//         .expect(HttpStatus.NOT_FOUND)
-//         .expect({
-//           statusCode: HttpStatus.NOT_FOUND,
-//           message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
-//           error: "Not Found",
-//         });
-//   });
+  test("DELETE /condoUnits/:id non existing", async () => {
+      const agent = request(app.getHttpServer());
+      await agent
+        .delete(`${"/condoUnits"}/${nonExistingId}`)
+          .send(NOT_FOUND)
+        .expect({
+          statusCode: HttpStatus.NOT_FOUND,
+          message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
+          error: "Not Found",
+        });
+  });
+
+  test("GET /condoUnits/:id/file non existing", async () => {
+      const agent = request(app.getHttpServer());
+      await agent
+        .get(`${"/condoUnits"}/${nonExistingId}/file`)
+          .send(NOT_FOUND)
+          .expect({
+            statusCode: HttpStatus.NOT_FOUND,
+            message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
+            error: "Not Found",
+          });
+  });
+
+
+//tests for parking spot
+  test("POST /condoUnits/:id/file existing resource", async () => {
+    const agent = request(app.getHttpServer());
+    await agent
+        .post(`${"/condoUnits"}/${existingId}/file`)
+        .send(FIND_ONE_FILE)
+        .expect(HttpStatus.CREATED);
+  });
+
+    test("GET /condoUnits/:id/parkingSpot", async () => {
+        await request(app.getHttpServer())
+            .get(`/condoUnits/${existingId}/parkingSpot`)
+            .expect(HttpStatus.OK);
+    });
+
+    test("POST /condoUnits/:id/parkingSpot", async () => {
+        await request(app.getHttpServer())
+            .post(`/condoUnits/${existingId}/parkingSpot`)
+            .send(CREATE_INPUT)
+            .expect(HttpStatus.CREATED);
+    });
+
+    test("PATCH /condoUnits/:id/parkingSpot", async () => {
+        await request(app.getHttpServer())
+            .patch(`/condoUnits/${existingId}/parkingSpot`)
+            .send(CREATE_INPUT)
+            .expect(HttpStatus.OK);
+    });
+
+    test("DELETE /condoUnits/:id/parkingSpot", async () => {
+        await request(app.getHttpServer())
+            .delete(`/condoUnits/${existingId}/parkingSpot`)
+            .send({ parkingSpotIds: [existingId] })
+            .expect(HttpStatus.OK);
+    });
+    test("GET /condoUnits/:id/userCondos", async () => {
+        await request(app.getHttpServer())
+            .get(`/condoUnits/${existingId}/userCondos`)
+            .expect(HttpStatus.OK);
+    });
+
+    test("POST /condoUnits/:id/userCondos", async () => {
+        await request(app.getHttpServer())
+            .post(`/condoUnits/${existingId}/userCondos`)
+            .send(GET_USER_CONDOS)
+            .expect({
+            });
+    });
+
+    test("PATCH /condoUnits/:id/userCondos", async () => {
+        await request(app.getHttpServer())
+            .patch(`/condoUnits/${existingId}/userCondos`)
+            .send(CREATE_INPUT)
+            .expect(HttpStatus.OK);
+    });
+
+    test("DELETE /condoUnits/:id/userCondos", async () => {
+        await request(app.getHttpServer())
+            .delete(`/condoUnits/${existingId}/userCondos`)
+            .send({ userCondoIds: [existingId] })
+            .expect(HttpStatus.OK);
+    });
+
+
 
 
 
