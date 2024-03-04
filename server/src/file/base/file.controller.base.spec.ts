@@ -15,6 +15,7 @@ import { map } from "rxjs";
 import { FileController } from "../file.controller";
 import { FileService } from "../file.service";
 import { MinioServer } from "../minioServer";
+import * as errors from "../../errors";
 
 const nonExistingId = "nonExistingId";
 const existingId = "1";
@@ -26,6 +27,20 @@ const CREATE_INPUT = {
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
+  bucket: "exampleBucket",
+  createdAt: new Date(),
+  id: 42,
+  name: "exampleName",
+  updatedAt: new Date(),
+};
+const UPDATE_RESULT = {
+  bucket: "exampleBucket",
+  createdAt: new Date(),
+  id: 42,
+  name: "exampleName",
+  updatedAt: new Date(),
+};
+const DELETE_RESULT = {
   bucket: "exampleBucket",
   createdAt: new Date(),
   id: 42,
@@ -62,6 +77,26 @@ const mockFile : Express.Multer.File = {
 const service = {
   createFile() {
     return CREATE_RESULT;
+  },
+  updateFile: ({ where }: { where: { id: string } }) => {
+    switch (where.id) {
+      case existingId:
+        return UPDATE_RESULT;
+      case nonExistingId:
+        throw new errors.NotFoundException(
+            `No resource was found for {"id":"${nonExistingId}"}`
+        );
+    }
+  },
+  deleteFile: ({ where }: { where: { id: string } }) => {
+    switch (where.id) {
+      case existingId:
+        return DELETE_RESULT;
+      case nonExistingId:
+        throw new errors.NotFoundException(
+            `No resource was found for {"id":"${nonExistingId}"}`
+        );
+    }
   },
   files: () => FIND_MANY_RESULT,
   file: ({ where }: { where: { id: string } }) => {
@@ -211,6 +246,42 @@ describe("File", () => {
             statusCode: HttpStatus.CONFLICT,
           });
       });
+  });
+
+  test("PATCH /files/:id existing", async () => {
+    await request(app.getHttpServer())
+        .patch(`${"/files"}/${existingId}`)
+        .expect(HttpStatus.OK)
+        .expect(JSON.stringify(UPDATE_RESULT));
+  });
+
+  test("PATCH /files/:id non existing", async () => {
+    await request(app.getHttpServer())
+        .patch(`${"/files"}/${nonExistingId}`)
+        .expect(HttpStatus.NOT_FOUND)
+        .expect({
+          statusCode: HttpStatus.NOT_FOUND,
+          message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
+          error: "Not Found",
+        });
+  });
+
+  test("DELETE /files/:id existing", async () => {
+    await request(app.getHttpServer())
+        .delete(`${"/files"}/${existingId}`)
+        .expect(HttpStatus.OK)
+        .expect(JSON.stringify(DELETE_RESULT));
+  });
+
+  test("DELETE /files/:id non existing", async () => {
+    await request(app.getHttpServer())
+        .delete(`${"/files"}/${nonExistingId}`)
+        .expect(HttpStatus.NOT_FOUND)
+        .expect({
+          statusCode: HttpStatus.NOT_FOUND,
+          message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
+          error: "Not Found",
+        });
   });
 
   afterAll(async () => {
