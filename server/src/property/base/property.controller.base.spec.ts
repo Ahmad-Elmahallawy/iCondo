@@ -14,6 +14,7 @@ import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateReq
 import { map } from "rxjs";
 import { PropertyController } from "../property.controller";
 import { PropertyService } from "../property.service";
+import * as errors from "../../errors";
 
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
@@ -59,6 +60,14 @@ const FIND_ONE_RESULT = {
   unitCount: 42,
   updatedAt: new Date(),
 };
+const UPDATED_PROPERTY = {
+  statusCode: HttpStatus.OK,
+  message: `Property updated"}`,
+};
+const DELETED_PROPERTY={
+  statusCode: HttpStatus.OK,
+  message: `Property deleted"}`,
+}
 
 const service = {
   createProperty() {
@@ -71,6 +80,26 @@ const service = {
         return FIND_ONE_RESULT;
       case nonExistingId:
         return null;
+    }
+  },
+  updateProperty({ where }: { where: { id: string } }){
+    switch (where.id) {
+      case existingId:
+        return UPDATED_PROPERTY;
+      case nonExistingId:
+        throw new errors.NotFoundException(
+            `No resource was found for {"id":"${nonExistingId}"}`
+        );
+    }
+  },
+  deleteProperty({ where }: { where: { id: string } }){
+    switch (where.id) {
+      case existingId:
+        return DELETED_PROPERTY;
+      case nonExistingId:
+        throw new errors.NotFoundException(
+            `No resource was found for {"id":"${nonExistingId}"}`
+        );
     }
   },
 };
@@ -203,6 +232,34 @@ describe("Property", () => {
           });
       });
   });
+  // Test case for updating an existing property
+  test("PATCH /properties/:id", async () => {
+    await request(app.getHttpServer())
+        .patch(`${"/properties"}/${existingId}`)
+        .send({ /* Updated property data */ })
+        .expect(HttpStatus.OK);
+  });
+
+// Test case for deleting an existing property
+  test("DELETE /properties/:id", async () => {
+    await request(app.getHttpServer())
+        .delete(`${"/properties"}/${existingId}`)
+        .expect(HttpStatus.OK);
+  });
+
+  // Test case for attempting to delete a non-existing property
+  test("DELETE /properties/:id non existing", async () => {
+    await request(app.getHttpServer())
+        .delete(`${"/properties"}/${nonExistingId}`)
+        .expect(HttpStatus.NOT_FOUND)
+        .expect({
+          statusCode: HttpStatus.NOT_FOUND,
+          message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
+          error: "Not Found",
+        });
+  });
+
+
 
   afterAll(async () => {
     await app.close();
