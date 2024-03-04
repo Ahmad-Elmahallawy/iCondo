@@ -26,6 +26,7 @@ import { RegistrationKey } from "./RegistrationKey";
 import { RegistrationKeyFindManyArgs } from "./RegistrationKeyFindManyArgs";
 import { RegistrationKeyWhereUniqueInput } from "./RegistrationKeyWhereUniqueInput";
 import { RegistrationKeyUpdateInput } from "./RegistrationKeyUpdateInput";
+import {Public} from "../../decorators/public.decorator";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -106,15 +107,10 @@ export class RegistrationKeyControllerBase {
     });
   }
 
-  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @Public()
   @common.Get("/:id")
   @swagger.ApiOkResponse({ type: RegistrationKey })
   @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
-  @nestAccessControl.UseRoles({
-    resource: "RegistrationKey",
-    action: "read",
-    possession: "own",
-  })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
