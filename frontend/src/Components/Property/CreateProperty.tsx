@@ -20,11 +20,7 @@ const CreateProperty: React.FC = () => {
     localStorage.getItem("companyDetails") || "{}"
   )[0];
   const token = userData.accessToken;
-  const property = JSON.parse(localStorage.getItem("property") || "{}");
-  const id = property.id;
-
-  //Bug with id being one off of what it should be, TODO for next sprint
-  const newId = id + 1;
+  let id = 0;
 
   // Formik form initialization
   const formik = useFormik({
@@ -52,6 +48,8 @@ const CreateProperty: React.FC = () => {
         });
 
         console.log("Property created successfully");
+        id = response.data.id;
+        console.log(id);
         navigate("/PropertiesList");
       } catch (error: any) {
         console.error(
@@ -69,7 +67,7 @@ const CreateProperty: React.FC = () => {
             file: file,
             bucket: "propertyfiles",
             property: {
-              id: newId,
+              id: id,
             },
           };
 

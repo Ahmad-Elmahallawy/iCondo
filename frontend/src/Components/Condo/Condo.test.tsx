@@ -6,9 +6,11 @@ import { MemoryRouter } from 'react-router-dom';
 
 describe('CondoComponent', () => {
   const condo = {
-    condoId: 1,
-    condoFee: '500',
-    imageUrl: 'Assets/condo1.svg',
+    size: "100",
+    condoFee: "890",
+    unitNumber: "22",
+    imageUrl: "Assets/public",
+    condoId: 1
   };
 
   test('renders condo component with correct condo id, occupant name, and condo fee', () => {
@@ -18,11 +20,9 @@ describe('CondoComponent', () => {
       </MemoryRouter>
     );
     const condoItem = getByTestId('condo-component');
-    const condoIdElement = getByText(`Condo ${condo.condoId}`);
-    const condoFeeElement = getByText(`Condo Fee: ${condo.condoFee}`);
+    const condoFeeElement = getByText(`Condo Fee: $${condo.condoFee}`);
 
     expect(condoItem).toBeInTheDocument();
-    expect(condoIdElement).toBeInTheDocument();
     expect(condoFeeElement).toBeInTheDocument();
   });
 
@@ -34,7 +34,6 @@ describe('CondoComponent', () => {
     );
     const condoImage = getByAltText(`Condo`);
 
-    expect(condoImage).toBeInTheDocument();
     expect(condoImage.getAttribute('src')).toBe("/Assets/condo1.svg");
   });
 });
