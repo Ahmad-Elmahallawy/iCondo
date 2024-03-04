@@ -25,7 +25,7 @@
   border: 1px solid #747264;
   border-radius: 10px;
   box-shadow: 3px 4px 1px 1px rgba(0, 0, 0, 0.25);
-  width: 100%;
+  width: 90% !important;
   padding: 2rem;
   margin: 1rem 0;
   display: flex;
@@ -35,7 +35,6 @@
 
 .requests-content {
   margin-top: 2%;
-  width: 700px;
   height: auto;
   background-color: #eeedeb;
   border: 1px solid #3c3633;
@@ -50,7 +49,7 @@
   justify-content: center;
   align-items: center;
   margin-top: 2%;
-  width: 700px;
+  width: 90%;
   height: auto;
   background-color: #eeedeb;
   border: 1px solid #3c3633;
@@ -67,7 +66,6 @@
 }
 
 .properties-and-requests-container {
-  margin-right: 2%;
   width: 700px;
 }
 
