@@ -29,6 +29,12 @@ const CREATE_RESULT = {
   name: "exampleName",
   updatedAt: new Date(),
 };
+const UPDATE_RESULT = {
+  id: 99,
+};
+const DELETE_RESULT = {
+  id: 42,
+};
 const FIND_MANY_RESULT = [
   {
     createdAt: new Date(),
@@ -42,11 +48,37 @@ const FIND_ONE_RESULT = {
   id: 42,
   name: "exampleName",
   updatedAt: new Date(),
+  statusCode: HttpStatus.OK,
 };
+const NOT_FOUND = {
+  statusCode: HttpStatus.NOT_FOUND,
+  message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
+  error: "Not Found",
+};
+const CONNECTION_OK={
+  statusCode: HttpStatus.OK,
+}
+
 
 const service = {
   createCompany() {
     return CREATE_RESULT;
+  },
+  deleteCompany({ where }: { where: { id: string } }){
+    switch (where.id) {
+      case existingId:
+        return FIND_ONE_RESULT;
+      case nonExistingId:
+        return NOT_FOUND;
+    }
+  },
+  updateCompany({ where }: { where: { id: string } }){
+    switch (where.id) {
+      case existingId:
+        return UPDATE_RESULT;
+      case nonExistingId:
+        return NOT_FOUND;
+    }
   },
   companies: () => FIND_MANY_RESULT,
   company: ({ where }: { where: { id: string } }) => {
@@ -56,6 +88,12 @@ const service = {
       case nonExistingId:
         return null;
     }
+  },
+  connectProperties(){
+    return CONNECTION_OK;
+  },
+  disconnectProperties(){
+    return CONNECTION_OK;
   },
 };
 
@@ -187,6 +225,60 @@ describe("Company", () => {
           });
       });
   });
+//update company success
+  test("PATCH /companies/:id", async () => {
+    await request(app.getHttpServer())
+        .patch(`${"/companies"}/${existingId}`)
+        .expect(HttpStatus.OK)
+        .expect(UPDATE_RESULT)
+  });
+//non existing
+  test("PATCH /companies/:id non existing", async () => {
+    await request(app.getHttpServer())
+        .patch(`${"/companies"}/${nonExistingId}`)
+        .send(NOT_FOUND)
+        .expect({
+          statusCode: HttpStatus.NOT_FOUND,
+          message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
+          error: "Not Found",
+        });
+  });
+//delete success
+  test("DELETE /companies/:id", async () => {
+    await request(app.getHttpServer())
+        .delete(`${"/companies"}/${existingId}`)
+        .expect(HttpStatus.OK)
+  });
+
+//delete doesn't exist
+  test("DELETE /companies/:id non existing", async () => {
+    await request(app.getHttpServer())
+        .delete(`${"/companies"}/${nonExistingId}`)
+        .send(NOT_FOUND)
+        .expect({
+          statusCode: HttpStatus.NOT_FOUND,
+          message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
+          error: "Not Found",
+        });
+  });
+
+//for connect properties
+  test("POST /companies/:id/properties", async () => {
+    await request(app.getHttpServer())
+        .post(`${"/companies"}/${existingId}/properties`)
+        .expect(HttpStatus.CREATED);
+  });
+
+
+//disconnect
+  test("DELETE /companies/:id/properties", async () => {
+    await request(app.getHttpServer())
+        .delete(`${"/companies"}/${existingId}/properties`)
+        .send([{ /* Property ID */ }])
+        .expect(HttpStatus.OK);
+  });
+
+
 
   afterAll(async () => {
     await app.close();
