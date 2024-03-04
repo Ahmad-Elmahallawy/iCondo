@@ -1,23 +1,31 @@
 import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
-import "../../Style/UserProfileStyle/UserInformationStyle.css";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import api from "../../api";
 
-// UserKeyRegister Component:
-// This component renders a form for user to submit registration key.
 const UserKeyRegister: React.FC = () => {
   const [key, setKey] = useState<string>("");
-  const [errorText, setErrorText] = React.useState<string>("");
-  const submitHandler = async (e: React.FormEvent<HTMLInputElement>) => {
+  const [errorText, setErrorText] = useState<string>("");
+  const [successMessage, setSuccessMessage] = useState<string>("");
+
+  const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      // Call api to register key
-      await api.registerationKeys.userRegisterKey(key);
+      const response = await api.registerationKeys.userRegisterKey(key);
+      if (response.data.length === 0) {
+        setErrorText("Error registering key");
+        setSuccessMessage("");
+      } else {
+        setSuccessMessage("Key registered successfully!");
+        setErrorText("");
+      }
+      console.log(response);
     } catch (error) {
       setErrorText("Error registering key");
+      setSuccessMessage("");
     }
   };
+
   return (
     <Box
       sx={{
@@ -35,12 +43,16 @@ const UserKeyRegister: React.FC = () => {
         error={!!errorText}
         helperText={errorText}
         label="Registration Key"
-        onInput={(e) => setKey((e.target as HTMLInputElement).value)}
+        value={key}
+        onChange={(e) => setKey(e.target.value)}
         data-testid="registrationKey"
       />
       <button className="user-information-button" type="submit">
         Submit
       </button>
+      {successMessage && (
+        <Typography color="green">{successMessage}</Typography>
+      )}
     </Box>
   );
 };
