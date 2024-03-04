@@ -58,7 +58,18 @@ const NOT_FOUND = {
 const CONNECTION_OK={
   statusCode: HttpStatus.OK,
 }
-
+const FILE_UPDATED={
+  statusCode: HttpStatus.OK,
+  message: `file updated"}`,
+}
+const FILE_FOUND={
+  statusCode: HttpStatus.OK,
+  message: `file found"}`,
+}
+const EMPLOYEES_DISCONNECTED={
+  statusCode: HttpStatus.OK,
+  message: `employees disconnected"}`,
+}
 
 const service = {
   createCompany() {
@@ -95,6 +106,22 @@ const service = {
   disconnectProperties(){
     return CONNECTION_OK;
   },
+  findProperties(){
+    return CONNECTION_OK;
+  },
+  findFile(){
+    return FILE_FOUND;
+  },
+
+  updateFile(){
+    return FILE_UPDATED;
+  },
+  disconnectCompanyEmployees(){
+    return EMPLOYEES_DISCONNECTED;
+  },
+  findCompanyEmployees(){
+    return EMPLOYEES_DISCONNECTED;
+  }
 };
 
 const basicAuthGuard = {
@@ -277,6 +304,97 @@ describe("Company", () => {
         .send([{ /* Property ID */ }])
         .expect(HttpStatus.OK);
   });
+
+  // Test cases for lines 152-157
+  test("GET /companies/:id/companyEmployees", async () => {
+    await request(app.getHttpServer())
+        .get(`${"/companies"}/${existingId}/companyEmployees`)
+        .expect(HttpStatus.OK)
+  });
+
+// Test cases for lines 186-191
+  test("POST /companies/:id/companyEmployees", async () => {
+    await request(app.getHttpServer())
+        .post(`${"/companies"}/${existingId}/companyEmployees`)
+        .expect(HttpStatus.CREATED);
+  });
+
+// Test cases for lines 207-231
+  test("PATCH /companies/:id/companyEmployees", async () => {
+    await request(app.getHttpServer())
+        .patch(`${"/companies"}/${existingId}/companyEmployees`)
+        .send([{ /* CompanyEmployeeWhereUniqueInput */ }])
+        .expect(HttpStatus.OK);
+  });
+
+// Test cases for lines 244-249
+  test("DELETE /companies/:id/companyEmployees", async () => {
+    await request(app.getHttpServer())
+        .delete(`${"/companies"}/${existingId}/companyEmployees`)
+        .send([{ /* CompanyEmployeeWhereUniqueInput */ }])
+        .expect(HttpStatus.OK);
+  });
+
+// Test cases for lines 266-271
+  test("GET /companies/:id/file", async () => {
+    await request(app.getHttpServer())
+        .get(`${"/companies"}/${existingId}/file`)
+        .expect(HttpStatus.OK)
+  });
+
+// Test cases for lines 288-293
+  test("POST /companies/:id/file", async () => {
+    await request(app.getHttpServer())
+        .post(`${"/companies"}/${existingId}/file`)
+        .expect(HttpStatus.CREATED);
+  });
+
+// Test cases for lines 312-354
+  test("PATCH /companies/:id/file", async () => {
+    await request(app.getHttpServer())
+        .patch(`${"/companies"}/${existingId}/file`)
+        .send([{ /* FileWhereUniqueInput */ }])
+        .expect(HttpStatus.OK);
+  });
+
+// Test cases for lines 367-372
+  test("DELETE /companies/:id/file", async () => {
+    await request(app.getHttpServer())
+        .delete(`${"/companies"}/${existingId}/file`)
+        .send([{ /* FileWhereUniqueInput */ }])
+        .expect(HttpStatus.OK);
+  });
+
+// Test cases for lines 389-394
+  test("GET /companies/:id/properties", async () => {
+    await request(app.getHttpServer())
+        .get(`${"/companies"}/${existingId}/properties`)
+        .expect(HttpStatus.OK)
+  });
+
+// Test cases for lines 411-416
+  test("POST /companies/:id/properties", async () => {
+    await request(app.getHttpServer())
+        .post(`${"/companies"}/${existingId}/properties`)
+        .expect(HttpStatus.CREATED);
+  });
+
+// Test cases for lines 434-460
+  test("PATCH /companies/:id/properties", async () => {
+    await request(app.getHttpServer())
+        .patch(`${"/companies"}/${existingId}/properties`)
+        .send([{ /* PropertyWhereUniqueInput */ }])
+        .expect(HttpStatus.OK);
+  });
+
+// Test cases for lines 487-492
+  test("DELETE /companies/:id/properties", async () => {
+    await request(app.getHttpServer())
+        .delete(`${"/companies"}/${existingId}/properties`)
+        .send([{ /* PropertyWhereUniqueInput */ }])
+        .expect(HttpStatus.OK);
+  });
+
 
 
 
