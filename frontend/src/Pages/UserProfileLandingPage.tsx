@@ -4,6 +4,7 @@ import "../Style/UserProfileStyle/UserProfilePageStyle.css";
 import UserInformation from "../Components/UserProfile/UserInformation";
 import Properties from "../Components/UserProfile/UserProperties";
 import Requests from "../Components/UserProfile/UserRequests";
+import UserKeyRegister from "../Components/UserProfile/UserKeyRegister";
 
 const UserProfileLandingPage = () => {
   // Check if the user is logged in
@@ -24,6 +25,9 @@ const UserProfileLandingPage = () => {
     >
       <div className="my-profile-container">
         <UserInformation data={userData} />
+        <div className="registration-key-content">
+          <UserKeyRegister />
+        </div>
       </div>
       <div className="properties-and-requests-container">
         <div className="properties-content">

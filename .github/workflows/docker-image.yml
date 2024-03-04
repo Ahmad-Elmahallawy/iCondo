@@ -3,26 +3,33 @@ name: Docker Image CI - Deploy on Main
 on:
   workflow_dispatch:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-    
+
     steps:
-    - uses: actions/checkout@v3
-    - name: Build the Docker image - frontend
-      run: docker build "frontend" --tag docker.happyfir.com/misc/soen390:latest
-    - name: Deploy - frontend
-      run: docker push docker.happyfir.com/misc/soen390:latest
-    - name: Build the Docker image - backend
-      run: docker build "backend" --tag docker.happyfir.com/misc/soen390-backend:latest
-    - name: Deploy - backend
-      run: docker push docker.happyfir.com/misc/soen390-backend:latest
-    - name: Webhook POST Action
-      uses: muinmomin/webhook-action@v1.0.0
-      with:
-        # URL of webhook to send post request to
-        url: ${{ secrets.WEBHOOK_URL }}
+      - uses: actions/checkout@v3
+      - name: Build the Docker image - frontend
+        run: docker build "frontend" --tag docker.happyfir.com/misc/soen390:latest
+      - name: Deploy - frontend
+        run: docker push docker.happyfir.com/misc/soen390:latest
+
+      - name: Build the Docker image - user-service
+        run: docker build "user-service" --tag docker.happyfir.com/misc/soen390-userservice:latest
+      - name: Deploy - user-service
+        run: docker push docker.happyfir.com/misc/soen390-userservice:latest
+      - name: Build the Docker image - server
+        run: docker build "server" --tag docker.happyfir.com/misc/soen390-server:latest
+      - name: Deploy - server
+        run: docker push docker.happyfir.com/misc/soen390-server:latest
+
+      - name: Webhook POST Action
+        uses: Wandalen/wretry.action@master
+        with:
+          action: muinmomin/webhook-action@v1.0.0
+          # URL of webhook to send post request to
+          with: |
+            url: ${{ secrets.WEBHOOK_URL }}
+          attempt_limit: 10

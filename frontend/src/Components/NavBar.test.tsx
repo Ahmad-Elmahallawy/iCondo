@@ -60,18 +60,15 @@ describe("Navbar", () => {
     const { isAuthenticated } = require("../Components/Common/AuthUtil");
     isAuthenticated.mockReturnValue(true);
     Storage.prototype.getItem = jest.fn(() =>
-      JSON.stringify({ token: "fake-token", role: "Admin" })
+      JSON.stringify({ token: "fake-token", roles: ["Admin"] }) // Ensure roles is an array
     );
-
-    render(
-      <BrowserRouter>
-        <Navbar />
-      </BrowserRouter>
-    );
-
+  
+    setup();
+  
     expect(screen.getByText("Log Out")).toBeInTheDocument();
     expect(screen.getByText("My Profile")).toBeInTheDocument();
     expect(screen.getByText("Register Employees")).toBeInTheDocument();
+    expect(screen.getByText("Dashboard")).toBeInTheDocument(); // Update this assertion
     expect(screen.queryByText("Log In")).not.toBeInTheDocument();
     expect(screen.queryByText("Register")).not.toBeInTheDocument();
   });

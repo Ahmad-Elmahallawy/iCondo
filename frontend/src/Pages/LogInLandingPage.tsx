@@ -1,4 +1,3 @@
-import React from "react";
 import "../Style/LandingPageStyle/LoginAndRegistrationLandingPageStyle.css";
 import LogIn from "../Components/Authentication/LogIn";
 

@@ -1,0 +1,62 @@
+.property-list-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.property-info-section,
+.condo-list-section {
+  display: flex;
+  flex-direction: column;
+  margin: 5rem;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 3rem;
+  border-radius: 5px;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.property-form-container {
+  width: 95%;
+}
+
+.add-unit-button {
+  padding: 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  color: var(--color1);
+  align-self: center;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.35);
+  background: var(--color3);
+  border: 1px solid var(--color3);
+  width: 95px;
+  height: 50px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 3rem 8rem 3rem 1rem;
+}
+
+.condo-list-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative; /* Needed for absolute positioning of the button */
+}
+
+@media only screen and (max-width: 768px) {
+  .property-info-section,
+  .condo-list-section {
+    width: 85%;
+    padding: 1rem;
+    margin: 1rem;
+  }
+
+  .add-unit-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 1rem;
+  }
+}

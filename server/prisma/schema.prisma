@@ -1,0 +1,136 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  companyEmployees CompanyEmployee[]
+  createdAt        DateTime          @default(now())
+  email            String            @unique
+  files            File[]
+  firstName        String?
+  id               Int               @id @default(autoincrement())
+  lastName         String?
+  password         String
+  phoneNumber      String            @unique
+  roles            Json
+  updatedAt        DateTime          @updatedAt
+  userCondos       UserCondo[]
+  username         String            @unique
+}
+
+model CondoUnit {
+  condoFee         Decimal?
+  createdAt        DateTime         @default(now())
+  file             File[]
+  id               Int              @id @default(autoincrement())
+  locker           Locker?          @relation(fields: [lockerID], references: [id])
+  lockerID         Int?             @unique
+  unitNumber       String?
+  parkingSpot      ParkingSpot[]
+  propertyID       Property?        @relation(fields: [propertyIDId], references: [id])
+  propertyIDId     Int?
+  registrationKeys RegistrationKey?
+  size             String
+  updatedAt        DateTime         @updatedAt
+  userCondos       UserCondo[]
+}
+
+model Property {
+  address      String
+  condoUnits   CondoUnit[]
+  createdAt    DateTime      @default(now())
+  files        File[]
+  id           Int           @id @default(autoincrement())
+  lockerCount  Int?
+  Lockers      Locker[]
+  name         String
+  parkingCount Int
+  ParkingSpots ParkingSpot[]
+  unitCount    Int
+  company      Company?      @relation(fields: [companyID], references: [id])
+  companyID    Int?
+  updatedAt    DateTime      @updatedAt
+}
+
+model ParkingSpot {
+  condoUnit   CondoUnit? @relation(fields: [condoUnitId], references: [id])
+  condoUnitId Int?
+  createdAt   DateTime   @default(now())
+  id          Int        @id @default(autoincrement())
+  property    Property?  @relation(fields: [propertyID], references: [id])
+  propertyID  Int?
+  updatedAt   DateTime   @updatedAt
+}
+
+model Locker {
+  condoUnits CondoUnit?
+  createdAt  DateTime   @default(now())
+  id         Int        @id @default(autoincrement())
+  property   Property?  @relation(fields: [propertyID], references: [id])
+  propertyID Int?
+  updatedAt  DateTime   @updatedAt
+}
+
+model Company {
+  companyEmployees CompanyEmployee[]
+  createdAt        DateTime          @default(now())
+  file             File[]
+  id               Int               @id @default(autoincrement())
+  name             String
+  updatedAt        DateTime?         @updatedAt
+  properties       Property[]
+}
+
+model File {
+  bucket      String
+  company     Company?   @relation(fields: [companyID], references: [id])
+  companyID   Int?
+  condoUnit   CondoUnit? @relation(fields: [condoUnitID], references: [id])
+  condoUnitID Int?
+  createdAt   DateTime   @default(now())
+  id          Int        @id @default(autoincrement())
+  name        String
+  property    Property?  @relation(fields: [propertyID], references: [id])
+  propertyID  Int?
+  updatedAt   DateTime   @updatedAt
+  user        User?      @relation(fields: [userID], references: [id])
+  userID      Int?
+}
+
+model RegistrationKey {
+  condoUnit   CondoUnit @relation(fields: [condoUnitID], references: [id])
+  condoUnitID Int       @unique
+  createdAt   DateTime  @default(now())
+  id          Int       @id @default(autoincrement())
+  updatedAt   DateTime  @updatedAt
+  value       String
+  role        Json
+}
+
+model Role {
+  id   String  @id @default(cuid())
+  name String?
+}
+
+model CompanyEmployee {
+  company   Company? @relation(fields: [companyID], references: [id])
+  companyID Int?
+  id        Int      @id @default(autoincrement())
+  user      User?    @relation(fields: [userID], references: [id])
+  userID    Int?
+}
+
+model UserCondo {
+  condo     CondoUnit? @relation(fields: [condoID], references: [id])
+  condoID   Int?
+  createdAt DateTime   @default(now())
+  id        Int        @id @default(autoincrement())
+  updatedAt DateTime   @updatedAt
+  user      User?      @relation(fields: [userID], references: [id])
+  userID    Int?
+}
