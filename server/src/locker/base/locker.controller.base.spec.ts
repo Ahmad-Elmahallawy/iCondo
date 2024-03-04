@@ -14,6 +14,7 @@ import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateReq
 import { map } from "rxjs";
 import { LockerController } from "../locker.controller";
 import { LockerService } from "../locker.service";
+import * as errors from "../../errors";
 
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
@@ -23,6 +24,16 @@ const CREATE_INPUT = {
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
+  createdAt: new Date(),
+  id: 42,
+  updatedAt: new Date(),
+};
+const UPDATE_RESULT = {
+  createdAt: new Date(),
+  id: 42,
+  updatedAt: new Date(),
+};
+const DELETE_RESULT = {
   createdAt: new Date(),
   id: 42,
   updatedAt: new Date(),
@@ -43,6 +54,26 @@ const FIND_ONE_RESULT = {
 const service = {
   createLocker() {
     return CREATE_RESULT;
+  },
+  updateLocker: ({ where }: { where: { id: string } }) => {
+    switch (where.id) {
+      case existingId:
+        return UPDATE_RESULT;
+      case nonExistingId:
+        throw new errors.NotFoundException(
+            `No resource was found for {"id":"${nonExistingId}"}`
+        );
+    }
+  },
+  deleteLocker: ({ where }: { where: { id: string } }) => {
+    switch (where.id) {
+      case existingId:
+        return DELETE_RESULT;
+      case nonExistingId:
+        throw new errors.NotFoundException(
+            `No resource was found for {"id":"${nonExistingId}"}`
+        );
+    }
   },
   lockers: () => FIND_MANY_RESULT,
   locker: ({ where }: { where: { id: string } }) => {
@@ -182,6 +213,42 @@ describe("Locker", () => {
             statusCode: HttpStatus.CONFLICT,
           });
       });
+  });
+
+  test("PATCH /lockers/:id existing", async () => {
+    await request(app.getHttpServer())
+        .patch(`${"/lockers"}/${existingId}`)
+        .expect(HttpStatus.OK)
+        .expect(JSON.stringify(UPDATE_RESULT));
+  });
+
+  test("PATCH /lockers/:id non existing", async () => {
+    await request(app.getHttpServer())
+        .patch(`${"/lockers"}/${nonExistingId}`)
+        .expect(HttpStatus.NOT_FOUND)
+        .expect({
+          statusCode: HttpStatus.NOT_FOUND,
+          message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
+          error: "Not Found",
+        });
+  });
+
+  test("DELETE /lockers/:id existing", async () => {
+    await request(app.getHttpServer())
+        .delete(`${"/lockers"}/${existingId}`)
+        .expect(HttpStatus.OK)
+        .expect(JSON.stringify(DELETE_RESULT));
+  });
+
+  test("DELETE /lockers/:id non existing", async () => {
+    await request(app.getHttpServer())
+        .delete(`${"/lockers"}/${nonExistingId}`)
+        .expect(HttpStatus.NOT_FOUND)
+        .expect({
+          statusCode: HttpStatus.NOT_FOUND,
+          message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
+          error: "Not Found",
+        });
   });
 
   afterAll(async () => {
