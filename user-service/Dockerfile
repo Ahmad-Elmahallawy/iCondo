@@ -5,7 +5,7 @@ WORKDIR /home/node/app/
 COPY package*.json ./
 
 # installs packages and their dependencies
-RUN npm ci
+RUN npm ci --silent
 
 # Copy over project files
 COPY . .
