@@ -2,7 +2,7 @@ import * as common from "@nestjs/common";
 import * as swagger from "@nestjs/swagger";
 import { isRecordNotFoundError } from "../../prisma.util";
 import * as errors from "../../errors";
-import e, {Request, response} from "express";
+import {Request} from "express";
 import { plainToClass } from "class-transformer";
 import { ApiNestedQuery } from "../../decorators/api-nested-query.decorator";
 import * as nestAccessControl from "nest-access-control";
@@ -177,7 +177,18 @@ export class FileControllerBase {
   })
   async file(
     @common.Param() params: FileWhereUniqueInput
-  ): Promise<e.Response<any, Record<string, any>>> {
+  ): Promise<{
+      bucket: string;
+      createdAt: Date;
+      companyID: number | null;
+      name: string;
+      condoUnitID: number | null;
+      id: number;
+      propertyID: number | null;
+      userID: number | null;
+      url: unknown;
+      updatedAt: Date
+  }> {
 
     const result = await this.service.file({
       where: params,
@@ -221,12 +232,10 @@ export class FileControllerBase {
         `No resource was found for ${JSON.stringify(params)}`
       );
     }
-    console.log(result)
-    const link= await this.minioServer.getFile(result?.bucket, result.name)
+    const link = await this.minioServer.getFile(result?.bucket, result.name)
     console.log(result)
     console.log(link)
-    return response.json({result, url: link})
-
+    return {...result, url: link};
   }
 
   @common.UseInterceptors(AclValidateRequestInterceptor)

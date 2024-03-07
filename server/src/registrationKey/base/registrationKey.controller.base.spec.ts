@@ -14,6 +14,7 @@ import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateReq
 import { map } from "rxjs";
 import { RegistrationKeyController } from "../registrationKey.controller";
 import { RegistrationKeyService } from "../registrationKey.service";
+import * as errors from "../../errors";
 
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
@@ -29,6 +30,16 @@ const CREATE_RESULT = {
   updatedAt: new Date(),
   value: "exampleValue",
 };
+const UPDATE_RESULT = {
+  createdAt: new Date(),
+  id: 42,
+  updatedAt: new Date(),
+};
+const DELETE_RESULT = {
+  createdAt: new Date(),
+  id: 42,
+  updatedAt: new Date(),
+};
 const FIND_MANY_RESULT = [
   {
     createdAt: new Date(),
@@ -43,10 +54,35 @@ const FIND_ONE_RESULT = {
   updatedAt: new Date(),
   value: "exampleValue",
 };
+const NOT_FOUND = {
+  statusCode: HttpStatus.NOT_FOUND,
+  message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
+  error: "Not Found",
+};
 
 const service = {
   createRegistrationKey() {
     return CREATE_RESULT;
+  },
+  updateRegistrationKey: ({ where }: { where: { id: string } }) => {
+    switch (where.id) {
+      case existingId:
+        return UPDATE_RESULT;
+      case nonExistingId:
+        throw new errors.NotFoundException(
+            `No resource was found for {"id":"${nonExistingId}"}`
+        );
+    }
+  },
+  deleteRegistrationKey: ({ where }: { where: { id: string } }) => {
+    switch (where.id) {
+      case existingId:
+        return DELETE_RESULT;
+      case nonExistingId:
+        throw new errors.NotFoundException(
+            `No resource was found for {"id":"${nonExistingId}"}`
+        );
+    }
   },
   registrationKeys: () => FIND_MANY_RESULT,
   registrationKey: ({ where }: { where: { id: string } }) => {
@@ -148,11 +184,7 @@ describe("RegistrationKey", () => {
     await request(app.getHttpServer())
       .get(`${"/registrationKeys"}/${nonExistingId}`)
       .expect(HttpStatus.NOT_FOUND)
-      .expect({
-        statusCode: HttpStatus.NOT_FOUND,
-        message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
-        error: "Not Found",
-      });
+      .expect(NOT_FOUND);
   });
 
   test("GET /registrationKeys/:id existing", async () => {
@@ -186,6 +218,34 @@ describe("RegistrationKey", () => {
             statusCode: HttpStatus.CONFLICT,
           });
       });
+  });
+
+  test("PATCH /registrationKeys/:id existing", async () => {
+    await request(app.getHttpServer())
+        .patch(`${"/registrationKeys"}/${existingId}`)
+        .expect(HttpStatus.OK)
+        .expect(JSON.stringify(UPDATE_RESULT));
+  });
+
+  test("PATCH /registrationKeys/:id non existing", async () => {
+    await request(app.getHttpServer())
+        .patch(`${"/registrationKeys"}/${nonExistingId}`)
+        .expect(HttpStatus.NOT_FOUND)
+        .expect(NOT_FOUND);
+  });
+
+  test("DELETE /registrationKeys/:id existing", async () => {
+    await request(app.getHttpServer())
+        .delete(`${"/registrationKeys"}/${existingId}`)
+        .expect(HttpStatus.OK)
+        .expect(JSON.stringify(DELETE_RESULT));
+  });
+
+  test("DELETE /registrationKeys/:id non existing", async () => {
+    await request(app.getHttpServer())
+        .delete(`${"/registrationKeys"}/${nonExistingId}`)
+        .expect(HttpStatus.NOT_FOUND)
+        .expect(NOT_FOUND);
   });
 
   afterAll(async () => {
