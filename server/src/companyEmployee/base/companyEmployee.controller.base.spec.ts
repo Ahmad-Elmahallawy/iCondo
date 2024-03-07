@@ -38,6 +38,11 @@ const FIND_MANY_RESULT = [
 const FIND_ONE_RESULT = {
   id: 42,
 };
+const NOT_FOUND = {
+  statusCode: HttpStatus.NOT_FOUND,
+  message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
+  error: "Not Found",
+};
 
 const service = {
   createCompanyEmployee() {
@@ -196,11 +201,7 @@ describe("CompanyEmployee", () => {
     await request(app.getHttpServer())
         .patch(`${"/companyEmployees"}/${nonExistingId}`)
         .expect(HttpStatus.NOT_FOUND)
-        .expect({
-          statusCode: HttpStatus.NOT_FOUND,
-          message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
-          error: "Not Found",
-        });
+        .expect(NOT_FOUND);
   });
 
   test("DELETE /companyEmployees/:id existing", async () => {
@@ -214,11 +215,7 @@ describe("CompanyEmployee", () => {
     await request(app.getHttpServer())
         .delete(`${"/companyEmployees"}/${nonExistingId}`)
         .expect(HttpStatus.NOT_FOUND)
-        .expect({
-          statusCode: HttpStatus.NOT_FOUND,
-          message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
-          error: "Not Found",
-        });
+        .expect(NOT_FOUND);
   });
 
 

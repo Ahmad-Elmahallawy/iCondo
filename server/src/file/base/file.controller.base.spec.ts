@@ -63,6 +63,11 @@ const FIND_ONE_RESULT = {
   name: "exampleName",
   updatedAt: new Date(),
 };
+const NOT_FOUND = {
+  statusCode: HttpStatus.NOT_FOUND,
+  message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
+  error: "Not Found",
+};
 // @ts-ignore
 const mockFile : Express.Multer.File = {
   fieldname: 'file',
@@ -207,11 +212,7 @@ describe("File", () => {
     await request(app.getHttpServer())
       .get(`${"/files"}/${nonExistingId}`)
       .expect(HttpStatus.NOT_FOUND)
-      .expect({
-        statusCode: HttpStatus.NOT_FOUND,
-        message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
-        error: "Not Found",
-      });
+      .expect(NOT_FOUND);
   });
 
   test("GET /files/:id existing", async () => {
@@ -259,11 +260,7 @@ describe("File", () => {
     await request(app.getHttpServer())
         .patch(`${"/files"}/${nonExistingId}`)
         .expect(HttpStatus.NOT_FOUND)
-        .expect({
-          statusCode: HttpStatus.NOT_FOUND,
-          message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
-          error: "Not Found",
-        });
+        .expect(NOT_FOUND);
   });
 
   test("DELETE /files/:id existing", async () => {
@@ -277,11 +274,7 @@ describe("File", () => {
     await request(app.getHttpServer())
         .delete(`${"/files"}/${nonExistingId}`)
         .expect(HttpStatus.NOT_FOUND)
-        .expect({
-          statusCode: HttpStatus.NOT_FOUND,
-          message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
-          error: "Not Found",
-        });
+        .expect(NOT_FOUND);
   });
 
   afterAll(async () => {

@@ -50,6 +50,11 @@ const FIND_ONE_RESULT = {
   id: 42,
   updatedAt: new Date(),
 };
+const NOT_FOUND = {
+  statusCode: HttpStatus.NOT_FOUND,
+  message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
+  error: "Not Found",
+};
 
 const service = {
   createUserCondo() {
@@ -226,11 +231,7 @@ describe("UserCondo", () => {
     await request(app.getHttpServer())
         .patch(`${"/userCondos"}/${nonExistingId}`)
         .expect(HttpStatus.NOT_FOUND)
-        .expect({
-          statusCode: HttpStatus.NOT_FOUND,
-          message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
-          error: "Not Found",
-        });
+        .expect(NOT_FOUND);
   });
 
   test("DELETE /userCondos/:id existing", async () => {
@@ -244,11 +245,7 @@ describe("UserCondo", () => {
     await request(app.getHttpServer())
         .delete(`${"/userCondos"}/${nonExistingId}`)
         .expect(HttpStatus.NOT_FOUND)
-        .expect({
-          statusCode: HttpStatus.NOT_FOUND,
-          message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
-          error: "Not Found",
-        });
+        .expect(NOT_FOUND);
   });
 
   afterAll(async () => {

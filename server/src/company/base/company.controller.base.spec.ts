@@ -213,11 +213,7 @@ describe("Company", () => {
     await request(app.getHttpServer())
       .get(`${"/companies"}/${nonExistingId}`)
       .expect(HttpStatus.NOT_FOUND)
-      .expect({
-        statusCode: HttpStatus.NOT_FOUND,
-        message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
-        error: "Not Found",
-      });
+      .expect(NOT_FOUND);
   });
 
   test("GET /companies/:id existing", async () => {
@@ -264,11 +260,7 @@ describe("Company", () => {
     await request(app.getHttpServer())
         .patch(`${"/companies"}/${nonExistingId}`)
         .send(NOT_FOUND)
-        .expect({
-          statusCode: HttpStatus.NOT_FOUND,
-          message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
-          error: "Not Found",
-        });
+        .expect(NOT_FOUND);
   });
 //delete success
   test("DELETE /companies/:id", async () => {
@@ -282,11 +274,7 @@ describe("Company", () => {
     await request(app.getHttpServer())
         .delete(`${"/companies"}/${nonExistingId}`)
         .send(NOT_FOUND)
-        .expect({
-          statusCode: HttpStatus.NOT_FOUND,
-          message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
-          error: "Not Found",
-        });
+        .expect(NOT_FOUND);
   });
 
 //for connect properties

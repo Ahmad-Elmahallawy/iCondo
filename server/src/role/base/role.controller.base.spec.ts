@@ -44,6 +44,11 @@ const FIND_ONE_RESULT = {
   id: "exampleId",
   name: "exampleName",
 };
+const NOT_FOUND = {
+  statusCode: HttpStatus.NOT_FOUND,
+  message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
+  error: "Not Found",
+};
 
 const service = {
   createRole() {
@@ -159,11 +164,7 @@ describe("Role", () => {
     await request(app.getHttpServer())
       .get(`${"/roles"}/${nonExistingId}`)
       .expect(HttpStatus.NOT_FOUND)
-      .expect({
-        statusCode: HttpStatus.NOT_FOUND,
-        message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
-        error: "Not Found",
-      });
+      .expect(NOT_FOUND);
   });
 
   test("GET /roles/:id existing", async () => {
@@ -202,11 +203,7 @@ describe("Role", () => {
     await request(app.getHttpServer())
         .patch(`${"/roles"}/${nonExistingId}`)
         .expect(HttpStatus.NOT_FOUND)
-        .expect({
-          statusCode: HttpStatus.NOT_FOUND,
-          message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
-          error: "Not Found",
-        });
+        .expect(NOT_FOUND);
   });
 
   test("DELETE /roles/:id existing", async () => {
@@ -220,11 +217,7 @@ describe("Role", () => {
     await request(app.getHttpServer())
         .delete(`${"/roles"}/${nonExistingId}`)
         .expect(HttpStatus.NOT_FOUND)
-        .expect({
-          statusCode: HttpStatus.NOT_FOUND,
-          message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
-          error: "Not Found",
-        });
+        .expect(NOT_FOUND);
   });
 
   afterAll(async () => {

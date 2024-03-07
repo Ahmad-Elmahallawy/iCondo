@@ -61,6 +61,11 @@ const FIND_ONE_RESULT = {
   unitCount: 42,
   updatedAt: new Date(),
 };
+const NOT_FOUND = {
+  statusCode: HttpStatus.NOT_FOUND,
+  message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
+  error: "Not Found",
+};
 const UPDATED_PROPERTY = {
   statusCode: HttpStatus.OK,
   message: `Property updated"}`,
@@ -199,11 +204,7 @@ describe("Property", () => {
     await request(app.getHttpServer())
       .get(`${"/properties"}/${nonExistingId}`)
       .expect(HttpStatus.NOT_FOUND)
-      .expect({
-        statusCode: HttpStatus.NOT_FOUND,
-        message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
-        error: "Not Found",
-      });
+      .expect(NOT_FOUND);
   });
 
   test("GET /properties/:id existing", async () => {
@@ -258,11 +259,7 @@ describe("Property", () => {
     await request(app.getHttpServer())
         .delete(`${"/properties"}/${nonExistingId}`)
         .expect(HttpStatus.NOT_FOUND)
-        .expect({
-          statusCode: HttpStatus.NOT_FOUND,
-          message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
-          error: "Not Found",
-        });
+        .expect(NOT_FOUND);
   });
 
 // Test case for attempting to create a property with invalid data
@@ -279,11 +276,7 @@ describe("Property", () => {
         .patch(`${"/properties"}/${nonExistingId}`)
         .send({ /* Updated property data */ })
         .expect(HttpStatus.NOT_FOUND)
-        .expect({
-          statusCode: HttpStatus.NOT_FOUND,
-          message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
-          error: "Not Found",
-        });
+        .expect(NOT_FOUND);
   });
 
   // Test case for attempting to retrieve a non-existing property

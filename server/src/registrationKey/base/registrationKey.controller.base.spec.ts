@@ -54,6 +54,11 @@ const FIND_ONE_RESULT = {
   updatedAt: new Date(),
   value: "exampleValue",
 };
+const NOT_FOUND = {
+  statusCode: HttpStatus.NOT_FOUND,
+  message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
+  error: "Not Found",
+};
 
 const service = {
   createRegistrationKey() {
@@ -179,11 +184,7 @@ describe("RegistrationKey", () => {
     await request(app.getHttpServer())
       .get(`${"/registrationKeys"}/${nonExistingId}`)
       .expect(HttpStatus.NOT_FOUND)
-      .expect({
-        statusCode: HttpStatus.NOT_FOUND,
-        message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
-        error: "Not Found",
-      });
+      .expect(NOT_FOUND);
   });
 
   test("GET /registrationKeys/:id existing", async () => {
@@ -230,11 +231,7 @@ describe("RegistrationKey", () => {
     await request(app.getHttpServer())
         .patch(`${"/registrationKeys"}/${nonExistingId}`)
         .expect(HttpStatus.NOT_FOUND)
-        .expect({
-          statusCode: HttpStatus.NOT_FOUND,
-          message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
-          error: "Not Found",
-        });
+        .expect(NOT_FOUND);
   });
 
   test("DELETE /registrationKeys/:id existing", async () => {
@@ -248,11 +245,7 @@ describe("RegistrationKey", () => {
     await request(app.getHttpServer())
         .delete(`${"/registrationKeys"}/${nonExistingId}`)
         .expect(HttpStatus.NOT_FOUND)
-        .expect({
-          statusCode: HttpStatus.NOT_FOUND,
-          message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
-          error: "Not Found",
-        });
+        .expect(NOT_FOUND);
   });
 
   afterAll(async () => {

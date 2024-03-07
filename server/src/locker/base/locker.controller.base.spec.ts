@@ -50,6 +50,11 @@ const FIND_ONE_RESULT = {
   id: 42,
   updatedAt: new Date(),
 };
+const NOT_FOUND = {
+  statusCode: HttpStatus.NOT_FOUND,
+  message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
+  error: "Not Found",
+};
 
 const service = {
   createLocker() {
@@ -175,11 +180,7 @@ describe("Locker", () => {
     await request(app.getHttpServer())
       .get(`${"/lockers"}/${nonExistingId}`)
       .expect(HttpStatus.NOT_FOUND)
-      .expect({
-        statusCode: HttpStatus.NOT_FOUND,
-        message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
-        error: "Not Found",
-      });
+      .expect(NOT_FOUND);
   });
 
   test("GET /lockers/:id existing", async () => {
@@ -226,11 +227,7 @@ describe("Locker", () => {
     await request(app.getHttpServer())
         .patch(`${"/lockers"}/${nonExistingId}`)
         .expect(HttpStatus.NOT_FOUND)
-        .expect({
-          statusCode: HttpStatus.NOT_FOUND,
-          message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
-          error: "Not Found",
-        });
+        .expect(NOT_FOUND);
   });
 
   test("DELETE /lockers/:id existing", async () => {
@@ -244,11 +241,7 @@ describe("Locker", () => {
     await request(app.getHttpServer())
         .delete(`${"/lockers"}/${nonExistingId}`)
         .expect(HttpStatus.NOT_FOUND)
-        .expect({
-          statusCode: HttpStatus.NOT_FOUND,
-          message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
-          error: "Not Found",
-        });
+        .expect(NOT_FOUND);
   });
 
   afterAll(async () => {
