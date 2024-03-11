@@ -1,0 +1,23 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input Credentials {
+  password: String!
+  username: String!
+}
+
+type Mutation {
+  login(credentials: Credentials!): UserInfo!
+}
+
+type Query {
+  userInfo: UserInfo!
+}
+
+type UserInfo {
+  accessToken: String
+  id: Float!
+  roles: [String!]!
+  username: String!
+}
