@@ -10,6 +10,9 @@ const urls = {
   registrationKeys: {
     userRegister: `${apiPrefix}/registrationKeys`,
   },
+  requests: {
+    submitRequest: `${apiPrefix}/requests`,
+  },
 };
 
 export default urls;
