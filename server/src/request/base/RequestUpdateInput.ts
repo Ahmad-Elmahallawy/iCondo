@@ -3,7 +3,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { CompanyWhereUniqueInput } from "../../company/base/CompanyWhereUniqueInput";
 import { ValidateNested, IsOptional, IsEnum } from "class-validator";
 import { Type } from "class-transformer";
-import { EnumRequestRequestType } from "./EnumRequestRequestType";
+import { EnumRequestType } from "./EnumRequestType";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 
 @InputType()
@@ -22,11 +22,11 @@ class RequestUpdateInput {
 
   @ApiProperty({
     required: false,
-    enum: EnumRequestRequestType,
+    enum: EnumRequestType,
   })
-  @IsEnum(EnumRequestRequestType)
+  @IsEnum(EnumRequestType)
   @IsOptional()
-  @Field(() => EnumRequestRequestType, {
+  @Field(() => EnumRequestType, {
     nullable: true,
   })
   requestType?:

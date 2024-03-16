@@ -64,7 +64,7 @@ enum EnumCommonFacilityType {
   Type_3
 }
 
-enum EnumRequestRequestType {
+enum EnumRequestType {
   Type_1
   Type_2
   Type_3
@@ -212,14 +212,14 @@ type Request {
   company: Company
   createdAt: DateTime!
   id: String!
-  requestType: EnumRequestRequestType
+  requestType: EnumRequestType
   updatedAt: DateTime!
   user: User
 }
 
 input RequestCreateInput {
   company: CompanyWhereUniqueInput
-  requestType: EnumRequestRequestType
+  requestType: EnumRequestType
   user: UserWhereUniqueInput
 }
 
@@ -234,14 +234,14 @@ input RequestOrderByInput {
 
 input RequestUpdateInput {
   company: CompanyWhereUniqueInput
-  requestType: EnumRequestRequestType
+  requestType: EnumRequestType
   user: UserWhereUniqueInput
 }
 
 input RequestWhereInput {
   company: CompanyWhereUniqueInput
   id: StringFilter
-  requestType: EnumRequestRequestType
+  requestType: EnumRequestType
   user: UserWhereUniqueInput
 }
 
