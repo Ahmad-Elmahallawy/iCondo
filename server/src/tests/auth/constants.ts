@@ -1,7 +1,7 @@
 import { Credentials } from "../../auth/Credentials";
 import { UserInfo } from "../../auth/UserInfo";
 
-export const VALID_ID = "1";
+export const VALID_ID = 1;
 
 export const TEST_USER: UserInfo = {
   id: 1,
