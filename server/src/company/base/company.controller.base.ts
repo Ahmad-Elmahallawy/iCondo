@@ -3,7 +3,8 @@ import * as swagger from "@nestjs/swagger";
 import { isRecordNotFoundError } from "../../prisma.util";
 import * as errors from "../../errors";
 import { Request } from "express";
-import { Request } from "../../request/base/Request";
+// @ts-ignore
+import { RequestObject } from "../../request/base/Request";
 import { Post } from "../../post/base/Post";
 import { plainToClass } from "class-transformer";
 import { ApiNestedQuery } from "../../decorators/api-nested-query.decorator";
@@ -521,7 +522,7 @@ export class CompanyControllerBase {
   async findRequests(
       @common.Req() request: Request,
       @common.Param() params: CompanyWhereUniqueInput
-  ): Promise<Request[]> {
+  ): Promise<RequestObject[]> {
     const query = plainToClass(RequestFindManyArgs, request.query);
     const results = await this.service.findRequests(params.id, {
       ...query,
