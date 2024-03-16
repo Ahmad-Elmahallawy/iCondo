@@ -1,0 +1,57 @@
+.app {
+  font-family: "Times New Roman", sans-serif;
+  background-color: #e5e5e5;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 50px;
+}
+
+.notifications-heading {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.notifications-box {
+  width: 300%; /* Adjust as necessary */
+  height: 60%;
+  max-width: 500px; /* Adjust as necessary */
+  background: #ffffff;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.notification-item {
+  position: relative;
+  padding: 10px 0;
+  color: #333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.notification-item::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0%; /* Adjust the space on the left */
+  right: 0%; /* Adjust the space on the right */
+  height: 1px;
+  background: #000;
+}
+
+.close-btn {
+  border: none;
+  background-color: transparent;
+  color: #ff5b5b;
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+.close-btn:hover {
+  color: #ff0000;
+}
