@@ -14,7 +14,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { ReservationListRelationFilter } from "../../reservation/base/ReservationListRelationFilter";
 import { ValidateNested, IsOptional, IsEnum } from "class-validator";
 import { Type } from "class-transformer";
-import { EnumCommonFacilityFacilityType } from "./EnumCommonFacilityFacilityType";
+import { EnumCommonFacilityType } from "./EnumCommonFacilityType";
 import { StringFilter } from "../../util/StringFilter";
 
 @InputType()
@@ -33,11 +33,11 @@ class CommonFacilityWhereInput {
 
   @ApiProperty({
     required: false,
-    enum: EnumCommonFacilityFacilityType,
+    enum: EnumCommonFacilityType,
   })
-  @IsEnum(EnumCommonFacilityFacilityType)
+  @IsEnum(EnumCommonFacilityType)
   @IsOptional()
-  @Field(() => EnumCommonFacilityFacilityType, {
+  @Field(() => EnumCommonFacilityType, {
     nullable: true,
   })
   facilityType?: "sky_lounge" | "spa_fitness" | "sauna";
