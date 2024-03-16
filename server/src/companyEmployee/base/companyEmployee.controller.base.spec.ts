@@ -14,6 +14,7 @@ import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateReq
 import { map } from "rxjs";
 import { CompanyEmployeeController } from "../companyEmployee.controller";
 import { CompanyEmployeeService } from "../companyEmployee.service";
+import * as errors from "../../errors";
 
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
@@ -21,6 +22,12 @@ const CREATE_INPUT = {
   id: 42,
 };
 const CREATE_RESULT = {
+  id: 42,
+};
+const UPDATE_RESULT = {
+  id: 42,
+};
+const DELETE_RESULT = {
   id: 42,
 };
 const FIND_MANY_RESULT = [
@@ -31,10 +38,35 @@ const FIND_MANY_RESULT = [
 const FIND_ONE_RESULT = {
   id: 42,
 };
+const NOT_FOUND = {
+  statusCode: HttpStatus.NOT_FOUND,
+  message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
+  error: "Not Found",
+};
 
 const service = {
   createCompanyEmployee() {
     return CREATE_RESULT;
+  },
+  updateCompanyEmployee: ({ where }: { where: { id: string } }) => {
+    switch (where.id) {
+      case existingId:
+        return UPDATE_RESULT;
+      case nonExistingId:
+        throw new errors.NotFoundException(
+            `No resource was found for {"id":"${nonExistingId}"}`
+        );
+    }
+  },
+  deleteCompanyEmployee: ({ where }: { where: { id: string } }) => {
+    switch (where.id) {
+      case existingId:
+        return DELETE_RESULT;
+      case nonExistingId:
+        throw new errors.NotFoundException(
+            `No resource was found for {"id":"${nonExistingId}"}`
+        );
+    }
   },
   companyEmployees: () => FIND_MANY_RESULT,
   companyEmployee: ({ where }: { where: { id: string } }) => {
@@ -157,6 +189,35 @@ describe("CompanyEmployee", () => {
           });
       });
   });
+
+  test("PATCH /companyEmployees/:id existing", async () => {
+    await request(app.getHttpServer())
+            .patch(`${"/companyEmployees"}/${existingId}`)
+            .expect(HttpStatus.OK)
+            .expect(UPDATE_RESULT);
+  });
+
+  test("PATCH /companyEmployees/:id non existing", async () => {
+    await request(app.getHttpServer())
+        .patch(`${"/companyEmployees"}/${nonExistingId}`)
+        .expect(HttpStatus.NOT_FOUND)
+        .expect(NOT_FOUND);
+  });
+
+  test("DELETE /companyEmployees/:id existing", async () => {
+    await request(app.getHttpServer())
+        .delete(`${"/companyEmployees"}/${existingId}`)
+        .expect(HttpStatus.OK)
+        .expect(DELETE_RESULT);
+  });
+
+  test("DELETE /companyEmployees/:id non existing", async () => {
+    await request(app.getHttpServer())
+        .delete(`${"/companyEmployees"}/${nonExistingId}`)
+        .expect(HttpStatus.NOT_FOUND)
+        .expect(NOT_FOUND);
+  });
+
 
   afterAll(async () => {
     await app.close();

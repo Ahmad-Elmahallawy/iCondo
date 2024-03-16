@@ -12,6 +12,11 @@ import { RegistrationKeyModule } from "./registrationKey/registrationKey.module"
 import { RoleModule } from "./role/role.module";
 import { CompanyEmployeeModule } from "./companyEmployee/companyEmployee.module";
 import { UserCondoModule } from "./userCondo/userCondo.module";
+import { ForumModule } from "./forum/forum.module";
+import { PostModule } from "./post/post.module";
+import { CommonFacilityModule } from "./commonFacility/commonFacility.module";
+import { ReservationModule } from "./reservation/reservation.module";
+import { RequestModule } from "./request/request.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
@@ -40,6 +45,11 @@ import { AuthModule } from "./auth/auth.module";
     RoleModule,
     CompanyEmployeeModule,
     UserCondoModule,
+    ForumModule,
+    PostModule,
+    CommonFacilityModule,
+    ReservationModule,
+    RequestModule,
     HealthModule,
     PrismaModule,
     SecretsManagerModule,

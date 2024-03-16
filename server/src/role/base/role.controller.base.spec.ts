@@ -14,6 +14,7 @@ import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateReq
 import { map } from "rxjs";
 import { RoleController } from "../role.controller";
 import { RoleService } from "../role.service";
+import * as errors from "../../errors";
 
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
@@ -22,6 +23,14 @@ const CREATE_INPUT = {
   name: "exampleName",
 };
 const CREATE_RESULT = {
+  id: "exampleId",
+  name: "exampleName",
+};
+const UPDATE_RESULT = {
+  id: "exampleId",
+  name: "exampleName",
+};
+const DELETE_RESULT = {
   id: "exampleId",
   name: "exampleName",
 };
@@ -35,10 +44,35 @@ const FIND_ONE_RESULT = {
   id: "exampleId",
   name: "exampleName",
 };
+const NOT_FOUND = {
+  statusCode: HttpStatus.NOT_FOUND,
+  message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
+  error: "Not Found",
+};
 
 const service = {
   createRole() {
     return CREATE_RESULT;
+  },
+  updateRole: ({ where }: { where: { id: string } }) => {
+    switch (where.id) {
+      case existingId:
+        return UPDATE_RESULT;
+      case nonExistingId:
+        throw new errors.NotFoundException(
+            `No resource was found for {"id":"${nonExistingId}"}`
+        );
+    }
+  },
+  deleteRole: ({ where }: { where: { id: string } }) => {
+    switch (where.id) {
+      case existingId:
+        return DELETE_RESULT;
+      case nonExistingId:
+        throw new errors.NotFoundException(
+            `No resource was found for {"id":"${nonExistingId}"}`
+        );
+    }
   },
   roles: () => FIND_MANY_RESULT,
   role: ({ where }: { where: { id: string } }) => {
@@ -130,11 +164,7 @@ describe("Role", () => {
     await request(app.getHttpServer())
       .get(`${"/roles"}/${nonExistingId}`)
       .expect(HttpStatus.NOT_FOUND)
-      .expect({
-        statusCode: HttpStatus.NOT_FOUND,
-        message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
-        error: "Not Found",
-      });
+      .expect(NOT_FOUND);
   });
 
   test("GET /roles/:id existing", async () => {
@@ -160,6 +190,34 @@ describe("Role", () => {
             statusCode: HttpStatus.CONFLICT,
           });
       });
+  });
+
+  test("PATCH /roles/:id existing", async () => {
+    await request(app.getHttpServer())
+        .patch(`${"/roles"}/${existingId}`)
+        .expect(HttpStatus.OK)
+        .expect(JSON.stringify(UPDATE_RESULT));
+  });
+
+  test("PATCH /roles/:id non existing", async () => {
+    await request(app.getHttpServer())
+        .patch(`${"/roles"}/${nonExistingId}`)
+        .expect(HttpStatus.NOT_FOUND)
+        .expect(NOT_FOUND);
+  });
+
+  test("DELETE /roles/:id existing", async () => {
+    await request(app.getHttpServer())
+        .delete(`${"/roles"}/${existingId}`)
+        .expect(HttpStatus.OK)
+        .expect(JSON.stringify(DELETE_RESULT));
+  });
+
+  test("DELETE /roles/:id non existing", async () => {
+    await request(app.getHttpServer())
+        .delete(`${"/roles"}/${nonExistingId}`)
+        .expect(HttpStatus.NOT_FOUND)
+        .expect(NOT_FOUND);
   });
 
   afterAll(async () => {
