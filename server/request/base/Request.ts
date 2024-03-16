@@ -20,7 +20,7 @@ import {
   IsEnum,
 } from "class-validator";
 import { Type } from "class-transformer";
-import { EnumRequestRequestType } from "./EnumRequestRequestType";
+import { EnumRequestType } from "./EnumRequestType";
 import { User } from "../../user/base/User";
 
 @ObjectType()
