@@ -17,6 +17,9 @@ model User {
   lastName         String?
   password         String
   phoneNumber      String            @unique
+  posts            Post[]
+  requests         Request[]
+  reservations     Reservation[]
   roles            Json
   updatedAt        DateTime          @updatedAt
   userCondos       UserCondo[]
@@ -30,18 +33,20 @@ model CondoUnit {
   id               Int              @id @default(autoincrement())
   locker           Locker?          @relation(fields: [lockerID], references: [id])
   lockerID         Int?             @unique
-  unitNumber       String?
   parkingSpot      ParkingSpot[]
   propertyID       Property?        @relation(fields: [propertyIDId], references: [id])
   propertyIDId     Int?
   registrationKeys RegistrationKey?
   size             String
+  unitNumber       String?
   updatedAt        DateTime         @updatedAt
   userCondos       UserCondo[]
 }
 
 model Property {
   address      String
+  company      Company?      @relation(fields: [companyID], references: [id])
+  companyID    Int?
   condoUnits   CondoUnit[]
   createdAt    DateTime      @default(now())
   files        File[]
@@ -52,8 +57,6 @@ model Property {
   parkingCount Int
   ParkingSpots ParkingSpot[]
   unitCount    Int
-  company      Company?      @relation(fields: [companyID], references: [id])
-  companyID    Int?
   updatedAt    DateTime      @updatedAt
 }
 
@@ -82,8 +85,9 @@ model Company {
   file             File[]
   id               Int               @id @default(autoincrement())
   name             String
-  updatedAt        DateTime?         @updatedAt
   properties       Property[]
+  requests         Request[]
+  updatedAt        DateTime?         @updatedAt
 }
 
 model File {
@@ -107,9 +111,9 @@ model RegistrationKey {
   condoUnitID Int       @unique
   createdAt   DateTime  @default(now())
   id          Int       @id @default(autoincrement())
+  role        Json
   updatedAt   DateTime  @updatedAt
   value       String
-  role        Json
 }
 
 model Role {
@@ -133,4 +137,68 @@ model UserCondo {
   updatedAt DateTime   @updatedAt
   user      User?      @relation(fields: [userID], references: [id])
   userID    Int?
+}
+
+model Forum {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  posts     Post[]
+  updatedAt DateTime @updatedAt
+}
+
+model Post {
+  createdAt DateTime @default(now())
+  forum     Forum?   @relation(fields: [forumID], references: [id])
+  forumID   String?
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+  user      User?    @relation(fields: [userID], references: [id])
+  userID    Int?
+}
+
+model CommonFacility {
+  availabilities Reservation[]
+  createdAt      DateTime                        @default(now())
+  facilityType   EnumCommonFacilityFacilityType?
+  id             String                          @id @default(cuid())
+  updatedAt      DateTime                        @updatedAt
+}
+
+model Reservation {
+  availablity        String?
+  commonFacilityID   CommonFacility? @relation(fields: [commonFacilityIDId], references: [id])
+  commonFacilityIDId String?
+  createdAt          DateTime        @default(now())
+  id                 String          @id @default(cuid())
+  notes              String?
+  updatedAt          DateTime        @updatedAt
+  user               User?           @relation(fields: [userID], references: [id])
+  userID             Int?
+}
+
+model Request {
+  company     Company?                @relation(fields: [companyID], references: [id])
+  companyID   Int?
+  createdAt   DateTime                @default(now())
+  id          String                  @id @default(cuid())
+  requestType EnumRequestRequestType?
+  updatedAt   DateTime                @updatedAt
+  user        User?                   @relation(fields: [userID], references: [id])
+  userID      Int?
+}
+
+enum EnumCommonFacilityFacilityType {
+  sky_lounge
+  spa_fitness
+  sauna
+}
+
+enum EnumRequestRequestType {
+  moving_in
+  moving_out
+  intercom_change
+  access_request
+  violation_report
+  deficiency_report
+  question
 }
