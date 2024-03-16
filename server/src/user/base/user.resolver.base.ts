@@ -23,7 +23,7 @@ import { File } from "../../file/base/File";
 import { PostFindManyArgs } from "../../post/base/PostFindManyArgs";
 import { Post } from "../../post/base/Post";
 import { RequestFindManyArgs } from "../../request/base/RequestFindManyArgs";
-import { Request } from "../../request/base/Request";
+import { RequestObject } from "../../request/base/Request";
 import { ReservationFindManyArgs } from "../../reservation/base/ReservationFindManyArgs";
 import { Reservation } from "../../reservation/base/Reservation";
 import { UserCondoFindManyArgs } from "../../userCondo/base/UserCondoFindManyArgs";
@@ -200,7 +200,7 @@ export class UserResolverBase {
   async findRequests(
       @graphql.Parent() parent: User,
       @graphql.Args() args: RequestFindManyArgs
-  ): Promise<Request[]> {
+  ): Promise<RequestObject[]> {
     const results = await this.service.findRequests(parent.id, args);
 
     if (!results) {

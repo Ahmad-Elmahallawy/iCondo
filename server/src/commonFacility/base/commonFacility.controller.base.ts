@@ -21,7 +21,6 @@ import * as defaultAuthGuard from "../../auth/defaultAuth.guard";
 import { CommonFacilityService } from "../commonFacility.service";
 import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
-import { Request } from "../../request/base/Request";
 import { CommonFacilityCreateInput } from "./CommonFacilityCreateInput";
 import { CommonFacility } from "./CommonFacility";
 import { Post } from "../../post/base/Post";

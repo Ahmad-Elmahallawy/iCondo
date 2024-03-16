@@ -8,7 +8,7 @@ import {
   IsInt,
   IsString,
 } from "class-validator";
-import { Request } from "../../request/base/Request";
+import { RequestObject } from "../../request/base/Request";
 import { Type } from "class-transformer";
 import { File } from "../../file/base/File";
 import { Property } from "../../property/base/Property";

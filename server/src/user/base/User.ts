@@ -10,7 +10,7 @@ import {
 } from "class-validator";
 import { Type } from "class-transformer";
 import { Post } from "../../post/base/Post";
-import { Request } from "../../request/base/Request";
+import { RequestObject } from "../../request/base/Request";
 import { Reservation } from "../../reservation/base/Reservation";
 import { File } from "../../file/base/File";
 import { IsJSONValue } from "../../validators";

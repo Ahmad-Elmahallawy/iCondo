@@ -21,7 +21,7 @@ import * as defaultAuthGuard from "../../auth/defaultAuth.guard";
 import { PostService } from "../post.service";
 import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
-import { Request } from "../../request/base/Request";
+import { RequestObject } from "../../request/base/Request";
 import { PostCreateInput } from "./PostCreateInput";
 import { Post } from "./Post";
 import { PostFindManyArgs } from "./PostFindManyArgs";

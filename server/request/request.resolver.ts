@@ -4,11 +4,11 @@ import * as gqlACGuard from "../auth/gqlAC.guard";
 import { GqlDefaultAuthGuard } from "../auth/gqlDefaultAuth.guard";
 import * as common from "@nestjs/common";
 import { RequestResolverBase } from "./base/request.resolver.base";
-import { RequestObject } from "./base/Request";
+import { Request } from "./base/Request";
 import { RequestService } from "./request.service";
 
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
-@graphql.Resolver(() => RequestObject)
+@graphql.Resolver(() => Request)
 export class RequestResolver extends RequestResolverBase {
   constructor(
     protected readonly service: RequestService,

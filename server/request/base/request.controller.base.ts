@@ -21,7 +21,7 @@ import * as defaultAuthGuard from "../../auth/defaultAuth.guard";
 import { RequestService } from "../request.service";
 import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
-import { RequestObject } from "./Request";
+import { Request } from "./Request";
 import { RequestCreateInput } from "./RequestCreateInput";
 import { Post } from "../../post/base/Post";
 import { RequestFindManyArgs } from "./RequestFindManyArgs";
@@ -48,7 +48,7 @@ export class RequestControllerBase {
   })
   async createRequest(
     @common.Body() data: RequestCreateInput
-  ): Promise<RequestObject> {
+  ): Promise<Request> {
     return await this.service.createRequest({
       data: {
         ...data,
@@ -98,7 +98,7 @@ export class RequestControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async requests(@common.Req() request: Request): Promise<RequestObject[]> {
+  async requests(@common.Req() request: Request): Promise<Request[]> {
     const args = plainToClass(RequestFindManyArgs, request.query);
     return this.service.requests({
       ...args,
@@ -137,7 +137,7 @@ export class RequestControllerBase {
   })
   async request(
     @common.Param() params: RequestWhereUniqueInput
-  ): Promise<RequestObject | null> {
+  ): Promise<Request | null> {
     const result = await this.service.request({
       where: params,
       select: {
@@ -182,7 +182,7 @@ export class RequestControllerBase {
   async updateRequest(
     @common.Param() params: RequestWhereUniqueInput,
     @common.Body() data: RequestUpdateInput
-  ): Promise<RequestObject | null> {
+  ): Promise<Request | null> {
     try {
       return await this.service.updateRequest({
         where: params,
@@ -243,7 +243,7 @@ export class RequestControllerBase {
   })
   async deleteRequest(
     @common.Param() params: RequestWhereUniqueInput
-  ): Promise<RequestObject | null> {
+  ): Promise<Request | null> {
     try {
       return await this.service.deleteRequest({
         where: params,

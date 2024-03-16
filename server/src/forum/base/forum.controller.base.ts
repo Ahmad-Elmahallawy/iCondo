@@ -21,7 +21,7 @@ import * as defaultAuthGuard from "../../auth/defaultAuth.guard";
 import { ForumService } from "../forum.service";
 import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
-import { Request } from "../../request/base/Request";
+import { RequestObject } from "../../request/base/Request";
 import { ForumCreateInput } from "./ForumCreateInput";
 import { Forum } from "./Forum";
 import { Post } from "../../post/base/Post";

@@ -22,7 +22,7 @@ import { File } from "../../file/base/File";
 import { PropertyFindManyArgs } from "../../property/base/PropertyFindManyArgs";
 import { Property } from "../../property/base/Property";
 import { RequestFindManyArgs } from "../../request/base/RequestFindManyArgs";
-import { Request } from "../../request/base/Request";
+import { RequestObject } from "../../request/base/Request";
 import { CompanyService } from "../company.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => Company)
@@ -198,7 +198,7 @@ export class CompanyResolverBase {
   async findRequests(
       @graphql.Parent() parent: Company,
       @graphql.Args() args: RequestFindManyArgs
-  ): Promise<Request[]> {
+  ): Promise<RequestObject[]> {
     const results = await this.service.findRequests(parent.id, args);
 
     if (!results) {
