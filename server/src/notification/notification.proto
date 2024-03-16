@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+                 package notification;
+service NotificationService {
+ rpc createNotification (NotificationCreateInput) returns (Notification) {}
+rpc notifications (findManyParams) returns (stream Notification) {}
+rpc notification (NotificationWhereUniqueInput) returns (Notification) {}
+rpc updateNotification (NotificationUpdateInput) returns (Notification) {}
+rpc deleteNotification (NotificationWhereUniqueInput) returns (Notification) {} 
+ }
+message NotificationCreateInput {
+string createdAt = 1;
+string id = 2;
+string message = 3;
+string title = 4;
+string updatedAt = 5;
+};
+message Notification {
+string createdAt = 1;
+string id = 2;
+string message = 3;
+string title = 4;
+string updatedAt = 5;
+};
+message NotificationWhereUniqueInput {
+string createdAt = 1;
+string id = 2;
+string message = 3;
+string title = 4;
+string updatedAt = 5;
+};
+message NotificationUpdateInput {
+string createdAt = 1;
+string id = 2;
+string message = 3;
+string title = 4;
+string updatedAt = 5;
+};
+message findManyParams {
+
+};

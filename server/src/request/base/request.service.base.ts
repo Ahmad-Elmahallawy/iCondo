@@ -1,14 +1,11 @@
-import { PrismaService } from "../../prisma/prisma.service";
+import {PrismaService} from "../../prisma/prisma.service";
 
-import {
-  Prisma,
-  Request, // @ts-ignore
-  Company, // @ts-ignore
-  User,
-} from "@prisma/client";
+import {Company, Prisma, Request, User,} from "@prisma/client";
+import {KafkaProducerService} from "../../kafka/kafka.producer.service";
+import {MyMessageBrokerTopics} from "../../kafka/topics";
 
 export class RequestServiceBase {
-  constructor(protected readonly prisma: PrismaService) {}
+  constructor(protected readonly prisma: PrismaService, protected readonly kafkaProducer: KafkaProducerService) {}
 
   async count<T extends Prisma.RequestCountArgs>(
     args: Prisma.SelectSubset<T, Prisma.RequestCountArgs>
@@ -29,7 +26,19 @@ export class RequestServiceBase {
   async createRequest<T extends Prisma.RequestCreateArgs>(
     args: Prisma.SelectSubset<T, Prisma.RequestCreateArgs>
   ): Promise<Request> {
-    return this.prisma.request.create<T>(args);
+    const request = await this.prisma.request.create<T>(args);
+
+    // @ts-ignore
+    await this.kafkaProducer.emitMessage(MyMessageBrokerTopics.RequestStatus, {
+      key: null,
+      value: {
+        userID: request.userID,
+        id: request.id,
+        status: 'CREATED'
+      }
+    })
+    console.log('Message pushed to Topic')
+    return request;
   }
   async updateRequest<T extends Prisma.RequestUpdateArgs>(
     args: Prisma.SelectSubset<T, Prisma.RequestUpdateArgs>
