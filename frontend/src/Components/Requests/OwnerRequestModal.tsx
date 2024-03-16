@@ -25,6 +25,7 @@ const OwnerRequestModal: React.FC<OwnerRequestModalProps> = ({
   return (
     <StyledEngineProvider injectFirst>
       <Dialog
+      data-testid="new-request-modal"
         className="owner-request-modal-container"
         open={open}
         onClose={onClose}
@@ -44,6 +45,7 @@ const OwnerRequestModal: React.FC<OwnerRequestModalProps> = ({
             onClick={onClose}
             className="owner-request-modal-btn"
             aria-label="delete"
+            data-testid="close-modal-button"
           >
             <DeleteIcon />
           </IconButton>
