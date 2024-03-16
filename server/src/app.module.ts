@@ -6,6 +6,7 @@ import { CondoUnitModule } from "./condoUnit/condoUnit.module";
 import { PropertyModule } from "./property/property.module";
 import { ParkingSpotModule } from "./parkingSpot/parkingSpot.module";
 import { LockerModule } from "./locker/locker.module";
+import { KafkaModule } from "./kafka/kafka.module";
 import { CompanyModule } from "./company/company.module";
 import { FileModule } from "./file/file.module";
 import { RegistrationKeyModule } from "./registrationKey/registrationKey.module";
@@ -28,7 +29,6 @@ import { ApolloDriver, ApolloDriverConfig } from "@nestjs/apollo";
 
 import { ACLModule } from "./auth/acl.module";
 import { AuthModule } from "./auth/auth.module";
-import { NotificationModule } from './notification/notification.module';
 
 @Module({
   controllers: [],
@@ -47,6 +47,7 @@ import { NotificationModule } from './notification/notification.module';
     CompanyEmployeeModule,
     UserCondoModule,
     ForumModule,
+    KafkaModule,
     PostModule,
     CommonFacilityModule,
     ReservationModule,
@@ -97,7 +98,6 @@ import { NotificationModule } from './notification/notification.module';
 
       inject: [ConfigService],
     }),
-    NotificationModule,
   ],
   providers: [],
 })
