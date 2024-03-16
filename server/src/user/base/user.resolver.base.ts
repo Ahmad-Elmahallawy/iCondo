@@ -20,6 +20,12 @@ import { CompanyEmployeeFindManyArgs } from "../../companyEmployee/base/CompanyE
 import { CompanyEmployee } from "../../companyEmployee/base/CompanyEmployee";
 import { FileFindManyArgs } from "../../file/base/FileFindManyArgs";
 import { File } from "../../file/base/File";
+import { PostFindManyArgs } from "../../post/base/PostFindManyArgs";
+import { Post } from "../../post/base/Post";
+import { RequestFindManyArgs } from "../../request/base/RequestFindManyArgs";
+import { Request } from "../../request/base/Request";
+import { ReservationFindManyArgs } from "../../reservation/base/ReservationFindManyArgs";
+import { Reservation } from "../../reservation/base/Reservation";
 import { UserCondoFindManyArgs } from "../../userCondo/base/UserCondoFindManyArgs";
 import { UserCondo } from "../../userCondo/base/UserCondo";
 import { UserService } from "../user.service";
@@ -155,6 +161,67 @@ export class UserResolverBase {
     @graphql.Args() args: FileFindManyArgs
   ): Promise<File[]> {
     const results = await this.service.findFiles(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [Post], { name: "posts" })
+  @nestAccessControl.UseRoles({
+    resource: "Post",
+    action: "read",
+    possession: "any",
+  })
+  async findPosts(
+      @graphql.Parent() parent: User,
+      @graphql.Args() args: PostFindManyArgs
+  ): Promise<Post[]> {
+    const results = await this.service.findPosts(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [Request], { name: "requests" })
+  @nestAccessControl.UseRoles({
+    resource: "Request",
+    action: "read",
+    possession: "any",
+  })
+  async findRequests(
+      @graphql.Parent() parent: User,
+      @graphql.Args() args: RequestFindManyArgs
+  ): Promise<Request[]> {
+    const results = await this.service.findRequests(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [Reservation], { name: "reservations" })
+  @nestAccessControl.UseRoles({
+    resource: "Reservation",
+    action: "read",
+    possession: "any",
+  })
+  async findReservations(
+      @graphql.Parent() parent: User,
+      @graphql.Args() args: ReservationFindManyArgs
+  ): Promise<Reservation[]> {
+    const results = await this.service.findReservations(parent.id, args);
 
     if (!results) {
       return [];

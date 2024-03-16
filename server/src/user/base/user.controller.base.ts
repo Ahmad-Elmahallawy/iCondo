@@ -3,6 +3,7 @@ import * as swagger from "@nestjs/swagger";
 import { isRecordNotFoundError } from "../../prisma.util";
 import * as errors from "../../errors";
 import { Request } from "express";
+// @ts-ignore
 import { RequestObject } from "../../request/base/Request";
 import { plainToClass } from "class-transformer";
 import { ApiNestedQuery } from "../../decorators/api-nested-query.decorator";
@@ -561,7 +562,7 @@ export class UserControllerBase {
   async findRequests(
       @common.Req() request: Request,
       @common.Param() params: UserWhereUniqueInput
-  ): Promise<Request[]> {
+  ): Promise<RequestObject[]> {
     const query = plainToClass(RequestFindManyArgs, request.query);
     const results = await this.service.findRequests(params.id, {
       ...query,
