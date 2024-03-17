@@ -17,6 +17,12 @@ const urls = {
   userCondos: {
     submitUserCondo: `${apiPrefix}/userCondos`,
   },
+  properties: {
+    getProperty: `${apiPrefix}/properties`,
+  },
+  companies: {
+    getCompany:`${apiPrefix}/companies`
+  }
 };
 
 export default urls;

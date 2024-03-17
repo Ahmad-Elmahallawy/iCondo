@@ -24,6 +24,7 @@ const api = {
       );
     },
   },
+
   userAuthentication: {
     async resetPassword(userData: { username: string; password: string }) {
       const response = await axios.patch(
@@ -38,6 +39,7 @@ const api = {
       return response;
     },
   },
+
   registerationKeys: {
     async userRegisterKey(key: string) {
       const response = await axios.get(
@@ -82,6 +84,90 @@ const api = {
           },
         }
       );
+      return response;
+    },
+    // to get the condo ID
+    async getUserCondo(userId: number, token: string) {
+      const response = await axios.get(`${urls.registrationKeys.getCondoID}`, {
+        params: {
+          where: {
+            user: { id: userId },
+          },
+        },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return response;
+    },
+  },
+
+  requests: {
+    async postOwnerRequest(
+      companyId: number,
+      userId: number,
+      requestType: String,
+      token: String
+    ) {
+      const response = await axios.post(
+        urls.requests.submitRequest,
+        {
+          company: {
+            id: companyId,
+          },
+          user: {
+            id: userId,
+          },
+          requestType: requestType,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response;
+    },
+  },
+
+  properties: {
+    // to get the property ID
+    async getCondoProperty(condoId: number, token: string) {
+      const response = await axios.get(`${urls.properties.getProperty}`, {
+        params: {
+          where: {
+            condoUnits: {
+              every: {
+                id: {
+                  equals: condoId,
+                },
+              },
+            },
+          },
+        },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return response;
+    },
+  },
+
+  companies: {
+    // get company details
+    async getCondoProperty(propertyId: number, token: string) {
+      const response = await axios.get(`${urls.companies.getCompany}`, {
+        params: {
+          where: {
+            property: {
+              id: propertyId,
+            },
+          },
+        },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       return response;
     },
   },
