@@ -88,12 +88,38 @@ const api = {
 
   employeeRegistration: {
     async postUser(userData: any, token: String) {
-      console.log(userData);
       const response = await axios.post(
         urls.employees.registerUser,
-        
-          userData,
-        
+
+        userData,
+
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response;
+    },
+    async postCompanyEmployee(
+      companyId: number,
+      userId: number,
+      token: String
+    ) {
+      console.log(companyId, userId, token);
+
+      const response = await axios.post(
+        urls.employees.registerCompanyEmployee,
+
+        {
+          company: {
+            id: companyId,
+          },
+          user: {
+            id: userId,
+          },
+        },
+
         {
           headers: {
             Authorization: `Bearer ${token}`,

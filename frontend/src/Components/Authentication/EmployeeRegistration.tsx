@@ -24,17 +24,31 @@ const EmployeeRegistration = () => {
       values.roles = [selectedRole]; // Set the selected role as an array with one element
       console.log(values);
       const user = JSON.parse(localStorage.getItem("userData") || "{}");
-  
+      const companyId = JSON.parse(
+        localStorage.getItem("companyDetails") || "{}"
+      )[0].id;
+      console.log(companyId);
       try {
         // Make API call to register employee
-        const response = await api.employeeRegistration.postUser(values, user.accessToken);
+        const response = await api.employeeRegistration.postUser(
+          values,
+          user.accessToken
+        );
         console.log("Employee registration successful:", response.data); // Log successful response
+        const companyResponse =
+          await api.employeeRegistration.postCompanyEmployee(
+            companyId,
+            response.data.id,
+            user.accessToken
+          );
         setResultMessage("Employee Added Successfully"); // Set success message
       } catch (error: any) {
         console.error("Employee registration failed:", error.message); // Log error message
         // Set appropriate error message based on error response
         if (error.response && error.response.status === 400) {
-          setResultMessage("User with this email, username or phone number already exists OR Company does not Exist");
+          setResultMessage(
+            "User with this email, username or phone number already exists OR Company does not Exist"
+          );
         } else {
           // Handle other error statuses here if needed
         }
@@ -68,7 +82,6 @@ const EmployeeRegistration = () => {
               <option value="FinancialManager">Finance Manager</option>
             </select>
           </div>
-
 
           <div
             className={`input-with-icon ${
