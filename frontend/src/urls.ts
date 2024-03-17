@@ -9,9 +9,13 @@ const urls = {
   },
   registrationKeys: {
     userRegister: `${apiPrefix}/registrationKeys`,
+    getCondoID: `${apiPrefix}/registrationKeys`,
   },
   requests: {
     submitRequest: `${apiPrefix}/requests`,
+  },
+  userCondos: {
+    submitUserCondo: `${apiPrefix}/userCondos`,
   },
 };
 
