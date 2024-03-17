@@ -14,36 +14,40 @@ const UserKeyRegister: React.FC = () => {
     try {
       // Call userRegisterKey API endpoint to register the key
       const registerResponse = await api.registerationKeys.userRegisterKey(key);
-      
+
       // Check if registration was successful
       if (registerResponse.data.length === 0) {
-        setErrorText("Error registering key: Key not found or already registered");
+        setErrorText(
+          "Error registering key: Key not found or already registered"
+        );
         setSuccessMessage("");
         return; // Exit early if registration fails
       }
-      
+
       // Get condoId from the registration response
       const condoId = registerResponse.data[0]?.condoUnit?.id;
       if (!condoId) {
         throw new Error("Condo ID not found in registration response");
       }
-  
+
       // Call getRegistrationKey API endpoint to retrieve condoId
       const getResponse = await api.registerationKeys.getRegistrationKey(key);
-  
+
       // Check if condoId is present in the response data
       const responseCondoId = getResponse.data[0]?.condoUnit?.id;
       if (!responseCondoId) {
         throw new Error("Condo ID not found in response");
       }
-  
+
       // Register the user to the condo
-      const linkCondoUser = await api.userCondoList.postUserCondo(condoId, userData.id, userData.accessToken);
-  
+      const linkCondoUser = await api.userCondoList.postUserCondo(
+        condoId,
+        userData.id,
+        userData.accessToken
+      );
+
       setSuccessMessage("Key registered successfully!");
       setErrorText("");
-      console.log(registerResponse);
-      console.log(getResponse);
     } catch (error: any) {
       // Handle errors from either API call
       console.error("Error registering key:", error);

@@ -65,13 +65,10 @@ const api = {
   },
 
   userCondoList: {
-    async postUserCondo(condoId: number, userId: number, token: number) {
-      const response = await axios.post(`${urls.userCondos.submitUserCondo}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        data: {
+    async postUserCondo(condoId: number, userId: number, token: String) {
+      const response = await axios.post(
+        urls.userCondos.submitUserCondo,
+        {
           condo: {
             id: condoId,
           },
@@ -79,8 +76,12 @@ const api = {
             id: userId,
           },
         },
-      });
-      console.log(response);
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       return response;
     },
   },
