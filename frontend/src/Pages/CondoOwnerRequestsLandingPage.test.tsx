@@ -1,30 +1,73 @@
-import React from 'react';
-import { render, fireEvent, screen } from '@testing-library/react';
-import CondoOwnerRequestsLandingPage from './CondoOwnerRequestsLandingPage';
+import React from "react";
+import { render, fireEvent, waitFor, waitForElementToBeRemoved } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
+import CondoOwnerRequestsLandingPage from "./CondoOwnerRequestsLandingPage";
+import api from "../api";
+import userEvent from '@testing-library/user-event';
 
-import OwnerRequestModal from '../Components/Requests/OwnerRequestModal';
+// Mocking the localStorage getItem method
+Storage.prototype.getItem = jest.fn(() =>
+ JSON.stringify({ id: 123, accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInVzZXJuYW1lIjoiQVQiLCJpYXQiOjE3MTA2NDcyMzUsImV4cCI6MTcxMDgyMDAzNX0.QLaSGJKvXM0emWppC2LWmFq39Km4ZpInlP47nIIYyPA" })
+);
 
-// Mock the OwnerRequestSubject component since it's imported
-jest.mock("../Components/Requests/OwnerRequestSubject", () => () => <div data-testid="owner-request-subject" />);
+// Mocking the API module
+jest.mock("../api", () => ({
+ userCondoList: {
+    getUserCondo: jest.fn(() => ({ data: [{ condo: { id: 456 } }] })),
+ },
+ properties: {
+    getCondoProperty: jest.fn(() => ({ data: [{ id: 789 }] })),
+ },
+ companies: {
+    getCompanyProperty: jest.fn(() => ({ data: [{ id: 987 }] })),
+ },
+ requests: {
+    postOwnerRequest: jest.fn(),
+ },
+}));
 
 describe("CondoOwnerRequestsLandingPage", () => {
-  test("renders correctly", () => {
+ afterEach(() => {
+    jest.clearAllMocks();
+ });
+
+ it("renders the component", () => {
     const { getByText } = render(<CondoOwnerRequestsLandingPage />);
     expect(getByText("My Requests")).toBeInTheDocument();
-    expect(getByText("Compose New Request")).toBeInTheDocument();
-  });
+ });
 
-  test("opens modal when 'Compose New Request' button is clicked", () => {
+ it("opens modal when 'Compose New Request' button is clicked", () => {
     const { getByText, getByTestId } = render(<CondoOwnerRequestsLandingPage />);
-    fireEvent.click(getByText("Compose New Request"));
-    expect(getByTestId("new-request-modal")).toBeInTheDocument();
-  });
+    const composeButton = getByText("Compose New Request");
+    fireEvent.click(composeButton);
+    const modal = getByTestId("new-request-modal");
+    expect(modal).toBeInTheDocument();
+ });
 
-  test("closes modal when close button is clicked", () => {
-    const { getByText, getByTestId, queryByTestId } = render(<CondoOwnerRequestsLandingPage />);
-    fireEvent.click(getByText("Compose New Request"));
-    expect(getByTestId("new-request-modal")).toBeInTheDocument();
-    fireEvent.click(getByTestId("close-modal-button")); 
-  });
+ it("closes modal when closed", async () => {
+    const { getByText, getByLabelText, queryByTestId } = render(<CondoOwnerRequestsLandingPage />);
+    const composeButton = getByText("Compose New Request");
+    fireEvent.click(composeButton);
+    const closeButton = getByLabelText("delete");
+    fireEvent.click(closeButton);
+    await waitForElementToBeRemoved(() => queryByTestId("new-request-modal"));
+ });
+
+//  it("submits modal form with correct data", async () => {
+//     const { getByText, findByLabelText } = render(<CondoOwnerRequestsLandingPage />);
+//     const composeButton = getByText("Compose New Request");
+//     fireEvent.click(composeButton);
+//     const subjectInput = await findByLabelText("Request"); // Use the label text to find the select input
+//     userEvent.selectOptions(subjectInput, ["moving_in"]); // Use userEvent for select elements
+//     const submitButton = getByText("Submit");
+//     fireEvent.click(submitButton);
+//     await waitFor(() =>
+//       expect(api.requests.postOwnerRequest).toHaveBeenCalledWith(
+//         987, // Ensure this matches the expected company ID
+//         123, // Ensure this matches the expected user ID
+//         "moving_in", // Ensure this matches the expected subject
+//         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInVzZXJuYW1lIjoiQVQiLCJpYXQiOjE3MTA2NDcyMzUsImV4cCI6MTcxMDgyMDAzNX0.QLaSGJKvXM0emWppC2LWmFq39Km4ZpInlP47nIIYyPA" // Ensure this matches the expected access token
+//       )
+//     );
+//  });
 });

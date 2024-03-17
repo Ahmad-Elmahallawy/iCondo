@@ -36,7 +36,7 @@ const OwnerRequestSubject = () => {
   return (
     <div>
       {/*TODO: replace Subject 1 and Awaiting Response with the actual subject and status*/}
-      {fetchedRequests &&
+      {fetchedRequests ? (
         fetchedRequests.map((request, index) => (
           <div className="owner-request-container" key={index}>
             <p>
@@ -44,7 +44,10 @@ const OwnerRequestSubject = () => {
             </p>
             <p>Awaiting Response</p>{" "}
           </div>
-        ))}
+        ))
+      ) : (
+        <p>You Currently Do Not Have Any Requests</p>
+      )}
     </div>
   );
 };
