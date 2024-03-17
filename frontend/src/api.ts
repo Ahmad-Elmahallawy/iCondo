@@ -86,14 +86,14 @@ const api = {
     },
   },
 
-  employeeRegistration:
-  {
+  employeeRegistration: {
     async postUser(userData: any, token: String) {
+      console.log(userData);
       const response = await axios.post(
         urls.employees.registerUser,
-        {
-          userData
-        },
+        
+          userData,
+        
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -102,7 +102,7 @@ const api = {
       );
       return response;
     },
-  }
+  },
 };
 
 export default api;

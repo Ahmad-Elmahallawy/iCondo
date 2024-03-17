@@ -6,6 +6,7 @@ import "../../Style/AuthenticationStyle/EmployeeRegistrationStyle.css";
 import { employeeInitialValues } from "../Common/InitialValues"; // Initial form values
 import { employeeRegistrationValidationSchema } from "../Common/ValidationSchema"; // Form validation schema
 import LoadingScreen from "../Common/LoadingScreen"; // Loading spinner component
+import api from "../../api";
 
 // Define the EmployeeRegistration component
 const EmployeeRegistration = () => {
@@ -16,17 +17,17 @@ const EmployeeRegistration = () => {
 
   // Formik hook to handle form state, validation, and submission
   const formik = useFormik({
-    initialValues: { ...employeeInitialValues, role: selectedRole }, // Set initial values including selected role
+    initialValues: { ...employeeInitialValues, roles: [selectedRole] }, // Set initial values including selected role
     validationSchema: employeeRegistrationValidationSchema, // Use the defined validation schema
     onSubmit: async (values) => {
       setIsLoading(true); // Set loading indicator to true on form submission
-      values.role = selectedRole; // Set the selected role to form values
+      values.roles = [selectedRole]; // Set the selected role as an array with one element
       console.log(values);
-      
+      const user = JSON.parse(localStorage.getItem("userData") || "{}");
+  
       try {
         // Make API call to register employee
-        const registrationUrl = "http://localhost:8000/api/users/register/employee";
-        const response = await axios.post(registrationUrl, values);
+        const response = await api.employeeRegistration.postUser(values, user.accessToken);
         console.log("Employee registration successful:", response.data); // Log successful response
         setResultMessage("Employee Added Successfully"); // Set success message
       } catch (error: any) {
@@ -64,7 +65,7 @@ const EmployeeRegistration = () => {
             >
               <option value="Manager">Manager</option>
               <option value="Operator">Operator</option>
-              <option value="FinanceManager">Finance Manager</option>
+              <option value="FinancialManager">Finance Manager</option>
             </select>
           </div>
 
