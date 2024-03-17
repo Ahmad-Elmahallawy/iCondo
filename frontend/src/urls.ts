@@ -9,7 +9,7 @@ const urls = {
   },
   registrationKeys: {
     userRegister: `${apiPrefix}/registrationKeys`,
-    getCondoID: `${apiPrefix}/registrationKeys`,
+    getCondoID: `${apiPrefix}/userCondos`,
   },
   requests: {
     submitRequest: `${apiPrefix}/requests`,
@@ -21,8 +21,8 @@ const urls = {
     getProperty: `${apiPrefix}/properties`,
   },
   companies: {
-    getCompany:`${apiPrefix}/companies`
-  }
+    getCompany: `${apiPrefix}/companies`,
+  },
 };
 
 export default urls;

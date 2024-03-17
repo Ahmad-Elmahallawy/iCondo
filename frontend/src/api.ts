@@ -109,6 +109,7 @@ const api = {
       requestType: String,
       token: String
     ) {
+      console.log(companyId, userId, requestType, token)
       const response = await axios.post(
         urls.requests.submitRequest,
         {
@@ -132,7 +133,7 @@ const api = {
 
   properties: {
     // to get the property ID
-    async getCondoProperty(condoId: number, token: string) {
+    async getCondoProperty(condoId: number, token: String) {
       const response = await axios.get(`${urls.properties.getProperty}`, {
         params: {
           where: {
@@ -155,20 +156,32 @@ const api = {
 
   companies: {
     // get company details
-    async getCondoProperty(propertyId: number, token: string) {
-      const response = await axios.get(`${urls.companies.getCompany}`, {
-        params: {
-          where: {
-            property: {
-              id: propertyId,
+    async getCompanyProperty(propertyId: number, token: String) {
+      console.log(propertyId, token);
+
+      try {
+        const response = await axios.get(`${urls.companies.getCompany}`, {
+          params: {
+            where: {
+              properties: {
+                every: {
+                  id: {
+                    equals: propertyId,
+                  },
+                },
+              },
             },
           },
-        },
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      return response;
+          headers: {
+            // Corrected to use 'headers' instead of 'Headers'
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        return response.data;
+      } catch (error) {
+        console.error("Error fetching condo property:", error);
+        throw error;
+      }
     },
   },
 };
