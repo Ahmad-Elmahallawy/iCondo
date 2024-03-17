@@ -3,8 +3,8 @@ import { useFormik } from "formik";
 import axios from "axios";
 import "../../Style/AuthenticationStyle/LoginAndRegistrationStyle.css";
 import "../../Style/AuthenticationStyle/EmployeeRegistrationStyle.css";
-import { signUpInitialValues } from "../Common/InitialValues"; // Initial form values
-import { signUpValidationSchema } from "../Common/ValidationSchema"; // Form validation schema
+import { employeeInitialValues } from "../Common/InitialValues"; // Initial form values
+import { employeeRegistrationValidationSchema } from "../Common/ValidationSchema"; // Form validation schema
 import LoadingScreen from "../Common/LoadingScreen"; // Loading spinner component
 
 // Define the EmployeeRegistration component
@@ -16,11 +16,13 @@ const EmployeeRegistration = () => {
 
   // Formik hook to handle form state, validation, and submission
   const formik = useFormik({
-    initialValues: { ...signUpInitialValues, role: selectedRole }, // Set initial values including selected role
-    validationSchema: signUpValidationSchema, // Use the defined validation schema
+    initialValues: { ...employeeInitialValues, role: selectedRole }, // Set initial values including selected role
+    validationSchema: employeeRegistrationValidationSchema, // Use the defined validation schema
     onSubmit: async (values) => {
       setIsLoading(true); // Set loading indicator to true on form submission
       values.role = selectedRole; // Set the selected role to form values
+      console.log(values);
+      
       try {
         // Make API call to register employee
         const registrationUrl = "http://localhost:8000/api/users/register/employee";
@@ -65,27 +67,7 @@ const EmployeeRegistration = () => {
               <option value="FinanceManager">Finance Manager</option>
             </select>
           </div>
-          <div
-            className={`input-with-icon ${
-              formik.touched.companyName && formik.errors.companyName
-                ? "input-border-error"
-                : ""
-            }`}
-          >
-            <img src="Assets/company.svg" alt="" />
-            <input
-              id="companyName"
-              name="companyName"
-              type="text"
-              placeholder="Company Name"
-              value={formik.values.companyName}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            />
-            {formik.touched.companyName && formik.errors.companyName && (
-              <p className="error-msg">{formik.errors.companyName}</p>
-            )}
-          </div>
+
 
           <div
             className={`input-with-icon ${

@@ -7,6 +7,10 @@ const urls = {
     resetUserPassword: `${apiPrefixUserService}/users`,
     updateUserProfilePic: `${apiPrefix}/files`,
   },
+  employees: {
+    registerUser: `${apiPrefix}/users`,
+    registerCompanyEmployee: `${apiPrefix}/companyEmployees`
+  },
   registrationKeys: {
     userRegister: `${apiPrefix}/registrationKeys`,
     getCondoID: `${apiPrefix}/registrationKeys`,
