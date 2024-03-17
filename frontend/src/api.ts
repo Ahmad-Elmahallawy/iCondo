@@ -52,6 +52,38 @@ const api = {
       );
       return response;
     },
+    async getRegistrationKey(key: string) {
+      const response = await axios.get(`${urls.registrationKeys.getCondoID}`, {
+        params: {
+          where: {
+            value: { equals: `${key}` },
+          },
+        },
+      });
+      return response;
+    },
+  },
+
+  userCondoList: {
+    async postUserCondo(condoId: number, userId: number, token: String) {
+      const response = await axios.post(
+        urls.userCondos.submitUserCondo,
+        {
+          condo: {
+            id: condoId,
+          },
+          user: {
+            id: userId,
+          },
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response;
+    },
   },
 };
 
