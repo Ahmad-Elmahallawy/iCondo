@@ -14,6 +14,7 @@ import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateReq
 import { map } from "rxjs";
 import { RequestController } from "../request.controller";
 import { RequestService } from "../request.service";
+import * as errors from "../../errors";
 
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
@@ -23,6 +24,16 @@ const CREATE_INPUT = {
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
+  createdAt: new Date(),
+  id: "exampleId",
+  updatedAt: new Date(),
+};
+const UPDATE_RESULT = {
+  createdAt: new Date(),
+  id: "exampleId",
+  updatedAt: new Date(),
+};
+const DELETE_RESULT = {
   createdAt: new Date(),
   id: "exampleId",
   updatedAt: new Date(),
@@ -39,10 +50,34 @@ const FIND_ONE_RESULT = {
   id: "exampleId",
   updatedAt: new Date(),
 };
-
+const NOT_FOUND = {
+  statusCode: HttpStatus.NOT_FOUND,
+  message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
+  error: "Not Found",
+};
 const service = {
   createRequest() {
     return CREATE_RESULT;
+  },
+  updateRequest: ({ where }: { where: { id: string } }) => {
+    switch (where.id) {
+      case existingId:
+        return UPDATE_RESULT;
+      case nonExistingId:
+        throw new errors.NotFoundException(
+            `No resource was found for {"id":"${nonExistingId}"}`
+        );
+    }
+  },
+  deleteRequest: ({ where }: { where: { id: string } }) => {
+    switch (where.id) {
+      case existingId:
+        return DELETE_RESULT;
+      case nonExistingId:
+        throw new errors.NotFoundException(
+            `No resource was found for {"id":"${nonExistingId}"}`
+        );
+    }
   },
   requests: () => FIND_MANY_RESULT,
   request: ({ where }: { where: { id: string } }) => {
@@ -182,6 +217,33 @@ describe("Request", () => {
             statusCode: HttpStatus.CONFLICT,
           });
       });
+  });
+  test("PATCH /requests/:id", async () => {
+    await request(app.getHttpServer())
+        .patch(`${"/requests"}/${existingId}`)
+        .expect(HttpStatus.OK)
+        .expect(JSON.stringify(UPDATE_RESULT));
+  });
+
+  test("PATCH /requests/:id non existing", async () => {
+    await request(app.getHttpServer())
+        .patch(`${"/requests"}/${nonExistingId}`)
+        .expect(HttpStatus.NOT_FOUND)
+        .expect(NOT_FOUND);
+  });
+
+  test("DELETE /requests/:id existing", async () => {
+    await request(app.getHttpServer())
+        .delete(`${"/requests"}/${existingId}`)
+        .expect(HttpStatus.OK)
+        .expect(JSON.stringify(DELETE_RESULT));
+  });
+
+  test("DELETE /requests/:id non existing", async () => {
+    await request(app.getHttpServer())
+        .delete(`${"/requests"}/${nonExistingId}`)
+        .expect(HttpStatus.NOT_FOUND)
+        .expect(NOT_FOUND);
   });
 
   afterAll(async () => {
