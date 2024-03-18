@@ -84,8 +84,6 @@ const api = {
 
   userCondoList: {
     async postUserCondo(condoId: number, userId: number, token: String) {
-      console.log(condoId);
-
       const response = await axios.post(
         urls.userCondos.submitUserCondo,
         {
@@ -102,8 +100,6 @@ const api = {
           },
         }
       );
-      console.log(response);
-
       return response;
     },
     // to get the condo ID
@@ -197,8 +193,7 @@ const api = {
         });
         return response.data;
       } catch (error) {
-        console.error("Error fetching condo property:", error);
-        throw error;
+=        throw error;
       }
     },
   },
