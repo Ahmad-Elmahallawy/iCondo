@@ -14,6 +14,7 @@ import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateReq
 import { map } from "rxjs";
 import { UserController } from "../user.controller";
 import { UserService } from "../user.service";
+import * as errors from "../../errors";
 
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
@@ -29,6 +30,28 @@ const CREATE_INPUT = {
   username: "exampleUsername",
 };
 const CREATE_RESULT = {
+  createdAt: new Date(),
+  email: "exampleEmail",
+  firstName: "exampleFirstName",
+  id: 42,
+  lastName: "exampleLastName",
+  password: "examplePassword",
+  phoneNumber: "examplePhoneNumber",
+  updatedAt: new Date(),
+  username: "exampleUsername",
+};
+const UPDATE_RESULT = {
+  createdAt: new Date(),
+  email: "exampleEmail",
+  firstName: "exampleFirstName",
+  id: 42,
+  lastName: "exampleLastName",
+  password: "examplePassword",
+  phoneNumber: "examplePhoneNumber",
+  updatedAt: new Date(),
+  username: "exampleUsername",
+};
+const DELETE_RESULT = {
   createdAt: new Date(),
   email: "exampleEmail",
   firstName: "exampleFirstName",
@@ -63,10 +86,35 @@ const FIND_ONE_RESULT = {
   updatedAt: new Date(),
   username: "exampleUsername",
 };
+const NOT_FOUND = {
+  statusCode: HttpStatus.NOT_FOUND,
+  message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
+  error: "Not Found",
+};
 
 const service = {
   createUser() {
     return CREATE_RESULT;
+  },
+  updateUser: ({ where }: { where: { id: string } }) => {
+    switch (where.id) {
+      case existingId:
+        return UPDATE_RESULT;
+      case nonExistingId:
+        throw new errors.NotFoundException(
+            `No resource was found for {"id":"${nonExistingId}"}`
+        );
+    }
+  },
+  deleteUser: ({ where }: { where: { id: string } }) => {
+    switch (where.id) {
+      case existingId:
+        return DELETE_RESULT;
+      case nonExistingId:
+        throw new errors.NotFoundException(
+            `No resource was found for {"id":"${nonExistingId}"}`
+        );
+    }
   },
   users: () => FIND_MANY_RESULT,
   user: ({ where }: { where: { id: string } }) => {
@@ -168,11 +216,7 @@ describe("User", () => {
     await request(app.getHttpServer())
       .get(`${"/users"}/${nonExistingId}`)
       .expect(HttpStatus.NOT_FOUND)
-      .expect({
-        statusCode: HttpStatus.NOT_FOUND,
-        message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
-        error: "Not Found",
-      });
+      .expect(NOT_FOUND);
   });
 
   test("GET /users/:id existing", async () => {
@@ -206,6 +250,34 @@ describe("User", () => {
             statusCode: HttpStatus.CONFLICT,
           });
       });
+  });
+
+  test("PATCH /users/:id existing", async () => {
+    await request(app.getHttpServer())
+        .patch(`${"/users"}/${existingId}`)
+        .expect(HttpStatus.OK)
+        .expect(JSON.stringify(UPDATE_RESULT));
+  });
+
+  test("PATCH /users/:id non existing", async () => {
+    await request(app.getHttpServer())
+        .patch(`${"/users"}/${nonExistingId}`)
+        .expect(HttpStatus.NOT_FOUND)
+        .expect(NOT_FOUND);
+  });
+
+  test("DELETE /users/:id existing", async () => {
+    await request(app.getHttpServer())
+        .delete(`${"/users"}/${existingId}`)
+        .expect(HttpStatus.OK)
+        .expect(JSON.stringify(DELETE_RESULT));
+  });
+
+  test("DELETE /users/:id non existing", async () => {
+    await request(app.getHttpServer())
+        .delete(`${"/users"}/${nonExistingId}`)
+        .expect(HttpStatus.NOT_FOUND)
+        .expect(NOT_FOUND);
   });
 
   afterAll(async () => {

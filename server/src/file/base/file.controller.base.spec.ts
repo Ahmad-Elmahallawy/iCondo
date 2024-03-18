@@ -14,9 +14,11 @@ import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateReq
 import { map } from "rxjs";
 import { FileController } from "../file.controller";
 import { FileService } from "../file.service";
+import { MinioServer } from "../minioServer";
+import * as errors from "../../errors";
 
 const nonExistingId = "nonExistingId";
-const existingId = "existingId";
+const existingId = "1";
 const CREATE_INPUT = {
   bucket: "exampleBucket",
   createdAt: new Date(),
@@ -25,6 +27,20 @@ const CREATE_INPUT = {
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
+  bucket: "exampleBucket",
+  createdAt: new Date(),
+  id: 42,
+  name: "exampleName",
+  updatedAt: new Date(),
+};
+const UPDATE_RESULT = {
+  bucket: "exampleBucket",
+  createdAt: new Date(),
+  id: 42,
+  name: "exampleName",
+  updatedAt: new Date(),
+};
+const DELETE_RESULT = {
   bucket: "exampleBucket",
   createdAt: new Date(),
   id: 42,
@@ -47,10 +63,45 @@ const FIND_ONE_RESULT = {
   name: "exampleName",
   updatedAt: new Date(),
 };
+const NOT_FOUND = {
+  statusCode: HttpStatus.NOT_FOUND,
+  message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
+  error: "Not Found",
+};
+// @ts-ignore
+const mockFile : Express.Multer.File = {
+  fieldname: 'file',
+  originalname: 'test.txt',
+  mimetype: 'text/plain',
+  destination: '/tmp',
+  filename: 'test.txt',
+  path: '/tmp/test.txt',
+  size: 123
+};
 
 const service = {
   createFile() {
     return CREATE_RESULT;
+  },
+  updateFile: ({ where }: { where: { id: string } }) => {
+    switch (where.id) {
+      case existingId:
+        return UPDATE_RESULT;
+      case nonExistingId:
+        throw new errors.NotFoundException(
+            `No resource was found for {"id":"${nonExistingId}"}`
+        );
+    }
+  },
+  deleteFile: ({ where }: { where: { id: string } }) => {
+    switch (where.id) {
+      case existingId:
+        return DELETE_RESULT;
+      case nonExistingId:
+        throw new errors.NotFoundException(
+            `No resource was found for {"id":"${nonExistingId}"}`
+        );
+    }
   },
   files: () => FIND_MANY_RESULT,
   file: ({ where }: { where: { id: string } }) => {
@@ -61,6 +112,10 @@ const service = {
         return null;
     }
   },
+};
+const minioServerMock = {
+  uploadFile: jest.fn(),
+  getFile: jest.fn(),
 };
 
 const basicAuthGuard = {
@@ -105,6 +160,10 @@ describe("File", () => {
           provide: FileService,
           useValue: service,
         },
+        {
+          provide: MinioServer,
+          useValue: minioServerMock,
+        }
       ],
       controllers: [FileController],
       imports: [ACLModule],
@@ -126,7 +185,8 @@ describe("File", () => {
   test("POST /files", async () => {
     await request(app.getHttpServer())
       .post("/files")
-      .send(CREATE_INPUT)
+      .attach("file", Buffer.from("", "utf-8"), "test.txt") // Attaching the file
+      .field('data', JSON.stringify(CREATE_INPUT)) // Sending mock data as a field
       .expect(HttpStatus.CREATED)
       .expect({
         ...CREATE_RESULT,
@@ -152,11 +212,7 @@ describe("File", () => {
     await request(app.getHttpServer())
       .get(`${"/files"}/${nonExistingId}`)
       .expect(HttpStatus.NOT_FOUND)
-      .expect({
-        statusCode: HttpStatus.NOT_FOUND,
-        message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
-        error: "Not Found",
-      });
+      .expect(NOT_FOUND);
   });
 
   test("GET /files/:id existing", async () => {
@@ -174,7 +230,8 @@ describe("File", () => {
     const agent = request(app.getHttpServer());
     await agent
       .post("/files")
-      .send(CREATE_INPUT)
+      .attach("file", Buffer.from("", "utf-8"), "test.txt") // Attaching the file
+      .field('data', JSON.stringify(CREATE_INPUT)) // Sending mock data as a field
       .expect(HttpStatus.CREATED)
       .expect({
         ...CREATE_RESULT,
@@ -190,6 +247,34 @@ describe("File", () => {
             statusCode: HttpStatus.CONFLICT,
           });
       });
+  });
+
+  test("PATCH /files/:id existing", async () => {
+    await request(app.getHttpServer())
+        .patch(`${"/files"}/${existingId}`)
+        .expect(HttpStatus.OK)
+        .expect(JSON.stringify(UPDATE_RESULT));
+  });
+
+  test("PATCH /files/:id non existing", async () => {
+    await request(app.getHttpServer())
+        .patch(`${"/files"}/${nonExistingId}`)
+        .expect(HttpStatus.NOT_FOUND)
+        .expect(NOT_FOUND);
+  });
+
+  test("DELETE /files/:id existing", async () => {
+    await request(app.getHttpServer())
+        .delete(`${"/files"}/${existingId}`)
+        .expect(HttpStatus.OK)
+        .expect(JSON.stringify(DELETE_RESULT));
+  });
+
+  test("DELETE /files/:id non existing", async () => {
+    await request(app.getHttpServer())
+        .delete(`${"/files"}/${nonExistingId}`)
+        .expect(HttpStatus.NOT_FOUND)
+        .expect(NOT_FOUND);
   });
 
   afterAll(async () => {
