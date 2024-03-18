@@ -27,17 +27,12 @@ const UserKeyRegister: React.FC = () => {
       // Get condoId from the registration response
       const condoId = registerResponse.data[0]?.condoUnit?.id;
 
-      console.log(condoId, userData.id, key);
-
-      console.log(userData.accessToken);
-
       // Register the user to the condo
       const linkCondoUser = await api.userCondoList.postUserCondo(
         condoId,
         userData.id,
         userData.accessToken
       );
-      console.log(userData.accessToken);
       if (registerResponse.data[0].role[0] === "condoOwner") {
         const response = await api.userInformation.handleUserRole(
           ["condoOwner"],
