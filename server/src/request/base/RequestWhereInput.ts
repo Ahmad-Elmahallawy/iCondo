@@ -6,6 +6,7 @@ import { Type } from "class-transformer";
 import { StringFilter } from "../../util/StringFilter";
 import { EnumRequestType } from "./EnumRequestType";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
+import { EnumRequestStatus } from "./EnumRequestStatus";
 
 @InputType()
 class RequestWhereInput {
@@ -50,6 +51,23 @@ class RequestWhereInput {
     | "deficiency_report"
     | "question";
 
+  @ApiProperty({
+    required: false,
+    enum: EnumRequestStatus,
+  })
+  @IsEnum(EnumRequestStatus)
+  @IsOptional()
+  @Field(() => EnumRequestStatus, {
+    nullable: true,
+  })
+  status?:
+      | "New"
+      | "In_Progress"
+      | "Pending_Approval"
+      | "Approved"
+      | "Disapproved"
+      | "Complete";
+  
   @ApiProperty({
     required: false,
     type: () => UserWhereUniqueInput,
