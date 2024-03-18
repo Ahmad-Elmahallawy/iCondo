@@ -15,6 +15,7 @@ import PropertyProfileLandingPage from "./Pages/PropertyProfileLandingPage";
 import CondoCreationLandingPage from "./Pages/CondoCreationLandingPage";
 import EmployeeRequestsLandingPage from "./Pages/EmployeeRequestsLandingPage";
 import ResetPassword from "./Components/Authentication/ResetPassword";
+import NotificationPageManager from "./Pages/NotificationPageManager";
 import CondoOwnerRequestsLandingPage from "./Pages/CondoOwnerRequestsLandingPage";
 
 function App() {
@@ -58,7 +59,10 @@ function App() {
         />
 
         <Route path="CondoCreation" element={<CondoCreationLandingPage />} />
-        <Route path="*" element={<div>404 Page Not Found</div>} />
+        <Route
+          path="NotificationPageManager"
+          element={<NotificationPageManager />}
+        />
       </Routes>
     </div>
   );
