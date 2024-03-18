@@ -8,6 +8,7 @@ import {
   IsString,
   IsEnum,
 } from "class-validator";
+import { EnumRequestStatus } from "./EnumRequestStatus";
 import { Type } from "class-transformer";
 import { EnumRequestType } from "./EnumRequestType";
 import { User } from "../../user/base/User";
@@ -49,14 +50,32 @@ class Request {
     nullable: true,
   })
   requestType?:
-    | "moving_in"
-    | "moving_out"
-    | "intercom_change"
-    | "access_request"
-    | "violation_report"
-    | "deficiency_report"
-    | "question"
-    | null;
+      | "moving_in"
+      | "moving_out"
+      | "intercom_change"
+      | "access_request"
+      | "violation_report"
+      | "deficiency_report"
+      | "question"
+      | null;
+
+  @ApiProperty({
+    required: false,
+    enum: EnumRequestStatus,
+  })
+  @IsEnum(EnumRequestStatus)
+  @IsOptional()
+  @Field(() => EnumRequestStatus, {
+    nullable: true,
+  })
+  status?:
+      | "New"
+      | "In_Progress"
+      | "Pending_Approval"
+      | "Approved"
+      | "Disapproved"
+      | "Complete"
+      | null;
 
   @ApiProperty({
     required: true,

@@ -14,6 +14,7 @@ import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateReq
 import { map } from "rxjs";
 import { ForumController } from "../forum.controller";
 import { ForumService } from "../forum.service";
+import * as errors from "../../errors";
 
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
@@ -23,6 +24,16 @@ const CREATE_INPUT = {
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
+  createdAt: new Date(),
+  id: "exampleId",
+  updatedAt: new Date(),
+};
+const UPDATE_RESULT = {
+  createdAt: new Date(),
+  id: "exampleId",
+  updatedAt: new Date(),
+};
+const DELETE_RESULT = {
   createdAt: new Date(),
   id: "exampleId",
   updatedAt: new Date(),
@@ -39,10 +50,34 @@ const FIND_ONE_RESULT = {
   id: "exampleId",
   updatedAt: new Date(),
 };
-
+const NOT_FOUND = {
+  statusCode: HttpStatus.NOT_FOUND,
+  message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
+  error: "Not Found",
+};
 const service = {
   createForum() {
     return CREATE_RESULT;
+  },
+  updateForum: ({ where }: { where: { id: string } }) => {
+    switch (where.id) {
+      case existingId:
+        return UPDATE_RESULT;
+      case nonExistingId:
+        throw new errors.NotFoundException(
+            `No resource was found for {"id":"${nonExistingId}"}`
+        );
+    }
+  },
+  deleteForum: ({ where }: { where: { id: string } }) => {
+    switch (where.id) {
+      case existingId:
+        return DELETE_RESULT;
+      case nonExistingId:
+        throw new errors.NotFoundException(
+            `No resource was found for {"id":"${nonExistingId}"}`
+        );
+    }
   },
   forums: () => FIND_MANY_RESULT,
   forum: ({ where }: { where: { id: string } }) => {
@@ -182,6 +217,55 @@ describe("Forum", () => {
             statusCode: HttpStatus.CONFLICT,
           });
       });
+  });
+  test("PATCH /forums/:id", async () => {
+    await request(app.getHttpServer())
+        .patch(`${"/forums"}/${existingId}`)
+        .expect(HttpStatus.OK)
+        .expect(JSON.stringify(UPDATE_RESULT));
+  });
+
+  test("PATCH /forums/:id non existing", async () => {
+    await request(app.getHttpServer())
+        .patch(`${"/forums"}/${nonExistingId}`)
+        .expect(HttpStatus.NOT_FOUND)
+        .expect(NOT_FOUND);
+  });
+
+  test("DELETE /forums/:id existing", async () => {
+    await request(app.getHttpServer())
+        .delete(`${"/forums"}/${existingId}`)
+        .expect(HttpStatus.OK)
+        .expect(JSON.stringify(DELETE_RESULT));
+  });
+
+  test("DELETE /forums/:id non existing", async () => {
+    await request(app.getHttpServer())
+        .delete(`${"/forums"}/${nonExistingId}`)
+        .expect(HttpStatus.NOT_FOUND)
+        .expect(NOT_FOUND);
+  });
+  test("GET /forums/:id/posts", async () => {
+    await request(app.getHttpServer())
+        .get(`/forums/${existingId}/posts`)
+        .expect(HttpStatus.INTERNAL_SERVER_ERROR)
+  });
+
+  test("POST /forums/:id/posts", async () => {
+    await request(app.getHttpServer())
+        .post(`/forums/${existingId}/posts`)
+        .expect(HttpStatus.CREATED);
+  });
+  test("PATCH /forums/:id/posts", async () => {
+    await request(app.getHttpServer())
+        .patch(`/forums/${existingId}/posts`)
+        .expect(HttpStatus.OK);
+  });
+
+  test("DELETE /forums/:id/posts", async () => {
+    await request(app.getHttpServer())
+        .delete(`/forums/${existingId}/posts`)
+        .expect(HttpStatus.OK);
   });
 
   afterAll(async () => {

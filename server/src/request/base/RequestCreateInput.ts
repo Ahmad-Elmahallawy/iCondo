@@ -5,7 +5,7 @@ import { ValidateNested, IsOptional, IsEnum } from "class-validator";
 import { Type } from "class-transformer";
 import { EnumRequestType } from "./EnumRequestType";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
-
+import { EnumRequestStatus } from "./EnumRequestStatus";
 @InputType()
 class RequestCreateInput {
   @ApiProperty({
@@ -39,6 +39,24 @@ class RequestCreateInput {
     | "question"
     | null;
 
+  @ApiProperty({
+    required: false,
+    enum: EnumRequestStatus,
+  })
+  @IsEnum(EnumRequestStatus)
+  @IsOptional()
+  @Field(() => EnumRequestStatus, {
+    nullable: true,
+  })
+  status?:
+      | "New"
+      | "In_Progress"
+      | "Pending_Approval"
+      | "Approved"
+      | "Disapproved"
+      | "Complete"
+      | null;
+  
   @ApiProperty({
     required: false,
     type: () => UserWhereUniqueInput,

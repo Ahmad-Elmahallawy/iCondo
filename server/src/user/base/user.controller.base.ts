@@ -576,8 +576,8 @@ export class UserControllerBase {
         createdAt: true,
         id: true,
         requestType: true,
+        status: true,
         updatedAt: true,
-
         user: {
           select: {
             id: true,

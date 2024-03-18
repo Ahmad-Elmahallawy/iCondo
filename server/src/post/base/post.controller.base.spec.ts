@@ -14,6 +14,7 @@ import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateReq
 import { map } from "rxjs";
 import { PostController } from "../post.controller";
 import { PostService } from "../post.service";
+import * as errors from "../../errors";
 
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
@@ -23,6 +24,16 @@ const CREATE_INPUT = {
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
+  createdAt: new Date(),
+  id: "exampleId",
+  updatedAt: new Date(),
+};
+const UPDATE_RESULT = {
+  createdAt: new Date(),
+  id: "exampleId",
+  updatedAt: new Date(),
+};
+const DELETE_RESULT = {
   createdAt: new Date(),
   id: "exampleId",
   updatedAt: new Date(),
@@ -39,10 +50,34 @@ const FIND_ONE_RESULT = {
   id: "exampleId",
   updatedAt: new Date(),
 };
-
+const NOT_FOUND = {
+  statusCode: HttpStatus.NOT_FOUND,
+  message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
+  error: "Not Found",
+};
 const service = {
   createPost() {
     return CREATE_RESULT;
+  },
+  updatePost: ({ where }: { where: { id: string } }) => {
+    switch (where.id) {
+      case existingId:
+        return UPDATE_RESULT;
+      case nonExistingId:
+        throw new errors.NotFoundException(
+            `No resource was found for {"id":"${nonExistingId}"}`
+        );
+    }
+  },
+  deletePost: ({ where }: { where: { id: string } }) => {
+    switch (where.id) {
+      case existingId:
+        return DELETE_RESULT;
+      case nonExistingId:
+        throw new errors.NotFoundException(
+            `No resource was found for {"id":"${nonExistingId}"}`
+        );
+    }
   },
   posts: () => FIND_MANY_RESULT,
   post: ({ where }: { where: { id: string } }) => {
@@ -182,6 +217,33 @@ describe("Post", () => {
             statusCode: HttpStatus.CONFLICT,
           });
       });
+  });
+  test("PATCH /posts/:id", async () => {
+    await request(app.getHttpServer())
+        .patch(`${"/posts"}/${existingId}`)
+        .expect(HttpStatus.OK)
+        .expect(JSON.stringify(UPDATE_RESULT));
+  });
+
+  test("PATCH /posts/:id non existing", async () => {
+    await request(app.getHttpServer())
+        .patch(`${"/posts"}/${nonExistingId}`)
+        .expect(HttpStatus.NOT_FOUND)
+        .expect(NOT_FOUND);
+  });
+
+  test("DELETE /posts/:id existing", async () => {
+    await request(app.getHttpServer())
+        .delete(`${"/posts"}/${existingId}`)
+        .expect(HttpStatus.OK)
+        .expect(JSON.stringify(DELETE_RESULT));
+  });
+
+  test("DELETE /posts/:id non existing", async () => {
+    await request(app.getHttpServer())
+        .delete(`${"/posts"}/${nonExistingId}`)
+        .expect(HttpStatus.NOT_FOUND)
+        .expect(NOT_FOUND);
   });
 
   afterAll(async () => {
