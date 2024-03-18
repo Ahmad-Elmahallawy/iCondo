@@ -12,9 +12,9 @@ export class KafkaController {
   @EventPattern("request.status")
   async onRequestStatus(
       @Payload()
-          message: KafkaMessage
-  ): Promise<void> {
-    const { value, topic } = message as any;
-    console.log({ value, topic });
+          message:KafkaMessage
+   ): Promise<void> {
+
+    console.log(message);
   }
 }

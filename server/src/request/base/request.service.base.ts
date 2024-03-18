@@ -3,6 +3,8 @@ import {PrismaService} from "../../prisma/prisma.service";
 import {Company, Prisma, Request, User,} from "@prisma/client";
 import {KafkaProducerService} from "../../kafka/kafka.producer.service";
 import {MyMessageBrokerTopics} from "../../kafka/topics";
+import {KafkaMessage} from "../../kafka/KafkaMessage";
+
 
 export class RequestServiceBase {
   constructor(protected readonly prisma: PrismaService, protected readonly kafkaProducer: KafkaProducerService) {}
@@ -28,28 +30,33 @@ export class RequestServiceBase {
   ): Promise<Request> {
     const request = await this.prisma.request.create<T>(args);
 
-    // @ts-ignore
-    await this.kafkaProducer.emitMessage(MyMessageBrokerTopics.RequestStatus, {
-      key: null,
-      value: {
-        userID: request.userID,
-        id: request.id,
-        status: 'CREATED'
-      }
-    })
-    console.log('Message pushed to Topic')
-    return request;
-  }
-  async updateRequest<T extends Prisma.RequestUpdateArgs>(
-    args: Prisma.SelectSubset<T, Prisma.RequestUpdateArgs>
-  ): Promise<Request> {
-    return this.prisma.request.update<T>(args);
-  }
-  async deleteRequest<T extends Prisma.RequestDeleteArgs>(
-    args: Prisma.SelectSubset<T, Prisma.RequestDeleteArgs>
-  ): Promise<Request> {
-    return this.prisma.request.delete(args);
-  }
+
+        console.log(request.userID)
+        console.log(request)
+        const msg: KafkaMessage = {
+            key: null,
+            value: {
+                "userID":request.userID,
+                "id": request.id,
+                "status": 'CREATED'
+            }
+        }
+        await this.kafkaProducer.emitMessage(MyMessageBrokerTopics.RequestStatus, msg)
+        console.log('Message pushed to Topic')
+        return request;
+    }
+
+    async updateRequest<T extends Prisma.RequestUpdateArgs>(
+        args: Prisma.SelectSubset<T, Prisma.RequestUpdateArgs>
+    ): Promise<Request> {
+        return this.prisma.request.update<T>(args);
+    }
+
+    async deleteRequest<T extends Prisma.RequestDeleteArgs>(
+        args: Prisma.SelectSubset<T, Prisma.RequestDeleteArgs>
+    ): Promise<Request> {
+        return this.prisma.request.delete(args);
+    }
 
   async getCompany(parentId: string): Promise<Company | null> {
     return this.prisma.request
