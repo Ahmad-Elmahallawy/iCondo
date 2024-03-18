@@ -14,7 +14,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("userData") || "{}");
   const isAdmin = user.roles && user.roles.includes("Admin");
-  const isCondoOwner = user.roles && user.roles.includes("PublicUser");
+  const isCondoOwner = user.roles && user.roles.includes("CondoOwner");
 
 
   const handleLogout = () => {
