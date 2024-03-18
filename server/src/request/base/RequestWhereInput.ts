@@ -4,7 +4,7 @@ import { CompanyWhereUniqueInput } from "../../company/base/CompanyWhereUniqueIn
 import { ValidateNested, IsOptional, IsEnum } from "class-validator";
 import { Type } from "class-transformer";
 import { StringFilter } from "../../util/StringFilter";
-import { EnumRequestRequestType } from "./EnumRequestRequestType";
+import { EnumRequestType } from "./EnumRequestType";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 
 @InputType()
@@ -34,11 +34,11 @@ class RequestWhereInput {
 
   @ApiProperty({
     required: false,
-    enum: EnumRequestRequestType,
+    enum: EnumRequestType,
   })
-  @IsEnum(EnumRequestRequestType)
+  @IsEnum(EnumRequestType)
   @IsOptional()
-  @Field(() => EnumRequestRequestType, {
+  @Field(() => EnumRequestType, {
     nullable: true,
   })
   requestType?:

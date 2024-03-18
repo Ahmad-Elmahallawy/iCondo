@@ -5,14 +5,14 @@
 type CommonFacility {
   availabilities(orderBy: [ReservationOrderByInput!], skip: Float, take: Float, where: ReservationWhereInput): [Reservation!]!
   createdAt: DateTime!
-  facilityType: EnumCommonFacilityFacilityType
+  facilityType: EnumCommonFacilityType
   id: String!
   updatedAt: DateTime!
 }
 
 input CommonFacilityCreateInput {
   availabilities: ReservationCreateNestedManyWithoutCommonFacilitiesInput
-  facilityType: EnumCommonFacilityFacilityType
+  facilityType: EnumCommonFacilityType
 }
 
 input CommonFacilityOrderByInput {
@@ -24,12 +24,12 @@ input CommonFacilityOrderByInput {
 
 input CommonFacilityUpdateInput {
   availabilities: ReservationUpdateManyWithoutCommonFacilitiesInput
-  facilityType: EnumCommonFacilityFacilityType
+  facilityType: EnumCommonFacilityType
 }
 
 input CommonFacilityWhereInput {
   availabilities: ReservationListRelationFilter
-  facilityType: EnumCommonFacilityFacilityType
+  facilityType: EnumCommonFacilityType
   id: StringFilter
 }
 
@@ -58,13 +58,13 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
-enum EnumCommonFacilityFacilityType {
+enum EnumCommonFacilityType {
   Type_1
   Type_2
   Type_3
 }
 
-enum EnumRequestRequestType {
+enum EnumRequestType {
   Type_1
   Type_2
   Type_3
@@ -212,14 +212,14 @@ type Request {
   company: Company
   createdAt: DateTime!
   id: String!
-  requestType: EnumRequestRequestType
+  requestType: EnumRequestType
   updatedAt: DateTime!
   user: User
 }
 
 input RequestCreateInput {
   company: CompanyWhereUniqueInput
-  requestType: EnumRequestRequestType
+  requestType: EnumRequestType
   user: UserWhereUniqueInput
 }
 
@@ -234,14 +234,14 @@ input RequestOrderByInput {
 
 input RequestUpdateInput {
   company: CompanyWhereUniqueInput
-  requestType: EnumRequestRequestType
+  requestType: EnumRequestType
   user: UserWhereUniqueInput
 }
 
 input RequestWhereInput {
   company: CompanyWhereUniqueInput
   id: StringFilter
-  requestType: EnumRequestRequestType
+  requestType: EnumRequestType
   user: UserWhereUniqueInput
 }
 

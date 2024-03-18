@@ -24,7 +24,7 @@ describe("UserKeyRegister Component", () => {
     expect(input).toBeInTheDocument();
     // Change the input field
     fireEvent.change(input!, {
-      target: { value: "12345678" },
+      target: { value: "" },
     });
 
     // Trigger the Save button click
@@ -73,7 +73,82 @@ describe("UserKeyRegister Component", () => {
       );
     });
     expect(
-      await screen.findByText("Error registering key")
+      await screen.findByText("Error registering key: Reset password failed")
     ).toBeInTheDocument();
   });
+});
+
+jest.mock("axios");
+
+describe("UserKeyRegister Component", () => {
+  // Existing tests...
+
+  it("successful key registration", async () => {
+    render(<UserKeyRegister />);
+
+    // Mock the axios.get calls
+    (axios.get as jest.Mock)
+      .mockResolvedValueOnce({
+        data: [{ condoUnit: { id: "123" } }],
+      })
+      .mockResolvedValueOnce({
+        data: [{ condoUnit: { id: "123" } }],
+      });
+
+    // Mock the axios.post call
+    (axios.post as jest.Mock).mockResolvedValueOnce({});
+
+    const input = screen.getByTestId("registrationKey").querySelector("input");
+    fireEvent.change(input!, { target: { value: "testKey" } });
+
+    fireEvent.click(screen.getByText("Submit"));
+
+    await waitFor(() => {
+      expect(
+        screen.getByText("Key registered successfully!")
+      ).toBeInTheDocument();
+    });
+  });
+
+  it("key not found or already registered", async () => {
+    render(<UserKeyRegister />);
+
+    // Mock the axios.get call to return an empty array
+    (axios.get as jest.Mock).mockResolvedValueOnce({ data: [] });
+
+    const input = screen.getByTestId("registrationKey").querySelector("input");
+    fireEvent.change(input!, { target: { value: "testKey" } });
+
+    fireEvent.click(screen.getByText("Submit"));
+
+    await waitFor(() => {
+      expect(
+        screen.getByText(
+          "Error registering key: Key not found or already registered"
+        )
+      ).toBeInTheDocument();
+    });
+  });
+
+  it("condo ID not found in registration response", async () => {
+    render(<UserKeyRegister />);
+
+    // Mock the axios.get call to return a response without condoUnit.id
+    (axios.get as jest.Mock).mockResolvedValueOnce({ data: [{}] });
+
+    const input = screen.getByTestId("registrationKey").querySelector("input");
+    fireEvent.change(input!, { target: { value: "testKey" } });
+
+    fireEvent.click(screen.getByText("Submit"));
+
+    await waitFor(() => {
+      expect(
+        screen.getByText(
+          "Error registering key: Condo ID not found in registration response"
+        )
+      ).toBeInTheDocument();
+    });
+  });
+
+
 });

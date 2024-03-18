@@ -301,8 +301,94 @@ describe("Property", () => {
         .send({ /* Invalid property data */ })
         .expect(HttpStatus.OK)
   });
+  test("GET /properties/:id/condoUnits", async () => {
+    await request(app.getHttpServer())
+        .get(`/properties/${existingId}/condoUnits`)
+        .expect(HttpStatus.INTERNAL_SERVER_ERROR)
+  });
 
+  test("POST /properties/:id/condoUnits", async () => {
+    await request(app.getHttpServer())
+        .post(`/properties/${existingId}/condoUnits`)
+        .expect(HttpStatus.CREATED);
+  });
+  test("PATCH /properties/:id/condoUnits", async () => {
+    await request(app.getHttpServer())
+        .patch(`/properties/${existingId}/condoUnits`)
+        .expect(HttpStatus.OK);
+  });
 
+  test("DELETE /properties/:id/condoUnits", async () => {
+    await request(app.getHttpServer())
+        .delete(`/properties/${existingId}/condoUnits`)
+        .expect(HttpStatus.OK);
+  });
+  test("GET /properties/:id/files", async () => {
+    await request(app.getHttpServer())
+        .get(`/properties/${existingId}/files`)
+        .expect(HttpStatus.INTERNAL_SERVER_ERROR)
+  });
+
+  test("POST /properties/:id/files", async () => {
+    await request(app.getHttpServer())
+        .post(`/properties/${existingId}/files`)
+        .expect(HttpStatus.CREATED);
+  });
+  test("PATCH /properties/:id/files", async () => {
+    await request(app.getHttpServer())
+        .patch(`/properties/${existingId}/files`)
+        .expect(HttpStatus.OK);
+  });
+
+  test("DELETE /properties/:id/files", async () => {
+    await request(app.getHttpServer())
+        .delete(`/properties/${existingId}/files`)
+        .expect(HttpStatus.OK);
+  });
+  test("GET /properties/:id/Lockers", async () => {
+    await request(app.getHttpServer())
+        .get(`/properties/${existingId}/Lockers`)
+        .expect(HttpStatus.INTERNAL_SERVER_ERROR)
+  });
+
+  test("POST /properties/:id/Lockers", async () => {
+    await request(app.getHttpServer())
+        .post(`/properties/${existingId}/Lockers`)
+        .expect(HttpStatus.CREATED);
+  });
+  test("PATCH /properties/:id/Lockers", async () => {
+    await request(app.getHttpServer())
+        .patch(`/properties/${existingId}/Lockers`)
+        .expect(HttpStatus.OK);
+  });
+
+  test("DELETE /properties/:id/Lockers", async () => {
+    await request(app.getHttpServer())
+        .delete(`/properties/${existingId}/Lockers`)
+        .expect(HttpStatus.OK);
+  });
+  test("GET /properties/:id/ParkingSpots", async () => {
+    await request(app.getHttpServer())
+        .get(`/properties/${existingId}/ParkingSpots`)
+        .expect(HttpStatus.INTERNAL_SERVER_ERROR)
+  });
+
+  test("POST /properties/:id/ParkingSpots", async () => {
+    await request(app.getHttpServer())
+        .post(`/properties/${existingId}/ParkingSpots`)
+        .expect(HttpStatus.CREATED);
+  });
+  test("PATCH /properties/:id/ParkingSpots", async () => {
+    await request(app.getHttpServer())
+        .patch(`/properties/${existingId}/ParkingSpots`)
+        .expect(HttpStatus.OK);
+  });
+
+  test("DELETE /properties/:id/ParkingSpots", async () => {
+    await request(app.getHttpServer())
+        .delete(`/properties/${existingId}/ParkingSpots`)
+        .expect(HttpStatus.OK);
+  });
   afterAll(async () => {
     await app.close();
   });

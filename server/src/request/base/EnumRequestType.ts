@@ -1,6 +1,6 @@
 import { registerEnumType } from "@nestjs/graphql";
 
-export enum EnumRequestRequestType {
+export enum EnumRequestType {
   Type_1 = "moving_in",
   Type_2 = "moving_out",
   Type_3 = "intercom_change",
@@ -10,6 +10,6 @@ export enum EnumRequestRequestType {
   Type_7 = "question",
 }
 
-registerEnumType(EnumRequestRequestType, {
-  name: "EnumRequestRequestType",
+registerEnumType(EnumRequestType, {
+  name: "EnumRequestType",
 });

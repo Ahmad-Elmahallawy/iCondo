@@ -1,15 +1,30 @@
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+// SelectSubjectRequest.tsx
+
 import React from "react";
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+} from "@mui/material";
 import { makeStyles } from "@mui/material";
 
-export default function SelectSubjectRequest() {
+interface SelectSubjectRequestProps {
+  onSelect: (subject: string) => void; // Define onSelect prop
+}
+
+export default function SelectSubjectRequest({
+  onSelect,
+}: SelectSubjectRequestProps) {
   const [request, setRequest] = React.useState("");
 
   const handleChange = (event: SelectChangeEvent) => {
-    setRequest(event.target.value);
+    const selectedValue = event.target.value;
+    console.log(selectedValue);
+
+    setRequest(selectedValue);
+    onSelect(selectedValue); // Call the onSelect prop with the selected value
   };
 
   return (
@@ -53,10 +68,12 @@ export default function SelectSubjectRequest() {
           },
         }}
       >
-        <MenuItem value="moving">Moving In/Out</MenuItem>
-        <MenuItem value="intercom">Intercom Changes</MenuItem>
-        <MenuItem value="access">Request Access</MenuItem>
-        <MenuItem value="violation">Report a Violation</MenuItem>
+        <MenuItem value="moving_in">Moving In</MenuItem>
+        <MenuItem value="moving_out">Moving Out</MenuItem>
+        <MenuItem value="intercom_change">Intercom Changes</MenuItem>
+        <MenuItem value="access_request">Request Access</MenuItem>
+        <MenuItem value="violation_report">Report a Violation</MenuItem>
+        <MenuItem value="deficiency_report">Report a Deficiency</MenuItem>
         <MenuItem value="question">Question</MenuItem>
       </Select>
     </FormControl>
