@@ -37,5 +37,4 @@ const CondoOwnerDashboardPage: React.FC = () => {
   );
 };
 
-
 export default CondoOwnerDashboardPage;
