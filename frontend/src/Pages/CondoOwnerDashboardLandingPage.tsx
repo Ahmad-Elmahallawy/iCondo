@@ -26,11 +26,11 @@ const CondoOwnerDashboardPage: React.FC = () => {
         </div>
         <div className="dashboard-row">
           <IconCard title="My Profile" icon={Profile} route="/Profile" />
-          <IconCard title="My Condos" icon={Condos} route="/" />
+          <IconCard title="My Condos" icon={Condos} route="/" /> {/*TODO: ADD ROUTE*/} 
         </div>
         <div className="dashboard-row">
-          <IconCard title="My Financial Status" icon={Financial_status} route="/" />
-          <IconCard title="My Requests" icon={Requests} route="/" />
+          <IconCard title="My Financial Status" icon={Financial_status} route="/" />{/*TODO: ADD ROUTE*/}
+          <IconCard title="My Requests" icon={Requests} route="/OwnerRequests" />
         </div>
       </div>
     </div>
