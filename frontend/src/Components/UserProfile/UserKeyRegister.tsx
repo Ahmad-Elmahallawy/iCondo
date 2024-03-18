@@ -26,18 +26,10 @@ const UserKeyRegister: React.FC = () => {
 
       // Get condoId from the registration response
       const condoId = registerResponse.data[0]?.condoUnit?.id;
-      if (!condoId) {
-        throw new Error("Condo ID not found in registration response");
-      }
 
-      // Call getRegistrationKey API endpoint to retrieve condoId
-      const getResponse = await api.registerationKeys.getRegistrationKey(key);
+      console.log(condoId, userData.id, key);
 
-      // Check if condoId is present in the response data
-      const responseCondoId = getResponse.data[0]?.condoUnit?.id;
-      if (!responseCondoId) {
-        throw new Error("Condo ID not found in response");
-      }
+      console.log(userData.accessToken);
 
       // Register the user to the condo
       const linkCondoUser = await api.userCondoList.postUserCondo(
@@ -45,7 +37,20 @@ const UserKeyRegister: React.FC = () => {
         userData.id,
         userData.accessToken
       );
-
+      console.log(userData.accessToken);
+      if (registerResponse.data[0].role[0] === "condoOwner") {
+        const response = await api.userInformation.handleUserRole(
+          ["condoOwner"],
+          userData.id,
+          userData.accessToken
+        );
+      } else {
+        const response = await api.userInformation.handleUserRole(
+          ["Rental"],
+          userData.id,
+          userData.accessToken
+        );
+      }
       setSuccessMessage("Key registered successfully!");
       setErrorText("");
     } catch (error: any) {

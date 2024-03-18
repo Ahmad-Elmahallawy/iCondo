@@ -17,6 +17,18 @@ const api = {
         },
       });
     },
+    async handleUserRole(role: any, id: number, token: String) {
+      await axios.patch(
+        `${urls.users.editUserRole}/${id}`,
+        { roles: role },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+    },
     async updateUserProfilePic(username: String, pictureFormData: FormData) {
       await axios.post(
         `${urls.users.updateUserProfilePic}/${username}`,
@@ -41,20 +53,23 @@ const api = {
   },
 
   registerationKeys: {
-    async userRegisterKey(key: string) {
+    async userRegisterKey(key: String) {
       const response = await axios.get(
         `${urls.registrationKeys.userRegister}`,
         {
           params: {
             where: {
-              value: `${key}`,
+              value: {
+                equals: "tiN5J2lO",
+              },
             },
           },
         }
       );
+
       return response;
     },
-    async getRegistrationKey(key: string) {
+    async getRegistrationKey(key: String) {
       const response = await axios.get(`${urls.registrationKeys.getCondoID}`, {
         params: {
           where: {
@@ -62,12 +77,15 @@ const api = {
           },
         },
       });
+
       return response;
     },
   },
 
   userCondoList: {
     async postUserCondo(condoId: number, userId: number, token: String) {
+      console.log(condoId);
+
       const response = await axios.post(
         urls.userCondos.submitUserCondo,
         {
@@ -84,6 +102,8 @@ const api = {
           },
         }
       );
+      console.log(response);
+
       return response;
     },
     // to get the condo ID
@@ -109,7 +129,6 @@ const api = {
       requestType: String,
       token: String
     ) {
-      console.log(companyId, userId, requestType, token)
       const response = await axios.post(
         urls.requests.submitRequest,
         {
@@ -127,6 +146,7 @@ const api = {
           },
         }
       );
+
       return response;
     },
   },
@@ -157,8 +177,6 @@ const api = {
   companies: {
     // get company details
     async getCompanyProperty(propertyId: number, token: String) {
-      console.log(propertyId, token);
-
       try {
         const response = await axios.get(`${urls.companies.getCompany}`, {
           params: {
