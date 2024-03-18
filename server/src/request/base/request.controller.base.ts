@@ -75,8 +75,8 @@ export class RequestControllerBase {
         createdAt: true,
         id: true,
         requestType: true,
+        status: true,
         updatedAt: true,
-
         user: {
           select: {
             id: true,
@@ -112,6 +112,7 @@ export class RequestControllerBase {
         createdAt: true,
         id: true,
         requestType: true,
+        status: true,
         updatedAt: true,
 
         user: {
@@ -150,6 +151,7 @@ export class RequestControllerBase {
         createdAt: true,
         id: true,
         requestType: true,
+        status: true,
         updatedAt: true,
 
         user: {
@@ -211,6 +213,7 @@ export class RequestControllerBase {
           createdAt: true,
           id: true,
           requestType: true,
+          status: true,
           updatedAt: true,
 
           user: {
@@ -257,6 +260,7 @@ export class RequestControllerBase {
           createdAt: true,
           id: true,
           requestType: true,
+          status: true,
           updatedAt: true,
 
           user: {

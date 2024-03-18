@@ -536,6 +536,7 @@ export class CompanyControllerBase {
         createdAt: true,
         id: true,
         requestType: true,
+        status: true,
         updatedAt: true,
 
         user: {

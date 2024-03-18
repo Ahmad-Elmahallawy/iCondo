@@ -64,6 +64,15 @@ enum EnumCommonFacilityType {
   Type_3
 }
 
+enum EnumRequestStatus {
+  Option_1
+  Option_2
+  Option_3
+  Option_4
+  Option_5
+  Option_6
+}
+
 enum EnumRequestType {
   Type_1
   Type_2
@@ -213,6 +222,7 @@ type Request {
   createdAt: DateTime!
   id: String!
   requestType: EnumRequestType
+  status: EnumRequestStatus
   updatedAt: DateTime!
   user: User
 }
@@ -220,6 +230,7 @@ type Request {
 input RequestCreateInput {
   company: CompanyWhereUniqueInput
   requestType: EnumRequestType
+  status: EnumRequestStatus
   user: UserWhereUniqueInput
 }
 
@@ -228,6 +239,7 @@ input RequestOrderByInput {
   createdAt: SortOrder
   id: SortOrder
   requestType: SortOrder
+  status: SortOrder
   updatedAt: SortOrder
   userID: SortOrder
 }
@@ -235,6 +247,7 @@ input RequestOrderByInput {
 input RequestUpdateInput {
   company: CompanyWhereUniqueInput
   requestType: EnumRequestType
+  status: EnumRequestStatus
   user: UserWhereUniqueInput
 }
 
@@ -242,6 +255,7 @@ input RequestWhereInput {
   company: CompanyWhereUniqueInput
   id: StringFilter
   requestType: EnumRequestType
+  status: EnumRequestStatus
   user: UserWhereUniqueInput
 }
 
