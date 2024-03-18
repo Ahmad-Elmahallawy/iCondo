@@ -14,6 +14,7 @@ import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateReq
 import { map } from "rxjs";
 import { ReservationController } from "../reservation.controller";
 import { ReservationService } from "../reservation.service";
+import * as errors from "../../errors";
 
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
@@ -25,6 +26,20 @@ const CREATE_INPUT = {
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
+  availablity: "exampleAvailablity",
+  createdAt: new Date(),
+  id: "exampleId",
+  notes: "exampleNotes",
+  updatedAt: new Date(),
+};
+const UPDATE_RESULT = {
+  availablity: "exampleAvailablity",
+  createdAt: new Date(),
+  id: "exampleId",
+  notes: "exampleNotes",
+  updatedAt: new Date(),
+};
+const DELETE_RESULT = {
   availablity: "exampleAvailablity",
   createdAt: new Date(),
   id: "exampleId",
@@ -47,10 +62,34 @@ const FIND_ONE_RESULT = {
   notes: "exampleNotes",
   updatedAt: new Date(),
 };
-
+const NOT_FOUND = {
+  statusCode: HttpStatus.NOT_FOUND,
+  message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
+  error: "Not Found",
+};
 const service = {
   createReservation() {
     return CREATE_RESULT;
+  },
+  updateReservation: ({ where }: { where: { id: string } }) => {
+    switch (where.id) {
+      case existingId:
+        return UPDATE_RESULT;
+      case nonExistingId:
+        throw new errors.NotFoundException(
+            `No resource was found for {"id":"${nonExistingId}"}`
+        );
+    }
+  },
+  deleteReservation: ({ where }: { where: { id: string } }) => {
+    switch (where.id) {
+      case existingId:
+        return DELETE_RESULT;
+      case nonExistingId:
+        throw new errors.NotFoundException(
+            `No resource was found for {"id":"${nonExistingId}"}`
+        );
+    }
   },
   reservations: () => FIND_MANY_RESULT,
   reservation: ({ where }: { where: { id: string } }) => {
@@ -190,6 +229,33 @@ describe("Reservation", () => {
             statusCode: HttpStatus.CONFLICT,
           });
       });
+  });
+  test("PATCH /reservations/:id", async () => {
+    await request(app.getHttpServer())
+        .patch(`${"/reservations"}/${existingId}`)
+        .expect(HttpStatus.OK)
+        .expect(JSON.stringify(UPDATE_RESULT));
+  });
+
+  test("PATCH /reservations/:id non existing", async () => {
+    await request(app.getHttpServer())
+        .patch(`${"/reservations"}/${nonExistingId}`)
+        .expect(HttpStatus.NOT_FOUND)
+        .expect(NOT_FOUND);
+  });
+
+  test("DELETE /reservations/:id existing", async () => {
+    await request(app.getHttpServer())
+        .delete(`${"/reservations"}/${existingId}`)
+        .expect(HttpStatus.OK)
+        .expect(JSON.stringify(DELETE_RESULT));
+  });
+
+  test("DELETE /reservations/:id non existing", async () => {
+    await request(app.getHttpServer())
+        .delete(`${"/reservations"}/${nonExistingId}`)
+        .expect(HttpStatus.NOT_FOUND)
+        .expect(NOT_FOUND);
   });
 
   afterAll(async () => {
