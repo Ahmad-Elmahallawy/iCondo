@@ -126,7 +126,7 @@ describe("EmployeeRegistration Component", () => {
     });
   });
 
-  it("registers a new employee with role 'FinanceManager' successfully and displays success message", async () => {
+  it("registers a new employee with role 'financialManager' successfully and displays success message", async () => {
     (axios.post as jest.Mock).mockResolvedValueOnce({
       data: {
         _id: 2,
@@ -136,7 +136,7 @@ describe("EmployeeRegistration Component", () => {
         email: "Jakees.doe@example.com",
         phone_number: "1234567889",
         token: "example-token",
-        role: "FinanceManager",
+        role: "financialManager",
       },
     });
 
@@ -147,12 +147,10 @@ describe("EmployeeRegistration Component", () => {
     );
 
     fireEvent.change(screen.getByLabelText("Employee's Role is"), {
-      target: { value: "FinanceManager" },
+      target: { value: "financialManager" },
     });
 
-    fireEvent.change(screen.getByPlaceholderText("Company Name"), {
-      target: { value: "Com" },
-    });
+
     fireEvent.change(screen.getByPlaceholderText("First Name"), {
       target: { value: "Jakees" },
     });
@@ -205,9 +203,7 @@ describe("EmployeeRegistration Component", () => {
       target: { value: "Operator" },
     });
 
-    fireEvent.change(screen.getByPlaceholderText("Company Name"), {
-      target: { value: "Comp" },
-    });
+
     fireEvent.change(screen.getByPlaceholderText("First Name"), {
       target: { value: "ope" },
     });
