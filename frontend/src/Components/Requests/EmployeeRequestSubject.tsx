@@ -3,6 +3,7 @@ import "../../Style/RequestsStyle/EmployeeRequestSubjectStyle.css";
 import axios from "axios";
 import EmployeeRequestResponse from "./EmployeeRequestResponse";
 import api from "../../api";
+import LoadingScreen from "../Common/LoadingScreen";
 
 interface Request {
   requestType: string;
@@ -14,10 +15,12 @@ const EmployeeRequestSubject = () => {
   const [fetchedRequests, setFetchedRequests] = useState<Request[]>([]);
   const userData = JSON.parse(localStorage.getItem("userData") || "{}");
   const company = JSON.parse(localStorage.getItem("companyDetails") || "{}");
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setIsLoading(true);
         const response = await api.requests.getEmployeeRequest(
           company[0]?.company?.id,
           userData.accessToken
@@ -27,6 +30,7 @@ const EmployeeRequestSubject = () => {
         } else {
           console.error("Response is undefined");
         }
+        setIsLoading(false);
       } catch (error) {
         console.error("Error fetching requests:", error);
       }
@@ -101,6 +105,7 @@ const EmployeeRequestSubject = () => {
         }
         return null; // If neither condition is met
       })}
+      {isLoading && <LoadingScreen />}
     </div>
   );
 };
