@@ -178,7 +178,7 @@ const api = {
     },
     async editRequest(id: String, status: String, token: String) {
       try {
-        const response = await axios.get(
+        const response = await axios.patch(
           `http://localhost:8000/api/requests/${id}`,
           {
             headers: {
