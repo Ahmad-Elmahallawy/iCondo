@@ -10,6 +10,14 @@ const api = {
       );
       return response;
     },
+    async fetchUserDetails(id: number, token: String) {
+      const response = await axios.get(`${urls.users.fetchUserDetails}/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return response;
+    },
     async handleSaveClick(userData: UserData) {
       await axios.patch(`${urls.users.updateUserDetails}`, userData, {
         headers: {
