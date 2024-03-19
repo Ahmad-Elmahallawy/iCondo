@@ -92,19 +92,19 @@ const PropertyInfoForm: React.FC<PropertyInfoFormProps> = ({
             className="remove-confirmation-modal"
             onClick={(e) => e.stopPropagation()}
           >
-            {" "}
-            {/* Prevent clicks from closing the modal */}
             <h2>Remove Property Confirmation</h2>
             <p>
-              Are you sure you want to remove “{initialPropertyInfo.name}” from
+              Are you sure you want to remove "{initialPropertyInfo.name}" from
               your ownership?
             </p>
-            <button onClick={handleCloseModal} className="cancel-button">
-              Cancel
-            </button>
-            <button onClick={handleRemoveConfirm} className="confirm-button">
-              Remove
-            </button>
+            <div className="modal-buttons">
+              <button onClick={handleRemoveConfirm} className="confirm-button">
+                Remove
+              </button>
+              <button onClick={handleRemoveCancel} className="cancel-button">
+                Cancel
+              </button>
+            </div>
           </div>
         </div>
       )}

@@ -3,6 +3,7 @@
   color: var(--color4);
   margin-bottom: 15px;
   margin-top: -10px;
+  position: relative;
 }
 
 .remove-confirmation-modal {
@@ -72,8 +73,13 @@
 }
 
 .remove-property-button {
-  background: var(--color2);
-  border: 1px solid var(--color2);
+  position: absolute;
+  top: 120px;
+  right: 45px;
+  margin-right: 10px; /* Adjust if necessary */
+  margin-top: 10px; /* Adjust if necessary */
+  background: var(--color3);
+  border: 1px solid var(--color3);
   padding: 10px;
   border-radius: 6px;
   color: var(--color1);
@@ -81,4 +87,20 @@
   cursor: pointer;
   align-self: center;
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.35);
+}
+
+.confirm-button {
+  background: var(--color3);
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  margin-bottom: 10px; /* Space between the "Remove" and "Cancel" buttons */
+  cursor: pointer;
+}
+
+.modal-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
