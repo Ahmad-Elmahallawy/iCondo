@@ -1,5 +1,10 @@
 import { PrismaService } from "../../prisma/prisma.service";
-import { Prisma, Notification } from "@prisma/client";
+import {
+  Prisma,
+  Notification, // @ts-ignore
+  Request, // @ts-ignore
+  User,
+} from "@prisma/client";
 
 export class NotificationServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -34,5 +39,21 @@ export class NotificationServiceBase {
     args: Prisma.SelectSubset<T, Prisma.NotificationDeleteArgs>
   ): Promise<Notification> {
     return this.prisma.notification.delete(args);
+  }
+
+  async getRequest(parentId: string): Promise<Request | null> {
+    return this.prisma.notification
+        .findUnique({
+          where: { id: parentId },
+        })
+        .request();
+  }
+
+  async getUser(parentId: string): Promise<User | null> {
+    return this.prisma.notification
+        .findUnique({
+          where: { id: parentId },
+        })
+        .user();
   }
 }

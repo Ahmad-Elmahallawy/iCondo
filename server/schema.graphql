@@ -169,32 +169,58 @@ type Notification {
   createdAt: DateTime!
   id: String!
   message: String
+  request: Request
   title: String
   updatedAt: DateTime!
+  user: User
 }
 
 input NotificationCreateInput {
   message: String
+  request: RequestWhereUniqueInput
   title: String
+  user: UserWhereUniqueInput
+}
+
+input NotificationCreateNestedManyWithoutRequestsInput {
+  connect: [NotificationWhereUniqueInput!]
+}
+
+input NotificationListRelationFilter {
+  every: NotificationWhereInput
+  none: NotificationWhereInput
+  some: NotificationWhereInput
 }
 
 input NotificationOrderByInput {
   createdAt: SortOrder
   id: SortOrder
   message: SortOrder
+  requestID: SortOrder
   title: SortOrder
   updatedAt: SortOrder
+  userID: SortOrder
 }
 
 input NotificationUpdateInput {
   message: String
+  request: RequestWhereUniqueInput
   title: String
+  user: UserWhereUniqueInput
+}
+
+input NotificationUpdateManyWithoutRequestsInput {
+  connect: [NotificationWhereUniqueInput!]
+  disconnect: [NotificationWhereUniqueInput!]
+  set: [NotificationWhereUniqueInput!]
 }
 
 input NotificationWhereInput {
   id: StringFilter
   message: StringNullableFilter
+  request: RequestWhereUniqueInput
   title: StringNullableFilter
+  user: UserWhereUniqueInput
 }
 
 input NotificationWhereUniqueInput {
@@ -303,6 +329,7 @@ type Request {
   employee: CompanyEmployee
   id: String!
   key: String
+  notifications(orderBy: [NotificationOrderByInput!], skip: Float, take: Float, where: NotificationWhereInput): [Notification!]!
   property: Property
   question: String
   reportMessage: String
@@ -319,6 +346,7 @@ input RequestCreateInput {
   elevator: String
   employee: CompanyEmployeeWhereUniqueInput
   key: String
+  notifications: NotificationCreateNestedManyWithoutRequestsInput
   property: PropertyWhereUniqueInput
   question: String
   reportMessage: String
@@ -352,6 +380,7 @@ input RequestUpdateInput {
   elevator: String
   employee: CompanyEmployeeWhereUniqueInput
   key: String
+  notifications: NotificationUpdateManyWithoutRequestsInput
   property: PropertyWhereUniqueInput
   question: String
   reportMessage: String
@@ -368,6 +397,7 @@ input RequestWhereInput {
   employee: CompanyEmployeeWhereUniqueInput
   id: StringFilter
   key: StringNullableFilter
+  notifications: NotificationListRelationFilter
   property: PropertyWhereUniqueInput
   question: StringNullableFilter
   reportMessage: StringNullableFilter
