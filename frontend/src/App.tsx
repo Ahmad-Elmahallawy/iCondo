@@ -35,7 +35,9 @@ function App() {
         <Route path="GenerateKey" element={<EmployeeRequestsLandingPage />} />
         <Route
           path="RegisterEmployee"
-          element={<DashboardPage />} /*CHANGE PATH ONCE PAGE IS CREATED*/
+          element={
+            <EmployeeRegistrationLandingPage />
+          } /*CHANGE PATH ONCE PAGE IS CREATED*/
         />
         <Route path="CreateProperty" element={<CreatePropertyLandingPage />} />
         <Route
