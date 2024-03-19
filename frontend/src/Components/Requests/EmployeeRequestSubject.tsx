@@ -15,8 +15,6 @@ const EmployeeRequestSubject = () => {
   const userData = JSON.parse(localStorage.getItem("userData") || "{}");
   const company = JSON.parse(localStorage.getItem("companyDetails") || "{}");
 
-  // manager: access request, violation and deficiency, question
-  // operator: intercom change, moving in and out
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -63,16 +61,19 @@ const EmployeeRequestSubject = () => {
 
   return (
     <div>
-      {fetchedRequests.map(
-        (request, index) =>
+      {fetchedRequests.map((request, index) => {
+        if (
           userData.roles[0] === "manager" &&
           (request.requestType === "access_request" ||
-            request.requestType === "deficiency_report") && (
+            request.requestType === "deficiency_report" ||
+            request.requestType === "violation_report" ||
+            request.requestType === "question")
+        ) {
+          return (
             <div key={index} className="employee-request-container">
               <p>
                 <b>Subject</b>: {request.requestType}
               </p>
-              {/* TODO: Update Unread status to Read if clicked on or Responded when the employee submits a response */}
               <p>{request.status}</p>
               <EmployeeRequestResponse
                 requestId={request.id}
@@ -80,8 +81,26 @@ const EmployeeRequestSubject = () => {
                 currentStatus={request.status}
               />
             </div>
-          )
-      )}
+          );
+        } else if (userData.roles[0] !== "manager") {
+          // Display different content for non-manager users
+          return (
+            <div key={index} className="employee-request-container">
+              {/* Display content for non-manager users */}
+              <p>
+                <b>Subject</b>: {request.requestType}
+              </p>
+              <p>{request.status}</p>
+              <EmployeeRequestResponse
+                requestId={request.id}
+                onSubmit={(status) => handleSubmit(status, request.id)}
+                currentStatus={request.status}
+              />
+            </div>
+          );
+        }
+        return null; // If neither condition is met
+      })}
     </div>
   );
 };
