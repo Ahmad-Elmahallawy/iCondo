@@ -12,6 +12,9 @@ import { EnumRequestStatus } from "./EnumRequestStatus";
 import { Type } from "class-transformer";
 import { EnumRequestType } from "./EnumRequestType";
 import { User } from "../../user/base/User";
+import { CondoUnit } from "../../condoUnit/base/CondoUnit";
+import { CompanyEmployee } from "../../companyEmployee/base/CompanyEmployee";
+import { Property } from "../../property/base/Property";
 
 @ObjectType()
 class Request {
@@ -84,6 +87,88 @@ class Request {
   @Type(() => Date)
   @Field(() => Date)
   updatedAt!: Date;
+
+  @ApiProperty({
+    required: false,
+    type: () => CondoUnit,
+  })
+  @ValidateNested()
+  @Type(() => CondoUnit)
+  @IsOptional()
+  condoUnit?: CondoUnit | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  elevator!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => CompanyEmployee,
+  })
+  @ValidateNested()
+  @Type(() => CompanyEmployee)
+  @IsOptional()
+  employee?: CompanyEmployee | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  key!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => Property,
+  })
+  @ValidateNested()
+  @Type(() => Property)
+  @IsOptional()
+  property?: Property | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  question!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  reportMessage!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  response!: string | null;
 
   @ApiProperty({
     required: false,

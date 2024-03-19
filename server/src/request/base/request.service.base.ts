@@ -4,6 +4,9 @@ import {
   Prisma,
   Request, // @ts-ignore
   Company, // @ts-ignore
+  CondoUnit, // @ts-ignore
+  CompanyEmployee, // @ts-ignore
+  Property, // @ts-ignore
   User,
 } from "@prisma/client";
 
@@ -20,6 +23,29 @@ export class RequestServiceBase {
     args: Prisma.SelectSubset<T, Prisma.RequestFindManyArgs>
   ): Promise<Request[]> {
     return this.prisma.request.findMany(args);
+  }
+  async getCondoUnit(parentId: string): Promise<CondoUnit | null> {
+    return this.prisma.request
+        .findUnique({
+          where: { id: parentId },
+        })
+        .condoUnit();
+  }
+
+  async getEmployee(parentId: string): Promise<CompanyEmployee | null> {
+    return this.prisma.request
+        .findUnique({
+          where: { id: parentId },
+        })
+        .employee();
+  }
+
+  async getProperty(parentId: string): Promise<Property | null> {
+    return this.prisma.request
+        .findUnique({
+          where: { id: parentId },
+        })
+        .property();
   }
   async request<T extends Prisma.RequestFindUniqueArgs>(
     args: Prisma.SelectSubset<T, Prisma.RequestFindUniqueArgs>
