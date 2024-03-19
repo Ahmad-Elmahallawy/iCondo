@@ -23,6 +23,7 @@ const PropertyInfoForm: React.FC<PropertyInfoFormProps> = ({
   const [isEditMode, setEditMode] = useState(false);
   const [tempInfo, setTempInfo] = useState<PropertyInfo>(initialPropertyInfo);
   const [isCondoFilesOpen, setIsCondoFilesOpen] = useState(false);
+  const [showRemoveConfirmation, setShowRemoveConfirmation] = useState(false);
 
   // Synchronize internal state with prop changes
   useEffect(() => {
@@ -34,7 +35,7 @@ const PropertyInfoForm: React.FC<PropertyInfoFormProps> = ({
     setTempInfo({ ...tempInfo, [name]: value });
   };
 
-  const handleSave =  (event: React.FormEvent) => {
+  const handleSave = (event: React.FormEvent) => {
     event.preventDefault();
     onSave(tempInfo);
     setEditMode(false);
@@ -55,26 +56,78 @@ const PropertyInfoForm: React.FC<PropertyInfoFormProps> = ({
     setIsCondoFilesOpen(true);
   };
 
+  const handleRemovePropertyClick = () => {
+    setShowRemoveConfirmation(true);
+    document.body.classList.add("modal-open");
+  };
+
+  const handleRemoveCancel = () => {
+    setShowRemoveConfirmation(false);
+    document.body.classList.remove("no-scroll");
+  };
+
+  const handleRemoveConfirm = () => {
+    // Your property removal logic here
+    setShowRemoveConfirmation(false);
+    document.body.classList.remove("no-scroll");
+  };
+
+  const handleCloseModal = () => {
+    setShowRemoveConfirmation(false);
+    document.body.classList.remove("modal-open");
+  };
+
   return (
     <div className="property-form-container">
+      <button
+        onClick={handleRemovePropertyClick}
+        className="remove-property-button"
+      >
+        Remove Property
+      </button>
+
+      {showRemoveConfirmation && (
+        <div className="modal-overlay" onClick={handleCloseModal}>
+          <div
+            className="remove-confirmation-modal"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {" "}
+            {/* Prevent clicks from closing the modal */}
+            <h2>Remove Property Confirmation</h2>
+            <p>
+              Are you sure you want to remove “{initialPropertyInfo.name}” from
+              your ownership?
+            </p>
+            <button onClick={handleCloseModal} className="cancel-button">
+              Cancel
+            </button>
+            <button onClick={handleRemoveConfirm} className="confirm-button">
+              Remove
+            </button>
+          </div>
+        </div>
+      )}
       <form onSubmit={isEditMode ? handleSave : undefined}>
-        {Object.keys(initialPropertyInfo).map((key) => (
-          //Hide the updatedAt, id and createdAt input fields
-          key !== "updatedAt" &&
-          key !== "id" &&
-          key != "createdAt" &&
-          <PropertyInfoField
-            key={key}
-            name={key}
-            label={
-              key.charAt(0).toUpperCase() +
-              key.slice(1).replace(/([A-Z])/g, " $1")
-            }
-            value={tempInfo[key as keyof PropertyInfo]}
-            isEditMode={isEditMode}
-            onChange={handleInputChange}
-          />
-        ))}
+        {Object.keys(initialPropertyInfo).map(
+          (key) =>
+            //Hide the updatedAt, id and createdAt input fields
+            key !== "updatedAt" &&
+            key !== "id" &&
+            key != "createdAt" && (
+              <PropertyInfoField
+                key={key}
+                name={key}
+                label={
+                  key.charAt(0).toUpperCase() +
+                  key.slice(1).replace(/([A-Z])/g, " $1")
+                }
+                value={tempInfo[key as keyof PropertyInfo]}
+                isEditMode={isEditMode}
+                onChange={handleInputChange}
+              />
+            )
+        )}
         <div className="buttons-container">
           {isEditMode ? (
             <>
@@ -92,7 +145,11 @@ const PropertyInfoForm: React.FC<PropertyInfoFormProps> = ({
           ) : (
             <>
               {" "}
-              <button onClick={handleEdit} className="edit-button" data-testid="update-property-button">
+              <button
+                onClick={handleEdit}
+                className="edit-button"
+                data-testid="update-property-button"
+              >
                 Edit
               </button>
               <button

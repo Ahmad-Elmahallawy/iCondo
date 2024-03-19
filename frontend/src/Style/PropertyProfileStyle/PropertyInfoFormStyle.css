@@ -5,6 +5,33 @@
   margin-top: -10px;
 }
 
+.remove-confirmation-modal {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  z-index: 11; /* Even higher than the overlay */
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; /* high z-index to ensure it's on top */
+}
+
+.no-scroll {
+  overflow: hidden;
+}
+
 /* buttonsStyles.css */
 .edit-button,
 .edit-mode-button,
@@ -42,4 +69,16 @@
 
 .buttons-container {
   text-align: center;
+}
+
+.remove-property-button {
+  background: var(--color2);
+  border: 1px solid var(--color2);
+  padding: 10px;
+  border-radius: 6px;
+  color: var(--color1);
+  margin-bottom: 10px;
+  cursor: pointer;
+  align-self: center;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.35);
 }

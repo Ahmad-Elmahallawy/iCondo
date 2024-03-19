@@ -37,10 +37,7 @@ function App() {
           path="RegisterEmployee"
           element={<DashboardPage />} /*CHANGE PATH ONCE PAGE IS CREATED*/
         />
-        <Route
-          path="CreateProperty"
-          element={<CreatePropertyLandingPage />}
-        />
+        <Route path="CreateProperty" element={<CreatePropertyLandingPage />} />
         <Route
           path="EmployeeList"
           element={<DashboardPage />} /*CHANGE PATH ONCE PAGE IS CREATED*/
