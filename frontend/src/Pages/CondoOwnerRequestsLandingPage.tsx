@@ -36,12 +36,6 @@ const CondoOwnerRequestsLandingPage = () => {
         user.accessToken
       );
 
-      // const sentRequest = await api.requests.postOwnerRequest(
-      //   getCompanyId[0].id,
-      //   user.id,
-      //   subject,
-      //   user.accessToken
-      // );
       if (subject === "moving_in" || subject === "moving_out") {
         const sentRequest = await api.requests.postOwnerRequest(
           getCompanyId[0].id,
