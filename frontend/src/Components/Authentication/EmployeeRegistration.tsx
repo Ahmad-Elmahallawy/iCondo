@@ -77,9 +77,9 @@ const EmployeeRegistration = () => {
               value={selectedRole}
               onChange={handleRoleChange}
             >
-              <option value="Manager">Manager</option>
-              <option value="Operator">Operator</option>
-              <option value="FinancialManager">Finance Manager</option>
+              <option value="manager">Manager</option>
+              <option value="operator">Operator</option>
+              <option value="financialManager">Finance Manager</option>
             </select>
           </div>
 
