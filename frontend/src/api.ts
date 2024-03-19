@@ -59,7 +59,7 @@ const api = {
      * @param propertyId The unique identifier of the property to delete.
      * @returns Promise representing the operation result.
      */
-    async deleteProperty(propertyId: string) {
+    async deleteProperty(propertyId: number) {
       const response = await axios.delete(`${urls.properties.removeProperty}/${propertyId}`);
       return response;
     },

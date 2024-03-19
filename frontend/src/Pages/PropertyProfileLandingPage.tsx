@@ -39,7 +39,7 @@ const PropertyProfileLandingPage: React.FC = () => {
   const location = useLocation();
   const user = JSON.parse(localStorage.getItem("userData") || "{}");
   const navigate = useNavigate();
-  
+
   const property = {
     id: propertyInfo.id,
   };

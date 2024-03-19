@@ -10,7 +10,7 @@ interface PropertyInfo {
   unitCount: string;
   parkingCount: string;
   lockerCount: string;
-  id: string;
+  id: number;
 }
 
 type PropertyInfoFormProps = {
@@ -119,12 +119,10 @@ const PropertyInfoForm: React.FC<PropertyInfoFormProps> = ({
         </div>
       )}
       <form onSubmit={isEditMode ? handleSave : undefined}>
-        {Object.keys(initialPropertyInfo).map(
-          (key) =>
-            //Hide the updatedAt, id and createdAt input fields
-            key !== "updatedAt" &&
-            key !== "id" &&
-            key != "createdAt" && (
+        {Object.keys(initialPropertyInfo).map((key) => {
+          if (key !== "updatedAt" && key !== "id" && key !== "createdAt") {
+            const value = tempInfo[key as keyof PropertyInfo];
+            return (
               <PropertyInfoField
                 key={key}
                 name={key}
@@ -132,12 +130,14 @@ const PropertyInfoForm: React.FC<PropertyInfoFormProps> = ({
                   key.charAt(0).toUpperCase() +
                   key.slice(1).replace(/([A-Z])/g, " $1")
                 }
-                value={tempInfo[key as keyof PropertyInfo]}
+                value={typeof value === "number" ? value.toString() : value} // Convert numbers to strings
                 isEditMode={isEditMode}
                 onChange={handleInputChange}
               />
-            )
-        )}
+            );
+          }
+          return null;
+        })}
         <div className="buttons-container">
           {isEditMode ? (
             <>
