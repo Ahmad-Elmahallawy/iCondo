@@ -73,11 +73,8 @@
 }
 
 .remove-property-button {
-  position: absolute;
-  top: 120px;
-  right: 45px;
-  margin-right: 10px; /* Adjust if necessary */
-  margin-top: 10px; /* Adjust if necessary */
+  position: right;
+  margin-left: 375px;
   background: var(--color3);
   border: 1px solid var(--color3);
   padding: 10px;
