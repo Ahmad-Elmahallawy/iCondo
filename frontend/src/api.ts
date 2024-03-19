@@ -161,7 +161,7 @@ const api = {
 
     async getEmployeeRequest(id: number, token: String) {
       try {
-        const response = await axios.get(`http://localhost:8000/api/requests`, {
+        const response = await axios.get(`${urls.requests.getRequest}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -179,7 +179,7 @@ const api = {
     async editRequest(id: String, status: String, token: String) {
       try {
         const response = await axios.patch(
-          `http://localhost:8000/api/requests/${id}`,
+          `${urls.requests.editRequest}/${id}`,
           {
             status: status,
           },

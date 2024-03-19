@@ -1,12 +1,10 @@
 // EmployeeRequestResponse.tsx
 import React from "react";
 import "../../Style/RequestsStyle/EmployeeRequestResponseStyle.css";
-// Import EnumRequestStatus if available
-// import { EnumRequestStatus } from "../../path/to/EnumRequestStatus";
 
 interface Props {
   requestId: string;
-  currentStatus: string; // Assuming status is of type string
+  currentStatus: string; 
   onSubmit: (selectedStatus: string, requestId: string) => void;
 }
 
@@ -30,7 +28,6 @@ const EmployeeRequestResponse: React.FC<Props> = ({
 
         <button onClick={() => handleUpdateStatus("Complete")}>Complete</button>
       </div>
-      {/* Add more buttons for other statuses as needed */}
     </div>
   );
 };
