@@ -95,12 +95,15 @@
   padding: 10px;
   border: none;
   border-radius: 6px;
-  margin-bottom: 10px; /* Space between the "Remove" and "Cancel" buttons */
   cursor: pointer;
 }
 
 .modal-buttons {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center; /* This will center the buttons in the modal */
+  gap: 10px; /* This adds space between your buttons */
+}
+
+.modal-buttons button {
+  flex: 1; /* This will make both buttons take up equal space */
 }
