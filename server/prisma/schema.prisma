@@ -210,14 +210,6 @@ model Notification {
   updatedAt DateTime @updatedAt
 }
 
-model Notification {
-  createdAt DateTime @default(now())
-  id        String   @id @default(cuid())
-  message   String?
-  title     String?
-  updatedAt DateTime @updatedAt
-}
-
 enum EnumCommonFacilityType {
   sky_lounge
   spa_fitness
