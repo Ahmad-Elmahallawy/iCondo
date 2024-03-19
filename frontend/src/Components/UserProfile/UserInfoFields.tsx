@@ -119,7 +119,7 @@ const UserInfoFields: React.FC<UserInformationProps> = ({
             onChange={(e) => handleChange("password", e.target.value)}
           />
         ) : (
-          <span className="user-information-text">{user.password}</span>
+          <span className="user-information-text">{data.password}</span>
         )}
       </div>
     </div>

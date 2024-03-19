@@ -73,7 +73,14 @@ const UserInformation: React.FC<UserInformationProps> = ({ data }) => {
           pictureFormData
         );
       }
-      localStorage.setItem("userData", JSON.stringify(userData));
+      localStorage.setItem(
+        "userData",
+        JSON.stringify({
+          ...userData,
+          password: user.password,
+          accessToken: user.accessToken,
+        })
+      );
     } catch (error) {
       setErrorMessage("Error updating user details");
       setSuccessMessage(null);
