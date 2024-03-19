@@ -15,6 +15,8 @@ const EmployeeRequestSubject = () => {
   const userData = JSON.parse(localStorage.getItem("userData") || "{}");
   const company = JSON.parse(localStorage.getItem("companyDetails") || "{}");
 
+  // manager: access request, violation and deficiency, question
+  // operator: intercom change, moving in and out
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -61,20 +63,25 @@ const EmployeeRequestSubject = () => {
 
   return (
     <div>
-      {fetchedRequests.map((request, index) => (
-        <div key={index} className="employee-request-container">
-          <p>
-            <b>Subject</b>: {request.requestType}
-          </p>
-          {/* TODO: Update Unread status to Read if clicked on or Responded when the employee submits a response */}
-          <p>{request.status}</p>
-          <EmployeeRequestResponse
-            requestId={request.id}
-            onSubmit={(status) => handleSubmit(status, request.id)}
-            currentStatus={request.status}
-          />
-        </div>
-      ))}
+      {fetchedRequests.map(
+        (request, index) =>
+          userData.roles[0] === "manager" &&
+          (request.requestType === "access_request" ||
+            request.requestType === "deficiency_report") && (
+            <div key={index} className="employee-request-container">
+              <p>
+                <b>Subject</b>: {request.requestType}
+              </p>
+              {/* TODO: Update Unread status to Read if clicked on or Responded when the employee submits a response */}
+              <p>{request.status}</p>
+              <EmployeeRequestResponse
+                requestId={request.id}
+                onSubmit={(status) => handleSubmit(status, request.id)}
+                currentStatus={request.status}
+              />
+            </div>
+          )
+      )}
     </div>
   );
 };
