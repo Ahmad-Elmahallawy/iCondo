@@ -11,7 +11,7 @@ import api from "../../api";
 // Define the EmployeeRegistration component
 const EmployeeRegistration = () => {
   // State variables for selected role, result message, and loading indicator
-  const [selectedRole, setSelectedRole] = useState("Manager"); // Default value
+  const [selectedRole, setSelectedRole] = useState("manager"); // Default value
   const [resultMessage, setResultMessage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -77,9 +77,9 @@ const EmployeeRegistration = () => {
               value={selectedRole}
               onChange={handleRoleChange}
             >
-              <option value="Manager">Manager</option>
-              <option value="Operator">Operator</option>
-              <option value="FinancialManager">Finance Manager</option>
+              <option value="manager">Manager</option>
+              <option value="operator">Operator</option>
+              <option value="financialManager">Finance Manager</option>
             </select>
           </div>
 
