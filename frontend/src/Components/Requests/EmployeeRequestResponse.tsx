@@ -1,5 +1,6 @@
 // EmployeeRequestResponse.tsx
 import React from "react";
+import '../../Style/RequestsStyle/EmployeeRequestResponseStyle.css'
 // Import EnumRequestStatus if available
 // import { EnumRequestStatus } from "../../path/to/EnumRequestStatus";
 
@@ -22,10 +23,12 @@ const EmployeeRequestResponse: React.FC<Props> = ({
     <div>
       <p>Request ID: {requestId}</p>
       <p>Current Status: {currentStatus}</p>
-      <button onClick={() => handleUpdateStatus("Pending Approval")}>
-        Send for Approval
-      </button>
-      <button onClick={() => handleUpdateStatus("Complete")}>Complete</button>
+      <div className="employee-requests-buttons">
+        <button onClick={() => handleUpdateStatus("Pending Approval")}>
+          Send for Approval
+        </button>
+        <button onClick={() => handleUpdateStatus("Complete")}>Complete</button>
+      </div>
       {/* Add more buttons for other statuses as needed */}
     </div>
   );

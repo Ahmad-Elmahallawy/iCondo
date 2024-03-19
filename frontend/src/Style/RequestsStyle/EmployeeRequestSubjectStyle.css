@@ -1,6 +1,7 @@
 .employee-request-container {
-    border-top: 1px solid var(--color4);
-    display: flex;
-    justify-content: space-between;
-    padding: 0 3rem;
-  }
+  border-top: 1px solid var(--color4);
+  display: flex;
+  justify-content: space-between;
+  padding: 0 3rem;
+  margin: 5px;
+}

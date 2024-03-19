@@ -9,6 +9,8 @@
   border-radius: 5px;
   box-shadow: 2px 2px rgb(194, 193, 193);
   text-align: center;
+  height: 400px;
+  overflow: auto;
 }
 
 .condo-employee-heading {

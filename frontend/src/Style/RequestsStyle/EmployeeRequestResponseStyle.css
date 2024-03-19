@@ -1,0 +1,19 @@
+.employee-requests-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.employee-requests-buttons button {
+  color: var(--color1);
+  background-color: var(--color3);
+  outline: none;
+  border: 0;
+  border-radius: 5px;
+  padding: 0.4rem;
+  position: relative;
+}
+
+.employee-requests-buttons button:hover {
+  cursor: pointer;
+  background-color: var(--color4);
+}
