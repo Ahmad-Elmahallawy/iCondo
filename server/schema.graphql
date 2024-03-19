@@ -44,7 +44,28 @@ type Company {
   updatedAt: DateTime
 }
 
+type CompanyEmployee {
+  id: Float!
+}
+
+input CompanyEmployeeWhereUniqueInput {
+  id: Float!
+}
+
 input CompanyWhereUniqueInput {
+  id: Float!
+}
+
+type CondoUnit {
+  condoFee: Float
+  createdAt: DateTime!
+  id: Float!
+  size: String!
+  unitNumber: String
+  updatedAt: DateTime!
+}
+
+input CondoUnitWhereUniqueInput {
   id: Float!
 }
 
@@ -193,6 +214,21 @@ input PostWhereUniqueInput {
   id: String!
 }
 
+type Property {
+  address: String!
+  createdAt: DateTime!
+  id: Float!
+  lockerCount: Float
+  name: String!
+  parkingCount: Float!
+  unitCount: Float!
+  updatedAt: DateTime!
+}
+
+input PropertyWhereUniqueInput {
+  id: Float!
+}
+
 type Query {
   _commonFacilitiesMeta(where: CommonFacilityWhereInput): MetaQueryPayload!
   _forumsMeta(where: ForumWhereInput): MetaQueryPayload!
@@ -219,9 +255,17 @@ enum QueryMode {
 
 type Request {
   company: Company
+  condoUnit: CondoUnit
   createdAt: DateTime!
+  elevator: String
+  employee: CompanyEmployee
   id: String!
+  key: String
+  property: Property
+  question: String
+  reportMessage: String
   requestType: EnumRequestType
+  response: String
   status: EnumRequestStatus
   updatedAt: DateTime!
   user: User
@@ -229,16 +273,32 @@ type Request {
 
 input RequestCreateInput {
   company: CompanyWhereUniqueInput
+  condoUnit: CondoUnitWhereUniqueInput
+  elevator: String
+  employee: CompanyEmployeeWhereUniqueInput
+  key: String
+  property: PropertyWhereUniqueInput
+  question: String
+  reportMessage: String
   requestType: EnumRequestType
+  response: String
   status: EnumRequestStatus
   user: UserWhereUniqueInput
 }
 
 input RequestOrderByInput {
   companyID: SortOrder
+  condoUnitID: SortOrder
   createdAt: SortOrder
+  elevator: SortOrder
+  employeeID: SortOrder
   id: SortOrder
+  key: SortOrder
+  propertyID: SortOrder
+  question: SortOrder
+  reportMessage: SortOrder
   requestType: SortOrder
+  response: SortOrder
   status: SortOrder
   updatedAt: SortOrder
   userID: SortOrder
@@ -246,15 +306,31 @@ input RequestOrderByInput {
 
 input RequestUpdateInput {
   company: CompanyWhereUniqueInput
+  condoUnit: CondoUnitWhereUniqueInput
+  elevator: String
+  employee: CompanyEmployeeWhereUniqueInput
+  key: String
+  property: PropertyWhereUniqueInput
+  question: String
+  reportMessage: String
   requestType: EnumRequestType
+  response: String
   status: EnumRequestStatus
   user: UserWhereUniqueInput
 }
 
 input RequestWhereInput {
   company: CompanyWhereUniqueInput
+  condoUnit: CondoUnitWhereUniqueInput
+  elevator: StringNullableFilter
+  employee: CompanyEmployeeWhereUniqueInput
   id: StringFilter
+  key: StringNullableFilter
+  property: PropertyWhereUniqueInput
+  question: StringNullableFilter
+  reportMessage: StringNullableFilter
   requestType: EnumRequestType
+  response: StringNullableFilter
   status: EnumRequestStatus
   user: UserWhereUniqueInput
 }

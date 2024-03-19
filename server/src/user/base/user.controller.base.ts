@@ -583,6 +583,29 @@ export class UserControllerBase {
             id: true,
           },
         },
+        condoUnit: {
+          select: {
+            id: true,
+          },
+        },
+        elevator: true,
+
+        employee: {
+          select: {
+            id: true,
+          },
+        },
+        key: true,
+
+        property: {
+          select: {
+            id: true,
+          },
+        },
+
+        question: true,
+        reportMessage: true,
+        response: true,
       },
     });
     if (results === null) {
