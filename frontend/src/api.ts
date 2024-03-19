@@ -10,10 +10,19 @@ const api = {
       );
       return response;
     },
-    async handleSaveClick(userData: UserData) {
-      await axios.patch(`${urls.users.updateUserDetails}`, userData, {
+    async fetchUserDetails(id: number, token: String) {
+      const response = await axios.get(`${urls.users.fetchUserDetails}/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return response;
+    },
+    async handleSaveClick(userData: UserData, id: number, token: String) {
+      await axios.patch(`${urls.users.updateUserDetails}/${id}`, userData, {
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       });
     },

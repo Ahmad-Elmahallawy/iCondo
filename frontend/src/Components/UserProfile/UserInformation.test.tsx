@@ -12,12 +12,12 @@ describe("UserInformation Component", () => {
   const mockData = {
     profilePicture: null,
     username: "testuser",
-    first_name: "John",
-    last_name: "Doe",
+    firstName: "John",
+    lastName: "Doe",
     email: "john.doe@example.com",
-    phone_number: "123-456-7890",
+    phoneNumber: "123-456-7890",
     password: "password123",
-    _id: "123",
+    id: 123,
   };
 
   beforeEach(() => {
@@ -73,12 +73,12 @@ describe("UserInformation Component", () => {
   const mockData = {
     profilePicture: null,
     username: "testuser",
-    first_name: "John",
-    last_name: "Doe",
+    firstName: "John",
+    lastName: "Doe",
     email: "john.doe@example.com",
-    phone_number: "123-456-7890",
+    phoneNumber: "123-456-7890",
     password: "password123",
-    _id: "123",
+    id: 123,
   };
 
   beforeEach(() => {

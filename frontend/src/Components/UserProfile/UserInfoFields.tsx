@@ -8,6 +8,8 @@ interface UserInformationProps {
   handleChange: (field: string, value: string) => void;
 }
 
+const user = JSON.parse(localStorage.getItem("userData") || "{}");
+
 const UserInfoFields: React.FC<UserInformationProps> = ({
   data,
   editMode,
@@ -37,36 +39,36 @@ const UserInfoFields: React.FC<UserInformationProps> = ({
       </div>
 
       <div className="user-information-field">
-        <label className="user-information-label" htmlFor="first_name">
+        <label className="user-information-label" htmlFor="firstName">
           First Name:
         </label>
         {editMode ? (
           <input
-            id="first_name"
+            id="firstName"
             className="user-information-input"
             type="text"
-            value={data.first_name}
-            onChange={(e) => handleChange("first_name", e.target.value)}
+            value={data.firstName}
+            onChange={(e) => handleChange("firstName", e.target.value)}
           />
         ) : (
-          <span className="user-information-text">{data.first_name}</span>
+          <span className="user-information-text">{data.firstName}</span>
         )}
       </div>
 
       <div className="user-information-field">
-        <label className="user-information-label" htmlFor="last_name">
+        <label className="user-information-label" htmlFor="lastName">
           Last Name:
         </label>
         {editMode ? (
           <input
-            id="last_name"
+            id="lastName"
             className="user-information-input"
             type="text"
-            value={data.last_name}
-            onChange={(e) => handleChange("last_name", e.target.value)}
+            value={data.lastName}
+            onChange={(e) => handleChange("lastName", e.target.value)}
           />
         ) : (
-          <span className="user-information-text">{data.last_name}</span>
+          <span className="user-information-text">{data.lastName}</span>
         )}
       </div>
 
@@ -88,19 +90,19 @@ const UserInfoFields: React.FC<UserInformationProps> = ({
       </div>
 
       <div className="user-information-field">
-        <label className="user-information-label" htmlFor="phone_number">
+        <label className="user-information-label" htmlFor="phoneNumber">
           Phone Number:
         </label>
         {editMode ? (
           <input
-            id="phone_number"
+            id="phoneNumber"
             className="user-information-input"
             type="tel"
-            value={data.phone_number}
-            onChange={(e) => handleChange("phone_number", e.target.value)}
+            value={data.phoneNumber}
+            onChange={(e) => handleChange("phoneNumber", e.target.value)}
           />
         ) : (
-          <span className="user-information-text">{data.phone_number}</span>
+          <span className="user-information-text">{data.phoneNumber}</span>
         )}
       </div>
 
