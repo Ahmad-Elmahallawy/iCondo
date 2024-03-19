@@ -4,6 +4,7 @@ import axios from "axios";
 
 interface Request {
   requestType: string;
+  status: string;
 }
 
 // TODO: pass props to subject and response
@@ -42,7 +43,7 @@ const OwnerRequestSubject = () => {
             <p>
               <b>Subject</b>: {request.requestType}
             </p>
-            <p>Awaiting Response</p>{" "}
+            <p>{request.status}</p>{" "}
           </div>
         ))
       ) : (

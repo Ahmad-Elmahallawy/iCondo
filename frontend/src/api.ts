@@ -69,7 +69,7 @@ const api = {
           params: {
             where: {
               value: {
-                equals: "tiN5J2lO",
+                equals: key,
               },
             },
           },
@@ -131,20 +131,25 @@ const api = {
     async postOwnerRequest(
       companyId: number,
       userId: number,
+      type: String,
       requestType: String,
       token: String
     ) {
+      let requestData: any = {
+        company: {
+          id: companyId,
+        },
+        user: {
+          id: userId,
+        },
+        requestType: requestType,
+        status: "In_Progress",
+      };
+
+
       const response = await axios.post(
         urls.requests.submitRequest,
-        {
-          company: {
-            id: companyId,
-          },
-          user: {
-            id: userId,
-          },
-          requestType: requestType,
-        },
+        requestData,
         {
           headers: {
             Authorization: `Bearer ${token}`,
