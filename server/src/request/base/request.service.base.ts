@@ -7,6 +7,7 @@ import {
     CondoUnit, // @ts-ignore
     CompanyEmployee, // @ts-ignore
     Property, // @ts-ignore
+    Notification, // @ts-ignore
     User,
 } from "@prisma/client";
 import {KafkaProducerService} from "../../kafka/kafka.producer.service";
@@ -58,6 +59,17 @@ export class RequestServiceBase {
         args: Prisma.SelectSubset<T, Prisma.RequestFindUniqueArgs>
     ): Promise<Request | null> {
         return this.prisma.request.findUnique(args);
+    }
+
+    async findNotifications(
+        parentId: string,
+        args: Prisma.NotificationFindManyArgs
+    ): Promise<Notification[]> {
+        return this.prisma.request
+            .findUniqueOrThrow({
+                where: { id: parentId },
+            })
+            .notifications(args);
     }
 
     async createRequest<T extends Prisma.RequestCreateArgs>(
