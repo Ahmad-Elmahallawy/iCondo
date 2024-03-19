@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import PropertyInfoField from "./PropertyInfoField"; // Adjust the path as needed
 import "../../Style/PropertyProfileStyle/PropertyInfoFormStyle.css";
 import CondoFilesModal from "./CondoFilesModal";
+import api from "../../api";
 
 interface PropertyInfo {
   name: string;
@@ -9,6 +10,7 @@ interface PropertyInfo {
   unitCount: string;
   parkingCount: string;
   lockerCount: string;
+  id: string;
 }
 
 type PropertyInfoFormProps = {
@@ -66,10 +68,18 @@ const PropertyInfoForm: React.FC<PropertyInfoFormProps> = ({
     document.body.classList.remove("no-scroll");
   };
 
-  const handleRemoveConfirm = () => {
-    // Your property removal logic here
-    setShowRemoveConfirmation(false);
-    document.body.classList.remove("no-scroll");
+  const handleRemoveConfirm = async () => {
+    try {
+      const response = await api.properties.deleteProperty(
+        initialPropertyInfo.id
+      );
+      console.log(response.data); // Or handle the response as needed
+    } catch (error) {
+      console.error("Error removing property:", error);
+    } finally {
+      setShowRemoveConfirmation(false);
+      document.body.classList.remove("no-scroll");
+    }
   };
 
   const handleCloseModal = () => {

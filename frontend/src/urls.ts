@@ -10,6 +10,10 @@ const urls = {
   registrationKeys: {
     userRegister: `${apiPrefix}/registrationKeys`,
   },
+  // Adding a section for property-related URLs
+  properties: {
+    removeProperty: `${apiPrefix}/properties`, // Assuming this endpoint, adjust as needed
+  },
 };
 
 export default urls;

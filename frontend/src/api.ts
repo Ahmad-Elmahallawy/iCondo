@@ -53,6 +53,17 @@ const api = {
       return response;
     },
   },
+  properties: {
+    /**
+     * Deletes a property by its ID.
+     * @param propertyId The unique identifier of the property to delete.
+     * @returns Promise representing the operation result.
+     */
+    async deleteProperty(propertyId: string) {
+      const response = await axios.delete(`${urls.properties.removeProperty}/${propertyId}`);
+      return response;
+    },
+  },
 };
 
 export default api;
