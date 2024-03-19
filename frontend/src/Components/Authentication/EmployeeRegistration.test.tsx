@@ -8,115 +8,115 @@ import "@testing-library/jest-dom/extend-expect";
 import EmployeeRegistration from "./EmployeeRegistration";
 
 jest.mock("axios");
+const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe("EmployeeRegistration Component", () => {
-  it("renders without crashing", () => {
+  beforeEach(() => {
+    Storage.prototype.getItem = jest.fn((key) => {
+      if (key === "userData") {
+        return JSON.stringify({ accessToken: "test-token" });
+      }
+      if (key === "companyDetails") {
+        return JSON.stringify([{ id: 1 }]);
+      }
+      return null;
+    });
+
+    mockedAxios.post.mockReset();
+  });
+
+  it("renders without crashing", async () => {
     render(
       <MemoryRouter>
         <EmployeeRegistration />
       </MemoryRouter>
     );
-    expect(screen.getByText("Register Employee")).toBeInTheDocument();
+    expect(
+      await screen.findByRole("button", { name: /register employee/i })
+    ).toBeInTheDocument();
   });
 
-  it("registers a new employee with role 'Manager' successfully and displays success message", async () => {
-    (axios.post as jest.Mock).mockResolvedValueOnce({
-      data: {
-        _id: 1,
-        first_name: "John",
-        last_name: "Doe",
-        username: "john_doe",
-        email: "john.doe@example.com",
-        phone_number: "1234567890",
-        token: "example-token",
-        role: "Manager",
-      },
-    });
-
-    render(
-      <MemoryRouter initialEntries={["/employee-registration"]}>
-        <EmployeeRegistration />
-      </MemoryRouter>
+  async function fillAndSubmitForm(role: string) {
+    await userEvent.selectOptions(screen.getByRole("combobox"), role);
+    await userEvent.type(
+      screen.getByPlaceholderText("First Name"),
+      "TestFirstName"
     );
+    await userEvent.type(
+      screen.getByPlaceholderText("Last Name"),
+      "TestLastName"
+    );
+    await userEvent.type(
+      screen.getByPlaceholderText("Username"),
+      "TestUsername"
+    );
+    await userEvent.type(
+      screen.getByPlaceholderText("Email"),
+      "test@example.com"
+    );
+    await userEvent.type(
+      screen.getByPlaceholderText("Phone Number"),
+      "1234567890"
+    );
+    await userEvent.type(screen.getByPlaceholderText("Password"), "password");
+    await userEvent.click(
+      screen.getByRole("button", { name: /register employee/i })
+    );
+  }
 
-    fireEvent.change(screen.getByLabelText("Employee's Role is"), {
-      target: { value: "Manager" },
-    });
+  it.each([
+    ["Manager", 1],
+    ["Operator", 2],
+    ["Finance Manager", 3],
+  ])(
+    "registers a new employee with role '%s' successfully and displays success message",
+    async (role, userId) => {
+      mockedAxios.post
+        .mockResolvedValueOnce({
+          data: {
+            id: userId,
+            first_name: "TestFirstName",
+            last_name: "TestLastName",
+            username: "TestUsername",
+            email: "test@example.com",
+            phone_number: "1234567890",
+            role,
+          },
+        })
+        .mockResolvedValueOnce({ data: {} });
 
-    fireEvent.change(screen.getByPlaceholderText("Company Name"), {
-      target: { value: "Example Company" },
-    });
-    fireEvent.change(screen.getByPlaceholderText("First Name"), {
-      target: { value: "John" },
-    });
-    fireEvent.change(screen.getByPlaceholderText("Last Name"), {
-      target: { value: "Doe" },
-    });
-    fireEvent.change(screen.getByPlaceholderText("Username"), {
-      target: { value: "john_doe" },
-    });
-    fireEvent.change(screen.getByPlaceholderText("Email"), {
-      target: { value: "john.doe@example.com" },
-    });
-    fireEvent.change(screen.getByPlaceholderText("Phone Number"), {
-      target: { value: "1234567890" },
-    });
-    fireEvent.change(screen.getByPlaceholderText("Password"), {
-      target: { value: "password123" },
-    });
+      render(
+        <MemoryRouter>
+          <EmployeeRegistration />
+        </MemoryRouter>
+      );
 
-    fireEvent.click(screen.getByText("Register Employee"));
+      await fillAndSubmitForm(role);
 
-    await waitFor(() => {
-      expect(axios.post).toHaveBeenCalledTimes(1);
-    });
+      await waitFor(() => {
+        expect(
+          screen.getByText("Employee Added Successfully")
+        ).toBeInTheDocument();
+      });
+    }
+  );
 
-    expect(screen.getByText("Employee Added Successfully")).toBeInTheDocument();
-  });
-
-  it("fails to register a new employee when server responds with status code  400", async () => {
-    // Mock the axios.post method to reject with a  400 status code
-    (axios.post as jest.Mock).mockRejectedValueOnce({
+  it("fails to register a new employee when server responds with status code 400", async () => {
+    mockedAxios.post.mockRejectedValueOnce({
       response: {
         status: 400,
+        data: "User with this email, username or phone number already exists OR Company does not Exist",
       },
     });
 
     render(
-      <MemoryRouter initialEntries={["/employee-registration"]}>
+      <MemoryRouter>
         <EmployeeRegistration />
       </MemoryRouter>
     );
 
-    fireEvent.change(screen.getByLabelText("Employee's Role is"), {
-      target: { value: "Finance Manager" },
-    });
+    await fillAndSubmitForm("Manager");
 
-    fireEvent.change(screen.getByPlaceholderText("Company Name"), {
-      target: { value: "Example Company" },
-    });
-    fireEvent.change(screen.getByPlaceholderText("First Name"), {
-      target: { value: "John" },
-    });
-    fireEvent.change(screen.getByPlaceholderText("Last Name"), {
-      target: { value: "Doe" },
-    });
-    fireEvent.change(screen.getByPlaceholderText("Username"), {
-      target: { value: "john_doe" },
-    });
-    fireEvent.change(screen.getByPlaceholderText("Email"), {
-      target: { value: "john.doe@example.com" },
-    });
-    fireEvent.change(screen.getByPlaceholderText("Phone Number"), {
-      target: { value: "1234567890" },
-    });
-    fireEvent.change(screen.getByPlaceholderText("Password"), {
-      target: { value: "password123" },
-    });
-
-    fireEvent.click(screen.getByText("Register Employee"));
-
-    // Wait for the error message to appear in the document
     await waitFor(() => {
       expect(
         screen.getByText(
@@ -124,115 +124,5 @@ describe("EmployeeRegistration Component", () => {
         )
       ).toBeInTheDocument();
     });
-  });
-
-  it("registers a new employee with role 'FinanceManager' successfully and displays success message", async () => {
-    (axios.post as jest.Mock).mockResolvedValueOnce({
-      data: {
-        _id: 2,
-        first_name: "Jakees",
-        last_name: "Doe",
-        username: "Jakees_doe",
-        email: "Jakees.doe@example.com",
-        phone_number: "1234567889",
-        token: "example-token",
-        role: "FinanceManager",
-      },
-    });
-
-    render(
-      <MemoryRouter initialEntries={["/employee-registration"]}>
-        <EmployeeRegistration />
-      </MemoryRouter>
-    );
-
-    fireEvent.change(screen.getByLabelText("Employee's Role is"), {
-      target: { value: "FinanceManager" },
-    });
-
-    fireEvent.change(screen.getByPlaceholderText("Company Name"), {
-      target: { value: "Com" },
-    });
-    fireEvent.change(screen.getByPlaceholderText("First Name"), {
-      target: { value: "Jakees" },
-    });
-    fireEvent.change(screen.getByPlaceholderText("Last Name"), {
-      target: { value: "Doe" },
-    });
-    fireEvent.change(screen.getByPlaceholderText("Username"), {
-      target: { value: "Jakees_doe" },
-    });
-    fireEvent.change(screen.getByPlaceholderText("Email"), {
-      target: { value: "Jakees.doe@example.com" },
-    });
-    fireEvent.change(screen.getByPlaceholderText("Phone Number"), {
-      target: { value: "1234567889" },
-    });
-    fireEvent.change(screen.getByPlaceholderText("Password"), {
-      target: { value: "password123" },
-    });
-
-    fireEvent.click(screen.getByText("Register Employee"));
-
-    await waitFor(() => {
-      expect(axios.post).toHaveBeenCalledTimes(3);
-    });
-
-    expect(screen.getByText("Employee Added Successfully")).toBeInTheDocument();
-  });
-
-  it("registers a new employee with role 'Operator' successfully and displays success message", async () => {
-    (axios.post as jest.Mock).mockResolvedValueOnce({
-      data: {
-        _id: 3,
-        first_name: "ope",
-        last_name: "Doe",
-        username: "ope_doe",
-        email: "ope.doe@example.com",
-        phone_number: "12345678893",
-        token: "example-token",
-        role: "Operator",
-      },
-    });
-
-    render(
-      <MemoryRouter initialEntries={["/employee-registration"]}>
-        <EmployeeRegistration />
-      </MemoryRouter>
-    );
-
-    fireEvent.change(screen.getByLabelText("Employee's Role is"), {
-      target: { value: "Operator" },
-    });
-
-    fireEvent.change(screen.getByPlaceholderText("Company Name"), {
-      target: { value: "Comp" },
-    });
-    fireEvent.change(screen.getByPlaceholderText("First Name"), {
-      target: { value: "ope" },
-    });
-    fireEvent.change(screen.getByPlaceholderText("Last Name"), {
-      target: { value: "Doe" },
-    });
-    fireEvent.change(screen.getByPlaceholderText("Username"), {
-      target: { value: "ope_doe" },
-    });
-    fireEvent.change(screen.getByPlaceholderText("Email"), {
-      target: { value: "ope.doe@example.com" },
-    });
-    fireEvent.change(screen.getByPlaceholderText("Phone Number"), {
-      target: { value: "12345678893" },
-    });
-    fireEvent.change(screen.getByPlaceholderText("Password"), {
-      target: { value: "password123" },
-    });
-
-    fireEvent.click(screen.getByText("Register Employee"));
-
-    await waitFor(() => {
-      expect(axios.post).toHaveBeenCalledTimes(4);
-    });
-
-    expect(screen.getByText("Employee Added Successfully")).toBeInTheDocument();
   });
 });

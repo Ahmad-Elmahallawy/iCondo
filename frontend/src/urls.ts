@@ -8,6 +8,10 @@ const urls = {
     updateUserProfilePic: `${apiPrefix}/files`,
     editUserRole: `${apiPrefix}/users`
   },
+  employees: {
+    registerUser: `${apiPrefix}/users`,
+    registerCompanyEmployee: `${apiPrefix}/companyEmployees`
+  },
   registrationKeys: {
     userRegister: `${apiPrefix}/registrationKeys`,
     getCondoID: `${apiPrefix}/userCondos`,

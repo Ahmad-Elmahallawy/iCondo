@@ -37,11 +37,16 @@ function App() {
         <Route path="CompanyDashboard" element={<DashboardPage />} />
         <Route path="CondoOwnerDashboard" element={<CondoOwnerDashboardPage />} />
         <Route path="GenerateKey" element={<EmployeeRequestsLandingPage />} />
-        <Route path="OwnerRequests" element={<CondoOwnerRequestsLandingPage />} />
+        <Route
+          path="OwnerRequests"
+          element={<CondoOwnerRequestsLandingPage />}
+        />
 
         <Route
           path="RegisterEmployee"
-          element={<DashboardPage />} /*CHANGE PATH ONCE PAGE IS CREATED*/
+          element={
+            <EmployeeRegistrationLandingPage />
+          } /*CHANGE PATH ONCE PAGE IS CREATED*/
         />
         <Route path="CreateProperty" element={<CreatePropertyLandingPage />} />
         <Route
