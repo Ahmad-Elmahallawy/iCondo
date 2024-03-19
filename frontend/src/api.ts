@@ -143,9 +143,8 @@ const api = {
           id: userId,
         },
         requestType: requestType,
-        status: "In_Progress",
+        status: "New",
       };
-
 
       const response = await axios.post(
         urls.requests.submitRequest,
@@ -160,7 +159,7 @@ const api = {
       return response;
     },
 
-    async getEmployeeRequest  (id: number, token: String)  {
+    async getEmployeeRequest(id: number, token: String) {
       try {
         const response = await axios.get(`http://localhost:8000/api/requests`, {
           headers: {
@@ -168,15 +167,33 @@ const api = {
           },
           params: {
             where: {
-              company: { id: id},
+              company: { id: id },
             },
           },
         });
-        return response
+        return response;
       } catch (error) {
         console.error("Error fetching data:", error);
       }
-    }
+    },
+    async editRequest(id: String, status: String, token: String) {
+      try {
+        const response = await axios.get(
+          `http://localhost:8000/api/requests/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            data: {
+              status: status,
+            },
+          }
+        );
+        return response;
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    },
   },
 
   properties: {
