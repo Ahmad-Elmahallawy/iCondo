@@ -6,7 +6,7 @@ import {
 } from "@nestjs/microservices";
 import { Controller } from "@nestjs/common";
 import { KafkaMessage } from "./KafkaMessage";
-
+/*
 @Controller("kafka-controller")
 export class KafkaController {
   @EventPattern("request.status")
@@ -17,4 +17,4 @@ export class KafkaController {
 
     console.log(message);
   }
-}
+}*/

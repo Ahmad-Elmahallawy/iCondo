@@ -146,20 +146,59 @@ type MetaQueryPayload {
 type Mutation {
   createCommonFacility(data: CommonFacilityCreateInput!): CommonFacility!
   createForum(data: ForumCreateInput!): Forum!
+  createNotification(data: NotificationCreateInput!): Notification!
   createPost(data: PostCreateInput!): Post!
   createRequest(data: RequestCreateInput!): Request!
   createReservation(data: ReservationCreateInput!): Reservation!
   deleteCommonFacility(where: CommonFacilityWhereUniqueInput!): CommonFacility!
   deleteForum(where: ForumWhereUniqueInput!): Forum!
+  deleteNotification(where: NotificationWhereUniqueInput!): Notification!
   deletePost(where: PostWhereUniqueInput!): Post!
   deleteRequest(where: RequestWhereUniqueInput!): Request!
   deleteReservation(where: ReservationWhereUniqueInput!): Reservation!
   login(credentials: Credentials!): UserInfo!
   updateCommonFacility(data: CommonFacilityUpdateInput!, where: CommonFacilityWhereUniqueInput!): CommonFacility!
   updateForum(data: ForumUpdateInput!, where: ForumWhereUniqueInput!): Forum!
+  updateNotification(data: NotificationUpdateInput!, where: NotificationWhereUniqueInput!): Notification!
   updatePost(data: PostUpdateInput!, where: PostWhereUniqueInput!): Post!
   updateRequest(data: RequestUpdateInput!, where: RequestWhereUniqueInput!): Request!
   updateReservation(data: ReservationUpdateInput!, where: ReservationWhereUniqueInput!): Reservation!
+}
+
+type Notification {
+  createdAt: DateTime!
+  id: String!
+  message: String
+  title: String
+  updatedAt: DateTime!
+}
+
+input NotificationCreateInput {
+  message: String
+  title: String
+}
+
+input NotificationOrderByInput {
+  createdAt: SortOrder
+  id: SortOrder
+  message: SortOrder
+  title: SortOrder
+  updatedAt: SortOrder
+}
+
+input NotificationUpdateInput {
+  message: String
+  title: String
+}
+
+input NotificationWhereInput {
+  id: StringFilter
+  message: StringNullableFilter
+  title: StringNullableFilter
+}
+
+input NotificationWhereUniqueInput {
+  id: String!
 }
 
 type Post {
@@ -232,6 +271,7 @@ input PropertyWhereUniqueInput {
 type Query {
   _commonFacilitiesMeta(where: CommonFacilityWhereInput): MetaQueryPayload!
   _forumsMeta(where: ForumWhereInput): MetaQueryPayload!
+  _notificationsMeta(where: NotificationWhereInput): MetaQueryPayload!
   _postsMeta(where: PostWhereInput): MetaQueryPayload!
   _requestsMeta(where: RequestWhereInput): MetaQueryPayload!
   _reservationsMeta(where: ReservationWhereInput): MetaQueryPayload!
@@ -239,6 +279,8 @@ type Query {
   commonFacility(where: CommonFacilityWhereUniqueInput!): CommonFacility
   forum(where: ForumWhereUniqueInput!): Forum
   forums(orderBy: [ForumOrderByInput!], skip: Float, take: Float, where: ForumWhereInput): [Forum!]!
+  notification(where: NotificationWhereUniqueInput!): Notification
+  notifications(orderBy: [NotificationOrderByInput!], skip: Float, take: Float, where: NotificationWhereInput): [Notification!]!
   post(where: PostWhereUniqueInput!): Post
   posts(orderBy: [PostOrderByInput!], skip: Float, take: Float, where: PostWhereInput): [Post!]!
   request(where: RequestWhereUniqueInput!): Request
