@@ -41,7 +41,6 @@ const UserInformation: React.FC<UserInformationProps> = ({ data }) => {
           user.accessToken
         );
         setUserData(response.data);
-        console.log(userData);
       } catch (error) {
         console.error("Error fetching user details:", error);
       }
