@@ -35,8 +35,28 @@ const EmployeeRequestSubject = () => {
     fetchData();
   }, []);
 
-  const handleSubmit = (status: string) => {
-    console.log("here");
+  const handleSubmit = async (status: string, id: string) => {
+    try {
+      const response =
+        status === "In Progress"
+          ? await api.requests.editRequest(
+              id,
+              "In_Progress",
+              userData.accessToken
+            )
+          : await api.requests.editRequest(
+              id,
+              "Complete",
+              userData.accessToken
+            );
+      setFetchedRequests((prevState) =>
+        prevState.map((request) =>
+          request.id === id ? { ...request, status: status } : request
+        )
+      );
+    } catch (error) {
+      console.error("Error fetching requests:", error);
+    }
   };
 
   return (
@@ -50,7 +70,7 @@ const EmployeeRequestSubject = () => {
           <p>{request.status}</p>
           <EmployeeRequestResponse
             requestId={request.id}
-            onSubmit={handleSubmit}
+            onSubmit={(status) => handleSubmit(status, request.id)}
             currentStatus={request.status}
           />
         </div>

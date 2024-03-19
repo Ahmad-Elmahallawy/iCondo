@@ -7,7 +7,7 @@ import "../../Style/RequestsStyle/EmployeeRequestResponseStyle.css";
 interface Props {
   requestId: string;
   currentStatus: string; // Assuming status is of type string
-  onSubmit: (selectedStatus: string) => void;
+  onSubmit: (selectedStatus: string, requestId: string) => void;
 }
 
 const EmployeeRequestResponse: React.FC<Props> = ({
@@ -16,7 +16,7 @@ const EmployeeRequestResponse: React.FC<Props> = ({
   onSubmit,
 }) => {
   const handleUpdateStatus = (newStatus: string) => {
-    onSubmit(newStatus);
+    onSubmit(newStatus, requestId);
   };
 
   return (

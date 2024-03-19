@@ -181,11 +181,11 @@ const api = {
         const response = await axios.patch(
           `http://localhost:8000/api/requests/${id}`,
           {
+            status: status,
+          },
+          {
             headers: {
               Authorization: `Bearer ${token}`,
-            },
-            data: {
-              status: status,
             },
           }
         );
