@@ -5,3 +5,7 @@
   padding: 0 3rem;
   margin: 5px;
 }
+
+.employee-request-container p {
+  width: 250px;
+}

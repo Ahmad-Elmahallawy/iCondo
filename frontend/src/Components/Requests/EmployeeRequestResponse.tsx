@@ -20,7 +20,7 @@ const EmployeeRequestResponse: React.FC<Props> = ({
   };
 
   return (
-    <div>
+    <div className="request-response-container">
       <p>Request ID: {requestId}</p>
       <p>Current Status: {currentStatus}</p>
       <div className="employee-requests-buttons">

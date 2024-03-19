@@ -1,3 +1,9 @@
+.request-response-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 200px;
+}
 .employee-requests-buttons {
   display: flex;
   justify-content: space-between;
