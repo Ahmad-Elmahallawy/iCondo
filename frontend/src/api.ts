@@ -145,6 +145,24 @@ const api = {
 
       return response;
     },
+
+    async getEmployeeRequest  (id: number, token: String)  {
+      try {
+        const response = await axios.get(`http://localhost:8000/api/requests`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          params: {
+            where: {
+              company: { id: id},
+            },
+          },
+        });
+        return response
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
   },
 
   properties: {
