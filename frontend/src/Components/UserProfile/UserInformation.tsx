@@ -57,7 +57,11 @@ const UserInformation: React.FC<UserInformationProps> = ({ data }) => {
 
   const handleSaveClick = async (): Promise<void> => {
     try {
-      await api.userInformation.handleSaveClick(userData);
+      await api.userInformation.handleSaveClick(
+        userData,
+        data.id,
+        user.accessToken
+      );
 
       setSuccessMessage("User details updated successfully");
       setErrorMessage(null);

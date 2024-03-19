@@ -18,10 +18,11 @@ const api = {
       });
       return response;
     },
-    async handleSaveClick(userData: UserData) {
-      await axios.patch(`${urls.users.updateUserDetails}`, userData, {
+    async handleSaveClick(userData: UserData, id: number, token: String) {
+      await axios.patch(`${urls.users.updateUserDetails}/${id}`, userData, {
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       });
     },
