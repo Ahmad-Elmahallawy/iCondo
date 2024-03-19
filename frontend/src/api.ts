@@ -10,10 +10,19 @@ const api = {
       );
       return response;
     },
-    async handleSaveClick(userData: UserData) {
-      await axios.patch(`${urls.users.updateUserDetails}`, userData, {
+    async fetchUserDetails(id: number, token: String) {
+      const response = await axios.get(`${urls.users.fetchUserDetails}/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return response;
+    },
+    async handleSaveClick(userData: UserData, id: number, token: String) {
+      await axios.patch(`${urls.users.updateUserDetails}/${id}`, userData, {
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       });
     },
@@ -60,7 +69,7 @@ const api = {
           params: {
             where: {
               value: {
-                equals: "tiN5J2lO",
+                equals: key,
               },
             },
           },
@@ -122,20 +131,25 @@ const api = {
     async postOwnerRequest(
       companyId: number,
       userId: number,
+      type: String,
       requestType: String,
       token: String
     ) {
+      let requestData: any = {
+        company: {
+          id: companyId,
+        },
+        user: {
+          id: userId,
+        },
+        requestType: requestType,
+        status: "In_Progress",
+      };
+
+
       const response = await axios.post(
         urls.requests.submitRequest,
-        {
-          company: {
-            id: companyId,
-          },
-          user: {
-            id: userId,
-          },
-          requestType: requestType,
-        },
+        requestData,
         {
           headers: {
             Authorization: `Bearer ${token}`,
