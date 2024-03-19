@@ -59,6 +59,24 @@ export class RequestControllerBase {
             }
           : undefined,
 
+        condoUnit: data.condoUnit
+            ? {
+              connect: data.condoUnit,
+            }
+            : undefined,
+
+        employee: data.employee
+            ? {
+              connect: data.employee,
+            }
+            : undefined,
+
+        property: data.property
+            ? {
+              connect: data.property,
+            }
+            : undefined,
+
         user: data.user
           ? {
               connect: data.user,
@@ -71,12 +89,34 @@ export class RequestControllerBase {
             id: true,
           },
         },
+        condoUnit: {
+          select: {
+            id: true,
+          },
+        },
+        elevator: true,
 
+        employee: {
+          select: {
+            id: true,
+          },
+        },
+        key: true,
+
+        property: {
+          select: {
+            id: true,
+          },
+        },
+
+        question: true,
+        reportMessage: true,
         createdAt: true,
         id: true,
         requestType: true,
+        response: true,
+        status: true,
         updatedAt: true,
-
         user: {
           select: {
             id: true,
@@ -108,10 +148,33 @@ export class RequestControllerBase {
             id: true,
           },
         },
+        condoUnit: {
+          select: {
+            id: true,
+          },
+        },
+        elevator: true,
 
+        employee: {
+          select: {
+            id: true,
+          },
+        },
         createdAt: true,
         id: true,
         requestType: true,
+        status: true,
+        key: true,
+
+        property: {
+          select: {
+            id: true,
+          },
+        },
+
+        question: true,
+        reportMessage: true,
+        response: true,
         updatedAt: true,
 
         user: {
@@ -146,10 +209,33 @@ export class RequestControllerBase {
             id: true,
           },
         },
+        condoUnit: {
+          select: {
+            id: true,
+          },
+        },
+        elevator: true,
 
+        employee: {
+          select: {
+            id: true,
+          },
+        },
         createdAt: true,
         id: true,
         requestType: true,
+        status: true,
+        key: true,
+
+        property: {
+          select: {
+            id: true,
+          },
+        },
+
+        question: true,
+        reportMessage: true,
+        response: true,
         updatedAt: true,
 
         user: {
@@ -195,6 +281,24 @@ export class RequestControllerBase {
               }
             : undefined,
 
+          condoUnit: data.condoUnit
+              ? {
+                connect: data.condoUnit,
+              }
+              : undefined,
+
+          employee: data.employee
+              ? {
+                connect: data.employee,
+              }
+              : undefined,
+
+          property: data.property
+              ? {
+                connect: data.property,
+              }
+              : undefined,
+
           user: data.user
             ? {
                 connect: data.user,
@@ -207,12 +311,34 @@ export class RequestControllerBase {
               id: true,
             },
           },
+          condoUnit: {
+            select: {
+              id: true,
+            },
+          },
+          elevator: true,
 
+          employee: {
+            select: {
+              id: true,
+            },
+          },
+          key: true,
+
+          property: {
+            select: {
+              id: true,
+            },
+          },
+
+          question: true,
+          reportMessage: true,
           createdAt: true,
           id: true,
           requestType: true,
+          status: true,
           updatedAt: true,
-
+          response: true,
           user: {
             select: {
               id: true,
@@ -253,12 +379,34 @@ export class RequestControllerBase {
               id: true,
             },
           },
-
+          condoUnit: {
+            select: {
+              id: true,
+            },
+          },
           createdAt: true,
+          elevator: true,
+
+          employee: {
+            select: {
+              id: true,
+            },
+          },
           id: true,
           requestType: true,
+          status: true,
           updatedAt: true,
+          key: true,
 
+          property: {
+            select: {
+              id: true,
+            },
+          },
+
+          question: true,
+          reportMessage: true,
+          response: true,
           user: {
             select: {
               id: true,

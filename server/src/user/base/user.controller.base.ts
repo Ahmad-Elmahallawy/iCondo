@@ -576,13 +576,36 @@ export class UserControllerBase {
         createdAt: true,
         id: true,
         requestType: true,
+        status: true,
         updatedAt: true,
-
         user: {
           select: {
             id: true,
           },
         },
+        condoUnit: {
+          select: {
+            id: true,
+          },
+        },
+        elevator: true,
+
+        employee: {
+          select: {
+            id: true,
+          },
+        },
+        key: true,
+
+        property: {
+          select: {
+            id: true,
+          },
+        },
+
+        question: true,
+        reportMessage: true,
+        response: true,
       },
     });
     if (results === null) {

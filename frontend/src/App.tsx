@@ -17,6 +17,7 @@ import EmployeeRequestsLandingPage from "./Pages/EmployeeRequestsLandingPage";
 import ResetPassword from "./Components/Authentication/ResetPassword";
 import NotificationPageManager from "./Pages/NotificationPageManager";
 import CondoOwnerRequestsLandingPage from "./Pages/CondoOwnerRequestsLandingPage";
+import CondoOwnerDashboardPage from "./Pages/CondoOwnerDashboardLandingPage";
 
 function App() {
   return (
@@ -34,12 +35,18 @@ function App() {
         />
         <Route path="Profile" element={<UserProfileLandingPage />} />
         <Route path="CompanyDashboard" element={<DashboardPage />} />
+        <Route path="CondoOwnerDashboard" element={<CondoOwnerDashboardPage />} />
         <Route path="GenerateKey" element={<EmployeeRequestsLandingPage />} />
-        <Route path="OwnerRequests" element={<CondoOwnerRequestsLandingPage />} />
+        <Route
+          path="OwnerRequests"
+          element={<CondoOwnerRequestsLandingPage />}
+        />
 
         <Route
           path="RegisterEmployee"
-          element={<DashboardPage />} /*CHANGE PATH ONCE PAGE IS CREATED*/
+          element={
+            <EmployeeRegistrationLandingPage />
+          } /*CHANGE PATH ONCE PAGE IS CREATED*/
         />
         <Route path="CreateProperty" element={<CreatePropertyLandingPage />} />
         <Route

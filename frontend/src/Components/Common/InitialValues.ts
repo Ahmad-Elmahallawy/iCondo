@@ -9,6 +9,16 @@ export const signUpInitialValues = {
   roles: [""],
 };
 
+
+export const employeeInitialValues = {
+  firstName: "",
+  lastName: "",
+  username: "",
+  email: "",
+  phoneNumber: "",
+  password: "",
+}
+
 export const loginInitialValues = {
   username: "",
   password: "",

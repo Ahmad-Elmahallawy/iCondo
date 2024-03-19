@@ -10,12 +10,33 @@ const api = {
       );
       return response;
     },
-    async handleSaveClick(userData: UserData) {
-      await axios.patch(`${urls.users.updateUserDetails}`, userData, {
+    async fetchUserDetails(id: number, token: String) {
+      const response = await axios.get(`${urls.users.fetchUserDetails}/${id}`, {
         headers: {
-          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       });
+      return response;
+    },
+    async handleSaveClick(userData: UserData, id: number, token: String) {
+      await axios.patch(`${urls.users.updateUserDetails}/${id}`, userData, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    },
+    async handleUserRole(role: any, id: number, token: String) {
+      await axios.patch(
+        `${urls.users.editUserRole}/${id}`,
+        { roles: role },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
     },
     async updateUserProfilePic(username: String, pictureFormData: FormData) {
       await axios.post(
@@ -41,20 +62,23 @@ const api = {
   },
 
   registerationKeys: {
-    async userRegisterKey(key: string) {
+    async userRegisterKey(key: String) {
       const response = await axios.get(
         `${urls.registrationKeys.userRegister}`,
         {
           params: {
             where: {
-              value: `${key}`,
+              value: {
+                equals: key,
+              },
             },
           },
         }
       );
+
       return response;
     },
-    async getRegistrationKey(key: string) {
+    async getRegistrationKey(key: String) {
       const response = await axios.get(`${urls.registrationKeys.getCondoID}`, {
         params: {
           where: {
@@ -62,6 +86,7 @@ const api = {
           },
         },
       });
+
       return response;
     },
   },
@@ -106,27 +131,32 @@ const api = {
     async postOwnerRequest(
       companyId: number,
       userId: number,
+      type: String,
       requestType: String,
       token: String
     ) {
-      console.log(companyId, userId, requestType, token)
+      let requestData: any = {
+        company: {
+          id: companyId,
+        },
+        user: {
+          id: userId,
+        },
+        requestType: requestType,
+        status: "In_Progress",
+      };
+
+
       const response = await axios.post(
         urls.requests.submitRequest,
-        {
-          company: {
-            id: companyId,
-          },
-          user: {
-            id: userId,
-          },
-          requestType: requestType,
-        },
+        requestData,
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
       );
+
       return response;
     },
   },
@@ -157,8 +187,6 @@ const api = {
   companies: {
     // get company details
     async getCompanyProperty(propertyId: number, token: String) {
-      console.log(propertyId, token);
-
       try {
         const response = await axios.get(`${urls.companies.getCompany}`, {
           params: {
@@ -179,9 +207,52 @@ const api = {
         });
         return response.data;
       } catch (error) {
-        console.error("Error fetching condo property:", error);
         throw error;
       }
+    },
+  },
+
+  employeeRegistration: {
+    async postUser(userData: any, token: String) {
+      const response = await axios.post(
+        urls.employees.registerUser,
+
+        userData,
+
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response;
+    },
+    async postCompanyEmployee(
+      companyId: number,
+      userId: number,
+      token: String
+    ) {
+      console.log(companyId, userId, token);
+
+      const response = await axios.post(
+        urls.employees.registerCompanyEmployee,
+
+        {
+          company: {
+            id: companyId,
+          },
+          user: {
+            id: userId,
+          },
+        },
+
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response;
     },
   },
 };

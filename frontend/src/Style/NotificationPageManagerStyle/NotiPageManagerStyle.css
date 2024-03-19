@@ -1,14 +1,3 @@
-.app {
-  font-family: "Times New Roman", sans-serif;
-  background-color: var(--color1);
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding-top: 50px;
-}
-
 .notifications-heading {
   font-size: 1.5rem;
   color: var(--color4);

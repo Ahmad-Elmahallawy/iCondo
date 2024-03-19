@@ -1,13 +1,17 @@
-import {PrismaService} from "../../prisma/prisma.service";
+import { PrismaService } from "../../prisma/prisma.service";
 
-import {Company, Prisma, Request, User,} from "@prisma/client";
-import {KafkaProducerService} from "../../kafka/kafka.producer.service";
-import {MyMessageBrokerTopics} from "../../kafka/topics";
-import {KafkaMessage} from "../../kafka/KafkaMessage";
-
+import {
+  Prisma,
+  Request, // @ts-ignore
+  Company, // @ts-ignore
+  CondoUnit, // @ts-ignore
+  CompanyEmployee, // @ts-ignore
+  Property, // @ts-ignore
+  User,
+} from "@prisma/client";
 
 export class RequestServiceBase {
-  constructor(protected readonly prisma: PrismaService, protected readonly kafkaProducer: KafkaProducerService) {}
+  constructor(protected readonly prisma: PrismaService) {}
 
   async count<T extends Prisma.RequestCountArgs>(
     args: Prisma.SelectSubset<T, Prisma.RequestCountArgs>
@@ -20,6 +24,29 @@ export class RequestServiceBase {
   ): Promise<Request[]> {
     return this.prisma.request.findMany(args);
   }
+  async getCondoUnit(parentId: string): Promise<CondoUnit | null> {
+    return this.prisma.request
+        .findUnique({
+          where: { id: parentId },
+        })
+        .condoUnit();
+  }
+
+  async getEmployee(parentId: string): Promise<CompanyEmployee | null> {
+    return this.prisma.request
+        .findUnique({
+          where: { id: parentId },
+        })
+        .employee();
+  }
+
+  async getProperty(parentId: string): Promise<Property | null> {
+    return this.prisma.request
+        .findUnique({
+          where: { id: parentId },
+        })
+        .property();
+  }
   async request<T extends Prisma.RequestFindUniqueArgs>(
     args: Prisma.SelectSubset<T, Prisma.RequestFindUniqueArgs>
   ): Promise<Request | null> {
@@ -28,35 +55,18 @@ export class RequestServiceBase {
   async createRequest<T extends Prisma.RequestCreateArgs>(
     args: Prisma.SelectSubset<T, Prisma.RequestCreateArgs>
   ): Promise<Request> {
-    const request = await this.prisma.request.create<T>(args);
-
-
-        console.log(request.userID)
-        console.log(request)
-        const msg: KafkaMessage = {
-            key: null,
-            value: {
-                "userID":request.userID,
-                "id": request.id,
-                "status": 'CREATED'
-            }
-        }
-        await this.kafkaProducer.emitMessage(MyMessageBrokerTopics.RequestStatus, msg)
-        console.log('Message pushed to Topic')
-        return request;
-    }
-
-    async updateRequest<T extends Prisma.RequestUpdateArgs>(
-        args: Prisma.SelectSubset<T, Prisma.RequestUpdateArgs>
-    ): Promise<Request> {
-        return this.prisma.request.update<T>(args);
-    }
-
-    async deleteRequest<T extends Prisma.RequestDeleteArgs>(
-        args: Prisma.SelectSubset<T, Prisma.RequestDeleteArgs>
-    ): Promise<Request> {
-        return this.prisma.request.delete(args);
-    }
+    return this.prisma.request.create<T>(args);
+  }
+  async updateRequest<T extends Prisma.RequestUpdateArgs>(
+    args: Prisma.SelectSubset<T, Prisma.RequestUpdateArgs>
+  ): Promise<Request> {
+    return this.prisma.request.update<T>(args);
+  }
+  async deleteRequest<T extends Prisma.RequestDeleteArgs>(
+    args: Prisma.SelectSubset<T, Prisma.RequestDeleteArgs>
+  ): Promise<Request> {
+    return this.prisma.request.delete(args);
+  }
 
   async getCompany(parentId: string): Promise<Company | null> {
     return this.prisma.request
