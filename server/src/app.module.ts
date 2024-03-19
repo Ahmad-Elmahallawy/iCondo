@@ -28,6 +28,7 @@ import { ApolloDriver, ApolloDriverConfig } from "@nestjs/apollo";
 
 import { ACLModule } from "./auth/acl.module";
 import { AuthModule } from "./auth/auth.module";
+import { CondoCostModule } from './condo-cost/condo-cost.module';
 
 @Module({
   controllers: [],
@@ -96,6 +97,7 @@ import { AuthModule } from "./auth/auth.module";
 
       inject: [ConfigService],
     }),
+    CondoCostModule,
   ],
   providers: [],
 })
