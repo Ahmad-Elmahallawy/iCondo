@@ -29,6 +29,7 @@ import { ApolloDriver, ApolloDriverConfig } from "@nestjs/apollo";
 import { ACLModule } from "./auth/acl.module";
 import { AuthModule } from "./auth/auth.module";
 import { CondoCostModule } from './condo-cost/condo-cost.module';
+import { CostModule } from './cost/cost.module';
 
 @Module({
   controllers: [],
@@ -73,7 +74,7 @@ import { CondoCostModule } from './condo-cost/condo-cost.module';
       inject: [ConfigService],
       imports: [ConfigModule],
     }),
-    CacheModule.registerAsync({
+/*    CacheModule.registerAsync({
       isGlobal: true,
       imports: [ConfigModule],
 
@@ -96,8 +97,9 @@ import { CondoCostModule } from './condo-cost/condo-cost.module';
       },
 
       inject: [ConfigService],
-    }),
+    }),*/
     CondoCostModule,
+    CostModule,
   ],
   providers: [],
 })

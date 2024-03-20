@@ -4,6 +4,7 @@ import {
   Prisma,
   Company, // @ts-ignore
   CompanyEmployee, // @ts-ignore
+  Cost, // @ts-ignore
   File, // @ts-ignore
   Property, // @ts-ignore
   Request,
@@ -53,6 +54,17 @@ export class CompanyServiceBase {
         where: { id: parentId },
       })
       .companyEmployees(args);
+  }
+
+  async findCosts(
+      parentId: number,
+      args: Prisma.CostFindManyArgs
+  ): Promise<Cost[]> {
+    return this.prisma.company
+        .findUniqueOrThrow({
+          where: { id: parentId },
+        })
+        .costs(args);
   }
 
   async findFile(

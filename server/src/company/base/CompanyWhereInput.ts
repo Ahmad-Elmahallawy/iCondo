@@ -3,6 +3,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { CompanyEmployeeListRelationFilter } from "../../companyEmployee/base/CompanyEmployeeListRelationFilter";
 import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
+import { CostListRelationFilter } from "../../cost/base/CostListRelationFilter";
 import { FileListRelationFilter } from "../../file/base/FileListRelationFilter";
 import { IntFilter } from "../../util/IntFilter";
 import { StringFilter } from "../../util/StringFilter";
@@ -22,6 +23,18 @@ class CompanyWhereInput {
     nullable: true,
   })
   companyEmployees?: CompanyEmployeeListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => CostListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => CostListRelationFilter)
+  @IsOptional()
+  @Field(() => CostListRelationFilter, {
+    nullable: true,
+  })
+  costs?: CostListRelationFilter;
 
   @ApiProperty({
     required: false,
