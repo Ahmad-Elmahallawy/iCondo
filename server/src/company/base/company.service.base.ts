@@ -1,7 +1,8 @@
 import { PrismaService } from "../../prisma/prisma.service";
 
+// @ts-ignore
 import {
-  Prisma,
+  Prisma, // @ts-ignore
   Company, // @ts-ignore
   CompanyEmployee, // @ts-ignore
   Cost, // @ts-ignore

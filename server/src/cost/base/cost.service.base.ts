@@ -11,8 +11,9 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { PrismaService } from "../../prisma/prisma.service";
 
+// @ts-ignore
 import {
-  Prisma,
+  Prisma, // @ts-ignore
   Cost, // @ts-ignore
   Company,
 } from "@prisma/client";
