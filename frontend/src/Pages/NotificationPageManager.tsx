@@ -42,7 +42,7 @@ const App: React.FC = () => {
             params: {
               where: {
                 message: {
-                  contains: `\"company\":{\"id\":${company[0].id}}`,
+                  contains: `\"company\":{\"id\":${company[0].company.id}}`,
                 },
               },
             },
@@ -83,12 +83,9 @@ const App: React.FC = () => {
         }
       );
 
-      // Remove the notification from the UI after 2 seconds
-      setTimeout(() => {
-        setNotifications((prevNotifications) =>
-          prevNotifications.filter((_, i) => i !== index)
-        );
-      }, 2000);
+      setNotifications((prevNotifications) =>
+        prevNotifications.filter((_, i) => i !== index)
+      );
     } catch (error) {
       console.error("Error handling toggle:", error);
     }
@@ -102,11 +99,35 @@ const App: React.FC = () => {
         <div className="notification-container">
           {notifications.map((notification, index) => {
             if (
-              user.roles[0] === "manager" &&
+              user.roles.includes("manager") &&
               (notification.message === "Access Request" ||
                 notification.message === "Deficiency Report" ||
                 notification.message === "Violation Report" ||
                 notification.message === "Question")
+            ) {
+              return (
+                <div className="notification-item" key={notification.id}>
+                  <span>
+                    A new request has been made by user with id:{" "}
+                    {notification.user.id}:{" "}
+                    <strong>{notification.message}</strong>
+                  </span>
+                  <button
+                    className={`close-btn`}
+                    onClick={() => handleToggle(index)}
+                  >
+                    {"×"}
+                  </button>
+                </div>
+              );
+            } else if (
+              user.roles.includes("operator") &&
+              !(
+                notification.message === "Access Request" ||
+                notification.message === "Deficiency Report" ||
+                notification.message === "Violation Report" ||
+                notification.message === "Question"
+              )
             ) {
               return (
                 <div className="notification-item" key={notification.id}>
@@ -123,33 +144,6 @@ const App: React.FC = () => {
                   >
                     {checkedItems[index] ? "✓" : "×"}
                   </button>
-                </div>
-              );
-            } else if (user.roles[0] === "operator") {
-              return (
-                <div className="notification-item" key={notification.id}>
-                  <span>
-                    A new request has been made by user with id:{" "}
-                    {notification.user.id}:{" "}
-                    <strong>{notification.message}</strong>
-                  </span>
-                  <button
-                    className={`close-btn ${
-                      checkedItems[index] ? "checked" : ""
-                    }`}
-                    onClick={() => handleToggle(index)}
-                  >
-                    {checkedItems[index] ? "✓" : "×"}
-                  </button>
-                </div>
-              );
-            } else {
-              return (
-                <div className="notification-item" key={notification.id}>
-                  {/* Render something else for notifications not meeting the condition */}
-                  <span>
-                    Unauthorized
-                  </span>
                 </div>
               );
             }

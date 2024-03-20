@@ -3,6 +3,8 @@
   position: absolute;
   top: 50%;
   left: 50%;
+  height: 500px;
+  overflow: auto;
   transform: translate(-50%, -50%);
   align-items: center;
   border: 1px solid var(--color4);

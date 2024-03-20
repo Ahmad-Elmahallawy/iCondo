@@ -27,12 +27,16 @@ const NotificationUser: React.FC = () => {
 
   // Function to format the request type
   const formatRequestType = (requestType: string) => {
-    // Remove underscores and capitalize the first letter of each word
-    return requestType
-      .replace(/_/g, " ")
-      .replace(/\b\w/g, (char) => char.toUpperCase());
-  };
+    // Split the request type by underscores
+    const words = requestType.split("_");
 
+    // Capitalize the first letter of each word
+    const formattedType = words
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" "); // Join the words back together with spaces
+
+    return formattedType;
+  };
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -54,14 +58,9 @@ const NotificationUser: React.FC = () => {
             },
           }
         );
-        // Extracting only the request type from the message
-        const processedNotifications = response.data.map((notification) => ({
-          ...notification,
-          message: formatRequestType(
-            JSON.parse(notification.message).requestType
-          ), // Formatting request type
-        }));
-        setNotifications(processedNotifications);
+        console.log(response.data);
+
+        setNotifications(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -86,12 +85,9 @@ const NotificationUser: React.FC = () => {
         }
       );
 
-      // Remove the notification from the UI after 2 seconds
-      setTimeout(() => {
-        setNotifications((prevNotifications) =>
-          prevNotifications.filter((_, i) => i !== index)
-        );
-      }, 2000);
+      setNotifications((prevNotifications) =>
+        prevNotifications.filter((_, i) => i !== index)
+      );
     } catch (error) {
       console.error("Error handling toggle:", error);
     }
@@ -107,17 +103,14 @@ const NotificationUser: React.FC = () => {
             return (
               <div className="notification-item" key={notification.id}>
                 <span>
-                  A new request has been made by user with id:{" "}
-                  {notification.user.id}:{" "}
-                  <strong>{notification.message}</strong>
+                  A New Update Regarding Your Request:
+                  <strong>{formatRequestType(notification.message)}</strong>
                 </span>
                 <button
-                  className={`close-btn ${
-                    checkedItems[index] ? "checked" : ""
-                  }`}
+                  className={`close-btn`}
                   onClick={() => handleToggle(index)}
                 >
-                  {checkedItems[index] ? "✓" : "×"}
+                  {"×"}
                 </button>
               </div>
             );
