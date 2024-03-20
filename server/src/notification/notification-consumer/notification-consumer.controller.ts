@@ -21,12 +21,16 @@ export class NotificationConsumerController {
                     data: {
                         createdAt: message.createdAt,
                         message: JSON.stringify(message),
+                        userId: message.user.id,
+                        requestID: message.id,
                         title: message.status,
                         updatedAt: message.updatedAt,
                     },
                     select: {
                         createdAt: true,
                         id: true,
+                        userId: true,
+                        requestID: true,
                         message: true,
                         title: true,
                         updatedAt: true,
