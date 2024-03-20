@@ -105,28 +105,38 @@ enum EnumRequestType {
 }
 
 type Forum {
+  company: Company
   createdAt: DateTime!
   id: String!
+  name: String!
   posts(orderBy: [PostOrderByInput!], skip: Float, take: Float, where: PostWhereInput): [Post!]!
   updatedAt: DateTime!
 }
 
 input ForumCreateInput {
+  company: CompanyWhereUniqueInput
+  name: String!
   posts: PostCreateNestedManyWithoutForumsInput
 }
 
 input ForumOrderByInput {
+  companyID: SortOrder
   createdAt: SortOrder
   id: SortOrder
+  name: SortOrder
   updatedAt: SortOrder
 }
 
 input ForumUpdateInput {
+  company: CompanyWhereUniqueInput
+  name: String
   posts: PostUpdateManyWithoutForumsInput
 }
 
 input ForumWhereInput {
+  company: CompanyWhereUniqueInput
   id: StringFilter
+  name: StringFilter
   posts: PostListRelationFilter
 }
 
@@ -163,6 +173,7 @@ type Mutation {
 }
 
 type Post {
+  content: String
   createdAt: DateTime!
   forum: Forum
   id: String!
@@ -171,6 +182,7 @@ type Post {
 }
 
 input PostCreateInput {
+  content: String
   forum: ForumWhereUniqueInput
   user: UserWhereUniqueInput
 }
@@ -186,6 +198,7 @@ input PostListRelationFilter {
 }
 
 input PostOrderByInput {
+  content: SortOrder
   createdAt: SortOrder
   forumID: SortOrder
   id: SortOrder
@@ -194,6 +207,7 @@ input PostOrderByInput {
 }
 
 input PostUpdateInput {
+  content: String
   forum: ForumWhereUniqueInput
   user: UserWhereUniqueInput
 }
@@ -205,6 +219,7 @@ input PostUpdateManyWithoutForumsInput {
 }
 
 input PostWhereInput {
+  content: StringNullableFilter
   forum: ForumWhereUniqueInput
   id: StringFilter
   user: UserWhereUniqueInput

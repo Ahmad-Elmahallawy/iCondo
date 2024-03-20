@@ -440,6 +440,7 @@ export class CompanyControllerBase {
 
         createdAt: true,
         id: true,
+        name: true,
         updatedAt: true,
       },
     });

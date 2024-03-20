@@ -57,6 +57,7 @@ export class ForumControllerBase {
         },
         createdAt: true,
         id: true,
+        name: true,
         updatedAt: true,
       },
     });
@@ -87,6 +88,7 @@ export class ForumControllerBase {
 
         createdAt: true,
         id: true,
+        name: true,
         updatedAt: true,
       },
     });
@@ -118,6 +120,7 @@ export class ForumControllerBase {
 
         createdAt: true,
         id: true,
+        name: true,
         updatedAt: true,
       },
     });
@@ -166,6 +169,7 @@ export class ForumControllerBase {
 
           createdAt: true,
           id: true,
+          name: true,
           updatedAt: true,
         },
       });
@@ -205,6 +209,7 @@ export class ForumControllerBase {
 
           createdAt: true,
           id: true,
+          name: true,
           updatedAt: true,
         },
       });
@@ -234,6 +239,7 @@ export class ForumControllerBase {
     const results = await this.service.findPosts(params.id, {
       ...query,
       select: {
+        content: true,
         createdAt: true,
 
         forum: {

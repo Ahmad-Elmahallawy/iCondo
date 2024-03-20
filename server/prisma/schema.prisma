@@ -148,11 +148,13 @@ model Forum {
   companyID Int?
   createdAt DateTime @default(now())
   id        String   @id @default(cuid())
+  name      String
   posts     Post[]
   updatedAt DateTime @updatedAt
 }
 
 model Post {
+  content   String?
   createdAt DateTime @default(now())
   forum     Forum?   @relation(fields: [forumID], references: [id])
   forumID   String?
