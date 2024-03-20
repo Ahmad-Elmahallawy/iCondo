@@ -6,11 +6,13 @@ const urls = {
     updateUserDetails: `${apiPrefix}/users`,
     resetUserPassword: `${apiPrefixUserService}/users`,
     updateUserProfilePic: `${apiPrefix}/files`,
-    editUserRole: `${apiPrefix}/users`
+    editUserRole: `${apiPrefix}/users`,
+    getUserInfo: `${apiPrefix}/users`,
   },
   employees: {
     registerUser: `${apiPrefix}/users`,
-    registerCompanyEmployee: `${apiPrefix}/companyEmployees`
+    registerCompanyEmployee: `${apiPrefix}/companyEmployees`,
+    getCompanyEmployee: `${apiPrefix}/companies`,
   },
   registrationKeys: {
     userRegister: `${apiPrefix}/registrationKeys`,
