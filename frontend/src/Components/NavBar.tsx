@@ -14,8 +14,9 @@ const Navbar = () => {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("userData") || "{}");
   const isAdmin = user.roles && user.roles.includes("Admin");
-  const isCondoOwner = user.roles && user.roles.includes("CondoOwner");
-
+  const isCondoOwner = user.roles && user.roles.includes("condoOwner");
+  const isPublicUser = user.roles && user.roles.includes("PublicUser");
+  const isEmployee = user.roles && (user.roles.includes("manager") || user.roles.includes("operator") || user.roles.includes("financialManager"));
 
   const handleLogout = () => {
     // Show the logout confirmation modal
@@ -65,7 +66,15 @@ const Navbar = () => {
               </>
             )}
 
-            {isCondoOwner && (
+            {(isEmployee) && (
+              <>
+                <li className="nav-item">
+                  <Link to="/EmployeeRequests">Assigned Requests</Link>
+                </li>
+              </>
+            )}
+
+            {(isCondoOwner || isPublicUser) && (
               <>
                 <li className="nav-item">
                   <Link to="/CondoOwnerDashboard">Dashboard</Link>
