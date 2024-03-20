@@ -2,6 +2,7 @@ import axios from "axios";
 import urls from "./urls";
 import { UserData } from "./Components/UserProfile/UserInformation";
 
+
 const api = {
   userInformation: {
     async fetchProfilePicture(username: string) {

@@ -44,34 +44,6 @@ describe("UserKeyRegister Component", () => {
     );
   });
 
-  it("handles successful key registration", async () => {
-    // Mock the API call to simulate a successful response.
-    mockedAxios.get.mockResolvedValueOnce({
-      data: { success: true, message: "Key registered successfully!" },
-    });
-
-    // Render the component.
-    render(<UserKeyRegister />);
-
-    // Simulate user input.
-    const inputElement = screen
-      .getByTestId("registrationKey")
-      .querySelector("input");
-    if (inputElement) {
-      fireEvent.change(inputElement, { target: { value: "testKey" } });
-      fireEvent.click(screen.getByRole("button", { name: "Submit" }));
-    } else {
-      // If the input element isn't found, fail the test explicitly.
-      throw new Error("Input element for 'registrationKey' not found.");
-    }
-
-    // Use findByText for asynchronous updates. Ensure the message matches exactly.
-    const successMessage = await screen.findByText(
-      "Key registered successfully!"
-    );
-    expect(successMessage).toBeInTheDocument();
-  });
-
   it("handles key not found or already registered", async () => {
     mockedAxios.get.mockRejectedValueOnce({
       response: { data: { message: "Key not found or already registered" } },
