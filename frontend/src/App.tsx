@@ -19,6 +19,8 @@ import NotificationPageManager from "./Pages/NotificationPageManager";
 import CondoOwnerRequestsLandingPage from "./Pages/CondoOwnerRequestsLandingPage";
 import EmployeeRequestsLandingPage from "./Pages/EmployeeRequestsLandingPage";
 import CondoOwnerDashboardPage from "./Pages/CondoOwnerDashboardLandingPage";
+import IndividualCondoProfile from "./Components/CondoProfile/IndividualCondoProfile";
+import MyCondos from "./Components/CondoProfile/MyCondos";
 
 function App() {
   return (
@@ -36,7 +38,10 @@ function App() {
         />
         <Route path="Profile" element={<UserProfileLandingPage />} />
         <Route path="CompanyDashboard" element={<DashboardPage />} />
-        <Route path="CondoOwnerDashboard" element={<CondoOwnerDashboardPage />} />
+        <Route
+          path="CondoOwnerDashboard"
+          element={<CondoOwnerDashboardPage />}
+        />
         <Route path="GenerateKey" element={<KeyGenerationLandingPage />} />
         <Route
           path="OwnerRequests"
@@ -65,6 +70,8 @@ function App() {
         <Route path="PropertiesList" element={<PropertiesListPage />} />
 
         <Route path="CondoProfile" element={<CondoProfileLandingPage />} />
+        <Route path="MyCondos" element={<MyCondos />} />
+        <Route path="CondoProfile/:id" element={<IndividualCondoProfile />} />
         <Route
           path="/PropertyProfile/:id"
           element={<PropertyProfileLandingPage />}

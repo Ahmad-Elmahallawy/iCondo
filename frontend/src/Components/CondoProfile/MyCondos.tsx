@@ -1,7 +1,5 @@
-import "../../Style/UserProfileStyle/UserPropertiesStyle.css";
-import React, { useState } from "react";
-import { FaHeart, FaComment } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface Property {
   id: number;
@@ -11,7 +9,7 @@ interface Property {
   description: string;
 }
 
-const Properties: React.FC = () => {
+const MyCondos = () => {
   const defaultProfilePicturePath = "/Assets/default-property-image.webp";
 
   const defaultProperty: Property = {
@@ -24,25 +22,18 @@ const Properties: React.FC = () => {
   }; // Created placeholder property/condo data for the user profile page
 
   const [property, setProperty] = useState<Property>(defaultProperty);
-  const [liked, setLiked] = useState<boolean>(false);
-
-  const handleLikeClick = () => {
-    setLiked((prevLiked) => !prevLiked);
-    //TODO: Save liked properties/condo somewhere
-  };
-
-  const handleMessageClick = () => {
-    // TODO: Send message to condo owner/ manager
+  const navigate = useNavigate();
+  const handlePropertyClick = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
+    navigate(`/CondoProfile/1`);
   };
 
   return (
     <div>
-      <h2 className="property-header">
-        <Link to="/MyCondos">My Condos</Link>
-      </h2>
       <div className="property-box">
         <div className="property-content">
-          <div className="image-container">
+          <div className="image-container" onClick={handlePropertyClick}>
             <img
               src={property.image}
               alt={property.title}
@@ -61,22 +52,9 @@ const Properties: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="property-actions">
-          <div className="action-container">
-            <button
-              className={`like-button ${liked ? "liked" : ""}`}
-              onClick={handleLikeClick}
-            >
-              <FaHeart /> {liked ? "Unlike" : "Like"}
-            </button>
-            <button className="message-button" onClick={handleMessageClick}>
-              <FaComment /> Message
-            </button>
-          </div>
-        </div>
       </div>
     </div>
   );
 };
 
-export default Properties;
+export default MyCondos;
