@@ -16,7 +16,7 @@ const Navbar = () => {
   const isAdmin = user.roles && user.roles.includes("Admin");
   const isCondoOwner = user.roles && user.roles.includes("CondoOwner");
   const isPublicUser = user.roles && user.roles.includes("PublicUser");
-
+  const isEmployee = user.roles && (user.roles.includes("manager") || user.roles.includes("operator") || user.roles.includes("financialManager"));
 
   const handleLogout = () => {
     // Show the logout confirmation modal
@@ -62,6 +62,14 @@ const Navbar = () => {
                 </li>
                 <li className="nav-item">
                   <Link to="/Employee/Registration">Register Employees</Link>
+                </li>
+              </>
+            )}
+
+            {(isEmployee) && (
+              <>
+                <li className="nav-item">
+                  <Link to="/EmployeeRequests">Assigned Requests</Link>
                 </li>
               </>
             )}
