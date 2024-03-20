@@ -8,7 +8,6 @@ import {
   Post, // @ts-ignore
   Request, // @ts-ignore
   Reservation, // @ts-ignore
-  Notification, // @ts-ignore
   UserCondo,
 } from "@prisma/client";
 
@@ -27,16 +26,6 @@ export class UserServiceBase {
     return this.prisma.user.count(args);
   }
 
-  async findNotifications(
-      parentId: number,
-      args: Prisma.NotificationFindManyArgs
-  ): Promise<Notification[]> {
-    return this.prisma.user
-        .findUniqueOrThrow({
-          where: { id: parentId },
-        })
-        .notifications(args);
-  }
   async users<T extends Prisma.UserFindManyArgs>(
     args: Prisma.SelectSubset<T, Prisma.UserFindManyArgs>
   ): Promise<User[]> {

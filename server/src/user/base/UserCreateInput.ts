@@ -11,7 +11,7 @@ import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
 import { UserCondoCreateNestedManyWithoutUsersInput } from "./UserCondoCreateNestedManyWithoutUsersInput";
-import { NotificationCreateNestedManyWithoutUsersInput } from "./NotificationCreateNestedManyWithoutUsersInput";
+
 @InputType()
 class UserCreateInput {
   @ApiProperty({
@@ -33,18 +33,6 @@ class UserCreateInput {
   @IsString()
   @Field(() => String)
   email!: string;
-
-  @ApiProperty({
-    required: false,
-    type: () => NotificationCreateNestedManyWithoutUsersInput,
-  })
-  @ValidateNested()
-  @Type(() => NotificationCreateNestedManyWithoutUsersInput)
-  @IsOptional()
-  @Field(() => NotificationCreateNestedManyWithoutUsersInput, {
-    nullable: true,
-  })
-  notifications?: NotificationCreateNestedManyWithoutUsersInput;
 
   @ApiProperty({
     required: false,

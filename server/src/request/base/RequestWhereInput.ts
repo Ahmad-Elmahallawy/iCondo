@@ -11,7 +11,6 @@ import { CondoUnitWhereUniqueInput } from "../../condoUnit/base/CondoUnitWhereUn
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { CompanyEmployeeWhereUniqueInput } from "../../companyEmployee/base/CompanyEmployeeWhereUniqueInput";
 import { PropertyWhereUniqueInput } from "../../property/base/PropertyWhereUniqueInput";
-import { NotificationListRelationFilter } from "../../notification/base/NotificationListRelationFilter";
 
 @InputType()
 class RequestWhereInput {
@@ -26,18 +25,6 @@ class RequestWhereInput {
     nullable: true,
   })
   company?: CompanyWhereUniqueInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => NotificationListRelationFilter,
-  })
-  @ValidateNested()
-  @Type(() => NotificationListRelationFilter)
-  @IsOptional()
-  @Field(() => NotificationListRelationFilter, {
-    nullable: true,
-  })
-  notifications?: NotificationListRelationFilter;
 
   @ApiProperty({
     required: false,

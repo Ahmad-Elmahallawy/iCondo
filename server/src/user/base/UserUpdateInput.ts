@@ -11,7 +11,6 @@ import { UserCondoUpdateManyWithoutUsersInput } from "./UserCondoUpdateManyWitho
 import { PostUpdateManyWithoutUsersInput } from "./PostUpdateManyWithoutUsersInput";
 import { RequestUpdateManyWithoutUsersInput } from "./RequestUpdateManyWithoutUsersInput";
 import { ReservationUpdateManyWithoutUsersInput } from "./ReservationUpdateManyWithoutUsersInput";
-import { NotificationUpdateManyWithoutUsersInput } from "./NotificationUpdateManyWithoutUsersInput";
 @InputType()
 class UserUpdateInput {
   @ApiProperty({
@@ -36,18 +35,6 @@ class UserUpdateInput {
     nullable: true,
   })
   email?: string;
-
-  @ApiProperty({
-    required: false,
-    type: () => NotificationUpdateManyWithoutUsersInput,
-  })
-  @ValidateNested()
-  @Type(() => NotificationUpdateManyWithoutUsersInput)
-  @IsOptional()
-  @Field(() => NotificationUpdateManyWithoutUsersInput, {
-    nullable: true,
-  })
-  notifications?: NotificationUpdateManyWithoutUsersInput;
 
   @ApiProperty({
     required: false,

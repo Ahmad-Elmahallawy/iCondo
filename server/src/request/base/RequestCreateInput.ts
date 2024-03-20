@@ -9,7 +9,6 @@ import { EnumRequestStatus } from "./EnumRequestStatus";
 import { CondoUnitWhereUniqueInput } from "../../condoUnit/base/CondoUnitWhereUniqueInput";
 import { CompanyEmployeeWhereUniqueInput } from "../../companyEmployee/base/CompanyEmployeeWhereUniqueInput";
 import { PropertyWhereUniqueInput } from "../../property/base/PropertyWhereUniqueInput";
-import { NotificationCreateNestedManyWithoutRequestsInput } from "./NotificationCreateNestedManyWithoutRequestsInput";
 
 @InputType()
 class RequestCreateInput {
@@ -43,18 +42,6 @@ class RequestCreateInput {
     | "deficiency_report"
     | "question"
     | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => NotificationCreateNestedManyWithoutRequestsInput,
-  })
-  @ValidateNested()
-  @Type(() => NotificationCreateNestedManyWithoutRequestsInput)
-  @IsOptional()
-  @Field(() => NotificationCreateNestedManyWithoutRequestsInput, {
-    nullable: true,
-  })
-  notifications?: NotificationCreateNestedManyWithoutRequestsInput;
 
   @ApiProperty({
     required: false,

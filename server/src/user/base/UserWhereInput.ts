@@ -11,7 +11,6 @@ import { UserCondoListRelationFilter } from "../../userCondo/base/UserCondoListR
 import { PostListRelationFilter } from "../../post/base/PostListRelationFilter";
 import { RequestListRelationFilter } from "../../request/base/RequestListRelationFilter";
 import { ReservationListRelationFilter } from "../../reservation/base/ReservationListRelationFilter";
-import { NotificationListRelationFilter } from "../../notification/base/NotificationListRelationFilter";
 @InputType()
 class UserWhereInput {
   @ApiProperty({
@@ -25,18 +24,6 @@ class UserWhereInput {
     nullable: true,
   })
   companyEmployees?: CompanyEmployeeListRelationFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => NotificationListRelationFilter,
-  })
-  @ValidateNested()
-  @Type(() => NotificationListRelationFilter)
-  @IsOptional()
-  @Field(() => NotificationListRelationFilter, {
-    nullable: true,
-  })
-  notifications?: NotificationListRelationFilter;
 
   @ApiProperty({
     required: false,

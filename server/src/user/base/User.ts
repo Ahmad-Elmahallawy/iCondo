@@ -17,7 +17,7 @@ import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { JsonValue } from "type-fest";
 import { UserCondo } from "../../userCondo/base/UserCondo";
-import { Notification } from "../../notification/base/Notification";
+
 @ObjectType()
 class User {
   @ApiProperty({
@@ -53,15 +53,6 @@ class User {
   @Type(() => File)
   @IsOptional()
   files?: Array<File>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [Notification],
-  })
-  @ValidateNested()
-  @Type(() => Notification)
-  @IsOptional()
-  notifications?: Array<Notification>;
 
   @ApiProperty({
     required: false,
