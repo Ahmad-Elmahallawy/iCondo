@@ -66,11 +66,32 @@ const App: React.FC = () => {
 
     fetchData();
   }, []);
+  const handleToggle = async (index: number) => {
+    try {
+      // Update the state to show the check icon
+      const newCheckedItems = [...checkedItems];
+      newCheckedItems[index] = true;
+      setCheckedItems(newCheckedItems);
 
-  const handleToggle = (index: number) => {
-    const newCheckedItems = [...checkedItems];
-    newCheckedItems[index] = !newCheckedItems[index];
-    setCheckedItems(newCheckedItems);
+      // Delete the notification from the server
+      await axios.delete(
+        `${urls.notifications.deleteNotification}/${notifications[index].id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${user.accessToken}`,
+          },
+        }
+      );
+
+      // Remove the notification from the UI after 2 seconds
+      setTimeout(() => {
+        setNotifications((prevNotifications) =>
+          prevNotifications.filter((_, i) => i !== index)
+        );
+      }, 2000);
+    } catch (error) {
+      console.error("Error handling toggle:", error);
+    }
   };
 
   return (
@@ -79,20 +100,60 @@ const App: React.FC = () => {
         <h1 className="notifications-heading">Notifications</h1>
 
         <div className="notification-container">
-          {notifications.map((notification, index) => (
-            <div className="notification-item" key={index}>
-              <span>
-                A new request has been made by user with id:{" "}
-                {notification.user.id}: <strong>{notification.message}</strong>
-              </span>
-              <button
-                className={`close-btn ${checkedItems[index] ? "checked" : ""}`}
-                onClick={() => handleToggle(index)}
-              >
-                {checkedItems[index] ? "✓" : "×"}
-              </button>
-            </div>
-          ))}
+          {notifications.map((notification, index) => {
+            if (
+              user.roles[0] === "manager" &&
+              (notification.message === "Access Request" ||
+                notification.message === "Deficiency Report" ||
+                notification.message === "Violation Report" ||
+                notification.message === "Question")
+            ) {
+              return (
+                <div className="notification-item" key={notification.id}>
+                  <span>
+                    A new request has been made by user with id:{" "}
+                    {notification.user.id}:{" "}
+                    <strong>{notification.message}</strong>
+                  </span>
+                  <button
+                    className={`close-btn ${
+                      checkedItems[index] ? "checked" : ""
+                    }`}
+                    onClick={() => handleToggle(index)}
+                  >
+                    {checkedItems[index] ? "✓" : "×"}
+                  </button>
+                </div>
+              );
+            } else if (user.roles[0] === "operator") {
+              return (
+                <div className="notification-item" key={notification.id}>
+                  <span>
+                    A new request has been made by user with id:{" "}
+                    {notification.user.id}:{" "}
+                    <strong>{notification.message}</strong>
+                  </span>
+                  <button
+                    className={`close-btn ${
+                      checkedItems[index] ? "checked" : ""
+                    }`}
+                    onClick={() => handleToggle(index)}
+                  >
+                    {checkedItems[index] ? "✓" : "×"}
+                  </button>
+                </div>
+              );
+            } else {
+              return (
+                <div className="notification-item" key={notification.id}>
+                  {/* Render something else for notifications not meeting the condition */}
+                  <span>
+                    Unauthorized
+                  </span>
+                </div>
+              );
+            }
+          })}
         </div>
       </div>
     </div>
