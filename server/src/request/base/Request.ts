@@ -15,7 +15,7 @@ import { User } from "../../user/base/User";
 import { CondoUnit } from "../../condoUnit/base/CondoUnit";
 import { CompanyEmployee } from "../../companyEmployee/base/CompanyEmployee";
 import { Property } from "../../property/base/Property";
-
+import { Notification } from "../../notification/base/Notification";
 @ObjectType()
 class Request {
   @ApiProperty({
@@ -61,6 +61,15 @@ class Request {
       | "deficiency_report"
       | "question"
       | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Notification],
+  })
+  @ValidateNested()
+  @Type(() => Notification)
+  @IsOptional()
+  notifications?: Array<Notification>;
 
   @ApiProperty({
     required: false,
