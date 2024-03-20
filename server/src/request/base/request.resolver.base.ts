@@ -18,6 +18,12 @@ import { DeleteRequestArgs } from "./DeleteRequestArgs";
 import { Company } from "../../company/base/Company";
 import { User } from "../../user/base/User";
 import { RequestService } from "../request.service";
+import { CondoUnit } from "../../condoUnit/base/CondoUnit";
+import { CompanyEmployee } from "../../companyEmployee/base/CompanyEmployee";
+import { Property } from "../../property/base/Property";
+import { NotificationFindManyArgs } from "../../notification/base/NotificationFindManyArgs";
+import { Notification } from "../../notification/base/Notification";
+
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => RequestObject)
 export class RequestResolverBase {
@@ -97,6 +103,23 @@ export class RequestResolverBase {
               connect: args.data.user,
             }
           : undefined,
+        condoUnit: args.data.condoUnit
+            ? {
+              connect: args.data.condoUnit,
+            }
+            : undefined,
+
+        employee: args.data.employee
+            ? {
+              connect: args.data.employee,
+            }
+            : undefined,
+
+        property: args.data.property
+            ? {
+              connect: args.data.property,
+            }
+            : undefined,
       },
     });
   }
@@ -128,6 +151,24 @@ export class RequestResolverBase {
                 connect: args.data.user,
               }
             : undefined,
+
+          condoUnit: args.data.condoUnit
+              ? {
+                connect: args.data.condoUnit,
+              }
+              : undefined,
+
+          employee: args.data.employee
+              ? {
+                connect: args.data.employee,
+              }
+              : undefined,
+
+          property: args.data.property
+              ? {
+                connect: args.data.property,
+              }
+              : undefined,
         },
       });
     } catch (error) {
@@ -181,6 +222,69 @@ export class RequestResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => CondoUnit, {
+    nullable: true,
+    name: "condoUnit",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "CondoUnit",
+    action: "read",
+    possession: "any",
+  })
+  async getCondoUnit(
+      @graphql.Parent() parent: RequestObject
+  ): Promise<CondoUnit | null> {
+    const result = await this.service.getCondoUnit(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => CompanyEmployee, {
+    nullable: true,
+    name: "employee",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "CompanyEmployee",
+    action: "read",
+    possession: "any",
+  })
+  async getEmployee(
+      @graphql.Parent() parent: RequestObject
+  ): Promise<CompanyEmployee | null> {
+    const result = await this.service.getEmployee(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Property, {
+    nullable: true,
+    name: "property",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Property",
+    action: "read",
+    possession: "any",
+  })
+  async getProperty(
+      @graphql.Parent() parent: RequestObject
+  ): Promise<Property | null> {
+    const result = await this.service.getProperty(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
   @graphql.ResolveField(() => User, {
     nullable: true,
     name: "user",
@@ -197,5 +301,25 @@ export class RequestResolverBase {
       return null;
     }
     return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [Notification], { name: "notifications" })
+  @nestAccessControl.UseRoles({
+    resource: "Notification",
+    action: "read",
+    possession: "any",
+  })
+  async findNotifications(
+      @graphql.Parent() parent: RequestObject,
+      @graphql.Args() args: NotificationFindManyArgs
+  ): Promise<Notification[]> {
+    const results = await this.service.findNotifications(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 }

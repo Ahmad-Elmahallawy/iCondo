@@ -7,6 +7,11 @@ import { StringFilter } from "../../util/StringFilter";
 import { EnumRequestType } from "./EnumRequestType";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 import { EnumRequestStatus } from "./EnumRequestStatus";
+import { CondoUnitWhereUniqueInput } from "../../condoUnit/base/CondoUnitWhereUniqueInput";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { CompanyEmployeeWhereUniqueInput } from "../../companyEmployee/base/CompanyEmployeeWhereUniqueInput";
+import { PropertyWhereUniqueInput } from "../../property/base/PropertyWhereUniqueInput";
+import { NotificationListRelationFilter } from "../../notification/base/NotificationListRelationFilter";
 
 @InputType()
 class RequestWhereInput {
@@ -21,6 +26,18 @@ class RequestWhereInput {
     nullable: true,
   })
   company?: CompanyWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => NotificationListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => NotificationListRelationFilter)
+  @IsOptional()
+  @Field(() => NotificationListRelationFilter, {
+    nullable: true,
+  })
+  notifications?: NotificationListRelationFilter;
 
   @ApiProperty({
     required: false,
@@ -79,6 +96,97 @@ class RequestWhereInput {
     nullable: true,
   })
   user?: UserWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => CondoUnitWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => CondoUnitWhereUniqueInput)
+  @IsOptional()
+  @Field(() => CondoUnitWhereUniqueInput, {
+    nullable: true,
+  })
+  condoUnit?: CondoUnitWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  elevator?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => CompanyEmployeeWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => CompanyEmployeeWhereUniqueInput)
+  @IsOptional()
+  @Field(() => CompanyEmployeeWhereUniqueInput, {
+    nullable: true,
+  })
+  employee?: CompanyEmployeeWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  key?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => PropertyWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => PropertyWhereUniqueInput)
+  @IsOptional()
+  @Field(() => PropertyWhereUniqueInput, {
+    nullable: true,
+  })
+  property?: PropertyWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  question?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  reportMessage?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  response?: StringNullableFilter;
 }
 
 export { RequestWhereInput as RequestWhereInput };

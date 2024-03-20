@@ -13,10 +13,11 @@ import CondoProfileLandingPage from "./Pages/CondoProfileLandingPage";
 import CreatePropertyLandingPage from "./Pages/CreatePropertyLandingPage";
 import PropertyProfileLandingPage from "./Pages/PropertyProfileLandingPage";
 import CondoCreationLandingPage from "./Pages/CondoCreationLandingPage";
-import EmployeeRequestsLandingPage from "./Pages/EmployeeRequestsLandingPage";
+import KeyGenerationLandingPage from "./Pages/KeyGenerationLandingPage";
 import ResetPassword from "./Components/Authentication/ResetPassword";
 import NotificationPageManager from "./Pages/NotificationPageManager";
 import CondoOwnerRequestsLandingPage from "./Pages/CondoOwnerRequestsLandingPage";
+import EmployeeRequestsLandingPage from "./Pages/EmployeeRequestsLandingPage";
 import CondoOwnerDashboardPage from "./Pages/CondoOwnerDashboardLandingPage";
 import EmployeeListLandingPage from "./Pages/EmployeeListLandingPage";
 
@@ -69,6 +70,11 @@ function App() {
           path="OwnerRequests"
           element={<CondoOwnerRequestsLandingPage />}
         />
+        <Route
+          path="EmployeeRequests"
+          element={<EmployeeRequestsLandingPage />}
+        />
+
         <Route
           path="RegisterEmployee"
           element={
