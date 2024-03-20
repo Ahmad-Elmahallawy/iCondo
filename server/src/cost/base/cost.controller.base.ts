@@ -21,7 +21,6 @@ import * as defaultAuthGuard from "../../auth/defaultAuth.guard";
 import { CostService } from "../cost.service";
 import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
-import { Request } from "../../request/base/Request";
 import { CostCreateInput } from "./CostCreateInput";
 import { Cost } from "./Cost";
 import { Post } from "../../post/base/Post";
