@@ -42,6 +42,8 @@ import {NotificationModule} from "./notification/notification.module";
     ParkingSpotModule,
     LockerModule,
     CompanyModule,
+    NotificationModule,
+      KafkaModule,
     FileModule,
     RegistrationKeyModule,
     RoleModule,
