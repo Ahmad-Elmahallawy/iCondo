@@ -32,76 +32,74 @@ import {AuthModule} from "./auth/auth.module";
 import {NotificationModule} from "./notification/notification.module";
 
 @Module({
-    controllers: [],
-    imports: [
-        ACLModule,
-        AuthModule,
-        UserModule,
-        CondoUnitModule,
-        PropertyModule,
-        ParkingSpotModule,
-        LockerModule,
-        CompanyModule,
-        FileModule,
-        RegistrationKeyModule,
-        RoleModule,
-        CompanyEmployeeModule,
-        UserCondoModule,
-        ForumModule,
-        KafkaModule,
-        PostModule,
-        CommonFacilityModule,
-        ReservationModule,
-        RequestModule,
-        HealthModule,
-        PrismaModule,
-        SecretsManagerModule,
-        NotificationModule,
-        ConfigModule.forRoot({isGlobal: true}),
-        ServeStaticModule.forRootAsync({
-            useClass: ServeStaticOptionsService,
-        }),
-        GraphQLModule.forRootAsync<ApolloDriverConfig>({
-            driver: ApolloDriver,
-            useFactory: (configService: ConfigService) => {
-                const playground = configService.get("GRAPHQL_PLAYGROUND");
-                const introspection = configService.get("GRAPHQL_INTROSPECTION");
-                return {
-                    autoSchemaFile: "schema.graphql",
-                    sortSchema: true,
-                    playground,
-                    introspection: playground || introspection,
-                };
-            },
-            inject: [ConfigService],
-            imports: [ConfigModule],
-        }),
-        CacheModule.registerAsync({
-            isGlobal: true,
-            imports: [ConfigModule],
+  controllers: [],
+  imports: [
+    ACLModule,
+    AuthModule,
+    UserModule,
+    CondoUnitModule,
+    PropertyModule,
+    ParkingSpotModule,
+    LockerModule,
+    CompanyModule,
+    FileModule,
+    RegistrationKeyModule,
+    RoleModule,
+    CompanyEmployeeModule,
+    UserCondoModule,
+    ForumModule,
+    PostModule,
+    CommonFacilityModule,
+    ReservationModule,
+    RequestModule,
+    HealthModule,
+    PrismaModule,
+    SecretsManagerModule,
+    ConfigModule.forRoot({ isGlobal: true }),
+    ServeStaticModule.forRootAsync({
+      useClass: ServeStaticOptionsService,
+    }),
+    GraphQLModule.forRootAsync<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      useFactory: (configService: ConfigService) => {
+        const playground = configService.get("GRAPHQL_PLAYGROUND");
+        const introspection = configService.get("GRAPHQL_INTROSPECTION");
+        return {
+          autoSchemaFile: "schema.graphql",
+          sortSchema: true,
+          playground,
+          introspection: playground || introspection,
+        };
+      },
+      inject: [ConfigService],
+      imports: [ConfigModule],
+    }),
+    // CacheModule.registerAsync({
+    //   isGlobal: true,
+    //   imports: [ConfigModule],
 
-            useFactory: async (configService: ConfigService) => {
-                const host = configService.get("REDIS_HOST");
-                const port = configService.get("REDIS_PORT");
-                const username = configService.get("REDIS_USERNAME");
-                const password = configService.get("REDIS_PASSWORD");
-                const ttl = configService.get("REDIS_TTL", 5000);
+      // useFactory: async (configService: ConfigService) => {
+      //   const host = configService.get("REDIS_HOST");
+      //   const port = configService.get("REDIS_PORT");
+      //   const username = configService.get("REDIS_USERNAME");
+      //   const password = configService.get("REDIS_PASSWORD");
+      //   const ttl = configService.get("REDIS_TTL", 5000);
+      //
+      //   return {
+      //     store: await redisStore({
+      //       host: host,
+      //       port: port,
+      //       username: username,
+      //       password: password,
+      //       ttl: ttl,
+      //     }),
+      //   };
+      // },
 
-                return {
-                    store: await redisStore({
-                        host: host,
-                        port: port,
-                        username: username,
-                        password: password,
-                        ttl: ttl,
-                    }),
-                };
-            },
-
-            inject: [ConfigService],
-        }),
-    ],
-    providers: [],
+    //   inject: [ConfigService],
+    // }),
+  ],
+  providers: [],
 })
 export class AppModule {
 }

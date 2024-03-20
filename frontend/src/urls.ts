@@ -19,6 +19,8 @@ const urls = {
   },
   requests: {
     submitRequest: `${apiPrefix}/requests`,
+    getRequest: `${apiPrefix}/requests`,
+    editRequest: `${apiPrefix}/requests`
   },
   userCondos: {
     submitUserCondo: `${apiPrefix}/userCondos`,

@@ -143,9 +143,8 @@ const api = {
           id: userId,
         },
         requestType: requestType,
-        status: "In_Progress",
+        status: "New",
       };
-
 
       const response = await axios.post(
         urls.requests.submitRequest,
@@ -158,6 +157,42 @@ const api = {
       );
 
       return response;
+    },
+
+    async getEmployeeRequest(id: number, token: String) {
+      try {
+        const response = await axios.get(`${urls.requests.getRequest}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          params: {
+            where: {
+              company: { id: id },
+            },
+          },
+        });
+        return response;
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    },
+    async editRequest(id: String, status: String, token: String) {
+      try {
+        const response = await axios.patch(
+          `${urls.requests.editRequest}/${id}`,
+          {
+            status: status,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        return response;
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
     },
   },
 
