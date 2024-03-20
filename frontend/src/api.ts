@@ -301,6 +301,25 @@ const api = {
       return response;
     },
   },
+
+  notifications: {
+    async getComapnyNotifications(companyId: number, token: String) {
+
+      const response = await axios.get(`${urls.companies.getCompany}`, {
+        params: {
+          where: {
+            message: {
+              contains: `\"company\":{\"id\":${companyId}}`,
+            },
+          },
+        },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return response.data;
+    },
+  },
 };
 
 export default api;

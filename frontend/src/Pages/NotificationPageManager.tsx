@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../Style/NotificationPageManagerStyle/NotiPageManagerStyle.css";
+import api from "../api";
+import urls from "../urls";
 
 interface Notification {
   id: number;
@@ -35,7 +37,7 @@ const App: React.FC = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get<Notification[]>(
-          "http://localhost:8000/api/notifications",
+          `${urls.notifications.getNotification}`,
           {
             params: {
               where: {
@@ -63,7 +65,7 @@ const App: React.FC = () => {
     };
 
     fetchData();
-  }, []); // Empty dependency array ensures the effect runs only once when the component mounts
+  }, []);
 
   const handleToggle = (index: number) => {
     const newCheckedItems = [...checkedItems];
