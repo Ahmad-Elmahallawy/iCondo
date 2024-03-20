@@ -217,6 +217,14 @@ const api = {
       });
       return response;
     },
+
+    async deleteProperty(propertyId: number, token: String){
+      const response = await axios.delete(`${urls.properties.getProperty}/${propertyId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    }
   },
 
   companies: {
@@ -236,7 +244,6 @@ const api = {
             },
           },
           headers: {
-            // Corrected to use 'headers' instead of 'Headers'
             Authorization: `Bearer ${token}`,
           },
         });

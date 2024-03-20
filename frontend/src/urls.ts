@@ -27,6 +27,7 @@ const urls = {
   },
   properties: {
     getProperty: `${apiPrefix}/properties`,
+    deleteProperty: `${apiPrefix}/properties`
   },
   companies: {
     getCompany: `${apiPrefix}/companies`,
