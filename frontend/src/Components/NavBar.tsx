@@ -44,17 +44,19 @@ const Navbar = () => {
         />
       </div>
       <ul className={click ? "nav-menu active" : "nav-menu"}>
-        <li className="nav-item">
-          {user.roles[0] === "manager" || user.roles[0] === "operator" ? (
-            <Link to="/Notifications/Company">
-              <img src="Assets/bell.svg" alt="" />
-            </Link>
-          ) : (
-            <Link to="/Notifications/User">
-              <img src="Assets/bell.svg" alt="" />
-            </Link>
-          )}
-        </li>
+        {user && user.roles && user.roles.length > 0 && (
+          <li className="nav-item">
+            {user.roles[0] === "manager" || user.roles[0] === "operator" ? (
+              <Link to="/Notifications/Company">
+                <img src="Assets/bell.svg" alt="" />
+              </Link>
+            ) : (
+              <Link to="/Notifications/User">
+                <img src="Assets/bell.svg" alt="" />
+              </Link>
+            )}
+          </li>
+        )}
         <li className="nav-item">
           <Link to="/">Home</Link>
         </li>
