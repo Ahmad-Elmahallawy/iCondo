@@ -46,6 +46,9 @@ const Navbar = () => {
       </div>
       <ul className={click ? "nav-menu active" : "nav-menu"}>
         <li className="nav-item">
+        <Link to="/Notifications"><img src="Assets/bell.svg" alt="" /></Link>
+        </li>
+        <li className="nav-item">
           <Link to="/">Home</Link>
         </li>
 

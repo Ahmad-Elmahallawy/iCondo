@@ -72,7 +72,7 @@ function App() {
 
         <Route path="CondoCreation" element={<CondoCreationLandingPage />} />
         <Route
-          path="NotificationPageManager"
+          path="Notifications"
           element={<NotificationPageManager />}
         />
       </Routes>

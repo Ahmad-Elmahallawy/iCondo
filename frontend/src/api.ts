@@ -200,31 +200,35 @@ const api = {
     // to get the property ID
     async getCondoProperty(condoId: number, token: String) {
       const response = await axios.get(`${urls.properties.getProperty}`, {
-        params: {
-          where: {
-            condoUnits: {
-              every: {
-                id: {
-                  equals: condoId,
-                },
-              },
-            },
-          },
-        },
+        // params: {
+        //   where: {
+        //     condoUnits: {
+        //       every: {
+        //         id: {
+        //           equals: condoId,
+        //         },
+        //       },
+        //     },
+        //   },
+        // },
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
+
       return response;
     },
 
-    async deleteProperty(propertyId: number, token: String){
-      const response = await axios.delete(`${urls.properties.getProperty}/${propertyId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-    }
+    async deleteProperty(propertyId: number, token: String) {
+      const response = await axios.delete(
+        `${urls.properties.getProperty}/${propertyId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    },
   },
 
   companies: {
