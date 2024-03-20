@@ -15,6 +15,7 @@ const Navbar = () => {
   const user = JSON.parse(localStorage.getItem("userData") || "{}");
   const isAdmin = user.roles && user.roles.includes("Admin");
   const isCondoOwner = user.roles && user.roles.includes("CondoOwner");
+  const isPublicUser = user.roles && user.roles.includes("PublicUser");
 
 
   const handleLogout = () => {
@@ -65,7 +66,7 @@ const Navbar = () => {
               </>
             )}
 
-            {isCondoOwner && (
+            {(isCondoOwner || isPublicUser) && (
               <>
                 <li className="nav-item">
                   <Link to="/CondoOwnerDashboard">Dashboard</Link>
