@@ -2,6 +2,7 @@ import axios from "axios";
 import urls from "./urls";
 import { UserData } from "./Components/UserProfile/UserInformation";
 
+
 const api = {
   userInformation: {
     async fetchProfilePicture(username: string) {
@@ -43,6 +44,16 @@ const api = {
         `${urls.users.updateUserProfilePic}/${username}`,
         pictureFormData
       );
+    },
+    async getUserInfo(userId: number, token: String){
+      const response = await axios.get(`http://localhost:8000/api/users/${userId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+      );
+      return response;
     },
   },
 
@@ -299,6 +310,19 @@ const api = {
         }
       );
       return response;
+    },
+    //Gets employees for a company
+    async getCompanyEmployees(companyId: number, token: String){
+      try {
+        const response = await axios.get(`http://localhost:8000/api/companies/${companyId}/companyEmployees`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        return response.data;
+      } catch (error) {
+        throw error;
+      }
     },
   },
 

@@ -20,28 +20,53 @@ import CondoOwnerRequestsLandingPage from "./Pages/CondoOwnerRequestsLandingPage
 import EmployeeRequestsLandingPage from "./Pages/EmployeeRequestsLandingPage";
 import CondoOwnerDashboardPage from "./Pages/CondoOwnerDashboardLandingPage";
 import NotificationUser from "./Pages/NotificationLandingPageUser";
+import EmployeeListLandingPage from "./Pages/EmployeeListLandingPage";
 
 function App() {
   return (
     <div className="app">
       <NavBar />
       <Routes>
-        <Route path="/" element={<Hero />} />
-        <Route path="Login" element={<LogInLandingPage />} />
-        <Route path="Register" element={<RegistrationLandingPage />} />
-        <Route path="ResetPassword" element={<ResetPassword />} />
-        <Route path="Profile" element={<UserProfileLandingPage />} />
+        <Route 
+          path="/" 
+          element={<Hero />} 
+        />
+        <Route 
+          path="Login" 
+          element={<LogInLandingPage />} 
+        />
+        <Route 
+          path="Register" 
+          element={<RegistrationLandingPage />} 
+        />
+        <Route 
+          path="ResetPassword" 
+          element={<ResetPassword />} 
+        />
+        <Route 
+          path="Profile" 
+          element={<UserProfileLandingPage />} 
+        />
         <Route
           path="Employee/Registration"
           element={<EmployeeRegistrationLandingPage />}
         />
-        <Route path="Profile" element={<UserProfileLandingPage />} />
-        <Route path="CompanyDashboard" element={<DashboardPage />} />
-        <Route
-          path="CondoOwnerDashboard"
-          element={<CondoOwnerDashboardPage />}
+        <Route 
+          path="Profile" 
+          element={<UserProfileLandingPage />} 
         />
-        <Route path="GenerateKey" element={<KeyGenerationLandingPage />} />
+        <Route 
+          path="CompanyDashboard" 
+          element={<DashboardPage />} 
+        />
+        <Route 
+          path="CondoOwnerDashboard" 
+          element={<CondoOwnerDashboardPage />} 
+        />
+        <Route 
+          path="GenerateKey" 
+          element={<EmployeeRequestsLandingPage />} 
+        />
         <Route
           path="OwnerRequests"
           element={<CondoOwnerRequestsLandingPage />}
@@ -55,26 +80,36 @@ function App() {
           path="RegisterEmployee"
           element={
             <EmployeeRegistrationLandingPage />
-          } /*CHANGE PATH ONCE PAGE IS CREATED*/
+          }
         />
-        <Route path="CreateProperty" element={<CreatePropertyLandingPage />} />
+        <Route 
+          path="CreateProperty" 
+          element={<CreatePropertyLandingPage />} 
+        />
         <Route
           path="EmployeeList"
-          element={<DashboardPage />} /*CHANGE PATH ONCE PAGE IS CREATED*/
+          element={<EmployeeListLandingPage />}
         />
         <Route
           path="RegistrationKeyList"
           element={<DashboardPage />} /*CHANGE PATH ONCE PAGE IS CREATED*/
         />
-        <Route path="PropertiesList" element={<PropertiesListPage />} />
-
-        <Route path="CondoProfile" element={<CondoProfileLandingPage />} />
+        <Route 
+          path="PropertiesList" 
+          element={<PropertiesListPage />} 
+        />
+        <Route 
+          path="CondoProfile" 
+          element={<CondoProfileLandingPage />} 
+        />
         <Route
           path="/PropertyProfile/:id"
           element={<PropertyProfileLandingPage />}
         />
-
-        <Route path="CondoCreation" element={<CondoCreationLandingPage />} />
+        <Route 
+          path="CondoCreation" 
+          element={<CondoCreationLandingPage />} 
+        />
         <Route
           path="Notifications/Company"
           element={<NotificationPageManager />}
