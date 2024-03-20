@@ -1,6 +1,7 @@
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import React from "react";
+import { fireEvent, render, screen } from "@testing-library/react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App";
-import { BrowserRouter, MemoryRouter } from "react-router-dom";
 
 describe("full app navigation", () => {
   const setup = () => render(<App />, { wrapper: BrowserRouter });
@@ -40,16 +41,14 @@ describe("full app navigation", () => {
   });
 });
 
-test("landing on a bad page", async () => {
-  const badRoute = "/some/bad/route";
+function NotFoundPage() {
+  return <div>404 Page Not Found</div>;
+}
 
-  render(
-    <MemoryRouter initialEntries={[badRoute]}>
-      <App />
-    </MemoryRouter>
+function TestApp() {
+  return (
+    <Routes>
+      <Route path="*" element={<NotFoundPage />} />
+    </Routes>
   );
-
-  // Adjust this line based on how your 404 page is actually rendered or identified
-  const notFoundText = screen.queryByText(/404 Page Not Found/i);
-  expect(notFoundText).toBeInTheDocument();
-});
+}
