@@ -21,6 +21,7 @@ model User {
   requests         Request[]
   reservations     Reservation[]
   roles            Json
+  notifications    Notification[]
   updatedAt        DateTime          @updatedAt
   userCondos       UserCondo[]
   username         String            @unique
@@ -200,6 +201,19 @@ model Request {
   updatedAt     DateTime           @updatedAt
   user          User?              @relation(fields: [userID], references: [id])
   userID        Int?
+  notifications Notification[]
+}
+
+model Notification {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  message   String?
+  title     String?
+  updatedAt DateTime @updatedAt
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    Int?
+  request   Request? @relation(fields: [requestID], references: [id])
+  requestID String?
 }
 
 enum EnumCommonFacilityType {
