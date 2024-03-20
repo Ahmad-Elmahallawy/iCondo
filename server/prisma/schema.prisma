@@ -85,6 +85,7 @@ model Company {
   companyEmployees CompanyEmployee[]
   createdAt        DateTime          @default(now())
   file             File[]
+  forums           Forum[]
   id               Int               @id @default(autoincrement())
   name             String
   properties       Property[]
@@ -143,6 +144,8 @@ model UserCondo {
 }
 
 model Forum {
+  company   Company? @relation(fields: [companyID], references: [id])
+  companyID Int?
   createdAt DateTime @default(now())
   id        String   @id @default(cuid())
   posts     Post[]

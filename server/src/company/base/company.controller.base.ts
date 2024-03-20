@@ -25,6 +25,9 @@ import { CompanyEmployeeWhereUniqueInput } from "../../companyEmployee/base/Comp
 import { FileFindManyArgs } from "../../file/base/FileFindManyArgs";
 import { File } from "../../file/base/File";
 import { FileWhereUniqueInput } from "../../file/base/FileWhereUniqueInput";
+import { ForumFindManyArgs } from "../../forum/base/ForumFindManyArgs";
+import { Forum } from "../../forum/base/Forum";
+import { ForumWhereUniqueInput } from "../../forum/base/ForumWhereUniqueInput";
 import { PropertyFindManyArgs } from "../../property/base/PropertyFindManyArgs";
 import { Property } from "../../property/base/Property";
 import { PropertyWhereUniqueInput } from "../../property/base/PropertyWhereUniqueInput";
@@ -412,6 +415,100 @@ export class CompanyControllerBase {
       select: { id: true },
     });
   }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/forums")
+  @ApiNestedQuery(ForumFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "Forum",
+    action: "read",
+    possession: "any",
+  })
+  async findForums(
+      @common.Req() request: Request,
+      @common.Param() params: CompanyWhereUniqueInput
+  ): Promise<Forum[]> {
+    const query = plainToClass(ForumFindManyArgs, request.query);
+    const results = await this.service.findForums(params.id, {
+      ...query,
+      select: {
+        company: {
+          select: {
+            id: true,
+          },
+        },
+
+        createdAt: true,
+        id: true,
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+          `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @Public()
+  @common.Post("/:id/forums")
+  async connectForums(
+      @common.Param() params: CompanyWhereUniqueInput,
+      @common.Body() body: ForumWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      forums: {
+        connect: body,
+      },
+    };
+    await this.service.updateCompany({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @Public()
+  @common.Patch("/:id/forums")
+  async updateForums(
+      @common.Param() params: CompanyWhereUniqueInput,
+      @common.Body() body: ForumWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      forums: {
+        set: body,
+      },
+    };
+    await this.service.updateCompany({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/forums")
+  @nestAccessControl.UseRoles({
+    resource: "Company",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectForums(
+      @common.Param() params: CompanyWhereUniqueInput,
+      @common.Body() body: ForumWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      forums: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateCompany({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
   @common.UseInterceptors(AclFilterResponseInterceptor)
   @common.Get("/:id/properties")
   @ApiNestedQuery(PropertyFindManyArgs)

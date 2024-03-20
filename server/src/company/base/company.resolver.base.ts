@@ -19,6 +19,8 @@ import { CompanyEmployeeFindManyArgs } from "../../companyEmployee/base/CompanyE
 import { CompanyEmployee } from "../../companyEmployee/base/CompanyEmployee";
 import { FileFindManyArgs } from "../../file/base/FileFindManyArgs";
 import { File } from "../../file/base/File";
+import { ForumFindManyArgs } from "../../forum/base/ForumFindManyArgs";
+import { Forum } from "../../forum/base/Forum";
 import { PropertyFindManyArgs } from "../../property/base/PropertyFindManyArgs";
 import { Property } from "../../property/base/Property";
 import { RequestFindManyArgs } from "../../request/base/RequestFindManyArgs";
@@ -161,6 +163,26 @@ export class CompanyResolverBase {
     @graphql.Args() args: FileFindManyArgs
   ): Promise<File[]> {
     const results = await this.service.findFile(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [Forum], { name: "forums" })
+  @nestAccessControl.UseRoles({
+    resource: "Forum",
+    action: "read",
+    possession: "any",
+  })
+  async findForums(
+      @graphql.Parent() parent: Company,
+      @graphql.Args() args: ForumFindManyArgs
+  ): Promise<Forum[]> {
+    const results = await this.service.findForums(parent.id, args);
 
     if (!results) {
       return [];

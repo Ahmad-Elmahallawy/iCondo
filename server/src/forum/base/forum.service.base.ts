@@ -14,7 +14,8 @@ import { PrismaService } from "../../prisma/prisma.service";
 import {
   Prisma,
   Forum, // @ts-ignore
-  Post,
+  Post, // @ts-ignore
+  Company,
 } from "@prisma/client";
 
 export class ForumServiceBase {
@@ -61,5 +62,13 @@ export class ForumServiceBase {
         where: { id: parentId },
       })
       .posts(args);
+  }
+
+  async getCompany(parentId: string): Promise<Company | null> {
+    return this.prisma.forum
+        .findUnique({
+          where: { id: parentId },
+        })
+        .company();
   }
 }

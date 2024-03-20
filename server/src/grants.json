@@ -1063,6 +1063,216 @@
   },
   {
     "role": "rental",
+    "resource": "Forum",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "condoOwner",
+    "resource": "Forum",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "PublicUser",
+    "resource": "Forum",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "operator",
+    "resource": "Forum",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "Admin",
+    "resource": "Forum",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "financialManager",
+    "resource": "Forum",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "manager",
+    "resource": "Forum",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "rental",
+    "resource": "Forum",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "condoOwner",
+    "resource": "Forum",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "PublicUser",
+    "resource": "Forum",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "operator",
+    "resource": "Forum",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "Admin",
+    "resource": "Forum",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "financialManager",
+    "resource": "Forum",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "manager",
+    "resource": "Forum",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "rental",
+    "resource": "Forum",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "condoOwner",
+    "resource": "Forum",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "PublicUser",
+    "resource": "Forum",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "operator",
+    "resource": "Forum",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "Admin",
+    "resource": "Forum",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "financialManager",
+    "resource": "Forum",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "manager",
+    "resource": "Forum",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "rental",
+    "resource": "Forum",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "condoOwner",
+    "resource": "Forum",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "PublicUser",
+    "resource": "Forum",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "operator",
+    "resource": "Forum",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "Admin",
+    "resource": "Forum",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "financialManager",
+    "resource": "Forum",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "manager",
+    "resource": "Forum",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "rental",
+    "resource": "Forum",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "condoOwner",
+    "resource": "Forum",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "PublicUser",
+    "resource": "Forum",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "operator",
+    "resource": "Forum",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "Admin",
+    "resource": "Forum",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "financialManager",
+    "resource": "Forum",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "manager",
+    "resource": "Forum",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "rental",
     "resource": "RegistrationKey",
     "action": "read:own",
     "attributes": "*"

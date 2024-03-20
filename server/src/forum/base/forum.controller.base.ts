@@ -40,8 +40,21 @@ export class ForumControllerBase {
   })
   async createForum(@common.Body() data: ForumCreateInput): Promise<Forum> {
     return await this.service.createForum({
-      data: data,
+      data: {
+        ...data,
+
+        company: data.company
+            ? {
+              connect: data.company,
+            }
+            : undefined,
+      },
       select: {
+        company: {
+          select: {
+            id: true,
+          },
+        },
         createdAt: true,
         id: true,
         updatedAt: true,
@@ -66,6 +79,12 @@ export class ForumControllerBase {
     return this.service.forums({
       ...args,
       select: {
+        company: {
+          select: {
+            id: true,
+          },
+        },
+
         createdAt: true,
         id: true,
         updatedAt: true,
@@ -91,6 +110,12 @@ export class ForumControllerBase {
     const result = await this.service.forum({
       where: params,
       select: {
+        company: {
+          select: {
+            id: true,
+          },
+        },
+
         createdAt: true,
         id: true,
         updatedAt: true,
@@ -123,8 +148,22 @@ export class ForumControllerBase {
     try {
       return await this.service.updateForum({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          company: data.company
+              ? {
+                connect: data.company,
+              }
+              : undefined,
+        },
         select: {
+          company: {
+            select: {
+              id: true,
+            },
+          },
+
           createdAt: true,
           id: true,
           updatedAt: true,
@@ -158,6 +197,12 @@ export class ForumControllerBase {
       return await this.service.deleteForum({
         where: params,
         select: {
+          company: {
+            select: {
+              id: true,
+            },
+          },
+
           createdAt: true,
           id: true,
           updatedAt: true,
