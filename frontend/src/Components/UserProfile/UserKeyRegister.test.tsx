@@ -149,6 +149,4 @@ describe("UserKeyRegister Component", () => {
       ).toBeInTheDocument();
     });
   });
-
-
 });
