@@ -16,7 +16,6 @@ const Navbar = () => {
   const isAdmin = user.roles && user.roles.includes("Admin");
   const isCondoOwner = user.roles && user.roles.includes("CondoOwner");
 
-
   const handleLogout = () => {
     // Show the logout confirmation modal
     setShowLogoutModal(true);
@@ -46,7 +45,15 @@ const Navbar = () => {
       </div>
       <ul className={click ? "nav-menu active" : "nav-menu"}>
         <li className="nav-item">
-        <Link to="/Notifications"><img src="Assets/bell.svg" alt="" /></Link>
+          {user.roles[0] === "manager" || user.roles[0] === "operator" ? (
+            <Link to="/Notifications/Company">
+              <img src="Assets/bell.svg" alt="" />
+            </Link>
+          ) : (
+            <Link to="/Notifications/User">
+              <img src="Assets/bell.svg" alt="" />
+            </Link>
+          )}
         </li>
         <li className="nav-item">
           <Link to="/">Home</Link>
