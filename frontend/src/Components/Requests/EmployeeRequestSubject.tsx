@@ -4,6 +4,7 @@ import axios from "axios";
 import EmployeeRequestResponse from "./EmployeeRequestResponse";
 import api from "../../api";
 import LoadingScreen from "../Common/LoadingScreen";
+import urls from "../../urls";
 
 interface Request {
   requestType: string;
@@ -11,6 +12,9 @@ interface Request {
   id: string;
 }
 
+interface Notification {
+  id: number;
+}
 const EmployeeRequestSubject = () => {
   const [fetchedRequests, setFetchedRequests] = useState<Request[]>([]);
   const userData = JSON.parse(localStorage.getItem("userData") || "{}");
@@ -25,6 +29,7 @@ const EmployeeRequestSubject = () => {
           company[0]?.company?.id,
           userData.accessToken
         );
+
         if (response !== undefined) {
           setFetchedRequests(response.data);
         } else {
@@ -53,13 +58,61 @@ const EmployeeRequestSubject = () => {
               "Complete",
               userData.accessToken
             );
-      setFetchedRequests((prevState) =>
-        prevState.map((request) =>
-          request.id === id ? { ...request, status: status } : request
-        )
-      );
+      // Check if response data exists and has the id property
+      if (response && response.data && response.data.id) {
+        const notificationResponse = await axios.get<Notification[]>(
+          `${urls.notifications.getNotification}`,
+          {
+            params: {
+              where: {
+                request: {
+                  id: response.data.id,
+                },
+                user: {
+                  id: response.data.user.id,
+                },
+                title: {
+                  not: "CREATED",
+                },
+              },
+            },
+            headers: {
+              Authorization: `Bearer ${userData.accessToken}`,
+            },
+          }
+        );
+
+        if (notificationResponse && notificationResponse.data) {
+          const previousStatus = fetchedRequests.find(
+            (request) => request.id === id
+          )?.status;
+
+          const newMessage = `Request status with id ${response.data.id} has been changed from ${previousStatus} to ${status}`;
+
+          const editNotificationMsg = await axios.patch(
+            `${urls.notifications.getNotification}/${
+              notificationResponse.data[notificationResponse.data.length - 1].id
+            }`,
+            {
+              message: newMessage,
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${userData.accessToken}`,
+              },
+            }
+          );
+          console.log(editNotificationMsg);
+          // Update local state to reflect the changes
+          setFetchedRequests((prevState) =>
+            prevState.map((request) =>
+              request.id === id ? { ...request, status: status } : request
+            )
+          );
+        }
+      }
     } catch (error) {
-      console.error("Error fetching requests:", error);
+      console.error("Error handling request:", error);
     }
   };
 

@@ -41,8 +41,11 @@ const NotificationUser: React.FC = () => {
           {
             params: {
               where: {
-                message: {
-                  contains: `\"company\":{\"id\":${company[0].id}}`,
+                user: {
+                  id: user.id,
+                },
+                title: {
+                  not: "CREATED",
                 },
               },
             },
@@ -101,58 +104,23 @@ const NotificationUser: React.FC = () => {
 
         <div className="notification-container">
           {notifications.map((notification, index) => {
-            if (
-              user.roles[0] === "manager" &&
-              (notification.message === "Access Request" ||
-                notification.message === "Deficiency Report" ||
-                notification.message === "Violation Report" ||
-                notification.message === "Question")
-            ) {
-              return (
-                <div className="notification-item" key={notification.id}>
-                  <span>
-                    A new request has been made by user with id:{" "}
-                    {notification.user.id}:{" "}
-                    <strong>{notification.message}</strong>
-                  </span>
-                  <button
-                    className={`close-btn ${
-                      checkedItems[index] ? "checked" : ""
-                    }`}
-                    onClick={() => handleToggle(index)}
-                  >
-                    {checkedItems[index] ? "✓" : "×"}
-                  </button>
-                </div>
-              );
-            } else if (user.roles[0] === "operator") {
-              return (
-                <div className="notification-item" key={notification.id}>
-                  <span>
-                    A new request has been made by user with id:{" "}
-                    {notification.user.id}:{" "}
-                    <strong>{notification.message}</strong>
-                  </span>
-                  <button
-                    className={`close-btn ${
-                      checkedItems[index] ? "checked" : ""
-                    }`}
-                    onClick={() => handleToggle(index)}
-                  >
-                    {checkedItems[index] ? "✓" : "×"}
-                  </button>
-                </div>
-              );
-            } else {
-              return (
-                <div className="notification-item" key={notification.id}>
-                  {/* Render something else for notifications not meeting the condition */}
-                  <span>
-                    Unauthorized
-                  </span>
-                </div>
-              );
-            }
+            return (
+              <div className="notification-item" key={notification.id}>
+                <span>
+                  A new request has been made by user with id:{" "}
+                  {notification.user.id}:{" "}
+                  <strong>{notification.message}</strong>
+                </span>
+                <button
+                  className={`close-btn ${
+                    checkedItems[index] ? "checked" : ""
+                  }`}
+                  onClick={() => handleToggle(index)}
+                >
+                  {checkedItems[index] ? "✓" : "×"}
+                </button>
+              </div>
+            );
           })}
         </div>
       </div>
