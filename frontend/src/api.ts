@@ -149,6 +149,17 @@ const api = {
       );
       return response.data;
     },
+    async getCondoFiles(token: string) {
+      const response: AxiosResponse<Array<File>> = await axios.get(
+        `${urls.userCondos.getCondoFiles}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data;
+    },
   },
 
   requests: {

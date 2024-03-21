@@ -25,6 +25,7 @@ const urls = {
   userCondos: {
     submitUserCondo: `${apiPrefix}/userCondos`,
     getCondoById: `${apiPrefix}/condoUnits`,
+    getCondoFiles: `${apiPrefix}/files`,
   },
   properties: {
     getProperty: `${apiPrefix}/properties`,
