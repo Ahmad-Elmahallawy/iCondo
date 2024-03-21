@@ -1,6 +1,4 @@
 import { Injectable } from '@nestjs/common';
-//import {Cost, Prisma} from "@prisma/client";
-// @ts-ignore
 import {
     Prisma, // @ts-ignore
     Cost, // @ts-ignore
@@ -20,11 +18,18 @@ export class CondoCostService {
     ): Promise<Cost[]> {
         return this.prisma.cost.findMany(args);
     }
-    // async getCost<T extends Prisma.ParkingSpotFindUniqueArgs>(
-    //     args: Prisma.SelectSubset<T, Prisma.ParkingSpotFindUniqueArgs>
-    // ): Promise<Cost | null> {
-    //     return this.prisma.cost.findUnique(args);
-    // }
+
+
+    async findCosts(
+        parentId: number,
+        args: Prisma.CostFindManyArgs
+    ): Promise<Cost[]> {
+        return this.prisma.company
+            .findUniqueOrThrow({
+                where: { id: parentId },
+            })
+            .costs(args);
+    }
 
 
 }
