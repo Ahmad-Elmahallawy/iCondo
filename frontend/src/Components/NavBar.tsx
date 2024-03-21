@@ -16,7 +16,11 @@ const Navbar = () => {
   const isAdmin = user.roles && user.roles.includes("Admin");
   const isCondoOwner = user.roles && user.roles.includes("condoOwner");
   const isPublicUser = user.roles && user.roles.includes("PublicUser");
-  const isEmployee = user.roles && (user.roles.includes("manager") || user.roles.includes("operator") || user.roles.includes("financialManager"));
+  const isEmployee =
+    user.roles &&
+    (user.roles.includes("manager") ||
+      user.roles.includes("operator") ||
+      user.roles.includes("financialManager"));
 
   const handleLogout = () => {
     // Show the logout confirmation modal
@@ -46,6 +50,19 @@ const Navbar = () => {
         />
       </div>
       <ul className={click ? "nav-menu active" : "nav-menu"}>
+        {user && user.roles && user.roles.length > 0 && (
+          <li className="nav-item">
+            {user.roles[0] === "manager" || user.roles[0] === "operator" ? (
+              <Link to="/Notifications/Company">
+                <img src="Assets/bell.svg" alt="" />
+              </Link>
+            ) : (
+              <Link to="/Notifications/User">
+                <img src="Assets/bell.svg" alt="" />
+              </Link>
+            )}
+          </li>
+        )}
         <li className="nav-item">
           <Link to="/">Home</Link>
         </li>
@@ -66,7 +83,7 @@ const Navbar = () => {
               </>
             )}
 
-            {(isEmployee) && (
+            {isEmployee && (
               <>
                 <li className="nav-item">
                   <Link to="/EmployeeRequests">Assigned Requests</Link>

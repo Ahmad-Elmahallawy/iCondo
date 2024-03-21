@@ -34,6 +34,10 @@ const urls = {
   companies: {
     getCompany: `${apiPrefix}/companies`,
   },
+  notifications: {
+    getNotification: `${apiPrefix}/notifications`,
+    deleteNotification: `${apiPrefix}/notifications` //TODO
+  }
 };
 
 export default urls;

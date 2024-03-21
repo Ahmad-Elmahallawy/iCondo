@@ -19,6 +19,7 @@ import NotificationPageManager from "./Pages/NotificationPageManager";
 import CondoOwnerRequestsLandingPage from "./Pages/CondoOwnerRequestsLandingPage";
 import EmployeeRequestsLandingPage from "./Pages/EmployeeRequestsLandingPage";
 import CondoOwnerDashboardPage from "./Pages/CondoOwnerDashboardLandingPage";
+import NotificationUser from "./Pages/NotificationLandingPageUser";
 import EmployeeListLandingPage from "./Pages/EmployeeListLandingPage";
 
 function App() {
@@ -110,8 +111,13 @@ function App() {
           element={<CondoCreationLandingPage />} 
         />
         <Route
-          path="NotificationPageManager"
+          path="Notifications/Company"
           element={<NotificationPageManager />}
+        />
+        
+        <Route
+          path="Notifications/User"
+          element={<NotificationUser />}
         />
       </Routes>
     </div>
