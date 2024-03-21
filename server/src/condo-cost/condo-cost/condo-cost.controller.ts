@@ -1,5 +1,9 @@
-import {Body, Controller, Post} from '@nestjs/common';
+import {Body, Controller, Get, Post} from '@nestjs/common';
 import {CondoCostService} from "./condo-cost.service";
+import {Cost} from "@prisma/client";
+import * as common from "@nestjs/common";
+import * as errors from "../../errors";
+import {CostFindManyArgs} from "../../cost/base/CostFindManyArgs";
 
 @Controller('condo-cost')
 export class CondoCostController {
@@ -12,5 +16,17 @@ export class CondoCostController {
         return { totalCost };
     }
 
+    @Get()
+    async Costs(
+        @common.Param() params: CostFindManyArgs
+    ): Promise<Cost[]> {
+        const result = await this.condoCostService.getCosts({});
+        if (result === null) {
+            throw new errors.NotFoundException(
+                `No resource was found for ${JSON.stringify(params)}`
+            );
+        }
+        return result;
+    }
     
 }
