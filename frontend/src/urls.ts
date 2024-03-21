@@ -7,11 +7,11 @@ const urls = {
     updateUserDetails: `${apiPrefix}/users`,
     resetUserPassword: `${apiPrefixUserService}/users`,
     updateUserProfilePic: `${apiPrefix}/files`,
-    editUserRole: `${apiPrefix}/users`
+    editUserRole: `${apiPrefix}/users`,
   },
   employees: {
     registerUser: `${apiPrefix}/users`,
-    registerCompanyEmployee: `${apiPrefix}/companyEmployees`
+    registerCompanyEmployee: `${apiPrefix}/companyEmployees`,
   },
   registrationKeys: {
     userRegister: `${apiPrefix}/registrationKeys`,
@@ -20,10 +20,11 @@ const urls = {
   requests: {
     submitRequest: `${apiPrefix}/requests`,
     getRequest: `${apiPrefix}/requests`,
-    editRequest: `${apiPrefix}/requests`
+    editRequest: `${apiPrefix}/requests`,
   },
   userCondos: {
     submitUserCondo: `${apiPrefix}/userCondos`,
+    getCondoById: `${apiPrefix}/condoUnits`,
   },
   properties: {
     getProperty: `${apiPrefix}/properties`,
