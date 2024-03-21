@@ -44,7 +44,7 @@ function App() {
           path="CondoOwnerDashboard"
           element={<CondoOwnerDashboardPage />}
         />
-        <Route path="GenerateKey" element={<EmployeeRequestsLandingPage />} />
+        <Route path="GenerateKey" element={<KeyGenerationLandingPage />} />
         <Route
           path="OwnerRequests"
           element={<CondoOwnerRequestsLandingPage />}

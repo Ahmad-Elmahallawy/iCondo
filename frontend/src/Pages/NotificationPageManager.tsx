@@ -51,6 +51,7 @@ const App: React.FC = () => {
             },
           }
         );
+
         // Extracting only the request type from the message
         const processedNotifications = response.data.map((notification) => ({
           ...notification,
