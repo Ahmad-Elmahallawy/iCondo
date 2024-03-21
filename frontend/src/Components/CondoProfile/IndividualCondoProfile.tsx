@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import api from "../../api";
 import "../../Style/CondoProfileStyle/IndividualCondoProfileStyle.css"; // Styles import for the component
+import { Button } from "@mui/material";
 
 export interface IndividualCondo {
   condoFee: string;
@@ -39,6 +40,7 @@ const IndividualCondoProfile = () => {
   const { id } = useParams();
   const user = JSON.parse(localStorage.getItem("userData") || "{}");
   const [condo, setCondo] = useState<IndividualCondo>(defaultCondoInfo);
+  const [files, setFiles] = useState<File[]>([]);
   const defaultProfilePicturePath = "/Assets/default-property-image.webp";
 
   useEffect(() => {
@@ -50,11 +52,25 @@ const IndividualCondoProfile = () => {
           setCondo(condo);
         }
       });
+    api.userCondoList.getCondoFiles(user.accessToken).then((files) => {
+      if (mounted) {
+        setFiles(files);
+      }
+    });
     return () => {
       mounted = false;
     };
   }, []);
 
+  const downloadFile = (file: File) => {
+    const blobUrl = URL.createObjectURL(new Blob(files));
+    const link = document.createElement("a");
+    link.href = blobUrl;
+    link.setAttribute("download", file.name);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
   return (
     <div style={{ width: "100%" }}>
       <div className="condo-info-container">
@@ -95,8 +111,21 @@ const IndividualCondoProfile = () => {
           <div className="condoFilesContainer">
             <h2>Files</h2>
             <div className="input-container">
-              <span className="input-label">File 1:</span>
-              <span className="input-label"></span>
+              {files.map((file) => {
+                return (
+                  <div className="input-label" data-testid={"file-item"}>
+                    <span>{file.name}</span>
+                    <Button
+                      style={{ backgroundColor: "#3c3633" }}
+                      onClick={() => downloadFile(file)}
+                      variant="contained"
+                      sx={{ mt: 2, mr: 1, mb: 1 }}
+                    >
+                      Download
+                    </Button>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
