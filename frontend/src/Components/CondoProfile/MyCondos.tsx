@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import CondoCarousel from "./CondoCarousel";
+import api from "../../api";
 
 export interface CondoInfo {
   condo: {
@@ -14,50 +14,58 @@ export interface CondoInfo {
   };
 }
 
-const MyCondos = () => {
-  const defaultCondo: Array<CondoInfo> = [
-    {
-      condo: {
-        id: 1,
-      },
-      createdAt: "2024-03-19T21:11:38.889Z",
+const defaultCondo: Array<CondoInfo> = [
+  {
+    condo: {
       id: 1,
-      updatedAt: "2024-03-19T21:11:38.889Z",
-      user: {
-        id: 5,
-      },
     },
-    {
-      condo: {
-        id: 2,
-      },
-      createdAt: "2024-03-19T21:11:38.889Z",
-      id: 1,
-      updatedAt: "2024-03-19T21:11:38.889Z",
-      user: {
-        id: 5,
-      },
+    createdAt: "2024-03-19T21:11:38.889Z",
+    id: 1,
+    updatedAt: "2024-03-19T21:11:38.889Z",
+    user: {
+      id: 5,
     },
-    {
-      condo: {
-        id: 3,
-      },
-      createdAt: "2024-03-19T21:11:38.889Z",
-      id: 1,
-      updatedAt: "2024-03-19T21:11:38.889Z",
-      user: {
-        id: 5,
-      },
+  },
+  {
+    condo: {
+      id: 2,
     },
-  ];
+    createdAt: "2024-03-19T21:11:38.889Z",
+    id: 1,
+    updatedAt: "2024-03-19T21:11:38.889Z",
+    user: {
+      id: 5,
+    },
+  },
+  {
+    condo: {
+      id: 3,
+    },
+    createdAt: "2024-03-19T21:11:38.889Z",
+    id: 1,
+    updatedAt: "2024-03-19T21:11:38.889Z",
+    user: {
+      id: 5,
+    },
+  },
+];
 
+const MyCondos = () => {
   const [property, setProperty] = useState<Array<CondoInfo>>(defaultCondo);
-  const navigate = useNavigate();
-  const handlePropertyClick = (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) => {
-    navigate(`/CondoProfile/1`);
-  };
+  const user = JSON.parse(localStorage.getItem("userData") || "{}");
+  useEffect(() => {
+    let mounted = true;
+    api.userCondoList
+      .getOwnerCondos(user.id, user.accessToken)
+      .then((items) => {
+        if (mounted) {
+          setProperty(items);
+        }
+      });
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   return (
     <div

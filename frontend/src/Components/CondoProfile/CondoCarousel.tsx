@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import { CondoInfo } from "./MyCondos";
+import { useNavigate } from "react-router-dom";
 
 interface CondoCarouselProps {
   condos: Array<CondoInfo>;
@@ -13,6 +14,7 @@ interface CondoCarouselProps {
 
 const CondoCarousel = (props: CondoCarouselProps) => {
   const { condos } = props;
+  const navigate = useNavigate();
   const [activeStep, setActiveStep] = React.useState(0);
   const maxSteps = condos.length;
   const defaultProfilePicturePath = "/Assets/default-property-image.webp";
@@ -35,54 +37,41 @@ const CondoCarousel = (props: CondoCarouselProps) => {
           gap: "10px",
         }}
       >
-        <Box
-          sx={{
-            maxWidth: 400,
-            p: 2,
-            border: "1px solid var(--color4)",
-            background: "var(--color1)",
-            borderRadius: "5px",
-            boxShadow: "2px 2px 8px rgba(0, 0, 0, 0.5)",
-          }}
-        >
-          <Box
-            component="img"
-            sx={{
-              height: 255,
-              display: "block",
-              maxWidth: 400,
-              overflow: "hidden",
-            }}
-            src={defaultProfilePicturePath}
-            alt="Error retrieving image"
-          />
-          <Typography>Name</Typography>
-          <Typography>Address</Typography>
-        </Box>
-        <Box
-          sx={{
-            maxWidth: 400,
-            p: 2,
-            border: "1px solid var(--color4)",
-            background: "var(--color1)",
-            borderRadius: "5px",
-            boxShadow: "2px 2px 8px rgba(0, 0, 0, 0.5)",
-          }}
-        >
-          <Box
-            component="img"
-            sx={{
-              height: 255,
-              display: "block",
-              maxWidth: 400,
-              overflow: "hidden",
-            }}
-            src={defaultProfilePicturePath}
-            alt="Error retrieving image"
-          />
-          <Typography>Name</Typography>
-          <Typography>Address</Typography>
-        </Box>
+        {condos.map((condo) => {
+          const handleOnClick = (
+            event: React.MouseEvent<HTMLImageElement, MouseEvent>
+          ): void => {
+            navigate(`/CondoProfile/${condo.condo.id}`);
+          };
+
+          return (
+            <Box
+              sx={{
+                maxWidth: 400,
+                p: 2,
+                border: "1px solid var(--color4)",
+                background: "var(--color1)",
+                borderRadius: "5px",
+                boxShadow: "2px 2px 8px rgba(0, 0, 0, 0.5)",
+              }}
+            >
+              <Box
+                component="img"
+                sx={{
+                  height: 255,
+                  display: "block",
+                  maxWidth: 400,
+                  overflow: "hidden",
+                }}
+                src={defaultProfilePicturePath}
+                alt="Error retrieving image"
+                onClick={handleOnClick}
+              />
+              <Typography>{condo.condo.id}</Typography>
+              <Typography>{condo.createdAt}</Typography>
+            </Box>
+          );
+        })}
       </Box>
       <MobileStepper
         variant="text"
@@ -96,17 +85,13 @@ const CondoCarousel = (props: CondoCarouselProps) => {
           bgcolor: "#eeedeb",
         }}
         nextButton={
-          <Button
-            size="small"
-            onClick={handleNext}
-            disabled={activeStep === maxSteps - 1}
-          >
+          <Button size="small" onClick={handleNext} disabled={true}>
             Next
             <KeyboardArrowRight />
           </Button>
         }
         backButton={
-          <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
+          <Button size="small" onClick={handleBack} disabled={true}>
             <KeyboardArrowLeft />
             Back
           </Button>

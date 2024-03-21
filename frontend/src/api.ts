@@ -1,6 +1,7 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import urls from "./urls";
 import { UserData } from "./Components/UserProfile/UserInformation";
+import { CondoInfo } from "./Components/CondoProfile/MyCondos";
 
 const api = {
   userInformation: {
@@ -124,6 +125,17 @@ const api = {
         },
       });
       return response;
+    },
+    async getOwnerCondos(userId: number, token: string) {
+      const response: AxiosResponse<Array<CondoInfo>> = await axios.get(
+        `${urls.users.fetchUserDetails}/${userId}/userCondos`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data;
     },
   },
 
