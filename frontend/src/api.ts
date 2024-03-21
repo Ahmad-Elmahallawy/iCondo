@@ -1,6 +1,8 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import urls from "./urls";
 import { UserData } from "./Components/UserProfile/UserInformation";
+import { CondoInfo } from "./Components/CondoProfile/MyCondos";
+import { IndividualCondo } from "./Components/CondoProfile/IndividualCondoProfile";
 
 
 const api = {
@@ -135,6 +137,39 @@ const api = {
         },
       });
       return response;
+    },
+    async getOwnerCondos(userId: number, token: string) {
+      const response: AxiosResponse<Array<CondoInfo>> = await axios.get(
+        `${urls.users.fetchUserDetails}/${userId}/userCondos`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data;
+    },
+    async getOwnerSingleCondo(condoId: string, token: string) {
+      const response: AxiosResponse<IndividualCondo> = await axios.get(
+        `${urls.userCondos.getCondoById}/${condoId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data;
+    },
+    async getCondoFiles(token: string) {
+      const response: AxiosResponse<Array<File>> = await axios.get(
+        `${urls.userCondos.getCondoFiles}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data;
     },
   },
 

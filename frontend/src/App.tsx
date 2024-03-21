@@ -19,6 +19,8 @@ import NotificationPageManager from "./Pages/NotificationPageManager";
 import CondoOwnerRequestsLandingPage from "./Pages/CondoOwnerRequestsLandingPage";
 import EmployeeRequestsLandingPage from "./Pages/EmployeeRequestsLandingPage";
 import CondoOwnerDashboardPage from "./Pages/CondoOwnerDashboardLandingPage";
+import IndividualCondoProfile from "./Components/CondoProfile/IndividualCondoProfile";
+import MyCondos from "./Components/CondoProfile/MyCondos";
 import NotificationUser from "./Pages/NotificationLandingPageUser";
 import EmployeeListLandingPage from "./Pages/EmployeeListLandingPage";
 
@@ -27,46 +29,22 @@ function App() {
     <div className="app">
       <NavBar />
       <Routes>
-        <Route 
-          path="/" 
-          element={<Hero />} 
-        />
-        <Route 
-          path="Login" 
-          element={<LogInLandingPage />} 
-        />
-        <Route 
-          path="Register" 
-          element={<RegistrationLandingPage />} 
-        />
-        <Route 
-          path="ResetPassword" 
-          element={<ResetPassword />} 
-        />
-        <Route 
-          path="Profile" 
-          element={<UserProfileLandingPage />} 
-        />
+        <Route path="/" element={<Hero />} />
+        <Route path="Login" element={<LogInLandingPage />} />
+        <Route path="Register" element={<RegistrationLandingPage />} />
+        <Route path="ResetPassword" element={<ResetPassword />} />
+        <Route path="Profile" element={<UserProfileLandingPage />} />
         <Route
           path="Employee/Registration"
           element={<EmployeeRegistrationLandingPage />}
         />
-        <Route 
-          path="Profile" 
-          element={<UserProfileLandingPage />} 
+        <Route path="Profile" element={<UserProfileLandingPage />} />
+        <Route path="CompanyDashboard" element={<DashboardPage />} />
+        <Route
+          path="CondoOwnerDashboard"
+          element={<CondoOwnerDashboardPage />}
         />
-        <Route 
-          path="CompanyDashboard" 
-          element={<DashboardPage />} 
-        />
-        <Route 
-          path="CondoOwnerDashboard" 
-          element={<CondoOwnerDashboardPage />} 
-        />
-        <Route 
-          path="GenerateKey" 
-          element={<EmployeeRequestsLandingPage />} 
-        />
+        <Route path="GenerateKey" element={<EmployeeRequestsLandingPage />} />
         <Route
           path="OwnerRequests"
           element={<CondoOwnerRequestsLandingPage />}
@@ -78,47 +56,30 @@ function App() {
 
         <Route
           path="RegisterEmployee"
-          element={
-            <EmployeeRegistrationLandingPage />
-          }
+          element={<EmployeeRegistrationLandingPage />}
         />
-        <Route 
-          path="CreateProperty" 
-          element={<CreatePropertyLandingPage />} 
-        />
-        <Route
-          path="EmployeeList"
-          element={<EmployeeListLandingPage />}
-        />
+        <Route path="CreateProperty" element={<CreatePropertyLandingPage />} />
+        <Route path="EmployeeList" element={<EmployeeListLandingPage />} />
         <Route
           path="RegistrationKeyList"
           element={<DashboardPage />} /*CHANGE PATH ONCE PAGE IS CREATED*/
         />
-        <Route 
-          path="PropertiesList" 
-          element={<PropertiesListPage />} 
-        />
-        <Route 
-          path="CondoProfile" 
-          element={<CondoProfileLandingPage />} 
-        />
+        <Route path="PropertiesList" element={<PropertiesListPage />} />
+
+        <Route path="CondoProfile" element={<CondoProfileLandingPage />} />
+        <Route path="MyCondos" element={<MyCondos />} />
+        <Route path="CondoProfile/:id" element={<IndividualCondoProfile />} />
         <Route
           path="/PropertyProfile/:id"
           element={<PropertyProfileLandingPage />}
         />
-        <Route 
-          path="CondoCreation" 
-          element={<CondoCreationLandingPage />} 
-        />
+        <Route path="CondoCreation" element={<CondoCreationLandingPage />} />
         <Route
           path="Notifications/Company"
           element={<NotificationPageManager />}
         />
-        
-        <Route
-          path="Notifications/User"
-          element={<NotificationUser />}
-        />
+
+        <Route path="Notifications/User" element={<NotificationUser />} />
       </Routes>
     </div>
   );
