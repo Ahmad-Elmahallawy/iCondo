@@ -19,6 +19,9 @@ ul {
   padding: 1rem;
 }
 
+.nav-item img {
+  width: 25px;
+}
 a,
 .nav-item span {
   color: var(--color2);

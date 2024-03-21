@@ -4,6 +4,7 @@ import { CompanyEmployeeCreateNestedManyWithoutCompaniesInput } from "./CompanyE
 import { ValidateNested, IsOptional, IsString } from "class-validator";
 import { Type } from "class-transformer";
 import { FileCreateNestedManyWithoutCompaniesInput } from "./FileCreateNestedManyWithoutCompaniesInput";
+import { ForumCreateNestedManyWithoutCompaniesInput } from "./ForumCreateNestedManyWithoutCompaniesInput";
 import { PropertyCreateNestedManyWithoutCompaniesInput } from "./PropertyCreateNestedManyWithoutCompaniesInput";
 import { RequestCreateNestedManyWithoutCompaniesInput } from "./RequestCreateNestedManyWithoutCompaniesInput";
 @InputType()
@@ -31,6 +32,18 @@ class CompanyCreateInput {
     nullable: true,
   })
   file?: FileCreateNestedManyWithoutCompaniesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => ForumCreateNestedManyWithoutCompaniesInput,
+  })
+  @ValidateNested()
+  @Type(() => ForumCreateNestedManyWithoutCompaniesInput)
+  @IsOptional()
+  @Field(() => ForumCreateNestedManyWithoutCompaniesInput, {
+    nullable: true,
+  })
+  forums?: ForumCreateNestedManyWithoutCompaniesInput;
 
   @ApiProperty({
     required: true,

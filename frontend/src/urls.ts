@@ -8,10 +8,12 @@ const urls = {
     resetUserPassword: `${apiPrefixUserService}/users`,
     updateUserProfilePic: `${apiPrefix}/files`,
     editUserRole: `${apiPrefix}/users`,
+    getUserInfo: `${apiPrefix}/users`,
   },
   employees: {
     registerUser: `${apiPrefix}/users`,
     registerCompanyEmployee: `${apiPrefix}/companyEmployees`,
+    getCompanyEmployee: `${apiPrefix}/companies`,
   },
   registrationKeys: {
     userRegister: `${apiPrefix}/registrationKeys`,
@@ -28,9 +30,14 @@ const urls = {
   },
   properties: {
     getProperty: `${apiPrefix}/properties`,
+    deleteProperty: `${apiPrefix}/properties`,
   },
   companies: {
     getCompany: `${apiPrefix}/companies`,
+  },
+  notifications: {
+    getNotification: `${apiPrefix}/notifications`,
+    deleteNotification: `${apiPrefix}/notifications`, //TODO
   },
 };
 

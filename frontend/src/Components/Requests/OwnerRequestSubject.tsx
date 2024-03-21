@@ -3,6 +3,7 @@ import "../../Style/RequestsStyle/OwnerRequestSubjectStyle.css";
 import axios from "axios";
 
 interface Request {
+  id: string;
   requestType: string;
   status: string;
 }
@@ -40,6 +41,7 @@ const OwnerRequestSubject = () => {
       {fetchedRequests ? (
         fetchedRequests.map((request, index) => (
           <div className="owner-request-container" key={index}>
+            <p><b>Request ID</b>: {request.id}</p>
             <p>
               <b>Subject</b>: {request.requestType}
             </p>

@@ -9,7 +9,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # installs packages and their dependencies
-RUN npm install
+RUN npm install --silent
 
 # copy over the prisma schema
 COPY prisma/schema.prisma ./prisma/
@@ -55,7 +55,7 @@ COPY --from=base /app/tsconfig* ./
 RUN chown -R ${uid}:${gid} /app/
 
 # get rid of the development dependencies
-RUN npm install --production
+RUN npm install --production --silent
 
 # set user to the created non-privileged user
 USER ${user}

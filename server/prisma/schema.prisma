@@ -21,6 +21,7 @@ model User {
   requests         Request[]
   reservations     Reservation[]
   roles            Json
+  notifications    Notification[]
   updatedAt        DateTime          @updatedAt
   userCondos       UserCondo[]
   username         String            @unique
@@ -85,6 +86,7 @@ model Company {
   companyEmployees CompanyEmployee[]
   createdAt        DateTime          @default(now())
   file             File[]
+  forums           Forum[]
   id               Int               @id @default(autoincrement())
   name             String
   properties       Property[]
@@ -143,13 +145,17 @@ model UserCondo {
 }
 
 model Forum {
+  company   Company? @relation(fields: [companyID], references: [id])
+  companyID Int?
   createdAt DateTime @default(now())
   id        String   @id @default(cuid())
+  name      String
   posts     Post[]
   updatedAt DateTime @updatedAt
 }
 
 model Post {
+  content   String?
   createdAt DateTime @default(now())
   forum     Forum?   @relation(fields: [forumID], references: [id])
   forumID   String?
@@ -200,6 +206,19 @@ model Request {
   updatedAt     DateTime           @updatedAt
   user          User?              @relation(fields: [userID], references: [id])
   userID        Int?
+  notifications Notification[]
+}
+
+model Notification {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  message   String?
+  title     String?
+  updatedAt DateTime @updatedAt
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    Int?
+  request   Request? @relation(fields: [requestID], references: [id])
+  requestID String?
 }
 
 enum EnumCommonFacilityType {

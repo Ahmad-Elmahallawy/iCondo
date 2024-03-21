@@ -29,6 +29,8 @@ import { Reservation } from "../../reservation/base/Reservation";
 import { UserCondoFindManyArgs } from "../../userCondo/base/UserCondoFindManyArgs";
 import { UserCondo } from "../../userCondo/base/UserCondo";
 import { UserService } from "../user.service";
+import { NotificationFindManyArgs } from "../../notification/base/NotificationFindManyArgs";
+import { Notification } from "../../notification/base/Notification";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => User)
 export class UserResolverBase {
@@ -87,6 +89,25 @@ export class UserResolverBase {
     });
   }
 
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [Notification], { name: "notifications" })
+  @nestAccessControl.UseRoles({
+    resource: "Notification",
+    action: "read",
+    possession: "any",
+  })
+  async findNotifications(
+      @graphql.Parent() parent: User,
+      @graphql.Args() args: NotificationFindManyArgs
+  ): Promise<Notification[]> {
+    const results = await this.service.findNotifications(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
   @common.UseInterceptors(AclValidateRequestInterceptor)
   @graphql.Mutation(() => User)
   @nestAccessControl.UseRoles({

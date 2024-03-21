@@ -21,6 +21,8 @@ import EmployeeRequestsLandingPage from "./Pages/EmployeeRequestsLandingPage";
 import CondoOwnerDashboardPage from "./Pages/CondoOwnerDashboardLandingPage";
 import IndividualCondoProfile from "./Components/CondoProfile/IndividualCondoProfile";
 import MyCondos from "./Components/CondoProfile/MyCondos";
+import NotificationUser from "./Pages/NotificationLandingPageUser";
+import EmployeeListLandingPage from "./Pages/EmployeeListLandingPage";
 
 function App() {
   return (
@@ -42,7 +44,7 @@ function App() {
           path="CondoOwnerDashboard"
           element={<CondoOwnerDashboardPage />}
         />
-        <Route path="GenerateKey" element={<KeyGenerationLandingPage />} />
+        <Route path="GenerateKey" element={<EmployeeRequestsLandingPage />} />
         <Route
           path="OwnerRequests"
           element={<CondoOwnerRequestsLandingPage />}
@@ -54,15 +56,10 @@ function App() {
 
         <Route
           path="RegisterEmployee"
-          element={
-            <EmployeeRegistrationLandingPage />
-          } /*CHANGE PATH ONCE PAGE IS CREATED*/
+          element={<EmployeeRegistrationLandingPage />}
         />
         <Route path="CreateProperty" element={<CreatePropertyLandingPage />} />
-        <Route
-          path="EmployeeList"
-          element={<DashboardPage />} /*CHANGE PATH ONCE PAGE IS CREATED*/
-        />
+        <Route path="EmployeeList" element={<EmployeeListLandingPage />} />
         <Route
           path="RegistrationKeyList"
           element={<DashboardPage />} /*CHANGE PATH ONCE PAGE IS CREATED*/
@@ -76,12 +73,13 @@ function App() {
           path="/PropertyProfile/:id"
           element={<PropertyProfileLandingPage />}
         />
-
         <Route path="CondoCreation" element={<CondoCreationLandingPage />} />
         <Route
-          path="NotificationPageManager"
+          path="Notifications/Company"
           element={<NotificationPageManager />}
         />
+
+        <Route path="Notifications/User" element={<NotificationUser />} />
       </Routes>
     </div>
   );

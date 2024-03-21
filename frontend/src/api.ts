@@ -4,6 +4,7 @@ import { UserData } from "./Components/UserProfile/UserInformation";
 import { CondoInfo } from "./Components/CondoProfile/MyCondos";
 import { IndividualCondo } from "./Components/CondoProfile/IndividualCondoProfile";
 
+
 const api = {
   userInformation: {
     async fetchProfilePicture(username: string) {
@@ -45,6 +46,16 @@ const api = {
         `${urls.users.updateUserProfilePic}/${username}`,
         pictureFormData
       );
+    },
+    async getUserInfo(userId: number, token: String){
+      const response = await axios.get(`http://localhost:8000/api/users/${userId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+      );
+      return response;
     },
   },
 
@@ -224,22 +235,34 @@ const api = {
     // to get the property ID
     async getCondoProperty(condoId: number, token: String) {
       const response = await axios.get(`${urls.properties.getProperty}`, {
-        params: {
-          where: {
-            condoUnits: {
-              every: {
-                id: {
-                  equals: condoId,
-                },
-              },
-            },
-          },
-        },
+        // params: {
+        //   where: {
+        //     condoUnits: {
+        //       every: {
+        //         id: {
+        //           equals: condoId,
+        //         },
+        //       },
+        //     },
+        //   },
+        // },
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
+
       return response;
+    },
+
+    async deleteProperty(propertyId: number, token: String) {
+      const response = await axios.delete(
+        `${urls.properties.getProperty}/${propertyId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
     },
   },
 
@@ -260,7 +283,6 @@ const api = {
             },
           },
           headers: {
-            // Corrected to use 'headers' instead of 'Headers'
             Authorization: `Bearer ${token}`,
           },
         });
@@ -312,6 +334,38 @@ const api = {
         }
       );
       return response;
+    },
+    //Gets employees for a company
+    async getCompanyEmployees(companyId: number, token: String){
+      try {
+        const response = await axios.get(`http://localhost:8000/api/companies/${companyId}/companyEmployees`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        return response.data;
+      } catch (error) {
+        throw error;
+      }
+    },
+  },
+
+  notifications: {
+    async getComapnyNotifications(companyId: number, token: String) {
+
+      const response = await axios.get(`${urls.companies.getCompany}`, {
+        params: {
+          where: {
+            message: {
+              contains: `\"company\":{\"id\":${companyId}}`,
+            },
+          },
+        },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return response.data;
     },
   },
 };
