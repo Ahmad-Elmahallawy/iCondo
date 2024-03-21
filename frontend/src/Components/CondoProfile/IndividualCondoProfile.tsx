@@ -104,7 +104,7 @@ const IndividualCondoProfile = () => {
             </div>
             <div className="input-container">
               <span className="input-label">Locker ID:</span>
-              <span className="input-label">{condo.locker}</span>
+              <span className="input-label">{condo.locker}24</span>
             </div>
           </div>
 
