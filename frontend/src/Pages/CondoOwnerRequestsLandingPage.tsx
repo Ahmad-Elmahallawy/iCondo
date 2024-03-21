@@ -76,7 +76,6 @@ const CondoOwnerRequestsLandingPage = () => {
         <h2>My Requests</h2>
         <button onClick={handleModalOpen}>Compose New Request</button>
       </div>
-      {/*TODO: loop through an array of requests from an API and pass the subject and status to the below component*/}
       <OwnerRequestSubject />
       <OwnerRequestModal
         open={isModalOpen}

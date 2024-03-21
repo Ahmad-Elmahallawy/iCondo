@@ -5,6 +5,7 @@ import {
   Company, // @ts-ignore
   CompanyEmployee, // @ts-ignore
   File, // @ts-ignore
+  Forum, // @ts-ignore
   Property, // @ts-ignore
   Request,
 } from "@prisma/client";
@@ -64,6 +65,17 @@ export class CompanyServiceBase {
         where: { id: parentId },
       })
       .file(args);
+  }
+
+  async findForums(
+      parentId: number,
+      args: Prisma.ForumFindManyArgs
+  ): Promise<Forum[]> {
+    return this.prisma.company
+        .findUniqueOrThrow({
+          where: { id: parentId },
+        })
+        .forums(args);
   }
 
   async findProperties(

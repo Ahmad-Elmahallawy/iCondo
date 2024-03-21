@@ -51,7 +51,7 @@ const Login: React.FC = () => {
 
         // Redirect based on user's role
         const user = JSON.parse(localStorage.getItem("userData") || "{}");
-        const isAdmin = user.roles && user.roles.includes("Admin");
+        const isAdmin = user.roles && user.roles[0].includes("Admin");
 
         if (isAdmin) {
           const userIdEndpoint = `http://localhost:8000/api/users/${userData.id}/companyEmployees`;

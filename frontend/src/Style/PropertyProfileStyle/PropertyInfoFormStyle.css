@@ -23,7 +23,6 @@
 .edit-button {
   background: var(--color3);
   border: 1px solid var(--color3);
-  width: 65px;
 }
 .view-condo-files-button {
   background: var(--color3);
