@@ -1,0 +1,25 @@
+.owner-request-modal-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.owner-request-modal-title {
+  border-bottom: 1px solid var(--color4);
+  text-align: center;
+  margin: 0px 16px !important;
+}
+
+.owner-request-modal-btn {
+  color: var(--color1);
+  background-color: var(--color3);
+  outline: none;
+  border: 0;
+  border-radius: 5px;
+  padding: 0.4rem;
+  position: relative;
+}
+
+.owner-request-modal-btn:hover {
+  cursor: pointer;
+  background-color: var(--color4);
+}

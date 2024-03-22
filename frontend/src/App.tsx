@@ -13,8 +13,16 @@ import CondoProfileLandingPage from "./Pages/CondoProfileLandingPage";
 import CreatePropertyLandingPage from "./Pages/CreatePropertyLandingPage";
 import PropertyProfileLandingPage from "./Pages/PropertyProfileLandingPage";
 import CondoCreationLandingPage from "./Pages/CondoCreationLandingPage";
-import EmployeeRequestsLandingPage from "./Pages/EmployeeRequestsLandingPage";
+import KeyGenerationLandingPage from "./Pages/KeyGenerationLandingPage";
 import ResetPassword from "./Components/Authentication/ResetPassword";
+import NotificationPageManager from "./Pages/NotificationPageManager";
+import CondoOwnerRequestsLandingPage from "./Pages/CondoOwnerRequestsLandingPage";
+import EmployeeRequestsLandingPage from "./Pages/EmployeeRequestsLandingPage";
+import CondoOwnerDashboardPage from "./Pages/CondoOwnerDashboardLandingPage";
+import IndividualCondoProfile from "./Components/CondoProfile/IndividualCondoProfile";
+import MyCondos from "./Components/CondoProfile/MyCondos";
+import NotificationUser from "./Pages/NotificationLandingPageUser";
+import EmployeeListLandingPage from "./Pages/EmployeeListLandingPage";
 
 function App() {
   return (
@@ -32,19 +40,26 @@ function App() {
         />
         <Route path="Profile" element={<UserProfileLandingPage />} />
         <Route path="CompanyDashboard" element={<DashboardPage />} />
-        <Route path="GenerateKey" element={<EmployeeRequestsLandingPage />} />
+        <Route
+          path="CondoOwnerDashboard"
+          element={<CondoOwnerDashboardPage />}
+        />
+        <Route path="GenerateKey" element={<KeyGenerationLandingPage />} />
+        <Route
+          path="OwnerRequests"
+          element={<CondoOwnerRequestsLandingPage />}
+        />
+        <Route
+          path="EmployeeRequests"
+          element={<EmployeeRequestsLandingPage />}
+        />
+
         <Route
           path="RegisterEmployee"
-          element={<DashboardPage />} /*CHANGE PATH ONCE PAGE IS CREATED*/
+          element={<EmployeeRegistrationLandingPage />}
         />
-        <Route
-          path="CreateProperty"
-          element={<CreatePropertyLandingPage />}
-        />
-        <Route
-          path="EmployeeList"
-          element={<DashboardPage />} /*CHANGE PATH ONCE PAGE IS CREATED*/
-        />
+        <Route path="CreateProperty" element={<CreatePropertyLandingPage />} />
+        <Route path="EmployeeList" element={<EmployeeListLandingPage />} />
         <Route
           path="RegistrationKeyList"
           element={<DashboardPage />} /*CHANGE PATH ONCE PAGE IS CREATED*/
@@ -52,13 +67,19 @@ function App() {
         <Route path="PropertiesList" element={<PropertiesListPage />} />
 
         <Route path="CondoProfile" element={<CondoProfileLandingPage />} />
+        <Route path="MyCondos" element={<MyCondos />} />
+        <Route path="CondoProfile/:id" element={<IndividualCondoProfile />} />
         <Route
           path="/PropertyProfile/:id"
           element={<PropertyProfileLandingPage />}
         />
-
         <Route path="CondoCreation" element={<CondoCreationLandingPage />} />
-        <Route path="*" element={<div>404 Page Not Found</div>} />
+        <Route
+          path="Notifications/Company"
+          element={<NotificationPageManager />}
+        />
+
+        <Route path="Notifications/User" element={<NotificationUser />} />
       </Routes>
     </div>
   );

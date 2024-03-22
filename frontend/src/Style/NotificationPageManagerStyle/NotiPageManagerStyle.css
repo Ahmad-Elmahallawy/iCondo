@@ -1,0 +1,68 @@
+.notifications-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+.notifications-heading {
+  font-size: 1.5rem;
+  color: var(--color4);
+}
+
+.notifications-box {
+  margin: 5% 10%;
+  padding: 20px;
+  background: var(--color1);
+  box-shadow: 3px 3px 3px var(--color5) (0.5, 0.5, 0.5, 0.5);
+  border-radius: 10px;
+  border: 1px solid var(--color5);
+  width: 430%;
+  max-width: 800px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+.notification-container {
+  width: 100%;
+  overflow-y: auto;
+  border-top: 1px solid var(--color4);
+}
+
+.notification-item {
+  padding: 10px 0;
+  color: var(--color4);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--color4);
+}
+
+.notification-item::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0%; /* Adjust the space on the left */
+  right: 0%; /* Adjust the space on the right */
+  height: 1px;
+  background: var(--color5);
+}
+
+.close-btn {
+  border: none;
+  background-color: transparent;
+  color: var(--cancel);
+  cursor: pointer;
+  font-size: 2rem; /* Adjust the font size */
+}
+
+.close-btn:hover {
+  color: var(--cancel);
+}
+
+.close-btn.checked {
+  color: var(--color6); /* Green color */
+}

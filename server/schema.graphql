@@ -1,0 +1,547 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type CommonFacility {
+  availabilities(orderBy: [ReservationOrderByInput!], skip: Float, take: Float, where: ReservationWhereInput): [Reservation!]!
+  createdAt: DateTime!
+  facilityType: EnumCommonFacilityType
+  id: String!
+  updatedAt: DateTime!
+}
+
+input CommonFacilityCreateInput {
+  availabilities: ReservationCreateNestedManyWithoutCommonFacilitiesInput
+  facilityType: EnumCommonFacilityType
+}
+
+input CommonFacilityOrderByInput {
+  createdAt: SortOrder
+  facilityType: SortOrder
+  id: SortOrder
+  updatedAt: SortOrder
+}
+
+input CommonFacilityUpdateInput {
+  availabilities: ReservationUpdateManyWithoutCommonFacilitiesInput
+  facilityType: EnumCommonFacilityType
+}
+
+input CommonFacilityWhereInput {
+  availabilities: ReservationListRelationFilter
+  facilityType: EnumCommonFacilityType
+  id: StringFilter
+}
+
+input CommonFacilityWhereUniqueInput {
+  id: String!
+}
+
+type Company {
+  createdAt: DateTime!
+  id: Float!
+  name: String!
+  updatedAt: DateTime
+}
+
+type CompanyEmployee {
+  id: Float!
+}
+
+input CompanyEmployeeWhereUniqueInput {
+  id: Float!
+}
+
+input CompanyWhereUniqueInput {
+  id: Float!
+}
+
+type CondoUnit {
+  condoFee: Float
+  createdAt: DateTime!
+  id: Float!
+  size: String!
+  unitNumber: String
+  updatedAt: DateTime!
+}
+
+input CondoUnitWhereUniqueInput {
+  id: Float!
+}
+
+input Credentials {
+  password: String!
+  username: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+enum EnumCommonFacilityType {
+  Type_1
+  Type_2
+  Type_3
+}
+
+enum EnumRequestStatus {
+  Option_1
+  Option_2
+  Option_3
+  Option_4
+  Option_5
+  Option_6
+}
+
+enum EnumRequestType {
+  Type_1
+  Type_2
+  Type_3
+  Type_4
+  Type_5
+  Type_6
+  Type_7
+}
+
+type Forum {
+  company: Company
+  createdAt: DateTime!
+  id: String!
+  name: String!
+  posts(orderBy: [PostOrderByInput!], skip: Float, take: Float, where: PostWhereInput): [Post!]!
+  updatedAt: DateTime!
+}
+
+input ForumCreateInput {
+  company: CompanyWhereUniqueInput
+  name: String!
+  posts: PostCreateNestedManyWithoutForumsInput
+}
+
+input ForumOrderByInput {
+  companyID: SortOrder
+  createdAt: SortOrder
+  id: SortOrder
+  name: SortOrder
+  updatedAt: SortOrder
+}
+
+input ForumUpdateInput {
+  company: CompanyWhereUniqueInput
+  name: String
+  posts: PostUpdateManyWithoutForumsInput
+}
+
+input ForumWhereInput {
+  company: CompanyWhereUniqueInput
+  id: StringFilter
+  name: StringFilter
+  posts: PostListRelationFilter
+}
+
+input ForumWhereUniqueInput {
+  id: String!
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+type MetaQueryPayload {
+  count: Float!
+}
+
+type Mutation {
+  createCommonFacility(data: CommonFacilityCreateInput!): CommonFacility!
+  createForum(data: ForumCreateInput!): Forum!
+  createNotification(data: NotificationCreateInput!): Notification!
+  createPost(data: PostCreateInput!): Post!
+  createRequest(data: RequestCreateInput!): Request!
+  createReservation(data: ReservationCreateInput!): Reservation!
+  deleteCommonFacility(where: CommonFacilityWhereUniqueInput!): CommonFacility!
+  deleteForum(where: ForumWhereUniqueInput!): Forum!
+  deleteNotification(where: NotificationWhereUniqueInput!): Notification!
+  deletePost(where: PostWhereUniqueInput!): Post!
+  deleteRequest(where: RequestWhereUniqueInput!): Request!
+  deleteReservation(where: ReservationWhereUniqueInput!): Reservation!
+  login(credentials: Credentials!): UserInfo!
+  updateCommonFacility(data: CommonFacilityUpdateInput!, where: CommonFacilityWhereUniqueInput!): CommonFacility!
+  updateForum(data: ForumUpdateInput!, where: ForumWhereUniqueInput!): Forum!
+  updateNotification(data: NotificationUpdateInput!, where: NotificationWhereUniqueInput!): Notification!
+  updatePost(data: PostUpdateInput!, where: PostWhereUniqueInput!): Post!
+  updateRequest(data: RequestUpdateInput!, where: RequestWhereUniqueInput!): Request!
+  updateReservation(data: ReservationUpdateInput!, where: ReservationWhereUniqueInput!): Reservation!
+}
+
+type Notification {
+  createdAt: DateTime!
+  id: String!
+  message: String
+  request: Request
+  title: String
+  updatedAt: DateTime!
+  user: User
+}
+
+input NotificationCreateInput {
+  message: String
+  request: RequestWhereUniqueInput
+  title: String
+  user: UserWhereUniqueInput
+}
+
+input NotificationCreateNestedManyWithoutRequestsInput {
+  connect: [NotificationWhereUniqueInput!]
+}
+
+input NotificationListRelationFilter {
+  every: NotificationWhereInput
+  none: NotificationWhereInput
+  some: NotificationWhereInput
+}
+
+input NotificationOrderByInput {
+  createdAt: SortOrder
+  id: SortOrder
+  message: SortOrder
+  requestID: SortOrder
+  title: SortOrder
+  updatedAt: SortOrder
+  userID: SortOrder
+}
+
+input NotificationUpdateInput {
+  message: String
+  request: RequestWhereUniqueInput
+  title: String
+  user: UserWhereUniqueInput
+}
+
+input NotificationUpdateManyWithoutRequestsInput {
+  connect: [NotificationWhereUniqueInput!]
+  disconnect: [NotificationWhereUniqueInput!]
+  set: [NotificationWhereUniqueInput!]
+}
+
+input NotificationWhereInput {
+  id: StringFilter
+  message: StringNullableFilter
+  request: RequestWhereUniqueInput
+  title: StringNullableFilter
+  user: UserWhereUniqueInput
+}
+
+input NotificationWhereUniqueInput {
+  id: String!
+}
+
+type Post {
+  content: String
+  createdAt: DateTime!
+  forum: Forum
+  id: String!
+  updatedAt: DateTime!
+  user: User
+}
+
+input PostCreateInput {
+  content: String
+  forum: ForumWhereUniqueInput
+  user: UserWhereUniqueInput
+}
+
+input PostCreateNestedManyWithoutForumsInput {
+  connect: [PostWhereUniqueInput!]
+}
+
+input PostListRelationFilter {
+  every: PostWhereInput
+  none: PostWhereInput
+  some: PostWhereInput
+}
+
+input PostOrderByInput {
+  content: SortOrder
+  createdAt: SortOrder
+  forumID: SortOrder
+  id: SortOrder
+  updatedAt: SortOrder
+  userID: SortOrder
+}
+
+input PostUpdateInput {
+  content: String
+  forum: ForumWhereUniqueInput
+  user: UserWhereUniqueInput
+}
+
+input PostUpdateManyWithoutForumsInput {
+  connect: [PostWhereUniqueInput!]
+  disconnect: [PostWhereUniqueInput!]
+  set: [PostWhereUniqueInput!]
+}
+
+input PostWhereInput {
+  content: StringNullableFilter
+  forum: ForumWhereUniqueInput
+  id: StringFilter
+  user: UserWhereUniqueInput
+}
+
+input PostWhereUniqueInput {
+  id: String!
+}
+
+type Property {
+  address: String!
+  createdAt: DateTime!
+  id: Float!
+  lockerCount: Float
+  name: String!
+  parkingCount: Float!
+  unitCount: Float!
+  updatedAt: DateTime!
+}
+
+input PropertyWhereUniqueInput {
+  id: Float!
+}
+
+type Query {
+  _commonFacilitiesMeta(where: CommonFacilityWhereInput): MetaQueryPayload!
+  _forumsMeta(where: ForumWhereInput): MetaQueryPayload!
+  _notificationsMeta(where: NotificationWhereInput): MetaQueryPayload!
+  _postsMeta(where: PostWhereInput): MetaQueryPayload!
+  _requestsMeta(where: RequestWhereInput): MetaQueryPayload!
+  _reservationsMeta(where: ReservationWhereInput): MetaQueryPayload!
+  commonFacilities(orderBy: [CommonFacilityOrderByInput!], skip: Float, take: Float, where: CommonFacilityWhereInput): [CommonFacility!]!
+  commonFacility(where: CommonFacilityWhereUniqueInput!): CommonFacility
+  forum(where: ForumWhereUniqueInput!): Forum
+  forums(orderBy: [ForumOrderByInput!], skip: Float, take: Float, where: ForumWhereInput): [Forum!]!
+  notification(where: NotificationWhereUniqueInput!): Notification
+  notifications(orderBy: [NotificationOrderByInput!], skip: Float, take: Float, where: NotificationWhereInput): [Notification!]!
+  post(where: PostWhereUniqueInput!): Post
+  posts(orderBy: [PostOrderByInput!], skip: Float, take: Float, where: PostWhereInput): [Post!]!
+  request(where: RequestWhereUniqueInput!): Request
+  requests(orderBy: [RequestOrderByInput!], skip: Float, take: Float, where: RequestWhereInput): [Request!]!
+  reservation(where: ReservationWhereUniqueInput!): Reservation
+  reservations(orderBy: [ReservationOrderByInput!], skip: Float, take: Float, where: ReservationWhereInput): [Reservation!]!
+  userInfo: UserInfo!
+}
+
+enum QueryMode {
+  Default
+  Insensitive
+}
+
+type Request {
+  company: Company
+  condoUnit: CondoUnit
+  createdAt: DateTime!
+  elevator: String
+  employee: CompanyEmployee
+  id: String!
+  key: String
+  notifications(orderBy: [NotificationOrderByInput!], skip: Float, take: Float, where: NotificationWhereInput): [Notification!]!
+  property: Property
+  question: String
+  reportMessage: String
+  requestType: EnumRequestType
+  response: String
+  status: EnumRequestStatus
+  updatedAt: DateTime!
+  user: User
+}
+
+input RequestCreateInput {
+  company: CompanyWhereUniqueInput
+  condoUnit: CondoUnitWhereUniqueInput
+  elevator: String
+  employee: CompanyEmployeeWhereUniqueInput
+  key: String
+  notifications: NotificationCreateNestedManyWithoutRequestsInput
+  property: PropertyWhereUniqueInput
+  question: String
+  reportMessage: String
+  requestType: EnumRequestType
+  response: String
+  status: EnumRequestStatus
+  user: UserWhereUniqueInput
+}
+
+input RequestOrderByInput {
+  companyID: SortOrder
+  condoUnitID: SortOrder
+  createdAt: SortOrder
+  elevator: SortOrder
+  employeeID: SortOrder
+  id: SortOrder
+  key: SortOrder
+  propertyID: SortOrder
+  question: SortOrder
+  reportMessage: SortOrder
+  requestType: SortOrder
+  response: SortOrder
+  status: SortOrder
+  updatedAt: SortOrder
+  userID: SortOrder
+}
+
+input RequestUpdateInput {
+  company: CompanyWhereUniqueInput
+  condoUnit: CondoUnitWhereUniqueInput
+  elevator: String
+  employee: CompanyEmployeeWhereUniqueInput
+  key: String
+  notifications: NotificationUpdateManyWithoutRequestsInput
+  property: PropertyWhereUniqueInput
+  question: String
+  reportMessage: String
+  requestType: EnumRequestType
+  response: String
+  status: EnumRequestStatus
+  user: UserWhereUniqueInput
+}
+
+input RequestWhereInput {
+  company: CompanyWhereUniqueInput
+  condoUnit: CondoUnitWhereUniqueInput
+  elevator: StringNullableFilter
+  employee: CompanyEmployeeWhereUniqueInput
+  id: StringFilter
+  key: StringNullableFilter
+  notifications: NotificationListRelationFilter
+  property: PropertyWhereUniqueInput
+  question: StringNullableFilter
+  reportMessage: StringNullableFilter
+  requestType: EnumRequestType
+  response: StringNullableFilter
+  status: EnumRequestStatus
+  user: UserWhereUniqueInput
+}
+
+input RequestWhereUniqueInput {
+  id: String!
+}
+
+type Reservation {
+  availablity: String
+  commonFacilityId: CommonFacility
+  createdAt: DateTime!
+  id: String!
+  notes: String
+  updatedAt: DateTime!
+  user: User
+}
+
+input ReservationCreateInput {
+  availablity: String
+  commonFacilityID: CommonFacilityWhereUniqueInput
+  notes: String
+  user: UserWhereUniqueInput
+}
+
+input ReservationCreateNestedManyWithoutCommonFacilitiesInput {
+  connect: [ReservationWhereUniqueInput!]
+}
+
+input ReservationListRelationFilter {
+  every: ReservationWhereInput
+  none: ReservationWhereInput
+  some: ReservationWhereInput
+}
+
+input ReservationOrderByInput {
+  availablity: SortOrder
+  commonFacilityIDId: SortOrder
+  createdAt: SortOrder
+  id: SortOrder
+  notes: SortOrder
+  updatedAt: SortOrder
+  userID: SortOrder
+}
+
+input ReservationUpdateInput {
+  availablity: String
+  commonFacilityID: CommonFacilityWhereUniqueInput
+  notes: String
+  user: UserWhereUniqueInput
+}
+
+input ReservationUpdateManyWithoutCommonFacilitiesInput {
+  connect: [ReservationWhereUniqueInput!]
+  disconnect: [ReservationWhereUniqueInput!]
+  set: [ReservationWhereUniqueInput!]
+}
+
+input ReservationWhereInput {
+  availablity: StringNullableFilter
+  commonFacilityID: CommonFacilityWhereUniqueInput
+  id: StringFilter
+  notes: StringNullableFilter
+  user: UserWhereUniqueInput
+}
+
+input ReservationWhereUniqueInput {
+  id: String!
+}
+
+enum SortOrder {
+  Asc
+  Desc
+}
+
+input StringFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  mode: QueryMode
+  not: String
+  notIn: [String!]
+  startsWith: String
+}
+
+input StringNullableFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  mode: QueryMode
+  not: String
+  notIn: [String!]
+  startsWith: String
+}
+
+type User {
+  createdAt: DateTime!
+  email: String!
+  firstName: String
+  id: Float!
+  lastName: String
+  phoneNumber: String!
+  roles: JSON!
+  updatedAt: DateTime!
+  username: String!
+}
+
+type UserInfo {
+  accessToken: String
+  id: Float!
+  roles: [String!]!
+  username: String!
+}
+
+input UserWhereUniqueInput {
+  id: Float!
+}

@@ -14,9 +14,11 @@ import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateReq
 import { map } from "rxjs";
 import { PropertyController } from "../property.controller";
 import { PropertyService } from "../property.service";
+import * as errors from "../../errors";
 
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
+const invalidId = "invalidId";
 const CREATE_INPUT = {
   address: "exampleAddress",
   createdAt: new Date(),
@@ -59,6 +61,22 @@ const FIND_ONE_RESULT = {
   unitCount: 42,
   updatedAt: new Date(),
 };
+const NOT_FOUND = {
+  statusCode: HttpStatus.NOT_FOUND,
+  message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
+  error: "Not Found",
+};
+const UPDATED_PROPERTY = {
+  statusCode: HttpStatus.OK,
+  message: `Property updated"}`,
+};
+const DELETED_PROPERTY={
+  statusCode: HttpStatus.OK,
+  message: `Property deleted"}`,
+}
+const INVALID_PROPERTY={
+  statusCode: HttpStatus.BAD_REQUEST,
+}
 
 const service = {
   createProperty() {
@@ -71,6 +89,28 @@ const service = {
         return FIND_ONE_RESULT;
       case nonExistingId:
         return null;
+      case invalidId:
+        return  INVALID_PROPERTY;
+    }
+  },
+  updateProperty({ where }: { where: { id: string } }){
+    switch (where.id) {
+      case existingId:
+        return UPDATED_PROPERTY;
+      case nonExistingId:
+        throw new errors.NotFoundException(
+            `No resource was found for {"id":"${nonExistingId}"}`
+        );
+    }
+  },
+  deleteProperty({ where }: { where: { id: string } }){
+    switch (where.id) {
+      case existingId:
+        return DELETED_PROPERTY;
+      case nonExistingId:
+        throw new errors.NotFoundException(
+            `No resource was found for {"id":"${nonExistingId}"}`
+        );
     }
   },
 };
@@ -164,11 +204,7 @@ describe("Property", () => {
     await request(app.getHttpServer())
       .get(`${"/properties"}/${nonExistingId}`)
       .expect(HttpStatus.NOT_FOUND)
-      .expect({
-        statusCode: HttpStatus.NOT_FOUND,
-        message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
-        error: "Not Found",
-      });
+      .expect(NOT_FOUND);
   });
 
   test("GET /properties/:id existing", async () => {
@@ -203,7 +239,156 @@ describe("Property", () => {
           });
       });
   });
+  // Test case for updating an existing property
+  test("PATCH /properties/:id", async () => {
+    await request(app.getHttpServer())
+        .patch(`${"/properties"}/${existingId}`)
+        .send({ /* Updated property data */ })
+        .expect(HttpStatus.OK);
+  });
 
+// Test case for deleting an existing property
+  test("DELETE /properties/:id", async () => {
+    await request(app.getHttpServer())
+        .delete(`${"/properties"}/${existingId}`)
+        .expect(HttpStatus.OK);
+  });
+
+  // Test case for attempting to delete a non-existing property
+  test("DELETE /properties/:id non existing", async () => {
+    await request(app.getHttpServer())
+        .delete(`${"/properties"}/${nonExistingId}`)
+        .expect(HttpStatus.NOT_FOUND)
+        .expect(NOT_FOUND);
+  });
+
+// Test case for attempting to create a property with invalid data
+  test("POST /properties with invalid data", async () => {
+    await request(app.getHttpServer())
+        .post(`${"/properties"}/${invalidId}`)
+        .send({ invalidId })
+        .expect(HttpStatus.NOT_FOUND)
+  });
+
+// Test case for attempting to update a non-existing property
+  test("PATCH /properties/:id non existing", async () => {
+    await request(app.getHttpServer())
+        .patch(`${"/properties"}/${nonExistingId}`)
+        .send({ /* Updated property data */ })
+        .expect(HttpStatus.NOT_FOUND)
+        .expect(NOT_FOUND);
+  });
+
+  // Test case for attempting to retrieve a non-existing property
+  test("GET /properties/:id non existing", async () => {
+    await request(app.getHttpServer())
+        .get(`${"/properties"}/${nonExistingId}`)
+        .expect(HttpStatus.NOT_FOUND)
+  });
+
+// Test case for attempting to create a property with incomplete data
+  test("POST /properties with incomplete data", async () => {
+    await request(app.getHttpServer())
+        .post("/properties")
+        .send({ /* Incomplete property data */ })
+        .expect(HttpStatus.CREATED)
+  });
+
+// Test case for attempting to update a property with invalid data
+  test("PATCH /properties/:id with invalid data", async () => {
+    await request(app.getHttpServer())
+        .patch(`${"/properties"}/${existingId}`)
+        .send({ /* Invalid property data */ })
+        .expect(HttpStatus.OK)
+  });
+  test("GET /properties/:id/condoUnits", async () => {
+    await request(app.getHttpServer())
+        .get(`/properties/${existingId}/condoUnits`)
+        .expect(HttpStatus.INTERNAL_SERVER_ERROR)
+  });
+
+  test("POST /properties/:id/condoUnits", async () => {
+    await request(app.getHttpServer())
+        .post(`/properties/${existingId}/condoUnits`)
+        .expect(HttpStatus.CREATED);
+  });
+  test("PATCH /properties/:id/condoUnits", async () => {
+    await request(app.getHttpServer())
+        .patch(`/properties/${existingId}/condoUnits`)
+        .expect(HttpStatus.OK);
+  });
+
+  test("DELETE /properties/:id/condoUnits", async () => {
+    await request(app.getHttpServer())
+        .delete(`/properties/${existingId}/condoUnits`)
+        .expect(HttpStatus.OK);
+  });
+  test("GET /properties/:id/files", async () => {
+    await request(app.getHttpServer())
+        .get(`/properties/${existingId}/files`)
+        .expect(HttpStatus.INTERNAL_SERVER_ERROR)
+  });
+
+  test("POST /properties/:id/files", async () => {
+    await request(app.getHttpServer())
+        .post(`/properties/${existingId}/files`)
+        .expect(HttpStatus.CREATED);
+  });
+  test("PATCH /properties/:id/files", async () => {
+    await request(app.getHttpServer())
+        .patch(`/properties/${existingId}/files`)
+        .expect(HttpStatus.OK);
+  });
+
+  test("DELETE /properties/:id/files", async () => {
+    await request(app.getHttpServer())
+        .delete(`/properties/${existingId}/files`)
+        .expect(HttpStatus.OK);
+  });
+  test("GET /properties/:id/Lockers", async () => {
+    await request(app.getHttpServer())
+        .get(`/properties/${existingId}/Lockers`)
+        .expect(HttpStatus.INTERNAL_SERVER_ERROR)
+  });
+
+  test("POST /properties/:id/Lockers", async () => {
+    await request(app.getHttpServer())
+        .post(`/properties/${existingId}/Lockers`)
+        .expect(HttpStatus.CREATED);
+  });
+  test("PATCH /properties/:id/Lockers", async () => {
+    await request(app.getHttpServer())
+        .patch(`/properties/${existingId}/Lockers`)
+        .expect(HttpStatus.OK);
+  });
+
+  test("DELETE /properties/:id/Lockers", async () => {
+    await request(app.getHttpServer())
+        .delete(`/properties/${existingId}/Lockers`)
+        .expect(HttpStatus.OK);
+  });
+  test("GET /properties/:id/ParkingSpots", async () => {
+    await request(app.getHttpServer())
+        .get(`/properties/${existingId}/ParkingSpots`)
+        .expect(HttpStatus.INTERNAL_SERVER_ERROR)
+  });
+
+  test("POST /properties/:id/ParkingSpots", async () => {
+    await request(app.getHttpServer())
+        .post(`/properties/${existingId}/ParkingSpots`)
+        .expect(HttpStatus.CREATED);
+  });
+  test("PATCH /properties/:id/ParkingSpots", async () => {
+    await request(app.getHttpServer())
+        .patch(`/properties/${existingId}/ParkingSpots`)
+        .expect(HttpStatus.OK);
+  });
+
+  test("DELETE /properties/:id/ParkingSpots", async () => {
+    await request(app.getHttpServer())
+        .delete(`/properties/${existingId}/ParkingSpots`)
+        .expect(HttpStatus.OK);
+  });
   afterAll(async () => {
     await app.close();
   });

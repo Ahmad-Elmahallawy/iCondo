@@ -7,21 +7,51 @@ const UserKeyRegister: React.FC = () => {
   const [key, setKey] = useState<string>("");
   const [errorText, setErrorText] = useState<string>("");
   const [successMessage, setSuccessMessage] = useState<string>("");
+  const userData = JSON.parse(localStorage.getItem("userData") || "{}");
 
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await api.registerationKeys.userRegisterKey(key);
-      if (response.data.length === 0) {
-        setErrorText("Error registering key");
+      // Call userRegisterKey API endpoint to register the key
+      const registerResponse = await api.registerationKeys.userRegisterKey(key);
+
+      // Check if registration was successful
+      if (registerResponse.data.length === 0) {
+        setErrorText(
+          "Error registering key: Key not found or already registered"
+        );
         setSuccessMessage("");
-      } else {
-        setSuccessMessage("Key registered successfully!");
-        setErrorText("");
+        return; // Exit early if registration fails
       }
-      console.log(response);
-    } catch (error) {
-      setErrorText("Error registering key");
+
+      // Get condoId from the registration response
+      const condoId = registerResponse.data[0]?.condoUnit?.id;
+
+      // Register the user to the condo
+      const linkCondoUser = await api.userCondoList.postUserCondo(
+        condoId,
+        userData.id,
+        userData.accessToken
+      );
+      if (registerResponse.data[0].role[0] === "condoOwner") {
+        const response = await api.userInformation.handleUserRole(
+          ["condoOwner"],
+          userData.id,
+          userData.accessToken
+        );
+      } else {
+        const response = await api.userInformation.handleUserRole(
+          ["Rental"],
+          userData.id,
+          userData.accessToken
+        );
+      }
+      setSuccessMessage("Key registered successfully!");
+      setErrorText("");
+    } catch (error: any) {
+      // Handle errors from either API call
+      console.error("Error registering key:", error);
+      setErrorText("Error registering key: " + error.message);
       setSuccessMessage("");
     }
   };

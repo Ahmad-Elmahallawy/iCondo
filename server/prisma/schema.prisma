@@ -17,7 +17,11 @@ model User {
   lastName         String?
   password         String
   phoneNumber      String            @unique
+  posts            Post[]
+  requests         Request[]
+  reservations     Reservation[]
   roles            Json
+  notifications    Notification[]
   updatedAt        DateTime          @updatedAt
   userCondos       UserCondo[]
   username         String            @unique
@@ -30,18 +34,21 @@ model CondoUnit {
   id               Int              @id @default(autoincrement())
   locker           Locker?          @relation(fields: [lockerID], references: [id])
   lockerID         Int?             @unique
-  unitNumber       String?
   parkingSpot      ParkingSpot[]
   propertyID       Property?        @relation(fields: [propertyIDId], references: [id])
   propertyIDId     Int?
   registrationKeys RegistrationKey?
+  requests         Request[]
   size             String
+  unitNumber       String?
   updatedAt        DateTime         @updatedAt
   userCondos       UserCondo[]
 }
 
 model Property {
   address      String
+  company      Company?      @relation(fields: [companyID], references: [id])
+  companyID    Int?
   condoUnits   CondoUnit[]
   createdAt    DateTime      @default(now())
   files        File[]
@@ -50,10 +57,9 @@ model Property {
   Lockers      Locker[]
   name         String
   parkingCount Int
+  requests     Request[]
   ParkingSpots ParkingSpot[]
   unitCount    Int
-  company      Company?      @relation(fields: [companyID], references: [id])
-  companyID    Int?
   updatedAt    DateTime      @updatedAt
 }
 
@@ -80,10 +86,12 @@ model Company {
   companyEmployees CompanyEmployee[]
   createdAt        DateTime          @default(now())
   file             File[]
+  forums           Forum[]
   id               Int               @id @default(autoincrement())
   name             String
-  updatedAt        DateTime?         @updatedAt
   properties       Property[]
+  requests         Request[]
+  updatedAt        DateTime?         @updatedAt
 }
 
 model File {
@@ -107,9 +115,9 @@ model RegistrationKey {
   condoUnitID Int       @unique
   createdAt   DateTime  @default(now())
   id          Int       @id @default(autoincrement())
+  role        Json
   updatedAt   DateTime  @updatedAt
   value       String
-  role        Json
 }
 
 model Role {
@@ -118,11 +126,12 @@ model Role {
 }
 
 model CompanyEmployee {
-  company   Company? @relation(fields: [companyID], references: [id])
+  company   Company?  @relation(fields: [companyID], references: [id])
   companyID Int?
-  id        Int      @id @default(autoincrement())
-  user      User?    @relation(fields: [userID], references: [id])
+  id        Int       @id @default(autoincrement())
+  user      User?     @relation(fields: [userID], references: [id])
   userID    Int?
+  requests  Request[]
 }
 
 model UserCondo {
@@ -133,4 +142,106 @@ model UserCondo {
   updatedAt DateTime   @updatedAt
   user      User?      @relation(fields: [userID], references: [id])
   userID    Int?
+}
+
+model Forum {
+  company   Company? @relation(fields: [companyID], references: [id])
+  companyID Int?
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  name      String
+  posts     Post[]
+  updatedAt DateTime @updatedAt
+}
+
+model Post {
+  content   String?
+  createdAt DateTime @default(now())
+  forum     Forum?   @relation(fields: [forumID], references: [id])
+  forumID   String?
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+  user      User?    @relation(fields: [userID], references: [id])
+  userID    Int?
+}
+
+model CommonFacility {
+  availabilities Reservation[]
+  createdAt      DateTime                @default(now())
+  facilityType   EnumCommonFacilityType?
+  id             String                  @id @default(cuid())
+  updatedAt      DateTime                @updatedAt
+}
+
+model Reservation {
+  availablity        String?
+  commonFacilityID   CommonFacility? @relation(fields: [commonFacilityIDId], references: [id])
+  commonFacilityIDId String?
+  createdAt          DateTime        @default(now())
+  id                 String          @id @default(cuid())
+  notes              String?
+  updatedAt          DateTime        @updatedAt
+  user               User?           @relation(fields: [userID], references: [id])
+  userID             Int?
+}
+
+model Request {
+  company       Company?           @relation(fields: [companyID], references: [id])
+  companyID     Int?
+  condoUnit     CondoUnit?         @relation(fields: [condoUnitID], references: [id])
+  condoUnitID   Int?
+  createdAt     DateTime           @default(now())
+  elevator      String?
+  employee      CompanyEmployee?   @relation(fields: [employeeID], references: [id])
+  employeeID    Int?
+  id            String             @id @default(cuid())
+  key           String?
+  property      Property?          @relation(fields: [propertyID], references: [id])
+  propertyID    Int?
+  question      String?
+  reportMessage String?
+  requestType   EnumRequestType?
+  response      String?
+  status        EnumRequestStatus?
+  updatedAt     DateTime           @updatedAt
+  user          User?              @relation(fields: [userID], references: [id])
+  userID        Int?
+  notifications Notification[]
+}
+
+model Notification {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  message   String?
+  title     String?
+  updatedAt DateTime @updatedAt
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    Int?
+  request   Request? @relation(fields: [requestID], references: [id])
+  requestID String?
+}
+
+enum EnumCommonFacilityType {
+  sky_lounge
+  spa_fitness
+  sauna
+}
+
+enum EnumRequestType {
+  moving_in
+  moving_out
+  intercom_change
+  access_request
+  violation_report
+  deficiency_report
+  question
+}
+
+enum EnumRequestStatus {
+  New
+  In_Progress
+  Pending_Approval
+  Approved
+  Disapproved
+  Complete
 }
