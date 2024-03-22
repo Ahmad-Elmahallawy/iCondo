@@ -23,8 +23,25 @@
   </a>
 </p>
 <p align="center">
+  <a aria-label="REST API" href="#">
+    <img alt="" src="https://img.shields.io/badge/REST%20API-4d4d4d?style=for-the-badge">
+  </a>
+  <a aria-label="GraphQL" href="#">
+    <img alt="" src="https://img.shields.io/badge/GraphQL-E10098?style=for-the-badge&logo=graphql&logoColor=white">
+  </a>
+  <a aria-label="gRPC" href="#">
+    <img alt="" src="https://img.shields.io/badge/gRPC-1A73E8?style=for-the-badge&logo=trpc&logoColor=white">
+  </a>
+    <a aria-label="Kafka" href="#">
+    <img alt="" src="https://img.shields.io/badge/Apache%20Kafka-231F20?style=for-the-badge&logo=apache-kafka&logoColor=white">
+  </a>
+</p>
+<p align="center">
   <a aria-label="React" href="https://www.npmjs.com/">
     <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB">
+  </a>
+    <a aria-label="React Native" href="#">
+    <img alt="" src="https://img.shields.io/badge/React%20Native-61DAFB?style=for-the-badge&logo=react&logoColor=white">
   </a>
     <a aria-label="Postgresql" href="https://www.postgresql.org/">
     <img alt="" src="https://img.shields.io/badge/Postgresql-4169E1?style=for-the-badge&logo=postgresql&logoColor=white">
@@ -37,6 +54,9 @@
   </a>
   <a aria-label="ExpressJS" href="https://www.npmjs.com/">
     <img alt="" src="https://img.shields.io/badge/ExpressJS-17202C?style=for-the-badge&logo=express&logoColor=white">
+  </a>
+    <a aria-label="NestJS" href="#">
+    <img alt="" src="https://img.shields.io/badge/NestJS-E0234E?style=for-the-badge&logo=nestjs&logoColor=white">
   </a>
       <a aria-label="redis" href="https://redis.io/">
     <img alt="" src="https://img.shields.io/badge/redis-DC382D?style=for-the-badge&logo=redis&logoColor=white">
@@ -57,6 +77,9 @@
   </a>
     <a aria-label="Eslint" href="https://eslint.org/">
     <img alt="" src="https://img.shields.io/badge/eslint-4B32C3?style=for-the-badge&logo=eslint&logoColor=white">
+  </a>
+     <a aria-label="Jenkins" href="#">
+    <img alt="" src="https://img.shields.io/badge/Jenkins-D24939?style=for-the-badge&logo=jenkins&logoColor=white">
   </a>
 </p>
 <p align="center">
