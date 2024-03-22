@@ -1,7 +1,7 @@
-import React from 'react';
-import IconCard from '../Components/CompanyDashboard/IconCard';
+import React from "react";
+import IconCard from "../Components/CompanyDashboard/IconCard";
 import "../Style/CompanyDashboard/CompanyDashboardLandingPageStyle.css";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const CondoOwnerDashboardPage: React.FC = () => {
   const Profile = "/Assets/profile.svg";
@@ -26,11 +26,21 @@ const CondoOwnerDashboardPage: React.FC = () => {
         </div>
         <div className="dashboard-row">
           <IconCard title="My Profile" icon={Profile} route="/Profile" />
-          <IconCard title="My Condos" icon={Condos} route="/" /> {/*TODO: ADD ROUTE*/} 
+          <IconCard title="My Condos" icon={Condos} route="/MyCondos" />{" "}
+          {/*TODO: ADD ROUTE*/}
         </div>
         <div className="dashboard-row">
-          <IconCard title="My Financial Status" icon={Financial_status} route="/" />{/*TODO: ADD ROUTE*/}
-          <IconCard title="My Requests" icon={Requests} route="/OwnerRequests" />
+          <IconCard
+            title="My Financial Status"
+            icon={Financial_status}
+            route="/"
+          />
+          {/*TODO: ADD ROUTE*/}
+          <IconCard
+            title="My Requests"
+            icon={Requests}
+            route="/OwnerRequests"
+          />
         </div>
       </div>
     </div>

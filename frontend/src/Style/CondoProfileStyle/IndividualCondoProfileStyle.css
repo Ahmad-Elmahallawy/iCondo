@@ -1,9 +1,11 @@
 .condo-info-container {
+  height: 100vh;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   gap: 50px;
-  justify-content: "space-between";
+  justify-content: center;
+  align-items: center;
   padding: 20px;
 }
 
