@@ -20,6 +20,10 @@ export default function Calendar() {
   }
   return (
     <div className="calendar-container">
+      <div className="calendar-heading">
+        <h2>Common Facilities Calendar</h2>
+        <button className="my-reservations-btn">My Reservations</button>
+      </div>
       <FullCalendar
         plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin]}
         headerToolbar={{

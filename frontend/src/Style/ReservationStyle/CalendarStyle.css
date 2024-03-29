@@ -31,3 +31,33 @@
 .calendar-container {
   margin: 20px;
 }
+
+.calendar-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  margin: 20px;
+}
+
+.calendar-heading h2 {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.my-reservations-btn {
+  margin-left: auto;
+  color: var(--color1);
+  background-color: var(--color3);
+  outline: none;
+  border: 0;
+  border-radius: 5px;
+  padding: 0.4rem;
+  position: relative;
+}
+
+.my-reservations-btn:hover {
+  cursor: pointer;
+  background-color: var(--color4);
+}
