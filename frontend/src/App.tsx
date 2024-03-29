@@ -23,6 +23,7 @@ import IndividualCondoProfile from "./Components/CondoProfile/IndividualCondoPro
 import MyCondos from "./Components/CondoProfile/MyCondos";
 import NotificationUser from "./Pages/NotificationLandingPageUser";
 import EmployeeListLandingPage from "./Pages/EmployeeListLandingPage";
+import Calendar from "./Components/Reservations/Calendar";
 
 function App() {
   return (
@@ -80,6 +81,7 @@ function App() {
         />
 
         <Route path="Notifications/User" element={<NotificationUser />} />
+        <Route path="Calendar" element={<Calendar />} />
       </Routes>
     </div>
   );
