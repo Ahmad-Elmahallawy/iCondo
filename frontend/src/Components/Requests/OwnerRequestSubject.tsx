@@ -15,7 +15,7 @@ const OwnerRequestSubject = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/requests", {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/requests`, {
           headers: {
             Authorization: `Bearer ${userData.accessToken}`,
           },

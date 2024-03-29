@@ -27,7 +27,7 @@ const KeyGeneration = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8000/api/registrationKeys",
+          `${process.env.REACT_APP_API_URL}/registrationKeys`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -77,7 +77,7 @@ const KeyGeneration = () => {
     const newKey = generateKeyValue(); // call the function to generate a random key that is unique
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/registrationKeys",
+        `${process.env.REACT_APP_API_URL}/registrationKeys`,
         {
           condoUnit: {
             id: condoId,

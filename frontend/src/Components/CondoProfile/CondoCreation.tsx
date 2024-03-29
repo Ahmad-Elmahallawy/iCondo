@@ -51,7 +51,7 @@ const CondoCreation = () => {
           },
         };
 
-        const condoUnitsEndpoint = "http://localhost:8000/api/condoUnits";
+        const condoUnitsEndpoint = `${process.env.REACT_APP_API_URL}/condoUnits`;
         const response = await axios.post(condoUnitsEndpoint, data, {
           headers: {
             Authorization: `Bearer ${token}`,

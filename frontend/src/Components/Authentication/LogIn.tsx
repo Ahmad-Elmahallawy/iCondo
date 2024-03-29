@@ -36,7 +36,7 @@ const Login: React.FC = () => {
           password: values.password,
         };
 
-        const loginEndpoint = "http://localhost:8000/api/login"; // API endpoint for login
+        const loginEndpoint = `${process.env.REACT_APP_API_URL}/login`; // API endpoint for login
 
         // Send login request to server
         const response = await axios.post(loginEndpoint, data);
@@ -54,7 +54,7 @@ const Login: React.FC = () => {
         const isAdmin = user.roles && user.roles[0].includes("Admin");
 
         if (isAdmin) {
-          const userIdEndpoint = `http://localhost:8000/api/users/${userData.id}/companyEmployees`;
+          const userIdEndpoint = `${process.env.REACT_APP_API_URL}/users/${userData.id}/companyEmployees`;
 
           const companyID = await axios.get(userIdEndpoint, {
             headers: {

@@ -29,7 +29,7 @@ export default function CondoFilesModal(props: any) {
 
   const fetchFiles = async () => {
     try {
-      const getFilesEndpoint = `http://localhost:8000/api/files`
+      const getFilesEndpoint = `${process.env.REACT_APP_API_URL}/files`
 
       const response = await axios.get(
         getFilesEndpoint,
@@ -87,7 +87,7 @@ export default function CondoFilesModal(props: any) {
 
   const postFiles = async () => {
     try {
-      const postFilesEndpoint = "http://localhost:8000/api/files";
+      const postFilesEndpoint = `${process.env.REACT_APP_API_URL}/files`;
 
       // Iterate through each selected file
       selectedFiles.forEach(async (file) => {
