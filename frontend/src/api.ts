@@ -48,7 +48,7 @@ const api = {
       );
     },
     async getUserInfo(userId: number, token: String){
-      const response = await axios.get(`http://localhost:8000/api/users/${userId}`,
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/users/${userId}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -349,7 +349,7 @@ const api = {
     //Gets employees for a company
     async getCompanyEmployees(companyId: number, token: String){
       try {
-        const response = await axios.get(`http://localhost:8000/api/companies/${companyId}/companyEmployees`, {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/companies/${companyId}/companyEmployees`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
