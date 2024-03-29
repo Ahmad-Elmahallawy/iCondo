@@ -1,0 +1,33 @@
+.fc .fc-media-screen {
+  background-color: var(--color1);
+}
+
+.fc .fc-button-primary {
+  background-color: var(--color3);
+  color: white;
+}
+
+.fc .fc-button-primary:not(:disabled):hover {
+  background-color: var(--color4);
+}
+
+.fc .fc-event {
+  background-color: var(--color4);
+  color: var(--color1);
+}
+
+.fc .fc-daygrid-day-number {
+  color: var(--color3);
+}
+
+.fc .fc-daygrid-day-top {
+  color: var(--color4);
+}
+
+.fc th {
+  color: var(--color4);
+}
+
+.calendar-container {
+  margin: 20px;
+}
