@@ -84,6 +84,7 @@ model Locker {
 
 model Company {
   companyEmployees CompanyEmployee[]
+  costs            Cost[]
   createdAt        DateTime          @default(now())
   file             File[]
   forums           Forum[]
@@ -219,6 +220,16 @@ model Notification {
   userId    Int?
   request   Request? @relation(fields: [requestID], references: [id])
   requestID String?
+}
+
+model Cost {
+  amount    Decimal?
+  company   Company? @relation(fields: [companyID], references: [id])
+  companyID Int?
+  costName  String?
+  createdAt DateTime @default(now())
+  id        Int      @id @default(autoincrement())
+  updatedAt DateTime @updatedAt
 }
 
 enum EnumCommonFacilityType {

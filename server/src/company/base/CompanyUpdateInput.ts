@@ -3,6 +3,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { CompanyEmployeeUpdateManyWithoutCompaniesInput } from "./CompanyEmployeeUpdateManyWithoutCompaniesInput";
 import { ValidateNested, IsOptional, IsString } from "class-validator";
 import { Type } from "class-transformer";
+import { CostUpdateManyWithoutCompaniesInput } from "./CostUpdateManyWithoutCompaniesInput";
 import { FileUpdateManyWithoutCompaniesInput } from "./FileUpdateManyWithoutCompaniesInput";
 import { ForumUpdateManyWithoutCompaniesInput } from "./ForumUpdateManyWithoutCompaniesInput";
 import { PropertyUpdateManyWithoutCompaniesInput } from "./PropertyUpdateManyWithoutCompaniesInput";
@@ -20,6 +21,18 @@ class CompanyUpdateInput {
     nullable: true,
   })
   companyEmployees?: CompanyEmployeeUpdateManyWithoutCompaniesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => CostUpdateManyWithoutCompaniesInput,
+  })
+  @ValidateNested()
+  @Type(() => CostUpdateManyWithoutCompaniesInput)
+  @IsOptional()
+  @Field(() => CostUpdateManyWithoutCompaniesInput, {
+    nullable: true,
+  })
+  costs?: CostUpdateManyWithoutCompaniesInput;
 
   @ApiProperty({
     required: false,
