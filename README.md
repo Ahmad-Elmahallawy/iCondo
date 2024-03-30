@@ -9,13 +9,13 @@
   <a aria-label="Typescript" href="https://www.typescriptlang.org/">
     <img alt="" src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white"> 
   </a>
-  <a aria-label="Javascript" href="">
+  <a aria-label="Javascript" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript">
     <img alt="" src="https://img.shields.io/badge/Javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=white">
   </a>
       <a aria-label="VSCode" href="https://code.visualstudio.com/">
     <img alt="" src="https://img.shields.io/badge/Visual_Studio_Code-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white">
     </a>
-    <a aria-label="Webstorm" href="https://code.visualstudio.com/">
+    <a aria-label="Webstorm" href="https://www.jetbrains.com/webstorm/">
     <img alt="" src="https://img.shields.io/badge/Webstorm-000000?style=for-the-badge&logo=webstorm&logoColor=white">
     </a>
         <a aria-label="Figma" href="https://www.figma.com">
@@ -23,24 +23,24 @@
   </a>
 </p>
 <p align="center">
-  <a aria-label="REST API" href="#">
+  <a aria-label="REST API" href="https://en.wikipedia.org/wiki/REST">
     <img alt="" src="https://img.shields.io/badge/REST%20API-4d4d4d?style=for-the-badge">
   </a>
-  <a aria-label="GraphQL" href="#">
+  <a aria-label="GraphQL" href="https://graphql.org/">
     <img alt="" src="https://img.shields.io/badge/GraphQL-E10098?style=for-the-badge&logo=graphql&logoColor=white">
   </a>
-  <a aria-label="gRPC" href="#">
+  <a aria-label="gRPC" href="https://grpc.io/">
     <img alt="" src="https://img.shields.io/badge/gRPC-1A73E8?style=for-the-badge&logo=trpc&logoColor=white">
   </a>
-    <a aria-label="Kafka" href="#">
+    <a aria-label="Kafka" href="https://kafka.apache.org/">
     <img alt="" src="https://img.shields.io/badge/Apache%20Kafka-231F20?style=for-the-badge&logo=apache-kafka&logoColor=white">
   </a>
 </p>
 <p align="center">
-  <a aria-label="React" href="https://www.npmjs.com/">
+  <a aria-label="React" href="https://react.dev/">
     <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB">
   </a>
-    <a aria-label="React Native" href="#">
+    <a aria-label="React Native" href="https://reactnative.dev/">
     <img alt="" src="https://img.shields.io/badge/React%20Native-61DAFB?style=for-the-badge&logo=react&logoColor=white">
   </a>
     <a aria-label="Postgresql" href="https://www.postgresql.org/">
@@ -52,10 +52,10 @@
   <a aria-label="GitKraken" href="https://www.gitkraken.com/">
     <img alt="" src="https://img.shields.io/badge/GitKraken-179287?style=for-the-badge&logo=GitKraken&logoColor=white">
   </a>
-  <a aria-label="ExpressJS" href="https://www.npmjs.com/">
+  <a aria-label="ExpressJS" href="https://expressjs.com/">
     <img alt="" src="https://img.shields.io/badge/ExpressJS-17202C?style=for-the-badge&logo=express&logoColor=white">
   </a>
-    <a aria-label="NestJS" href="#">
+    <a aria-label="NestJS" href="https://nestjs.com/">
     <img alt="" src="https://img.shields.io/badge/NestJS-E0234E?style=for-the-badge&logo=nestjs&logoColor=white">
   </a>
       <a aria-label="redis" href="https://redis.io/">
@@ -63,7 +63,7 @@
   </a>
 </p>
 <p align="center">
-  <a aria-label="Jest" href="https://www.npmjs.com/">
+  <a aria-label="Jest" href="https://jestjs.io/">
     <img src="https://img.shields.io/badge/Jest-C21325?style=for-the-badge&logo=jest&logoColor=61DAFB">
   </a>
     <a aria-label="Sonarqube" href="https://www.sonarsource.com/products/sonarqube/">
@@ -78,7 +78,7 @@
     <a aria-label="Eslint" href="https://eslint.org/">
     <img alt="" src="https://img.shields.io/badge/eslint-4B32C3?style=for-the-badge&logo=eslint&logoColor=white">
   </a>
-     <a aria-label="Jenkins" href="#">
+     <a aria-label="Jenkins" href="https://www.jenkins.io/">
     <img alt="" src="https://img.shields.io/badge/Jenkins-D24939?style=for-the-badge&logo=jenkins&logoColor=white">
   </a>
 </p>
