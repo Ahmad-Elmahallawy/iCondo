@@ -5,6 +5,7 @@ import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
 import { CostListRelationFilter } from "../../cost/base/CostListRelationFilter";
 import { FileListRelationFilter } from "../../file/base/FileListRelationFilter";
+import { ForumListRelationFilter } from "../../forum/base/ForumListRelationFilter";
 import { IntFilter } from "../../util/IntFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
@@ -47,6 +48,18 @@ class CompanyWhereInput {
     nullable: true,
   })
   file?: FileListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => ForumListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ForumListRelationFilter)
+  @IsOptional()
+  @Field(() => ForumListRelationFilter, {
+    nullable: true,
+  })
+  forums?: ForumListRelationFilter;
 
   @ApiProperty({
     required: false,

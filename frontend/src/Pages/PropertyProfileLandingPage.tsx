@@ -60,7 +60,7 @@ const PropertyProfileLandingPage: React.FC = () => {
       const fetchCondos = async () => {
         try {
           const response = await axios.get(
-            "http://localhost:8000/api/condoUnits",
+            `${process.env.REACT_APP_API_URL}/condoUnits`,
             {
               params: {
                 where: {
@@ -105,7 +105,7 @@ const PropertyProfileLandingPage: React.FC = () => {
         unitCount: Number(updatedInfo.unitCount),
       };
 
-      const updatePropertiesEndpoint = `http://localhost:8000/api/properties/${id}`;
+      const updatePropertiesEndpoint = `${process.env.REACT_APP_API_URL}/properties/${id}`;
       const userData = JSON.parse(localStorage.getItem("userData") || "{}");
       const token = userData.accessToken;
 

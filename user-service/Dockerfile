@@ -1,7 +1,14 @@
 FROM node:18-alpine
-COPY . /home/node/app/
 WORKDIR /home/node/app/
-RUN npm install
+
+# Copy package management files
+COPY package*.json ./
+
+# installs packages and their dependencies
+RUN npm ci --silent
+
+# Copy over project files
+COPY . .
 
 EXPOSE 8000
 

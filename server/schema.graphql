@@ -157,28 +157,38 @@ enum EnumRequestType {
 }
 
 type Forum {
+  company: Company
   createdAt: DateTime!
   id: String!
+  name: String!
   posts(orderBy: [PostOrderByInput!], skip: Float, take: Float, where: PostWhereInput): [Post!]!
   updatedAt: DateTime!
 }
 
 input ForumCreateInput {
+  company: CompanyWhereUniqueInput
+  name: String!
   posts: PostCreateNestedManyWithoutForumsInput
 }
 
 input ForumOrderByInput {
+  companyID: SortOrder
   createdAt: SortOrder
   id: SortOrder
+  name: SortOrder
   updatedAt: SortOrder
 }
 
 input ForumUpdateInput {
+  company: CompanyWhereUniqueInput
+  name: String
   posts: PostUpdateManyWithoutForumsInput
 }
 
 input ForumWhereInput {
+  company: CompanyWhereUniqueInput
   id: StringFilter
+  name: StringFilter
   posts: PostListRelationFilter
 }
 
@@ -210,12 +220,14 @@ type Mutation {
   createCommonFacility(data: CommonFacilityCreateInput!): CommonFacility!
   createCost(data: CostCreateInput!): Cost!
   createForum(data: ForumCreateInput!): Forum!
+  createNotification(data: NotificationCreateInput!): Notification!
   createPost(data: PostCreateInput!): Post!
   createRequest(data: RequestCreateInput!): Request!
   createReservation(data: ReservationCreateInput!): Reservation!
   deleteCommonFacility(where: CommonFacilityWhereUniqueInput!): CommonFacility!
   deleteCost(where: CostWhereUniqueInput!): Cost!
   deleteForum(where: ForumWhereUniqueInput!): Forum!
+  deleteNotification(where: NotificationWhereUniqueInput!): Notification!
   deletePost(where: PostWhereUniqueInput!): Post!
   deleteRequest(where: RequestWhereUniqueInput!): Request!
   deleteReservation(where: ReservationWhereUniqueInput!): Reservation!
@@ -223,12 +235,76 @@ type Mutation {
   updateCommonFacility(data: CommonFacilityUpdateInput!, where: CommonFacilityWhereUniqueInput!): CommonFacility!
   updateCost(data: CostUpdateInput!, where: CostWhereUniqueInput!): Cost!
   updateForum(data: ForumUpdateInput!, where: ForumWhereUniqueInput!): Forum!
+  updateNotification(data: NotificationUpdateInput!, where: NotificationWhereUniqueInput!): Notification!
   updatePost(data: PostUpdateInput!, where: PostWhereUniqueInput!): Post!
   updateRequest(data: RequestUpdateInput!, where: RequestWhereUniqueInput!): Request!
   updateReservation(data: ReservationUpdateInput!, where: ReservationWhereUniqueInput!): Reservation!
 }
 
+type Notification {
+  createdAt: DateTime!
+  id: String!
+  message: String
+  request: Request
+  title: String
+  updatedAt: DateTime!
+  user: User
+}
+
+input NotificationCreateInput {
+  message: String
+  request: RequestWhereUniqueInput
+  title: String
+  user: UserWhereUniqueInput
+}
+
+input NotificationCreateNestedManyWithoutRequestsInput {
+  connect: [NotificationWhereUniqueInput!]
+}
+
+input NotificationListRelationFilter {
+  every: NotificationWhereInput
+  none: NotificationWhereInput
+  some: NotificationWhereInput
+}
+
+input NotificationOrderByInput {
+  createdAt: SortOrder
+  id: SortOrder
+  message: SortOrder
+  requestID: SortOrder
+  title: SortOrder
+  updatedAt: SortOrder
+  userID: SortOrder
+}
+
+input NotificationUpdateInput {
+  message: String
+  request: RequestWhereUniqueInput
+  title: String
+  user: UserWhereUniqueInput
+}
+
+input NotificationUpdateManyWithoutRequestsInput {
+  connect: [NotificationWhereUniqueInput!]
+  disconnect: [NotificationWhereUniqueInput!]
+  set: [NotificationWhereUniqueInput!]
+}
+
+input NotificationWhereInput {
+  id: StringFilter
+  message: StringNullableFilter
+  request: RequestWhereUniqueInput
+  title: StringNullableFilter
+  user: UserWhereUniqueInput
+}
+
+input NotificationWhereUniqueInput {
+  id: String!
+}
+
 type Post {
+  content: String
   createdAt: DateTime!
   forum: Forum
   id: String!
@@ -237,6 +313,7 @@ type Post {
 }
 
 input PostCreateInput {
+  content: String
   forum: ForumWhereUniqueInput
   user: UserWhereUniqueInput
 }
@@ -252,6 +329,7 @@ input PostListRelationFilter {
 }
 
 input PostOrderByInput {
+  content: SortOrder
   createdAt: SortOrder
   forumID: SortOrder
   id: SortOrder
@@ -260,6 +338,7 @@ input PostOrderByInput {
 }
 
 input PostUpdateInput {
+  content: String
   forum: ForumWhereUniqueInput
   user: UserWhereUniqueInput
 }
@@ -271,6 +350,7 @@ input PostUpdateManyWithoutForumsInput {
 }
 
 input PostWhereInput {
+  content: StringNullableFilter
   forum: ForumWhereUniqueInput
   id: StringFilter
   user: UserWhereUniqueInput
@@ -299,6 +379,7 @@ type Query {
   _commonFacilitiesMeta(where: CommonFacilityWhereInput): MetaQueryPayload!
   _costsMeta(where: CostWhereInput): MetaQueryPayload!
   _forumsMeta(where: ForumWhereInput): MetaQueryPayload!
+  _notificationsMeta(where: NotificationWhereInput): MetaQueryPayload!
   _postsMeta(where: PostWhereInput): MetaQueryPayload!
   _requestsMeta(where: RequestWhereInput): MetaQueryPayload!
   _reservationsMeta(where: ReservationWhereInput): MetaQueryPayload!
@@ -308,6 +389,8 @@ type Query {
   costs(orderBy: [CostOrderByInput!], skip: Float, take: Float, where: CostWhereInput): [Cost!]!
   forum(where: ForumWhereUniqueInput!): Forum
   forums(orderBy: [ForumOrderByInput!], skip: Float, take: Float, where: ForumWhereInput): [Forum!]!
+  notification(where: NotificationWhereUniqueInput!): Notification
+  notifications(orderBy: [NotificationOrderByInput!], skip: Float, take: Float, where: NotificationWhereInput): [Notification!]!
   post(where: PostWhereUniqueInput!): Post
   posts(orderBy: [PostOrderByInput!], skip: Float, take: Float, where: PostWhereInput): [Post!]!
   request(where: RequestWhereUniqueInput!): Request
@@ -330,6 +413,7 @@ type Request {
   employee: CompanyEmployee
   id: String!
   key: String
+  notifications(orderBy: [NotificationOrderByInput!], skip: Float, take: Float, where: NotificationWhereInput): [Notification!]!
   property: Property
   question: String
   reportMessage: String
@@ -346,6 +430,7 @@ input RequestCreateInput {
   elevator: String
   employee: CompanyEmployeeWhereUniqueInput
   key: String
+  notifications: NotificationCreateNestedManyWithoutRequestsInput
   property: PropertyWhereUniqueInput
   question: String
   reportMessage: String
@@ -379,6 +464,7 @@ input RequestUpdateInput {
   elevator: String
   employee: CompanyEmployeeWhereUniqueInput
   key: String
+  notifications: NotificationUpdateManyWithoutRequestsInput
   property: PropertyWhereUniqueInput
   question: String
   reportMessage: String
@@ -395,6 +481,7 @@ input RequestWhereInput {
   employee: CompanyEmployeeWhereUniqueInput
   id: StringFilter
   key: StringNullableFilter
+  notifications: NotificationListRelationFilter
   property: PropertyWhereUniqueInput
   question: StringNullableFilter
   reportMessage: StringNullableFilter

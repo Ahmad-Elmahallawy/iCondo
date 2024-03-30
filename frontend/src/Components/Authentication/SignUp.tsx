@@ -59,7 +59,7 @@ const SignUp: React.FC = () => {
         // Log common user data
         console.log(commonUserData);
 
-        const registrationEndpoint = "http://localhost:8000/api/users";
+        const registrationEndpoint = `${process.env.REACT_APP_API_URL}/users`;
 
         if (userType === "Company") {
           // Set fields for company type user
@@ -81,7 +81,7 @@ const SignUp: React.FC = () => {
           commonUserData.roles = ["Admin"];
           commonUserData.companyName = values.companyName;
           const response1 = await axios.post(
-            "http://localhost:8000/api/companies",
+            `${process.env.REACT_APP_API_URL}/companies`,
             {
               name: commonUserData.companyName,
             }
@@ -89,7 +89,7 @@ const SignUp: React.FC = () => {
           console.log(response);
           console.log(response1);
           const response2 = await axios.post(
-            "http://localhost:8000/api/companyEmployees",
+            `${process.env.REACT_APP_API_URL}/companyEmployees`,
             {
               company: {
                 id: response1.data.id,

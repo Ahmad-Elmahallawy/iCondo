@@ -39,7 +39,7 @@ const CreateProperty: React.FC = () => {
           },
         };
 
-        const propertiesEndpoint = "http://localhost:8000/api/properties";
+        const propertiesEndpoint = `${process.env.REACT_APP_API_URL}/properties`;
         const response = await axios.post(propertiesEndpoint, data, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -59,7 +59,7 @@ const CreateProperty: React.FC = () => {
       }
 
       try {
-        const postFilesEndpoint = "http://localhost:8000/api/files";
+        const postFilesEndpoint = `${process.env.REACT_APP_API_URL}/files`;
 
         // Iterate through each selected file
         selectedFiles.forEach(async (file) => {

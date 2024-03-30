@@ -7,11 +7,13 @@ const urls = {
     updateUserDetails: `${apiPrefix}/users`,
     resetUserPassword: `${apiPrefixUserService}/users`,
     updateUserProfilePic: `${apiPrefix}/files`,
-    editUserRole: `${apiPrefix}/users`
+    editUserRole: `${apiPrefix}/users`,
+    getUserInfo: `${apiPrefix}/users`,
   },
   employees: {
     registerUser: `${apiPrefix}/users`,
-    registerCompanyEmployee: `${apiPrefix}/companyEmployees`
+    registerCompanyEmployee: `${apiPrefix}/companyEmployees`,
+    getCompanyEmployee: `${apiPrefix}/companies`,
   },
   registrationKeys: {
     userRegister: `${apiPrefix}/registrationKeys`,
@@ -19,15 +21,24 @@ const urls = {
   },
   requests: {
     submitRequest: `${apiPrefix}/requests`,
+    getRequest: `${apiPrefix}/requests`,
+    editRequest: `${apiPrefix}/requests`,
   },
   userCondos: {
     submitUserCondo: `${apiPrefix}/userCondos`,
+    getCondoById: `${apiPrefix}/condoUnits`,
+    getCondoFiles: `${apiPrefix}/files`,
   },
   properties: {
     getProperty: `${apiPrefix}/properties`,
+    deleteProperty: `${apiPrefix}/properties`,
   },
   companies: {
     getCompany: `${apiPrefix}/companies`,
+  },
+  notifications: {
+    getNotification: `${apiPrefix}/notifications`,
+    deleteNotification: `${apiPrefix}/notifications`, //TODO
   },
 };
 

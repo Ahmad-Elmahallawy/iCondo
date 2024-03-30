@@ -1,6 +1,9 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import urls from "./urls";
 import { UserData } from "./Components/UserProfile/UserInformation";
+import { CondoInfo } from "./Components/CondoProfile/MyCondos";
+import { IndividualCondo } from "./Components/CondoProfile/IndividualCondoProfile";
+
 
 const api = {
   userInformation: {
@@ -43,6 +46,16 @@ const api = {
         `${urls.users.updateUserProfilePic}/${username}`,
         pictureFormData
       );
+    },
+    async getUserInfo(userId: number, token: String){
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/users/${userId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+      );
+      return response;
     },
   },
 
@@ -125,6 +138,39 @@ const api = {
       });
       return response;
     },
+    async getOwnerCondos(userId: number, token: string) {
+      const response: AxiosResponse<Array<CondoInfo>> = await axios.get(
+        `${urls.users.fetchUserDetails}/${userId}/userCondos`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data;
+    },
+    async getOwnerSingleCondo(condoId: string, token: string) {
+      const response: AxiosResponse<IndividualCondo> = await axios.get(
+        `${urls.userCondos.getCondoById}/${condoId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data;
+    },
+    async getCondoFiles(token: string) {
+      const response: AxiosResponse<Array<File>> = await axios.get(
+        `${urls.userCondos.getCondoFiles}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data;
+    },
   },
 
   requests: {
@@ -143,9 +189,8 @@ const api = {
           id: userId,
         },
         requestType: requestType,
-        status: "In_Progress",
+        status: "New",
       };
-
 
       const response = await axios.post(
         urls.requests.submitRequest,
@@ -159,28 +204,76 @@ const api = {
 
       return response;
     },
+
+    async getEmployeeRequest(id: number, token: String) {
+      try {
+        const response = await axios.get(`${urls.requests.getRequest}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          params: {
+            where: {
+              company: { id: id },
+            },
+          },
+        });
+        return response;
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    },
+    async editRequest(id: String, status: String, token: String) {
+      try {
+        const response = await axios.patch(
+          `${urls.requests.editRequest}/${id}`,
+          {
+            status: status,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        return response;
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    },
   },
 
   properties: {
     // to get the property ID
     async getCondoProperty(condoId: number, token: String) {
       const response = await axios.get(`${urls.properties.getProperty}`, {
-        params: {
-          where: {
-            condoUnits: {
-              every: {
-                id: {
-                  equals: condoId,
-                },
-              },
-            },
-          },
-        },
+        // params: {
+        //   where: {
+        //     condoUnits: {
+        //       every: {
+        //         id: {
+        //           equals: condoId,
+        //         },
+        //       },
+        //     },
+        //   },
+        // },
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
+
       return response;
+    },
+
+    async deleteProperty(propertyId: number, token: String) {
+      const response = await axios.delete(
+        `${urls.properties.getProperty}/${propertyId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
     },
   },
 
@@ -201,7 +294,6 @@ const api = {
             },
           },
           headers: {
-            // Corrected to use 'headers' instead of 'Headers'
             Authorization: `Bearer ${token}`,
           },
         });
@@ -253,6 +345,38 @@ const api = {
         }
       );
       return response;
+    },
+    //Gets employees for a company
+    async getCompanyEmployees(companyId: number, token: String){
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/companies/${companyId}/companyEmployees`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        return response.data;
+      } catch (error) {
+        throw error;
+      }
+    },
+  },
+
+  notifications: {
+    async getComapnyNotifications(companyId: number, token: String) {
+
+      const response = await axios.get(`${urls.companies.getCompany}`, {
+        params: {
+          where: {
+            message: {
+              contains: `\"company\":{\"id\":${companyId}}`,
+            },
+          },
+        },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return response.data;
     },
   },
 };

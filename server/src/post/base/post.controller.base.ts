@@ -28,7 +28,7 @@ export class PostControllerBase {
   @common.Post()
   @swagger.ApiCreatedResponse({ type: Post })
   @nestAccessControl.UseRoles({
-    resource: "Post",
+  resource: "Post",
     action: "create",
     possession: "any",
   })
@@ -53,6 +53,7 @@ export class PostControllerBase {
           : undefined,
       },
       select: {
+        content: true,
         createdAt: true,
 
         forum: {
@@ -90,6 +91,7 @@ export class PostControllerBase {
     return this.service.posts({
       ...args,
       select: {
+        content: true,
         createdAt: true,
 
         forum: {
@@ -128,6 +130,7 @@ export class PostControllerBase {
     const result = await this.service.post({
       where: params,
       select: {
+        content: true,
         createdAt: true,
 
         forum: {
@@ -189,6 +192,7 @@ export class PostControllerBase {
             : undefined,
         },
         select: {
+          content: true,
           createdAt: true,
 
           forum: {
@@ -235,6 +239,7 @@ export class PostControllerBase {
       return await this.service.deletePost({
         where: params,
         select: {
+          content: true,
           createdAt: true,
 
           forum: {

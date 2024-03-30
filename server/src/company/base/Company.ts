@@ -12,6 +12,7 @@ import { RequestObject } from "../../request/base/Request";
 import { Type } from "class-transformer";
 import { Cost } from "../../cost/base/Cost";
 import { File } from "../../file/base/File";
+import { Forum } from "../../forum/base/Forum";
 import { Property } from "../../property/base/Property";
 
 @ObjectType()
@@ -50,6 +51,15 @@ class Company {
   @Type(() => File)
   @IsOptional()
   file?: Array<File>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Forum],
+  })
+  @ValidateNested()
+  @Type(() => Forum)
+  @IsOptional()
+  forums?: Array<Forum>;
 
   @ApiProperty({
     required: true,

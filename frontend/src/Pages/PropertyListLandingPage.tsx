@@ -30,7 +30,7 @@ const PropertyListLandingPage = () => {
       try {
         setIsLoading(true);
         const response = await axios.get(
-          "http://localhost:8000/api/properties",
+          `${process.env.REACT_APP_API_URL}/properties`,
           {
             headers: {
               Authorization: `Bearer ${token}`, // Set Authorization header with token
