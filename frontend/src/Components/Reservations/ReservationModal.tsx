@@ -10,6 +10,7 @@ import {
   FormControl,
   InputLabel,
   Typography,
+  DialogTitle,
 } from "@mui/material";
 
 interface EventCreationDialogProps {
@@ -68,6 +69,10 @@ const ReservationModal: React.FC<EventCreationDialogProps> = ({
 
   return (
     <Dialog open={open} onClose={onClose}>
+      <DialogTitle sx={{ color: "var(--color4)" }}>
+        Common Facility Reservation
+      </DialogTitle>
+
       <DialogContent>
         <Typography variant="h6" sx={{ color: "var(--color4)" }}>
           User: {name}
@@ -170,7 +175,7 @@ const ReservationModal: React.FC<EventCreationDialogProps> = ({
           Cancel
         </Button>
         <Button onClick={handleSubmit} sx={customButtonStyle}>
-          Add Reservation
+          Reserve Facility
         </Button>
       </DialogActions>
     </Dialog>
