@@ -1,32 +1,34 @@
+import React, { useState } from 'react';
 import "../../Style/ReservationStyle/CalendarStyle.css";
-
 import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid"; // a plugin
-import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClick
+import dayGridPlugin from "@fullcalendar/daygrid";
+import interactionPlugin from "@fullcalendar/interaction";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import ReservationModal from "./ReservationModal";
-import { useState } from "react";
 
-
-interface Event {
+interface CalendarEvent {
   title: string;
+  name: string;
+  unitNumber: string;
+  facility: string;
+  time: string;
   date: string;
 }
 
-// Documentation for the following calendar: https://fullcalendar.io/docs/react
 export default function Calendar() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState("");
-  const [events, setEvents] = useState<Event[]>([]);
-
+  const [events, setEvents] = useState<CalendarEvent[]>([]);
 
   const handleDateClick = (arg: any) => {
     setSelectedDate(arg.dateStr);
     setDialogOpen(true);
   };
 
-  const handleEventCreation = (newEvent: { title: string; date: string }) => {
-    setEvents([...events, newEvent]);
+  const handleEventCreation = (newEvent: Omit<CalendarEvent, 'title'>) => {
+    const eventTitle = `${newEvent.name} - ${newEvent.facility} at ${newEvent.time}`;
+    const fullEvent = { ...newEvent, title: eventTitle };
+    setEvents([...events, fullEvent]);
     setDialogOpen(false);
   };
 
@@ -38,6 +40,7 @@ export default function Calendar() {
       </>
     );
   }
+
   return (
     <div className="calendar-container">
       <div className="calendar-heading">
@@ -52,8 +55,8 @@ export default function Calendar() {
           right: "dayGridMonth,timeGridWeek,timeGridDay",
         }}
         initialView="dayGridMonth"
-        events={events}
-        dateClick={handleDateClick} // handle day clicks
+        events={events.map(event => ({ title: event.title, date: event.date }))}
+        dateClick={handleDateClick}
         eventContent={renderEventContent}
         themeSystem="standard"
         editable={true}
