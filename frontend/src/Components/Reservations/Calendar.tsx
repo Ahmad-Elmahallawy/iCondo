@@ -1,15 +1,37 @@
+import React, { useState } from 'react';
 import "../../Style/ReservationStyle/CalendarStyle.css";
-
 import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid"; // a plugin
-import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClick
+import dayGridPlugin from "@fullcalendar/daygrid";
+import interactionPlugin from "@fullcalendar/interaction";
 import timeGridPlugin from "@fullcalendar/timegrid";
+import ReservationModal from "./ReservationModal";
 
-// Documentation for the following calendar: https://fullcalendar.io/docs/react
+interface CalendarEvent {
+  title: string;
+  name: string;
+  unitNumber: string;
+  facility: string;
+  time: string;
+  date: string;
+}
+
 export default function Calendar() {
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [selectedDate, setSelectedDate] = useState("");
+  const [events, setEvents] = useState<CalendarEvent[]>([]);
+
   const handleDateClick = (arg: any) => {
-    alert(arg.dateStr);
+    setSelectedDate(arg.dateStr);
+    setDialogOpen(true);
   };
+
+  const handleEventCreation = (newEvent: Omit<CalendarEvent, 'title'>) => {
+    const eventTitle = `${newEvent.name} - ${newEvent.facility} at ${newEvent.time}`;
+    const fullEvent = { ...newEvent, title: eventTitle };
+    setEvents([...events, fullEvent]);
+    setDialogOpen(false);
+  };
+
   function renderEventContent(eventInfo: any) {
     return (
       <>
@@ -18,6 +40,7 @@ export default function Calendar() {
       </>
     );
   }
+
   return (
     <div className="calendar-container">
       <div className="calendar-heading">
@@ -32,17 +55,20 @@ export default function Calendar() {
           right: "dayGridMonth,timeGridWeek,timeGridDay",
         }}
         initialView="dayGridMonth"
-        events={[
-          { title: "event 1", date: "2024-04-01" },
-          { title: "event 2", date: "2024-04-02" },
-        ]}
-        dateClick={handleDateClick} // handle day clicks
+        events={events.map(event => ({ title: event.title, date: event.date }))}
+        dateClick={handleDateClick}
         eventContent={renderEventContent}
         themeSystem="standard"
         editable={true}
         selectable={true}
         selectMirror={true}
         dayMaxEvents={true}
+      />
+      <ReservationModal
+        open={dialogOpen}
+        onClose={() => setDialogOpen(false)}
+        onSubmit={handleEventCreation}
+        defaultDate={selectedDate}
       />
     </div>
   );
