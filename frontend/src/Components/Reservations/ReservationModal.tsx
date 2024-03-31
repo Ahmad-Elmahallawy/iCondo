@@ -52,11 +52,36 @@ const ReservationModal: React.FC<EventCreationDialogProps> = ({
 
   const customTextFieldStyle = {
     "& .MuiOutlinedInput-root": {
-      color: "var(--color4)",
+      color: "var(--color4)", // Default text color
       "& fieldset": {
-        borderColor: "var(--color4)",
+        borderColor: "var(--color3)",
+      },
+
+      "&.Mui-focused": {
+        backgroundColor: "transparent", // Background color when focused
+        color: "var(--color3)", // Text color when focused
+        "& .MuiOutlinedInput-notchedOutline": {
+          borderColor: "var(--color3)",
+          boxShadow: "none", // This removes the elevation effect
+        },
+        "& .MuiInputLabel-root": {
+          color: "#747264", // Label color when focused
+        },
+        "& .MuiInputLabel-shrink": {
+          backgroundColor: "transparent", // Ensuring the background of the shrunken label is transparent
+        },
       },
     },
+    "& .MuiInputLabel-root": {
+      color: "#3c3633", // Custom color for TextField Label
+      "&.Mui-focused": {
+        color: "#747264", // Color of the TextField label when focused
+      },
+    },
+    "&:hover .MuiInputLabel-root": {
+      color: "var(--color3)",
+    },
+    "& fieldset": { backgroundColor: "transparent" },
   };
 
   const customButtonStyle = {
@@ -82,13 +107,22 @@ const ReservationModal: React.FC<EventCreationDialogProps> = ({
           id="unitNumber"
           label="Unit Number"
           fullWidth
-          variant="outlined"
           value={unitNumber}
           sx={customTextFieldStyle}
           onChange={(e) => setUnitNumber(e.target.value)}
         />
         <FormControl fullWidth margin="dense" sx={customTextFieldStyle}>
-          <InputLabel id="facility-label">Facility</InputLabel>
+          <InputLabel
+            id="facility-label"
+            sx={{
+              color: "#3c3633", // Custom color for InputLabel
+              "&.Mui-focused": {
+                color: "#747264", // Change the color of the label to brown when focused
+              },
+            }}
+          >
+            Facility
+          </InputLabel>
           <Select
             labelId="facility-label"
             id="facility"
@@ -123,7 +157,17 @@ const ReservationModal: React.FC<EventCreationDialogProps> = ({
           </Select>
         </FormControl>
         <FormControl fullWidth margin="dense" sx={customTextFieldStyle}>
-          <InputLabel id="time-label">Time</InputLabel>
+          <InputLabel
+            id="time-label"
+            sx={{
+              color: "#3c3633", // Custom color for InputLabel
+              "&.Mui-focused": {
+                color: "#747264", // Change the color of the label to brown when focused
+              },
+            }}
+          >
+            Time
+          </InputLabel>
           <Select
             labelId="time-label"
             id="time"
