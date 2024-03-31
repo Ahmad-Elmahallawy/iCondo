@@ -18,6 +18,17 @@ export default function Calendar() {
       </>
     );
   }
+
+  function handleEventClick(clickInfo: any) {
+    if (
+      window.confirm(
+        `Are you sure you want to delete the event '${clickInfo.event.title}'`
+      )
+    ) {
+      clickInfo.event.remove();
+    }
+  }
+
   return (
     <div className="calendar-container">
       <div className="calendar-heading">
@@ -43,7 +54,11 @@ export default function Calendar() {
         selectable={true}
         selectMirror={true}
         dayMaxEvents={true}
+        eventClick={handleEventClick}
       />
     </div>
   );
+}
+function createEventId() {
+  throw new Error("Function not implemented.");
 }
