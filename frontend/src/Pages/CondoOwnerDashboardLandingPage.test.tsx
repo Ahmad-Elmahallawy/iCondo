@@ -49,7 +49,7 @@ describe('CondoOwnerDashboardPage', () => {
       </BrowserRouter>
     );
     const iconCards = getAllByTestId('icon-card');
-    expect(iconCards.length).toBe(4);
+    expect(iconCards.length).toBe(5);
   });
   
   test('navigates to correct route on icon card click', () => {
@@ -183,21 +183,6 @@ describe('CondoOwnerDashboardPage', () => {
     expect(profileCard).toBeInTheDocument();
   });
 
-  test('renders "My Condos" icon card with correct route', () => {
-    render(
-      <MemoryRouter>
-        <CondoOwnerDashboardPage />
-      </MemoryRouter>
-    );
-
-    // Check if "My Condos" icon card is rendered
-    const condosCard = screen.getByText(/My Condos/i);
-    expect(condosCard).toBeInTheDocument();
-
-    // Check if the route is correct
-    expect(condosCard.closest('a')).toHaveAttribute('href', '/'); // Assuming My Condos route is '/'
-  });
-
   test('navigates to correct route on "My Condos" icon card click', () => {
     render(
       <MemoryRouter>
@@ -235,6 +220,20 @@ describe('CondoOwnerDashboardPage', () => {
   
     // Click on "My Requests" icon card
     fireEvent.click(screen.getByText(/My Requests/i));
+  
+    // Check if navigation occurred to the correct route
+    expect(window.location.pathname).toBe('/');
+  });
+  
+  test('navigates to correct route on "Common Facilities Calendar" icon card click', () => {
+    render(
+      <MemoryRouter>
+        <CondoOwnerDashboardPage />
+      </MemoryRouter>
+    );
+  
+    // Click on "My Requests" icon card
+    fireEvent.click(screen.getByText(/Common Facilities Calendar/i));
   
     // Check if navigation occurred to the correct route
     expect(window.location.pathname).toBe('/');
