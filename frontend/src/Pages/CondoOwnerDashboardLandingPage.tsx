@@ -8,6 +8,7 @@ const CondoOwnerDashboardPage: React.FC = () => {
   const Financial_status = "/Assets/FinancialStatus.svg";
   const Condos = "/Assets/CreateProperty.svg";
   const Requests = "/Assets/PropertiesList.svg";
+  const Calendar = "/Assets/Calander.svg";
 
   // Check if the user is logged in
   const user = JSON.parse(localStorage.getItem("userData") || "{}");
@@ -26,8 +27,8 @@ const CondoOwnerDashboardPage: React.FC = () => {
         </div>
         <div className="dashboard-row">
           <IconCard title="My Profile" icon={Profile} route="/Profile" />
-          <IconCard title="My Condos" icon={Condos} route="/MyCondos" />{" "}
-          {/*TODO: ADD ROUTE*/}
+          <IconCard title="My Condos" icon={Condos} route="/MyCondos" />
+          <IconCard title="Common Facilities Calendar" icon={Calendar} route="/Calendar" />
         </div>
         <div className="dashboard-row">
           <IconCard
