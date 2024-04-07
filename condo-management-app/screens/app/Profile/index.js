@@ -1,16 +1,24 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { Text, View } from 'react-native';
 import { styles } from './styles';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Header from '../../../Component/Header';
 import ListItem from '../../../Component/ListCondo';
 import Button from '../../../Component/Button';
+import {ProfileContext, UserContext} from "../../../App";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Profile = ({ navigation }) => {
     const num = 10;
+    const { profile, setProfile } = useContext(ProfileContext);
+    const { setUser } = useContext(UserContext);
 
-    const onLogout = () => {
-        console.log('log out clicked');
+    const onLogout = async () => {
+        try {
+            setUser(null);
+        } catch (e) {
+            console.error('Error while logging out:', e);
+        }
     }
 
     const onSettingsPress = () => {

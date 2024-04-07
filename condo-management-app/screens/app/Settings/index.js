@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useContext, useState} from 'react';
 import { Image, Linking, Pressable, ScrollView, Text, View } from 'react-native';
 import { styles } from './styles';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -8,8 +8,10 @@ import EditableBox from '../../../Component/EditableBox';
 import Button from '../../../Component/Button';
 import Input from "../../../Component/Input";
 import Separator from "../../../Component/Separator";
+import {ProfileContext} from "../../../App";
 
 const Settings = ({ navigation }) => {
+    const {profile, setProfile} = useContext(ProfileContext);
     const [editing, setEditing] = useState(false);
     const [values, setValues] = useState({firstName: 'Joe',lastName: 'Doe',
         phoneNumber: '111-111-111',password: '******', email: 'user@mail.com'})

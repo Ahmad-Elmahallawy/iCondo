@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import { FlatList, View } from 'react-native';
 import { styles } from './styles';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -7,10 +7,12 @@ import { categories } from '../../../data/categories';
 import { products } from '../../../data/products';
 import CategoryBox from '../../../Component/CategoryBox';
 import ProductHomeItem from '../../../Component/ProductHomeItem';
+import {ServicesContext} from "../../../App";
 const Home = ({ navigation }) => {
     const [selectedCategory, setSelectedCategory] = useState();
     const [keyword, setKeyword] = useState();
     const [filteredProducts, setFilteredProducts] = useState(products);
+    const { services, setServices } = useContext(ServicesContext);
 
     useEffect(() => {
         if (selectedCategory && !keyword) {

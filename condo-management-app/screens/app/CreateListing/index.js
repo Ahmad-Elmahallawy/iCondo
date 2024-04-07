@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useContext, useState} from 'react';
 import { ActivityIndicator, Image, KeyboardAvoidingView, Pressable, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { styles } from './styles';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -8,11 +8,13 @@ import Input from '../../../Component/Input';
 import Button from '../../../Component/Button';
 import { categories } from '../../../data/categories';
 import Separator from "../../../Component/Separator";
+import {ServicesContext} from "../../../App";
 
 const CreateListing = ({ navigation }) => {
     const [images, setImages] = useState([]);
     const [values, setValues] = useState({});
     const [loading, setLoading] = useState(false);
+    const { setService } = useContext(ServicesContext);
 
     const goBack = () => {
         navigation.goBack();
