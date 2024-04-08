@@ -9,18 +9,21 @@ import Button from '../../../Component/Button';
 import Input from "../../../Component/Input";
 import Separator from "../../../Component/Separator";
 import {ProfileContext} from "../../../App";
+import {updateProfile} from "../../../utils/backendRequest";
 
 const Settings = ({ navigation }) => {
     const {profile, setProfile} = useContext(ProfileContext);
     const [editing, setEditing] = useState(false);
-    const [values, setValues] = useState({firstName: 'Joe',lastName: 'Doe',
-        phoneNumber: '111-111-111',password: '******', email: 'user@mail.com'})
+    const [values, setValues] = useState({firstName: profile?.firstName,lastName: profile?.lastName,
+        phoneNumber: profile?.phoneNumber ,password: "*******", email: profile?.email})
 
     const onEditPress = () => {
         setEditing(true);
     }
 
-    const onSave = () => {
+    const onSave = async () => {
+        const updatedProfile = await updateProfile(values);
+        setProfile(updatedProfile);
         setEditing(false);
     }
 
