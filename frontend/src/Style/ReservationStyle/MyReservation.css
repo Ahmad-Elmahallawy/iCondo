@@ -1,0 +1,68 @@
+.my-reservations {
+  max-width: 600px;
+  margin: 0 auto;
+  font-style: Inria Serif;
+  box-shadow: 2px 2px 2px var(--color5) (0, 0, 0, 0.3); /* Adds a subtle shadow around the container */
+  border-radius: 6px; /* Rounds the corners of the container */
+  overflow: hidden; /* Ensures the content respects the border-radius */
+  background: var(--color1); /* Set a white background for the container */
+  border: 1.3px solid var(--color5);
+  height: 300px;
+  font-size: 18px;
+}
+
+.reservations-list {
+  padding: 20px; /* Adds padding within the container */
+}
+
+.reservation {
+  background-color: var(--color1);
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  position: relative;
+  border-bottom: 1.34px solid var(--color3); /* Adds a grey line at the bottom */
+  border-radius: 0px;
+}
+
+.reservation p {
+  margin: 0;
+  color: var(--color4);
+}
+
+.actions {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.actions button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.actions button:first-child {
+  margin-right: 10px;
+}
+
+/* Additional styles to match the icons in the image */
+.actions button.edit {
+  color: var(--color4); /* Orange color for the edit icon */
+}
+
+.actions button.cancel {
+  color: var(--cancel); /* Red color for the cancel icon */
+}
+
+.reservations-wrapper {
+  max-width: 600px;
+  margin: 20px auto;
+  font-style: Inria serif;
+}
+
+.reservations-wrapper h1 {
+  text-align: center;
+  margin-bottom: 20px; /* Adjust the space between the title and the box */
+}
