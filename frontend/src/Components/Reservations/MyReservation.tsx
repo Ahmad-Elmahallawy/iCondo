@@ -1,9 +1,9 @@
 import React from "react";
-import "../../Style/ReservationStyle/MyReservation.css";
-import ReservationModal from "./ReservationModal";
-import { FaEdit, FaTimes } from "react-icons/fa";
-import { FiEdit, FiX } from "react-icons/fi"; // FiEdit is the edit icon from Feather icons, which is included in react-icons
+import "../../Style/ReservationStyle/MyReservation.css"; // Importing the CSS for styling the component
+import ReservationModal from "./ReservationModal"; // Importing a modal component, possibly used for creating/editing reservations
+import { FiEdit, FiX } from "react-icons/fi"; // Importing specific icons from Feather Icons
 
+// TypeScript interface to type the shape of a reservation object
 interface Reservation {
   id: number;
   location: string;
@@ -12,8 +12,9 @@ interface Reservation {
 }
 
 const MyReservations: React.FC = () => {
-  // Sample data for reservations
+  // Sample data array for reservations
   const reservations: Reservation[] = [
+    // Array of reservation objects
     {
       id: 1,
       location: "Sky Lounge",
@@ -34,28 +35,36 @@ const MyReservations: React.FC = () => {
     },
   ];
 
-  // You would replace these handlers with actual functionality
+  // Function to handle editing a reservation - currently logs to console
   const handleEdit = (id: number) => {
     console.log("Edit reservation with id:", id);
   };
 
+  // Function to handle canceling a reservation - currently logs to console
   const handleCancel = (id: number) => {
     console.log("Cancel reservation with id:", id);
   };
 
+  // The render method returns the JSX for the component
   return (
     <div className="reservations-wrapper">
+      {/* Title of the reservations section */}
       <h1>My Reservations</h1>
+      {/* Container for the list of reservations */}
       <div className="my-reservations">
+        {/* Mapping each reservation to a display element */}
         <div className="reservations-list">
           {reservations.map((reservation) => (
+            // Each reservation entry
             <div key={reservation.id} className="reservation">
+              {/* Details of the reservation */}
               <p>
                 Reservation booked for {reservation.location} on{" "}
                 {reservation.date} at {reservation.time}
               </p>
+              {/* Action buttons for editing and canceling reservations */}
               <div className="actions">
-                {/* These buttons now use icon placeholders */}
+                {/* Edit button with an icon */}
                 <button
                   className="edit"
                   onClick={() => handleEdit(reservation.id)}
@@ -63,6 +72,7 @@ const MyReservations: React.FC = () => {
                   <FiEdit />
                 </button>
 
+                {/* Cancel button with an icon */}
                 <button
                   className="cancel"
                   onClick={() => handleCancel(reservation.id)}
@@ -78,4 +88,4 @@ const MyReservations: React.FC = () => {
   );
 };
 
-export default MyReservations;
+export default MyReservations; // Exporting the component to be used in other parts of the application
