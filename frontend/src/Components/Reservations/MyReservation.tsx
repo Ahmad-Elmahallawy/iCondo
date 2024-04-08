@@ -1,10 +1,11 @@
 import React from "react";
 import "../../Style/ReservationStyle/MyReservation.css"; // Importing the CSS for styling the component
 import ReservationModal from "./ReservationModal"; // Importing a modal component, possibly used for creating/editing reservations
+import { FaEdit, FaTimes } from "react-icons/fa"; // Importing specific icons from FontAwesome
 import { FiEdit, FiX } from "react-icons/fi"; // Importing specific icons from Feather Icons
 
 // TypeScript interface to type the shape of a reservation object
-interface Reservation {
+export interface Reservation {
   id: number;
   location: string;
   date: string;
