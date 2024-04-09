@@ -3,6 +3,8 @@ import "../../Style/ReservationStyle/MyReservation.css"; // Importing the CSS fo
 import { FiEdit, FiX } from "react-icons/fi"; // Importing specific icons from Feather Icons
 import MCFR from "./MCFR"; // Import the modal component
 import Reservation from "./MyReservation";
+import { confirmAlert } from "react-confirm-alert"; // You might need to install this package
+import "react-confirm-alert/src/react-confirm-alert.css"; // Import CSS for confirm dialog
 
 // TypeScript interface to type the shape of a reservation object
 export interface Reservation {
@@ -62,10 +64,29 @@ const MyReservations: React.FC = () => {
     setIsModalOpen(true);
   };
 
-  // Function to handle canceling a reservation - currently logs to console
-  const handleCancel = (id: number) => {
-    console.log("Cancel reservation with id:", id);
-    //implement cancellation logic here
+  // Function to confirm cancellation and handle the deletion of a reservation
+  const confirmCancellation = (id: number) => {
+    confirmAlert({
+      title: "Confirm to cancel",
+      message: "Are you sure you want to cancel this reservation?",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: () => cancelReservation(id),
+        },
+        {
+          label: "No",
+          // No action needed on 'No' as the dialog will just close
+        },
+      ],
+    });
+  };
+
+  // Function to cancel a reservation and update state
+  const cancelReservation = (id: number) => {
+    setReservations(
+      reservations.filter((reservation) => reservation.id !== id)
+    );
   };
 
   // Function to close the modal
@@ -95,7 +116,7 @@ const MyReservations: React.FC = () => {
                 </button>
                 <button
                   className="cancel"
-                  onClick={() => handleCancel(reservation.id)}
+                  onClick={() => confirmCancellation(reservation.id)}
                 >
                   <FiX />
                 </button>
