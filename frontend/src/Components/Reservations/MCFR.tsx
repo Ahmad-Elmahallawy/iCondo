@@ -16,35 +16,46 @@ const MCFR: React.FC<MCFRProps> = ({
   reservation,
   availableFacilities,
 }) => {
-  const [selectedFacility, setSelectedFacility] = useState("");
-  const [selectedDate, setSelectedDate] = useState("");
-  const [selectedTime, setSelectedTime] = useState("");
+  // Split the reservation time into start and end times
+  const initialStartTime = reservation?.time.split(" - ")[0] || "";
+  const initialEndTime = reservation?.time.split(" - ")[1] || "";
+
+  const [selectedFacility, setSelectedFacility] = useState(
+    reservation?.location || ""
+  );
+  const [selectedDate, setSelectedDate] = useState(reservation?.date || "");
+  const [selectedStartTime, setSelectedStartTime] = useState(initialStartTime);
+  const [selectedEndTime, setSelectedEndTime] = useState(initialEndTime);
 
   // Update state when the modal opens or when `reservation` changes
   useEffect(() => {
-    if (reservation && isOpen) {
-      // This condition won't violate the rules of hooks
+    if (reservation) {
       setSelectedFacility(reservation.location);
       setSelectedDate(reservation.date);
-      setSelectedTime(reservation.time);
+      setSelectedStartTime(reservation.time.split(" - ")[0]);
+      setSelectedEndTime(reservation.time.split(" - ")[1]);
     }
-  }, [reservation, isOpen]); // Including isOpen in the dependency array
-
+  }, [reservation]);
   // Function to handle form submission
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // You'd handle updating the reservation here
+    // Construct the time range back into a single string
+    const timeRange = `${selectedStartTime} - ${selectedEndTime}`;
     console.log({
       facility: selectedFacility,
       date: selectedDate,
-      time: selectedTime,
+      time: timeRange,
     });
-    onClose(); // Close the modal
+    // Handle updating the reservation here...
+    onClose();
   };
 
-  if (!isOpen || !reservation) return null;
+  if (!isOpen) return null;
   return (
-    <div className="modal-overlay">
+    <div
+      className="modal-overlay"
+      style={{ display: isOpen ? "flex" : "none" }}
+    >
       <div className="modal">
         <div className="modal-header">
           <h2>Modify Common Facility Reservation</h2>
@@ -76,15 +87,23 @@ const MCFR: React.FC<MCFRProps> = ({
             required
           />
 
-          <label htmlFor="time">Time:</label>
-          <select
-            id="time"
-            value={selectedTime}
-            onChange={(e) => setSelectedTime(e.target.value)}
+          <label htmlFor="startTime">Start Time:</label>
+          <input
+            type="time"
+            id="startTime"
+            value={selectedStartTime}
+            onChange={(e) => setSelectedStartTime(e.target.value)}
             required
-          >
-            {/* Populate with options */}
-          </select>
+          />
+
+          <label htmlFor="endTime">End Time:</label>
+          <input
+            type="time"
+            id="endTime"
+            value={selectedEndTime}
+            onChange={(e) => setSelectedEndTime(e.target.value)}
+            required
+          />
 
           <div className="modal-actions">
             <button type="submit">Save</button>
