@@ -42,7 +42,8 @@ const urls = {
     deleteNotification: `${apiPrefix}/notifications`, //TODO
   },
   costs: {
-    addCost: `${apiPrefix}/costs`
+    addCost: `${apiPrefix}/costs`,
+    getCosts: `${apiPrefix}/costs`
   },
   condos: {
     getAllCondos: `${apiPrefix}/condoUnits`,

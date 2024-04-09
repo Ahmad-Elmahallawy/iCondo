@@ -347,6 +347,23 @@ const api = {
       );
       return response;
     },
+
+    async getCosts(companyId: number, token: String) {
+      const response = await axios.get(`${urls.costs.getCosts}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        params: {
+          where: {
+            company: {
+              id: companyId, 
+            },
+          },
+        },
+      });
+
+      return response;
+    }
   },
 
   employeeRegistration: {
