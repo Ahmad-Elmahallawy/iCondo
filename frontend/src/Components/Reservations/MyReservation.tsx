@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../../Style/ReservationStyle/MyReservation.css"; // Importing the CSS for styling the component
 import { FiEdit, FiX } from "react-icons/fi"; // Importing specific icons from Feather Icons
 import MCFR from "./MCFR"; // Import the modal component
+import Reservation from "./MyReservation";
 
 // TypeScript interface to type the shape of a reservation object
 export interface Reservation {
@@ -35,6 +36,7 @@ const MyReservations: React.FC = () => {
     },
   ];
 
+  const availableFacilities = ["Sky Lounge", "Sky Fitness", "Other Lounge"]; // and so on...
   const [isModalOpen, setIsModalOpen] = useState(false); // State to control modal visibility
   const [editingReservation, setEditingReservation] =
     useState<Reservation | null>(null); // State to hold the currently editing reservation
@@ -92,6 +94,7 @@ const MyReservations: React.FC = () => {
           isOpen={isModalOpen}
           onClose={handleCloseModal}
           reservation={editingReservation}
+          availableFacilities={availableFacilities} // Pass the array to the MCFR component as a prop
         />
       )}
     </div>
