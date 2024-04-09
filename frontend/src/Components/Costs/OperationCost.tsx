@@ -24,6 +24,7 @@ const OperationCost = () => {
           user.accessToken
         );
         // Handle success
+        alert("Operation Cost has been successfully added!");
         navigate('/CompanyDashboard');
       } catch (error) {
         // Handle error
