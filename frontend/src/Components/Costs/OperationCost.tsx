@@ -4,6 +4,7 @@ import { addCostInitialValues } from '../Common/InitialValues';
 import { addCostValidationSchema } from '../Common/ValidationSchema';
 import api from '../../api';
 import { useNavigate } from 'react-router-dom';
+import "../../Style/CostsStyle/OperationCostStyle.css";
 
 const OperationCost = () => {
   const navigate = useNavigate();
