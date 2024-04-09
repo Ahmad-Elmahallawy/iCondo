@@ -24,6 +24,7 @@ import MyCondos from "./Components/CondoProfile/MyCondos";
 import NotificationUser from "./Pages/NotificationLandingPageUser";
 import EmployeeListLandingPage from "./Pages/EmployeeListLandingPage";
 import Calendar from "./Components/Reservations/Calendar";
+import CompanyCostsLandingPage from "./Pages/CompanyCostsLandingPage";
 
 function App() {
   return (
@@ -83,7 +84,7 @@ function App() {
         <Route path="Notifications/User" element={<NotificationUser />} />
         <Route path="Calendar" element={<Calendar />} />
         <Route path="FacilitiesStatus" element={<Hero />} /* CHANGE PATH ONCE PAGE IS CREATED *//> 
-        <Route path="Costs" element={<Hero />} /* CHANGE PATH ONCE PAGE IS CREATED *//> 
+        <Route path="Costs" element={<CompanyCostsLandingPage />} /* CHANGE PATH ONCE PAGE IS CREATED *//> 
         <Route path="AnnualReport" element={<Hero />} /* CHANGE PATH ONCE PAGE IS CREATED *//> 
         <Route path="BudgetReport" element={<Hero />} /* CHANGE PATH ONCE PAGE IS CREATED *//> 
       </Routes>
