@@ -14,7 +14,7 @@
 }
 
 .modal {
-  background: white;
+  background: var(--color1);
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
@@ -47,10 +47,10 @@
 
 .modal-content input[type="date"],
 .modal-content select {
-  width: 100%;
+  width: 95%;
   padding: 8px;
   margin-bottom: 20px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--color4);
   border-radius: 4px;
 }
 
@@ -60,16 +60,16 @@
 
 .modal-actions button {
   padding: 10px 15px;
-  background-color: #5cb85c;
+  background-color: var(--color3);
   border: none;
   border-radius: 4px;
-  color: white;
+  color: var(--color1);
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
 .modal-actions button:hover {
-  background-color: #4cae4c;
+  background-color: var(--color6);
 }
 
 /* If you want to add animations for the modal */
@@ -86,4 +86,13 @@
 
 .modal {
   animation: modalOpen 0.3s ease-out;
+}
+
+.custom-time-input {
+  background-color: var(--color1); /* Light gray background */
+  border: 1px solid var(--color5); /* Gray border */
+  border-radius: 4px; /* Rounded corners */
+  padding: 5px; /* Padding inside the input */
+  width: 97%; /* Full width of the container */
+  margin-bottom: 10px;
 }
