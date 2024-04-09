@@ -42,3 +42,7 @@ export const createPropertyInitialValues = {
   parkingCount: "",
   lockerCount: "",
 };
+export const addCostInitialValues = {
+  operationName: "",
+  operationCost: 0,
+};

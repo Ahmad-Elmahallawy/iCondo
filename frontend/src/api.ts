@@ -304,6 +304,34 @@ const api = {
     },
   },
 
+  costs: {
+    async postCost(
+      companyId: number, 
+      operationName: String, 
+      operationCost: number,
+      token: String) {
+        
+      let costData: any = {
+          company: {
+              id: companyId
+          },
+          costName: operationName,
+          amount: operationCost
+      };
+  
+      const response = await axios.post(
+        urls.costs.addCost, 
+        costData,
+        {
+          headers: {
+              Authorization: `Bearer ${token}`
+          },
+        }
+      );
+      return response;
+    },
+  },
+
   employeeRegistration: {
     async postUser(userData: any, token: String) {
       const response = await axios.post(

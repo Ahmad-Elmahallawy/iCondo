@@ -40,6 +40,9 @@ const urls = {
     getNotification: `${apiPrefix}/notifications`,
     deleteNotification: `${apiPrefix}/notifications`, //TODO
   },
+  costs: {
+    addCost: `${apiPrefix}/costs`
+  }
 };
 
 export default urls;
