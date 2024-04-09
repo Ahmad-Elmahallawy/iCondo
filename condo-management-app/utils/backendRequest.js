@@ -30,6 +30,7 @@ export const login = async (values) => {
         if (response?.data?.accessToken) {
             await AsyncStorage.setItem('auth_token', response?.data?.accessToken);
             await AsyncStorage.setItem('user_id', JSON.stringify(response?.data?.id))
+            await AsyncStorage.setItem('user', JSON.stringify(response.data))
             return response?.data?.accessToken;
         }
     } catch (e) {
@@ -73,6 +74,7 @@ export const updateProfile = async (data) => {
 
         if (response) {
             const profile = await getProfile();
+            await AsyncStorage.setItem('user', JSON.stringify(profile)) // update local storage
             return profile;
         }
     } catch (e) {
@@ -80,10 +82,14 @@ export const updateProfile = async (data) => {
     }
 };
 
-export const getRegistrationKey = async (key) => {
+export const submitRegistrationKey = async (key) => {
+    let user = await AsyncStorage.getItem('user');
+    user = JSON.parse(user);
+    const token = user.accessToken;
+    let key_response;
     try {
-        const response = await request({
-            url: `/api/registrationKeys}`,
+        key_response = await request({
+            url: `/api/registrationKeys`,
             method: 'get',
             params: {
                     where: {
@@ -96,25 +102,47 @@ export const getRegistrationKey = async (key) => {
                 Authorization: `Bearer ${token}`,
             },
         });
-    } catch (e){
-        console.error('Error fetching user register key:', error);
+        if (key_response == null || key_response.data.length == 0) {
+            return null;
+        }
+        // Create userCondo link
+        const data = {
+          condo: { id: key_response.data[0].condoUnit.id },
+          user: { id: user.id }
+        };
+        const user_condo_response = await createUserCondos(data);
+
+        // If user is a public user and becomes a rental user or condo owner, update their role
+        // And if user is a rental user and becomes a condo owner, update too
+        const key_role = key_response.data[0].role[0];
+        const user_role = user.roles[0];
+        if (user_role == 'PublicUser' && (key_role == 'rental' || key_role == 'condoOwner') ||
+            user_role == 'rental' && key_role == 'condoOwner') {
+            const newRole = {
+              roles: key_response.data[0].role
+            };
+            await updateProfile(newRole);
+        }
+
+        return user_condo_response?.data;
+    } catch (e) {
+        console.error('Error submitting user registration key:', e);
     }
 }
-export const getCondoUnitRegistrationKey = async (key) => {
+
+export const createUserCondos = async (data) => {
     try {
-        const response = await request({
-            url: `/api/registrationKeys}`,
-            method: 'get',
-            params: {
-                where: {
-                    value: { equals: `${key}` },
-                },
-            },
+        let token = await AsyncStorage.getItem('auth_token');
+        const user_condo_response = await request({
+            url: `/api/userCondos`,
+            method: 'post',
+            data,
             headers: {
                 Authorization: `Bearer ${token}`,
             },
         });
-    } catch (e){
-        console.error('Error fetching user register key:', error);
+        return user_condo_response?.data;
+    } catch (e) {
+        console.error('Error linking user with condo in UserCondo:', e);
     }
 }
