@@ -94,7 +94,7 @@ const MyReservations: React.FC = () => {
           isOpen={isModalOpen}
           onClose={handleCloseModal}
           reservation={editingReservation}
-          availableFacilities={availableFacilities} // Pass the array to the MCFR component as a prop
+          availableFacilities={[editingReservation.location]} // Pass only the current facility
         />
       )}
     </div>
