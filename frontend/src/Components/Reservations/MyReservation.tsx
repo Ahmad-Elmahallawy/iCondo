@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import "../../Style/ReservationStyle/MyReservation.css"; // Importing the CSS for styling the component
-import { FiEdit, FiX } from "react-icons/fi"; // Importing specific icons from Feather Icons
-import MCFR from "./MCFR"; // Import the modal component
-import Reservation from "./MyReservation";
-import { confirmAlert } from "react-confirm-alert"; // You might need to install this package
-import "react-confirm-alert/src/react-confirm-alert.css"; // Import CSS for confirm dialog
+import "../../Style/ReservationStyle/MyReservation.css"; // Stylesheet for styling the reservation list
+import { FiEdit, FiX } from "react-icons/fi"; // Icons for edit and cancel actions
+import MCFR from "./MCFR"; // Modal component for editing reservations
+import Reservation from "./MyReservation"; // Reservation object interface import
+import { confirmAlert } from "react-confirm-alert"; // Alert confirmation dialog
+import "react-confirm-alert/src/react-confirm-alert.css"; // Stylesheet for the alert confirmation dialog
 
-// TypeScript interface to type the shape of a reservation object
+// Defines the shape of a reservation object
 export interface Reservation {
   id: number;
   location: string;
@@ -15,8 +15,9 @@ export interface Reservation {
   endTime: string;
 }
 
+// Main component for displaying a list of reservations
 const MyReservations: React.FC = () => {
-  // Sample data array for reservations
+  // State for storing the list of reservations
   const [reservations, setReservations] = useState<Reservation[]>([
     // Array of reservation objects
     {
@@ -42,13 +43,14 @@ const MyReservations: React.FC = () => {
     },
   ]);
 
-  // State to control the visibility of the modal
+  // State for controlling the visibility of the edit modal
   const [isModalOpen, setIsModalOpen] = useState(false);
-  // State to keep track of the reservation being edited
+
+  // State for the reservation currently being edited
   const [editingReservation, setEditingReservation] =
     useState<Reservation | null>(null);
 
-  // Function to handle reservation updates
+  // Updates a reservation and closes the modal
   const handleReservationUpdate = (updatedReservation: Reservation) => {
     setReservations((prevReservations) =>
       prevReservations.map((res) =>
@@ -58,13 +60,13 @@ const MyReservations: React.FC = () => {
     setIsModalOpen(false);
   };
 
-  // Function to handle editing a reservation - opens the modal and sets the current reservation
+  // Opens the edit modal and sets the current reservation for editing
   const handleEdit = (reservation: Reservation) => {
     setEditingReservation(reservation);
     setIsModalOpen(true);
   };
 
-  // Function to confirm cancellation and handle the deletion of a reservation
+  // Confirms the cancellation of a reservation
   const confirmCancellation = (id: number) => {
     confirmAlert({
       title: "Confirm to cancel",
@@ -76,25 +78,24 @@ const MyReservations: React.FC = () => {
         },
         {
           label: "No",
-          // No action needed on 'No' as the dialog will just close
         },
       ],
     });
   };
 
-  // Function to cancel a reservation and update state
+  // Removes a reservation from the list
   const cancelReservation = (id: number) => {
     setReservations(
       reservations.filter((reservation) => reservation.id !== id)
     );
   };
 
-  // Function to close the modal
+  // Closes the edit modal
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
 
-  // The render method returns the JSX for the component
+  // Renders the list of reservations with edit and cancel actions
   return (
     <div className="reservations-wrapper">
       <h1>My Reservations</h1>
@@ -126,6 +127,7 @@ const MyReservations: React.FC = () => {
         </div>
       </div>
       {/* MCFR Modal Component */}
+      {/* Conditional rendering of the edit modal */}
       {isModalOpen && editingReservation && (
         <MCFR
           isOpen={isModalOpen}
