@@ -1,7 +1,6 @@
 import React from "react";
 import { FiX } from "react-icons/fi";
-import "./ReservationEditModal.css"; // This file should contain the styles for your modal
-import ReservationModal from "./ReservationModal"; // Importing a modal component, possibly used for creating/editing reservations
+import "../../Style/ReservationStyle/MCFR.css"; // This file should contain the styles for your modal
 import { Reservation } from "./MyReservation";
 
 interface ReservationEditModalProps {

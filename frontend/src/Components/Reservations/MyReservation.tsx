@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../Style/ReservationStyle/MyReservation.css"; // Importing the CSS for styling the component
-import ReservationModal from "./ReservationModal"; // Importing a modal component, possibly used for creating/editing reservations
-import { FaEdit, FaTimes } from "react-icons/fa"; // Importing specific icons from FontAwesome
 import { FiEdit, FiX } from "react-icons/fi"; // Importing specific icons from Feather Icons
+import MCFR from "./MCFR"; // Import the modal component
 
 // TypeScript interface to type the shape of a reservation object
 export interface Reservation {
@@ -36,44 +35,46 @@ const MyReservations: React.FC = () => {
     },
   ];
 
-  // Function to handle editing a reservation - currently logs to console
-  const handleEdit = (id: number) => {
-    console.log("Edit reservation with id:", id);
+  const [isModalOpen, setIsModalOpen] = useState(false); // State to control modal visibility
+  const [editingReservation, setEditingReservation] =
+    useState<Reservation | null>(null); // State to hold the currently editing reservation
+
+  // Function to handle editing a reservation - opens the modal and sets the current reservation
+  const handleEdit = (reservation: Reservation) => {
+    setEditingReservation(reservation);
+    setIsModalOpen(true);
   };
 
   // Function to handle canceling a reservation - currently logs to console
   const handleCancel = (id: number) => {
     console.log("Cancel reservation with id:", id);
+    //implement cancellation logic here
+  };
+
+  // Function to close the modal
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
   };
 
   // The render method returns the JSX for the component
   return (
     <div className="reservations-wrapper">
-      {/* Title of the reservations section */}
       <h1>My Reservations</h1>
-      {/* Container for the list of reservations */}
       <div className="my-reservations">
-        {/* Mapping each reservation to a display element */}
         <div className="reservations-list">
           {reservations.map((reservation) => (
-            // Each reservation entry
             <div key={reservation.id} className="reservation">
-              {/* Details of the reservation */}
               <p>
                 Reservation booked for {reservation.location} on{" "}
                 {reservation.date} at {reservation.time}
               </p>
-              {/* Action buttons for editing and canceling reservations */}
               <div className="actions">
-                {/* Edit button with an icon */}
                 <button
                   className="edit"
-                  onClick={() => handleEdit(reservation.id)}
+                  onClick={() => handleEdit(reservation)}
                 >
                   <FiEdit />
                 </button>
-
-                {/* Cancel button with an icon */}
                 <button
                   className="cancel"
                   onClick={() => handleCancel(reservation.id)}
@@ -85,8 +86,16 @@ const MyReservations: React.FC = () => {
           ))}
         </div>
       </div>
+      {/* MCFR Modal Component */}
+      {isModalOpen && editingReservation && (
+        <MCFR
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+          reservation={editingReservation}
+        />
+      )}
     </div>
   );
 };
 
-export default MyReservations; // Exporting the component to be used in other parts of the application
+export default MyReservations;
