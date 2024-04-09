@@ -3,18 +3,24 @@ import { FiX } from "react-icons/fi";
 import "../../Style/ReservationStyle/MCFR.css"; // This file should contain the styles for your modal
 import { Reservation } from "./MyReservation";
 
-interface ReservationEditModalProps {
+interface MCFRProps {
   isOpen: boolean;
   onClose: () => void;
-  reservation: Reservation | null; // Assuming Reservation is the same interface as before
+  reservation: Reservation | null;
 }
 
-const ReservationEditModal: React.FC<ReservationEditModalProps> = ({
-  isOpen,
-  onClose,
-  reservation,
-}) => {
-  if (!isOpen) return null;
+const MCFR: React.FC<MCFRProps> = ({ isOpen, onClose, reservation }) => {
+  if (!isOpen || !reservation) return null;
+
+  // Function to handle form submission
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    // Here you would handle the reservation data update
+    // This would typically involve setting state or making an API call
+    console.log("Form submitted for reservation:", reservation.id);
+    // Close the modal after submit
+    onClose();
+  };
 
   return (
     <div className="modal-overlay">
@@ -25,26 +31,32 @@ const ReservationEditModal: React.FC<ReservationEditModalProps> = ({
             <FiX />
           </button>
         </div>
-        <div className="modal-content">
+        <form className="modal-content" onSubmit={handleSubmit}>
           <label htmlFor="facility">Facility:</label>
-          <select id="facility" defaultValue={reservation?.location}>
-            {/* Option elements here */}
+          <select id="facility" defaultValue={reservation.location} required>
+            {/* Add options here */}
           </select>
 
           <label htmlFor="date">Date:</label>
-          <input type="date" id="date" defaultValue={reservation?.date} />
+          <input
+            type="date"
+            id="date"
+            defaultValue={reservation.date}
+            required
+          />
 
           <label htmlFor="time">Time:</label>
-          <select id="time" defaultValue={reservation?.time}>
-            {/* Option elements here */}
+          <select id="time" defaultValue={reservation.time} required>
+            {/* Add options here */}
           </select>
-        </div>
-        <div className="modal-actions">
-          <button onClick={onClose}>Save</button>
-        </div>
+
+          <div className="modal-actions">
+            <button type="submit">Save</button>
+          </div>
+        </form>
       </div>
     </div>
   );
 };
 
-export default ReservationEditModal;
+export default MCFR;
