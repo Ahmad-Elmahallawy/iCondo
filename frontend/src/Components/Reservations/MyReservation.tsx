@@ -14,7 +14,7 @@ export interface Reservation {
 
 const MyReservations: React.FC = () => {
   // Sample data array for reservations
-  const reservations: Reservation[] = [
+  const [reservations, setReservations] = useState<Reservation[]>([
     // Array of reservation objects
     {
       id: 1,
@@ -34,12 +34,23 @@ const MyReservations: React.FC = () => {
       date: "April 26, 2024",
       time: "20:00-21:00",
     },
-  ];
+  ]);
 
-  const availableFacilities = ["Sky Lounge", "Sky Fitness", "Other Lounge"]; // and so on...
-  const [isModalOpen, setIsModalOpen] = useState(false); // State to control modal visibility
+  // State to control the visibility of the modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  // State to keep track of the reservation being edited
   const [editingReservation, setEditingReservation] =
-    useState<Reservation | null>(null); // State to hold the currently editing reservation
+    useState<Reservation | null>(null);
+
+  // Function to handle reservation updates
+  const handleReservationUpdate = (updatedReservation: Reservation) => {
+    setReservations((prevReservations) =>
+      prevReservations.map((res) =>
+        res.id === updatedReservation.id ? updatedReservation : res
+      )
+    );
+    setIsModalOpen(false);
+  };
 
   // Function to handle editing a reservation - opens the modal and sets the current reservation
   const handleEdit = (reservation: Reservation) => {
@@ -92,9 +103,10 @@ const MyReservations: React.FC = () => {
       {isModalOpen && editingReservation && (
         <MCFR
           isOpen={isModalOpen}
-          onClose={handleCloseModal}
+          onClose={() => setIsModalOpen(false)}
           reservation={editingReservation}
-          availableFacilities={[editingReservation.location]} // Pass only the current facility
+          availableFacilities={["Sky Lounge", "Sky Fitness", "Other Lounge"]}
+          onReservationUpdate={handleReservationUpdate}
         />
       )}
     </div>

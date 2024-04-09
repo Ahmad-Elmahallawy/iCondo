@@ -7,7 +7,8 @@ interface MCFRProps {
   isOpen: boolean;
   onClose: () => void;
   reservation: Reservation | null;
-  availableFacilities: string[]; // Assuming you pass this as a prop
+  availableFacilities: string[];
+  onReservationUpdate: (updatedReservation: Reservation) => void; // Add this line
 }
 
 const MCFR: React.FC<MCFRProps> = ({
@@ -15,18 +16,19 @@ const MCFR: React.FC<MCFRProps> = ({
   onClose,
   reservation,
   availableFacilities,
+  onReservationUpdate, // This prop is used to update the reservation list
 }) => {
-  // Split the reservation time into start and end times
-  const initialStartTime = reservation?.time.split(" - ")[0] || "";
-  const initialEndTime = reservation?.time.split(" - ")[1] || "";
-
+  // Split the reservation time into start and end times upon initialization
   const [selectedFacility, setSelectedFacility] = useState(
     reservation?.location || ""
   );
   const [selectedDate, setSelectedDate] = useState(reservation?.date || "");
-  const [selectedStartTime, setSelectedStartTime] = useState(initialStartTime);
-  const [selectedEndTime, setSelectedEndTime] = useState(initialEndTime);
-
+  const [selectedStartTime, setSelectedStartTime] = useState(
+    reservation ? reservation.time.split(" - ")[0] : ""
+  );
+  const [selectedEndTime, setSelectedEndTime] = useState(
+    reservation ? reservation.time.split(" - ")[1] : ""
+  );
   // Update state when the modal opens or when `reservation` changes
   useEffect(() => {
     if (reservation) {
@@ -39,13 +41,18 @@ const MCFR: React.FC<MCFRProps> = ({
   // Function to handle form submission
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // Construct the time range back into a single string
-    const timeRange = `${selectedStartTime} - ${selectedEndTime}`;
-    console.log({
-      facility: selectedFacility,
+    if (!reservation || reservation.id === undefined) {
+      console.error("Cannot update reservation without an id.");
+      return;
+    }
+    // Here you'd handle form submission, constructing the time range back into a string
+    const updatedReservation: Reservation = {
+      id: reservation.id,
+      location: selectedFacility,
       date: selectedDate,
-      time: timeRange,
-    });
+      time: `${selectedStartTime} - ${selectedEndTime}`,
+    };
+    onReservationUpdate(updatedReservation);
     // Handle updating the reservation here...
     onClose();
   };
@@ -91,6 +98,7 @@ const MCFR: React.FC<MCFRProps> = ({
           <input
             type="time"
             id="startTime"
+            name="startTime"
             value={selectedStartTime}
             onChange={(e) => setSelectedStartTime(e.target.value)}
             required
@@ -100,6 +108,7 @@ const MCFR: React.FC<MCFRProps> = ({
           <input
             type="time"
             id="endTime"
+            name="endTime"
             value={selectedEndTime}
             onChange={(e) => setSelectedEndTime(e.target.value)}
             required
