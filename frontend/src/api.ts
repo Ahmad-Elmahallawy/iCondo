@@ -243,6 +243,23 @@ const api = {
   },
 
   properties: {
+    async getAllProperties(companyId: number, token: String) {
+      const response = await axios.get(`${urls.properties.getAllProperties}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        params: {
+          where: {
+            company: {
+              id: companyId, 
+            },
+          },
+        },
+      });
+
+      return response;
+    },
+
     // to get the property ID
     async getCondoProperty(condoId: number, token: String) {
       const response = await axios.get(`${urls.properties.getProperty}`, {

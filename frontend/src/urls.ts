@@ -30,6 +30,7 @@ const urls = {
     getCondoFiles: `${apiPrefix}/files`,
   },
   properties: {
+    getAllProperties: `${apiPrefix}/properties`,
     getProperty: `${apiPrefix}/properties`,
     deleteProperty: `${apiPrefix}/properties`,
   },
@@ -42,6 +43,9 @@ const urls = {
   },
   costs: {
     addCost: `${apiPrefix}/costs`
+  },
+  condos: {
+    getAllCondos: `${apiPrefix}/condoUnits`,
   }
 };
 
