@@ -19,23 +19,18 @@ const MCFR: React.FC<MCFRProps> = ({
   onReservationUpdate, // This prop is used to update the reservation list
 }) => {
   // Split the reservation time into start and end times upon initialization
-  const [selectedFacility, setSelectedFacility] = useState(
-    reservation?.location || ""
-  );
-  const [selectedDate, setSelectedDate] = useState(reservation?.date || "");
-  const [selectedStartTime, setSelectedStartTime] = useState(
-    reservation ? reservation.time.split(" - ")[0] : ""
-  );
-  const [selectedEndTime, setSelectedEndTime] = useState(
-    reservation ? reservation.time.split(" - ")[1] : ""
-  );
+  const [selectedFacility, setSelectedFacility] = useState("");
+  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedStartTime, setSelectedStartTime] = useState("");
+  const [selectedEndTime, setSelectedEndTime] = useState("");
+
   // Update state when the modal opens or when `reservation` changes
   useEffect(() => {
     if (reservation) {
       setSelectedFacility(reservation.location);
       setSelectedDate(reservation.date);
-      setSelectedStartTime(reservation.time.split(" - ")[0]);
-      setSelectedEndTime(reservation.time.split(" - ")[1]);
+      setSelectedStartTime(reservation.startTime);
+      setSelectedEndTime(reservation.endTime);
     }
   }, [reservation]);
   // Function to handle form submission
@@ -50,10 +45,10 @@ const MCFR: React.FC<MCFRProps> = ({
       id: reservation.id,
       location: selectedFacility,
       date: selectedDate,
-      time: `${selectedStartTime} - ${selectedEndTime}`,
+      startTime: `${selectedStartTime}`,
+      endTime: `${selectedEndTime}`,
     };
     onReservationUpdate(updatedReservation);
-    // Handle updating the reservation here...
     onClose();
   };
 

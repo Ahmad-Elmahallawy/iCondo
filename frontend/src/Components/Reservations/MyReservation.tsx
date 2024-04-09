@@ -9,7 +9,8 @@ export interface Reservation {
   id: number;
   location: string;
   date: string;
-  time: string;
+  startTime: string;
+  endTime: string;
 }
 
 const MyReservations: React.FC = () => {
@@ -19,20 +20,23 @@ const MyReservations: React.FC = () => {
     {
       id: 1,
       location: "Sky Lounge",
-      date: "April 24, 2024",
-      time: "20:00-21:00",
+      date: "2024-04-24",
+      startTime: "20:00",
+      endTime: "21:00",
     },
     {
       id: 2,
       location: "Sky Fitness",
-      date: "April 4, 2024",
-      time: "10:00-11:00",
+      date: "2024-04-04",
+      startTime: "10:00",
+      endTime: "11:00",
     },
     {
       id: 3,
       location: "Sky Lounge",
-      date: "April 26, 2024",
-      time: "20:00-21:00",
+      date: "2024-04-26",
+      startTime: "20:00",
+      endTime: "21:00",
     },
   ]);
 
@@ -79,7 +83,8 @@ const MyReservations: React.FC = () => {
             <div key={reservation.id} className="reservation">
               <p>
                 Reservation booked for {reservation.location} on{" "}
-                {reservation.date} at {reservation.time}
+                {reservation.date} at {reservation.startTime} {" - "}
+                {reservation.endTime}
               </p>
               <div className="actions">
                 <button
