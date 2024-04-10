@@ -7,30 +7,40 @@ type CommonFacility {
   createdAt: DateTime!
   facilityType: EnumCommonFacilityType
   id: String!
+  property: Property
+  status: String
   updatedAt: DateTime!
 }
 
 input CommonFacilityCreateInput {
   availabilities: ReservationCreateNestedManyWithoutCommonFacilitiesInput
   facilityType: EnumCommonFacilityType
+  property: PropertyWhereUniqueInput
+  status: String
 }
 
 input CommonFacilityOrderByInput {
   createdAt: SortOrder
   facilityType: SortOrder
   id: SortOrder
+  propertyId: SortOrder
+  status: SortOrder
   updatedAt: SortOrder
 }
 
 input CommonFacilityUpdateInput {
   availabilities: ReservationUpdateManyWithoutCommonFacilitiesInput
   facilityType: EnumCommonFacilityType
+  property: PropertyWhereUniqueInput
+  status: String
 }
 
 input CommonFacilityWhereInput {
   availabilities: ReservationListRelationFilter
   facilityType: EnumCommonFacilityType
   id: StringFilter
+  property: PropertyWhereUniqueInput
+  status: StringNullableFilter
 }
 
 input CommonFacilityWhereUniqueInput {
@@ -428,7 +438,7 @@ input RequestWhereUniqueInput {
 
 type Reservation {
   availablity: String
-  commonFacilityId: CommonFacility
+  commonFacility: CommonFacility
   createdAt: DateTime!
   id: String!
   notes: String
@@ -438,7 +448,7 @@ type Reservation {
 
 input ReservationCreateInput {
   availablity: String
-  commonFacilityID: CommonFacilityWhereUniqueInput
+  commonFacility: CommonFacilityWhereUniqueInput
   notes: String
   user: UserWhereUniqueInput
 }
@@ -455,7 +465,7 @@ input ReservationListRelationFilter {
 
 input ReservationOrderByInput {
   availablity: SortOrder
-  commonFacilityIDId: SortOrder
+  commonFacilityID: SortOrder
   createdAt: SortOrder
   id: SortOrder
   notes: SortOrder
@@ -465,7 +475,7 @@ input ReservationOrderByInput {
 
 input ReservationUpdateInput {
   availablity: String
-  commonFacilityID: CommonFacilityWhereUniqueInput
+  commonFacility: CommonFacilityWhereUniqueInput
   notes: String
   user: UserWhereUniqueInput
 }
@@ -478,7 +488,7 @@ input ReservationUpdateManyWithoutCommonFacilitiesInput {
 
 input ReservationWhereInput {
   availablity: StringNullableFilter
-  commonFacilityID: CommonFacilityWhereUniqueInput
+  commonFacility: CommonFacilityWhereUniqueInput
   id: StringFilter
   notes: StringNullableFilter
   user: UserWhereUniqueInput
