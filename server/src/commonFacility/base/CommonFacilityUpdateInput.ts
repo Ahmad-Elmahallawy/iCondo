@@ -1,10 +1,10 @@
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { ReservationUpdateManyWithoutCommonFacilitiesInput } from "./ReservationUpdateManyWithoutCommonFacilitiesInput";
-import { ValidateNested, IsOptional, IsEnum } from "class-validator";
+import { ValidateNested, IsOptional, IsEnum, IsString } from "class-validator";
 import { Type } from "class-transformer";
 import { EnumCommonFacilityType } from "./EnumCommonFacilityType";
-
+import { PropertyWhereUniqueInput } from "../../property/base/PropertyWhereUniqueInput";
 @InputType()
 class CommonFacilityUpdateInput {
   @ApiProperty({
@@ -29,6 +29,29 @@ class CommonFacilityUpdateInput {
     nullable: true,
   })
   facilityType?: "sky_lounge" | "spa_fitness" | "sauna" | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => PropertyWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => PropertyWhereUniqueInput)
+  @IsOptional()
+  @Field(() => PropertyWhereUniqueInput, {
+    nullable: true,
+  })
+  property?: PropertyWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  status?: string | null;
 }
 
 export { CommonFacilityUpdateInput as CommonFacilityUpdateInput };

@@ -42,9 +42,9 @@ export class ReservationControllerBase {
       data: {
         ...data,
 
-        commonFacilityID: data.commonFacilityID
+        commonFacility: data.commonFacility
           ? {
-              connect: data.commonFacilityID,
+              connect: data.commonFacility,
             }
           : undefined,
 
@@ -57,7 +57,7 @@ export class ReservationControllerBase {
       select: {
         availablity: true,
 
-        commonFacilityID: {
+        commonFacility: {
           select: {
             id: true,
           },
@@ -96,7 +96,7 @@ export class ReservationControllerBase {
       select: {
         availablity: true,
 
-        commonFacilityID: {
+        commonFacility: {
           select: {
             id: true,
           },
@@ -136,7 +136,7 @@ export class ReservationControllerBase {
       select: {
         availablity: true,
 
-        commonFacilityID: {
+        commonFacility: {
           select: {
             id: true,
           },
@@ -184,9 +184,9 @@ export class ReservationControllerBase {
         data: {
           ...data,
 
-          commonFacilityID: data.commonFacilityID
+          commonFacility: data.commonFacility
             ? {
-                connect: data.commonFacilityID,
+                connect: data.commonFacility,
               }
             : undefined,
 
@@ -199,7 +199,7 @@ export class ReservationControllerBase {
         select: {
           availablity: true,
 
-          commonFacilityID: {
+          commonFacility: {
             select: {
               id: true,
             },
@@ -247,7 +247,7 @@ export class ReservationControllerBase {
         select: {
           availablity: true,
 
-          commonFacilityID: {
+          commonFacility: {
             select: {
               id: true,
             },
