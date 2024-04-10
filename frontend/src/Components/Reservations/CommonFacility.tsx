@@ -21,7 +21,7 @@ const CommonFacility = () => {
     initialValues: {
       propertyName: '',
       facility: '',
-      status: '', // default status
+      status: '', 
     },
     validationSchema: createCommonFacilitySchema,
     onSubmit: (values) => {
@@ -58,19 +58,22 @@ const CommonFacility = () => {
               ) : null}
       
             <div className="form-group">
-                <input
-                  id="facility"
-                  name="facility"
-                  type="text"
-                  onChange={formik.handleChange}
-                  value={formik.values.facility}
-                  placeholder='Facility'
-                />
-            </div>
-            {formik.touched.facility && formik.errors.facility ? (
+              <select
+                id="facility"
+                name="facility"
+                onChange={formik.handleChange}
+                value={formik.values.facility}
+                defaultValue={""}
+              >
+                <option value="" disabled>Facility</option>
+                <option value="sauna">Sauna</option>
+                <option value="sky_lounge">Sky Lounge</option>
+                <option value="spa_fitness">Spa Fitness</option>
+              </select>
+              {formik.touched.facility && formik.errors.facility ? (
                 <div className="error">{formik.errors.facility}</div>
               ) : null}
-      
+            </div>     
             <div className="form-group">
               <select
                 id="status"

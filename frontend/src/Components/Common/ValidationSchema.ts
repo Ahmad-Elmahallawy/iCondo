@@ -95,6 +95,7 @@ export const createCommonFacilitySchema = Yup.object({
   propertyName: Yup.string()
     .required('Property name is required'),
   facility: Yup.string()
+    .oneOf(['sauna', 'spa_fitness', 'sky_lounge'], 'Invalid status')
     .required('Facility name is required'),
   status: Yup.string()
     .oneOf(['Open', 'Closed'], 'Invalid status')
