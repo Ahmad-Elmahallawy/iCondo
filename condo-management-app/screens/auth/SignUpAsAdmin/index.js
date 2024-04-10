@@ -47,7 +47,7 @@ const SignUpAsAdmin = ({navigation}) => {
             <Input value={values.companyName} onChangeText={(v) => onChange('companyName', v)} label="Company Name" placeholder="ABC Inc" />
             <Input value={values.firstName} onChangeText={(v) => onChange('firstName', v)} label="First Name" placeholder="John" />
             <Input value={values.lastName} onChangeText={(v) => onChange('lastName', v)} label="Last Name" placeholder="Doe" />
-            <Input value={values.userName} onChangeText={(v) => onChange('userName', v)} label="Username" placeholder="JohnDoe123" />
+            <Input value={values.username} onChangeText={(v) => onChange('username', v)} label="Username" placeholder="JohnDoe123" />
             <Input value={values.email} onChangeText={(v)=> onChange('email', v)} label="E-mail" placeholder="example@gmail.com" />
             <Input value={values.phoneNumber} onChangeText={(v)=> onChange('phoneNumber', v)} label="Phone number" placeholder="111-111-111" />
             <Input value={values.password} onChangeText={(v) => onChange('password', v)} isPassword label="Password" placeholder="*******" />
