@@ -11,6 +11,7 @@ import { LockerListRelationFilter } from "../../locker/base/LockerListRelationFi
 import { ParkingSpotListRelationFilter } from "../../parkingSpot/base/ParkingSpotListRelationFilter";
 import { CompanyWhereUniqueInput } from "../../company/base/CompanyWhereUniqueInput";
 import { RequestListRelationFilter } from "../../request/base/RequestListRelationFilter";
+import { CommonFacilityListRelationFilter } from "../../commonFacility/base/CommonFacilityListRelationFilter";
 @InputType()
 class PropertyWhereInput {
   @ApiProperty({
@@ -35,6 +36,18 @@ class PropertyWhereInput {
     nullable: true,
   })
   condoUnits?: CondoUnitListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => CommonFacilityListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => CommonFacilityListRelationFilter)
+  @IsOptional()
+  @Field(() => CommonFacilityListRelationFilter, {
+    nullable: true,
+  })
+  commonFacilities?: CommonFacilityListRelationFilter;
   
   @ApiProperty({
     required: false,

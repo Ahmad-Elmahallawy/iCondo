@@ -1,12 +1,14 @@
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { IsString, ValidateNested, IsOptional, IsInt } from "class-validator";
-import { CompanyWhereUniqueInput } from "../../company/base/CompanyWhereUniqueInput";import { Type } from "class-transformer";
+import { CompanyWhereUniqueInput } from "../../company/base/CompanyWhereUniqueInput";
+import { Type } from "class-transformer";
 import { FileCreateNestedManyWithoutPropertiesInput } from "./FileCreateNestedManyWithoutPropertiesInput";
 import { LockerCreateNestedManyWithoutPropertiesInput } from "./LockerCreateNestedManyWithoutPropertiesInput";
 import { ParkingSpotCreateNestedManyWithoutPropertiesInput } from "./ParkingSpotCreateNestedManyWithoutPropertiesInput";
 import { CondoUnitCreateNestedManyWithoutPropertiesInput } from "./CondoUnitCreateNestedManyWithoutPropertiesInput";
 import { RequestCreateNestedManyWithoutPropertiesInput } from "./RequestCreateNestedManyWithoutPropertiesInput";
+import { CommonFacilityCreateNestedManyWithoutPropertiesInput } from "./CommonFacilityCreateNestedManyWithoutPropertiesInput";
 @InputType()
 class PropertyCreateInput {
   @ApiProperty({
@@ -53,6 +55,18 @@ class PropertyCreateInput {
   })
   company?: CompanyWhereUniqueInput | null;
 
+  @ApiProperty({
+    required: false,
+    type: () => CommonFacilityCreateNestedManyWithoutPropertiesInput,
+  })
+  @ValidateNested()
+  @Type(() => CommonFacilityCreateNestedManyWithoutPropertiesInput)
+  @IsOptional()
+  @Field(() => CommonFacilityCreateNestedManyWithoutPropertiesInput, {
+    nullable: true,
+  })
+  commonFacilities?: CommonFacilityCreateNestedManyWithoutPropertiesInput;
+  
   @ApiProperty({
     required: false,
     type: () => RequestCreateNestedManyWithoutPropertiesInput,
