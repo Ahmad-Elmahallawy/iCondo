@@ -62,7 +62,6 @@ model Property {
   ParkingSpots     ParkingSpot[]
   unitCount        Int
   updatedAt        DateTime         @updatedAt
-  Post             Post[]
 }
 
 model ParkingSpot {
@@ -157,17 +156,14 @@ model Forum {
 }
 
 model Post {
-  content    String?
-  createdAt  DateTime  @default(now())
-  forum      Forum?    @relation(fields: [forumID], references: [id])
-  forumID    String?
-  id         String    @id @default(cuid())
-  updatedAt  DateTime  @updatedAt
-  user       User?     @relation(fields: [userID], references: [id])
-  userID     Int?
-  property   Property? @relation(fields: [propertyId], references: [id])
-  propertyId Int?
-  status     String?
+  content   String?
+  createdAt DateTime @default(now())
+  forum     Forum?   @relation(fields: [forumID], references: [id])
+  forumID   String?
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+  user      User?    @relation(fields: [userID], references: [id])
+  userID    Int?
 }
 
 model CommonFacility {
