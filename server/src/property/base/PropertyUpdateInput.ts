@@ -8,6 +8,7 @@ import { LockerUpdateManyWithoutPropertiesInput } from "./LockerUpdateManyWithou
 import { ParkingSpotUpdateManyWithoutPropertiesInput } from "./ParkingSpotUpdateManyWithoutPropertiesInput";
 import { CompanyWhereUniqueInput } from "../../company/base/CompanyWhereUniqueInput";
 import { RequestUpdateManyWithoutPropertiesInput } from "./RequestUpdateManyWithoutPropertiesInput";
+import { CommonFacilityUpdateManyWithoutPropertiesInput } from "./CommonFacilityUpdateManyWithoutPropertiesInput";
 @InputType()
 class PropertyUpdateInput {
   @ApiProperty({
@@ -45,6 +46,18 @@ class PropertyUpdateInput {
   })
   files?: FileUpdateManyWithoutPropertiesInput;
 
+  @ApiProperty({
+    required: false,
+    type: () => CommonFacilityUpdateManyWithoutPropertiesInput,
+  })
+  @ValidateNested()
+  @Type(() => CommonFacilityUpdateManyWithoutPropertiesInput)
+  @IsOptional()
+  @Field(() => CommonFacilityUpdateManyWithoutPropertiesInput, {
+    nullable: true,
+  })
+  commonFacilities?: CommonFacilityUpdateManyWithoutPropertiesInput;
+  
   @ApiProperty({
     required: false,
     type: () => RequestUpdateManyWithoutPropertiesInput,

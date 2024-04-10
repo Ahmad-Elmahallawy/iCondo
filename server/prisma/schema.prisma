@@ -46,21 +46,22 @@ model CondoUnit {
 }
 
 model Property {
-  address      String
-  company      Company?      @relation(fields: [companyID], references: [id])
-  companyID    Int?
-  condoUnits   CondoUnit[]
-  createdAt    DateTime      @default(now())
-  files        File[]
-  id           Int           @id @default(autoincrement())
-  lockerCount  Int?
-  Lockers      Locker[]
-  name         String
-  parkingCount Int
-  requests     Request[]
-  ParkingSpots ParkingSpot[]
-  unitCount    Int
-  updatedAt    DateTime      @updatedAt
+  commonFacilities CommonFacility[]
+  address          String
+  company          Company?         @relation(fields: [companyID], references: [id])
+  companyID        Int?
+  condoUnits       CondoUnit[]
+  createdAt        DateTime         @default(now())
+  files            File[]
+  id               Int              @id @default(autoincrement())
+  lockerCount      Int?
+  Lockers          Locker[]
+  name             String
+  parkingCount     Int
+  requests         Request[]
+  ParkingSpots     ParkingSpot[]
+  unitCount        Int
+  updatedAt        DateTime         @updatedAt
 }
 
 model ParkingSpot {
@@ -172,18 +173,21 @@ model CommonFacility {
   facilityType   EnumCommonFacilityType?
   id             String                  @id @default(cuid())
   updatedAt      DateTime                @updatedAt
+  property       Property?               @relation(fields: [propertyId], references: [id])
+  propertyId     Int?
+  status         String?
 }
 
 model Reservation {
-  availablity        String?
-  commonFacilityID   CommonFacility? @relation(fields: [commonFacilityIDId], references: [id])
-  commonFacilityIDId String?
-  createdAt          DateTime        @default(now())
-  id                 String          @id @default(cuid())
-  notes              String?
-  updatedAt          DateTime        @updatedAt
-  user               User?           @relation(fields: [userID], references: [id])
-  userID             Int?
+  availablity      String?
+  commonFacility   CommonFacility? @relation(fields: [commonFacilityID], references: [id])
+  commonFacilityID String?
+  createdAt        DateTime        @default(now())
+  id               String          @id @default(cuid())
+  notes            String?
+  updatedAt        DateTime        @updatedAt
+  user             User?           @relation(fields: [userID], references: [id])
+  userID           Int?
 }
 
 model Request {

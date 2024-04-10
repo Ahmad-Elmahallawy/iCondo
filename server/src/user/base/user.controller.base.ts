@@ -704,7 +704,7 @@ export class UserControllerBase {
       select: {
         availablity: true,
 
-        commonFacilityID: {
+        commonFacility: {
           select: {
             id: true,
           },
