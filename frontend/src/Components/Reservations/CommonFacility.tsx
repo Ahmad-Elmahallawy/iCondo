@@ -6,6 +6,7 @@ import { createCommonFacilitySchema } from '../Common/ValidationSchema';
 import { useNavigate } from 'react-router-dom';
 import "../../Style/LandingPageStyle/CommonFacilityCreationLandingPageStyle.css";
 import CondoCarousel from '../CondoProfile/CondoCarousel';
+import api from '../../api';
 
 
 interface CommonFacilityFormValues {
@@ -16,6 +17,10 @@ interface CommonFacilityFormValues {
 
 const CommonFacility = () => {
   const navigate = useNavigate();
+  const property = JSON.parse(localStorage.getItem("property") || "{}");
+  const propertyId = property.id;
+  const userData = JSON.parse(localStorage.getItem("userData") || "{}");
+  const token = userData.accessToken;
 
   const formik = useFormik<CommonFacilityFormValues>({
     initialValues: {
@@ -24,17 +29,18 @@ const CommonFacility = () => {
       status: '', 
     },
     validationSchema: createCommonFacilitySchema,
-    onSubmit: (values) => {
-      // Perform the POST request using axios
-      console.log("clicked");
-      axios.post('/api/path-for-common-facility', values)
-        .then(response => {
-          console.log(response);
-          navigate('/success-page'); // Replace with your success page route
-        })
-        .catch(error => {
-          console.error('There was an error!', error);
-        });
+    onSubmit: async (values) => {
+      try{
+        const newCommonFacility = await api.commonFacility.postCommonFacility(
+          values.facility,
+          propertyId,
+          values.status,
+          token
+        );
+        alert("Common Facility "+ values.propertyName + " has been created");
+      } catch(error){
+        console.error("Error Creating a new Common Facility", error);
+      }
     },
   });
 

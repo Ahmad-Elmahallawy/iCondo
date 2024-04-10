@@ -40,6 +40,9 @@ const urls = {
     getNotification: `${apiPrefix}/notifications`,
     deleteNotification: `${apiPrefix}/notifications`, //TODO
   },
+  commonFacility: {
+    submitCommonFacility: `${apiPrefix}/commonFacilities`
+  }
 };
 
 export default urls;
