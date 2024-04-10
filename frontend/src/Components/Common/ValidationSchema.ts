@@ -90,3 +90,13 @@ export const createPropertyValidationSchema = Yup.object({
     .typeError("Locker Count must be a number")
     .required("Required"),
 });
+
+export const createCommonFacilitySchema = Yup.object({
+  propertyName: Yup.string()
+    .required('Property name is required'),
+  facility: Yup.string()
+    .required('Facility name is required'),
+  status: Yup.string()
+    .oneOf(['Open', 'Closed'], 'Invalid status')
+    .required('Status is required'),
+});
