@@ -79,7 +79,7 @@ const CommonFacility = () => {
                 onChange={formik.handleChange}
                 value={formik.values.propertyName}
               >
-                <option value="" disabled>Properties</option>
+                <option value="" disabled>Property Name</option>
                 {properties.map(property => (
                   <option key={property.id} value={property.id}>{property.name}</option>
                 ))}
