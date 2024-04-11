@@ -37,6 +37,7 @@ const CommonFacility = () => {
           values.status,
           token
         );
+        //TODO: navigate to next page
         alert("Common Facility "+ values.propertyName + " has been created");
       } catch(error){
         console.error("Error Creating a new Common Facility", error);
