@@ -14,6 +14,7 @@ import { Locker } from "../../locker/base/Locker";
 import { ParkingSpot } from "../../parkingSpot/base/ParkingSpot";
 import { Company } from "../../company/base/Company";
 import { RequestObject } from "../../request/base/Request";
+import { CommonFacility } from "../../commonFacility/base/CommonFacility";
 @ObjectType()
 class Property {
   @ApiProperty({
@@ -51,6 +52,15 @@ class Property {
   @IsOptional()
   requests?: Array<RequestObject>;
 
+  @ApiProperty({
+    required: false,
+    type: () => [CommonFacility],
+  })
+  @ValidateNested()
+  @Type(() => CommonFacility)
+  @IsOptional()
+  commonFacilities?: Array<CommonFacility>;
+  
   @ApiProperty({
     required: true,
   })

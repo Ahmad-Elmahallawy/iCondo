@@ -10,7 +10,7 @@ import {
 } from "class-validator";
 import { Type } from "class-transformer";
 import { EnumCommonFacilityType } from "./EnumCommonFacilityType";
-
+import { Property } from "../../property/base/Property";
 @ObjectType()
 class CommonFacility {
   @ApiProperty({
@@ -56,6 +56,26 @@ class CommonFacility {
   @Type(() => Date)
   @Field(() => Date)
   updatedAt!: Date;
+  @ApiProperty({
+    required: false,
+    type: () => Property,
+  })
+  @ValidateNested()
+  @Type(() => Property)
+  @IsOptional()
+  property?: Property | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  status!: string | null;
+  
 }
 
 export { CommonFacility as CommonFacility };

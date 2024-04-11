@@ -90,3 +90,10 @@ export const createPropertyValidationSchema = Yup.object({
     .typeError("Locker Count must be a number")
     .required("Required"),
 });
+export const addCostValidationSchema = Yup.object({
+  operationName: Yup.string().required("Required"),
+  operationCost: Yup.number()
+    .typeError("Operation Cost must be a number")
+    .moreThan(0, "Operation Cost must be greater than zero")
+    .required("Required"),
+})

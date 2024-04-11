@@ -21,11 +21,13 @@ const existingId = "existingId";
 const CREATE_INPUT = {
   createdAt: new Date(),
   id: 1,
+  status: "exampleStatus",
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
   createdAt: new Date(),
   id: 1,
+  status: "exampleStatus",
   updatedAt: new Date(),
 };
 const UPDATE_RESULT = {
@@ -42,12 +44,14 @@ const FIND_MANY_RESULT = [
   {
     createdAt: new Date(),
     id: 1,
+    status: "exampleStatus",
     updatedAt: new Date(),
   },
 ];
 const FIND_ONE_RESULT = {
   createdAt: new Date(),
   id: 1,
+  status: "exampleStatus",
   updatedAt: new Date(),
 };
 const NOT_FOUND = {

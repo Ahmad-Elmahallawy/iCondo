@@ -1,0 +1,76 @@
+.operation-cost-container {
+    margin: 50px auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    border: 1px solid var(--color4);
+    border-radius: 5px;
+    width: 50%;
+  }
+  
+  .operation-cost-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .operation-cost-header h1 {
+    margin: 0
+  }
+  
+  .operation-cost-container form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .operation-cost-name,
+  .operation-cost-value {
+    margin-bottom: 20px;
+  }
+  
+  .operation-cost-name label,
+  .operation-cost-value label {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: var(--color4);
+
+  }
+  
+  .operation-cost-name input,
+  .operation-cost-value input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--color4);
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  .operation-cost-submit {
+    text-align: center;
+  }
+  
+  .operation-cost-submit button {
+    padding: 10px 20px;
+    background: var(--color3);
+    color: var(--color1);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .operation-cost-submit button:hover {
+    cursor: pointer;
+    
+    border-radius: 5px;
+  }
+  
+  /* Add responsiveness */
+  @media (max-width: 768px) {
+    .operation-cost-container {
+      margin: 20px;
+      width: auto;
+    }
+  }
+  
