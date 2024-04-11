@@ -441,6 +441,33 @@ const api = {
       return response.data;
     },
   },
+
+  commonFacility: {
+    async postCommonFacility(
+      facilityType: String,
+      propertyId: number,
+      status: String,
+      token: String
+    ){
+
+      let commonFacilityData: any = {
+        facilityType: facilityType,
+        property: {
+          id: propertyId,
+        },
+        status: status
+      };
+      const response = await axios.post(
+        urls.commonFacility.submitCommonFacility,
+        commonFacilityData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    }
+  }
 };
 
 export default api;

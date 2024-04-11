@@ -47,6 +47,9 @@ const urls = {
   },
   condos: {
     getAllCondos: `${apiPrefix}/condoUnits`,
+  },
+  commonFacility: {
+    submitCommonFacility: `${apiPrefix}/commonFacilities`
   }
 };
 
