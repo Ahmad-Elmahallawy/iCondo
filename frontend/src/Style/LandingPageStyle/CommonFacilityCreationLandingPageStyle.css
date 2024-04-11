@@ -52,7 +52,7 @@
     padding: 10px 15px;
     border-radius: 20px;
     border: none;
-    background-color: var(--color4);
+    background-color: var(--color3);
     color: white;
     font-size: 16px;
     cursor: pointer;
@@ -60,7 +60,7 @@
   }
   
   .common-facility-form button:hover {
-    background-color: var(--color3);
+    background-color: var(--color4);
   }
   
   .common-facility-form input,
