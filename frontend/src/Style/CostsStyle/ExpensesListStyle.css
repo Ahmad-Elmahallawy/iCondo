@@ -1,0 +1,33 @@
+.expenses-list-container {
+    margin: 50px auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    border: 1px solid var(--color4);
+    border-radius: 5px;
+    width: 50%;
+  }
+  
+  .expenses-list-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .expenses-list-header h1 {
+    margin: 0;
+  }
+  
+  .expenses-list-table-container {
+    overflow-x: auto;
+  }
+  
+  .expenses-list-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .expenses-list-table th,
+  .expenses-list-table td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid var(--color4);
+  }

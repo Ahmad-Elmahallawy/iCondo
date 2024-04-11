@@ -1,0 +1,33 @@
+.profits-container {
+    margin: 50px auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    border: 1px solid var(--color4);
+    border-radius: 5px;
+    width: 50%;
+  }
+
+  .profits-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .profits-header h1 {
+    margin: 0;
+  }
+
+  .profits-table-container {
+    overflow-x: auto;
+  }
+  
+  .profits-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .profits-table th,
+  .profits-table td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid var(--color4);
+  }
