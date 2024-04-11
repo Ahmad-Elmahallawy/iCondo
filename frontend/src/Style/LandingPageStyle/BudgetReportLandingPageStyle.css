@@ -1,0 +1,33 @@
+.budget-report-container {
+    margin: 50px auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    border: 1px solid var(--color4);
+    border-radius: 5px;
+    width: 50%;
+  }
+  
+  .budget-report-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .budget-report-header h1 {
+    margin: 0;
+  }
+  
+  .budget-report-table-container {
+    overflow-x: auto;
+  }
+  
+  .budget-report-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .budget-report-table th,
+  .budget-report-table td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid var(--color4);
+  }
