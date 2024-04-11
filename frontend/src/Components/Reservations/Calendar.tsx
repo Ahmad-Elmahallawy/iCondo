@@ -32,7 +32,7 @@ export default function Calendar() {
               // Any query parameters go here, if needed
               where: {
                 user: { id: user.id },
-              }, // Assuming the API expects a parameter 'userId'
+              },  
             },
             headers: { Authorization: `Bearer ${user.accessToken}` },
           }
@@ -40,7 +40,7 @@ export default function Calendar() {
         // Assuming the API returns an array of events
         const formattedEvents = response.data.map(
           (event: { notes: any; availablity: any; date: string }) => ({
-            title: event.notes, // Adjust these fields based on your API response
+            title: event.notes,
             date: event.availablity.split("T")[0], // Splitting the datetime and taking the date part
           })
         );
