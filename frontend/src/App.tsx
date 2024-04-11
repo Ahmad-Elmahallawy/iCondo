@@ -24,6 +24,7 @@ import MyCondos from "./Components/CondoProfile/MyCondos";
 import NotificationUser from "./Pages/NotificationLandingPageUser";
 import EmployeeListLandingPage from "./Pages/EmployeeListLandingPage";
 import Calendar from "./Components/Reservations/Calendar";
+import MyReservation from "./Components/Reservations/MyReservation";
 import CompanyCostsLandingPage from "./Pages/CompanyCostsLandingPage";
 import BudgetReportLandingPage from "./Pages/BudgetReportLandingPage";
 import AnnualReportLandingPage from "./Pages/AnnualReportLandingPage";
@@ -85,6 +86,24 @@ function App() {
 
         <Route path="Notifications/User" element={<NotificationUser />} />
         <Route path="Calendar" element={<Calendar />} />
+        <Route
+          path="FacilitiesStatus"
+          element={<Hero />} /* CHANGE PATH ONCE PAGE IS CREATED */
+        />
+        <Route
+          path="Costs"
+          element={<Hero />} /* CHANGE PATH ONCE PAGE IS CREATED */
+        />
+        <Route
+          path="AnnualReport"
+          element={<Hero />} /* CHANGE PATH ONCE PAGE IS CREATED */
+        />
+        <Route
+          path="BudgetReport"
+          element={<Hero />} /* CHANGE PATH ONCE PAGE IS CREATED */
+        />
+        <Route path="MyReservation" element={<MyReservation />} />
+
         <Route path="FacilitiesStatus" element={<Hero />} /* CHANGE PATH ONCE PAGE IS CREATED *//> 
         <Route path="Costs" element={<CompanyCostsLandingPage />} /> 
         <Route path="AnnualReport" element={<AnnualReportLandingPage />} /* CHANGE PATH ONCE PAGE IS CREATED *//> 
