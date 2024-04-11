@@ -30,6 +30,7 @@ const urls = {
     getCondoFiles: `${apiPrefix}/files`,
   },
   properties: {
+    getAllProperties: `${apiPrefix}/properties`,
     getProperty: `${apiPrefix}/properties`,
     deleteProperty: `${apiPrefix}/properties`,
   },
@@ -40,6 +41,13 @@ const urls = {
     getNotification: `${apiPrefix}/notifications`,
     deleteNotification: `${apiPrefix}/notifications`, //TODO
   },
+  costs: {
+    addCost: `${apiPrefix}/costs`,
+    getCosts: `${apiPrefix}/costs`
+  },
+  condos: {
+    getAllCondos: `${apiPrefix}/condoUnits`,
+  }
 };
 
 export default urls;
