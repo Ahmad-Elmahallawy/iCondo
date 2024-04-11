@@ -3,7 +3,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Adjust the height as needed */
+    height: 100vh; 
   }
   
   .common-facility-container {
@@ -56,22 +56,16 @@
     color: white;
     font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.1s;
   }
   
   .common-facility-form button:hover {
     background-color: var(--color3);
   }
   
-  /* Adjust the width as necessary, this sets the max available width */
   .common-facility-form input,
   .common-facility-form select,
   .common-facility-form button {
     width:97%;
-  }
-
-.common-facility-form input,
-.common-facility-form select,
-.common-facility-form button {
     box-sizing: border-box;
-}
+  }
