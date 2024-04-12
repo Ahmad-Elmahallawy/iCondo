@@ -16,6 +16,7 @@ const Navbar = () => {
   const isAdmin = user.roles && user.roles.includes("Admin");
   const isCondoOwner = user.roles && user.roles.includes("condoOwner");
   const isPublicUser = user.roles && user.roles.includes("PublicUser");
+  const isRentalUser = user.roles && user.roles.includes("rentalUser");
   const isEmployee =
     user.roles &&
     (user.roles.includes("manager") ||
@@ -95,6 +96,14 @@ const Navbar = () => {
               <>
                 <li className="nav-item">
                   <Link to="/CondoOwnerDashboard">Dashboard</Link>
+                </li>
+              </>
+            )}
+
+            {(isRentalUser) && (
+              <>
+                <li className="nav-item">
+                  <Link to="/RentalUserDashboard">Dashboard</Link>
                 </li>
               </>
             )}

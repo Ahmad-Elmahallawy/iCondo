@@ -24,6 +24,7 @@ import MyCondos from "./Components/CondoProfile/MyCondos";
 import NotificationUser from "./Pages/NotificationLandingPageUser";
 import EmployeeListLandingPage from "./Pages/EmployeeListLandingPage";
 import Calendar from "./Components/Reservations/Calendar";
+import RentalUserDashboardPage from "./Pages/RentalUserDashboard";
 import MyReservation from "./Components/Reservations/MyReservation";
 import CommonFacilityCreationLandingPage from "./Pages/CommonFacilityCreationLandingPage";
 import CompanyCostsLandingPage from "./Pages/CompanyCostsLandingPage";
@@ -50,6 +51,7 @@ function App() {
           path="CondoOwnerDashboard"
           element={<CondoOwnerDashboardPage />}
         />
+        <Route path="RentalUserDashboard" element={<RentalUserDashboardPage/>} />
         <Route path="GenerateKey" element={<KeyGenerationLandingPage />} />
         <Route
           path="OwnerRequests"
