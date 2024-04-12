@@ -13,7 +13,7 @@ const RevenuesList: React.FC<RevenuesListProps> = ({ setTotalRevenues }) => {
     const [condoData, setCondoData] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const userData = JSON.parse(localStorage.getItem("userData") || "{}");
-    const companyId = JSON.parse(localStorage.getItem('companyDetails') || '[]')[0]?.id;
+    const companyId = JSON.parse(localStorage.getItem('companyDetails') || '[]')[0].company.id;
     const token = userData.accessToken;
 
     useEffect(() => {
@@ -75,8 +75,8 @@ const RevenuesList: React.FC<RevenuesListProps> = ({ setTotalRevenues }) => {
       useEffect(() => {
         if (!loading) {
           const totalRevenue = condoData.reduce(
-            (sum, condo) => sum + (condo.condoFee * 12), 
-            null
+            (sum, condo) => parseInt(sum) + parseInt(condo.condoFee), 
+            0
           );
           setTotalRevenues(totalRevenue);
         }
@@ -102,13 +102,13 @@ const RevenuesList: React.FC<RevenuesListProps> = ({ setTotalRevenues }) => {
                 {condoData.map((data) => (
                   <tr key={data.id}>
                     <td>{data.id}</td>
-                    <td>{data.condoFee * 12}</td>
+                    <td>{data.condoFee}</td>
                   </tr>
                 ))}
                 {/* Add a row for total revenue */}
                 <tr>
                     <td><strong>Total</strong></td>
-                    <td><strong>{condoData.reduce((sum, condo) => sum + (condo.condoFee * 12), 0)}</strong></td>
+                    <td><strong>{condoData.reduce((sum, condo) => parseInt(sum) + parseInt(condo.condoFee), 0)}</strong></td>
                   </tr>
               </tbody>
             </table>

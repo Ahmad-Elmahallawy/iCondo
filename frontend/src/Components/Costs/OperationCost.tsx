@@ -14,7 +14,7 @@ const OperationCost = () => {
     validationSchema: addCostValidationSchema,
     onSubmit: async (values) => {
       const user = JSON.parse(localStorage.getItem('userData') || '{}');
-      const companyId = JSON.parse(localStorage.getItem('companyDetails') || '[]')[0].id;
+      const companyId = JSON.parse(localStorage.getItem('companyDetails') || '[]')[0].company.id;
       
       try {
         const response = await api.costs.postCost(
