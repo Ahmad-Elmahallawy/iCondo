@@ -27,10 +27,9 @@ export default function Calendar() {
     const fetchEvents = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/reservations`, // URL
+          `${process.env.REACT_APP_API_URL}/reservations`, 
           {
             params: {
-              // Any query parameters go here, if needed
               where: {
                 user: { id: user.id },
               },
@@ -38,7 +37,6 @@ export default function Calendar() {
             headers: { Authorization: `Bearer ${user.accessToken}` },
           }
         );
-        // Assuming the API returns an array of events
         const formattedEvents = response.data.map(
           (event: { notes: any; availablity: any; date: string }) => ({
             title: event.notes,
@@ -53,7 +51,7 @@ export default function Calendar() {
     };
 
     fetchEvents();
-  }, []); // Empty dependency array ensures this runs once on component mount
+  }, []); 
 
   const handleDateClick = (arg: any) => {
     setSelectedDate(arg.dateStr);
@@ -94,7 +92,6 @@ export default function Calendar() {
         }
       );
       console.log("Reservation created successfully", response.data);
-      // Handle further logic after successful response, if needed
     } catch (error) {
       console.error("Error creating reservation:", error);
       // Handle error scenario
