@@ -32,6 +32,7 @@ model CondoUnit {
   createdAt        DateTime         @default(now())
   file             File[]
   id               Int              @id @default(autoincrement())
+  isPaid           Boolean?
   locker           Locker?          @relation(fields: [lockerID], references: [id])
   lockerID         Int?             @unique
   parkingSpot      ParkingSpot[]
