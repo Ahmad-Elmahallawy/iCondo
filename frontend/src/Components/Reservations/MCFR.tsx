@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FiX } from "react-icons/fi";
 import "../../Style/ReservationStyle/MCFR.css";
 import { Reservation } from "./MyReservation";
+import axios from "axios";
 
 interface MCFRProps {
   isOpen: boolean;
@@ -21,9 +22,12 @@ const MCFR: React.FC<MCFRProps> = ({
   const [selectedFacility, setSelectedFacility] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTimeSlot, setSelectedTimeSlot] = useState<string>("");
+  const user = JSON.parse(localStorage.getItem("userData") || "{}");
 
   useEffect(() => {
     if (reservation) {
+      console.log(reservation);
+
       setSelectedFacility(reservation.location);
       setSelectedDate(reservation.date);
 
@@ -33,7 +37,7 @@ const MCFR: React.FC<MCFRProps> = ({
     }
   }, [reservation]);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!reservation || reservation.id === undefined) {
       console.error("Cannot update reservation without an id.");
@@ -41,6 +45,12 @@ const MCFR: React.FC<MCFRProps> = ({
     }
 
     const [startTime, endTime] = selectedTimeSlot.split(" - ");
+    console.log(selectedFacility, selectedDate, startTime, endTime);
+
+    const patchedData = {
+      notes: `${user.username} - ${selectedFacility} at ${selectedTimeSlot}`,
+      availablity: `${selectedDate}T${selectedTimeSlot}`,
+    };
 
     const updatedReservation: Reservation = {
       id: reservation.id,
@@ -51,7 +61,25 @@ const MCFR: React.FC<MCFRProps> = ({
       name: undefined,
     };
 
-    onReservationUpdate(updatedReservation);
+    // Perform PATCH request
+    try {
+      const response = await axios.patch(
+        `${process.env.REACT_APP_API_URL}/reservations/${reservation.id}`,
+        patchedData,
+        {
+          headers: {
+            Authorization: `Bearer ${user.accessToken}`,
+          },
+        }
+      );
+      console.log("Update successful", response.data);
+      onClose();
+      if (onReservationUpdate) {
+        onReservationUpdate(updatedReservation);
+      }
+    } catch (error) {
+      console.error("Failed to update reservation", error);
+    }
     onClose();
   };
   function formatTimeSlot(hour: number): string {

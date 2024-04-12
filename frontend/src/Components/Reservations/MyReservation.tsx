@@ -154,21 +154,33 @@ const MyReservations: React.FC = () => {
     return `${adjustedHour}:${minutes} ${modifier}`;
   }
 
-  const confirmCancellation = (id: number) => {
+  const confirmCancellation = async (id: number) => {
+    // Confirm from the user if they really want to delete
     confirmAlert({
-      title: "Confirm to cancel",
-      message: "Are you sure you want to cancel this reservation?",
-      buttons: [
-        {
-          label: "Yes",
-          onClick: () => cancelReservation(id),
-        },
-        {
-          label: "No",
-        },
-      ],
+        title: "Confirm to cancel",
+        message: "Are you sure you want to cancel this reservation?",
+        buttons: [
+            {
+                label: "Yes",
+                onClick: async () => {
+                    try {
+                        const response = await axios.delete(`${process.env.REACT_APP_API_URL}/reservations/${id}`, {
+                            headers: { Authorization: `Bearer ${user.accessToken}` },
+                        });
+                        console.log("Deletion successful", response.data);
+                        // Update state to reflect the deletion
+                        setReservations(reservations.filter((reservation) => reservation.id !== id));
+                    } catch (error) {
+                        console.error("Failed to delete reservation", error);
+                    }
+                }
+            },
+            {
+                label: "No",
+            },
+        ],
     });
-  };
+};
 
   const cancelReservation = (id: number) => {
     setReservations(
