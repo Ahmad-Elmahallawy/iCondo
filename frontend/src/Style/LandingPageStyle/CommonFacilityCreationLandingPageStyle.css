@@ -1,0 +1,71 @@
+/* CommonFacilityStyle.css */
+.main-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+  }
+  
+  .common-facility-container {
+    background: var(--color1);
+    border: 1px solid var(--color4);
+    padding: 2rem;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 6px;
+    width: 50%;
+  }
+  
+  .common-facility-container h2 {
+    color: var(--color4);
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  
+  .common-facility-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; /* Space between form items */
+  }
+  
+  .common-facility-form .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .common-facility-form .form-group input,
+  .common-facility-form .form-group select {
+    font-size: 14px;
+    padding: 10px 15px;
+    border-radius: 20px;
+    border: 1px solid var(--color4);
+    color: var(--color4); 
+    background-color: var(--color1);
+  }
+  
+  /* Style for placeholder text */
+  .common-facility-form .form-group input::placeholder,
+  .common-facility-form .form-group select::placeholder {
+    color: var(--color4);
+  }
+  
+  .common-facility-form button {
+    padding: 10px 15px;
+    border-radius: 20px;
+    border: none;
+    background-color: var(--color3);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.1s;
+  }
+  
+  .common-facility-form button:hover {
+    background-color: var(--color4);
+  }
+  
+  .common-facility-form input,
+  .common-facility-form select,
+  .common-facility-form button {
+    width:97%;
+    box-sizing: border-box;
+  }
