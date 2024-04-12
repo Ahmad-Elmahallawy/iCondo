@@ -30,6 +30,9 @@ import { ParkingSpotWhereUniqueInput } from "../../parkingSpot/base/ParkingSpotW
 import { RequestFindManyArgs } from "../../request/base/RequestFindManyArgs";
 import { RequestWhereUniqueInput } from "../../request/base/RequestWhereUniqueInput";
 import {RequestObject} from "../../request/base/Request";
+import { CommonFacilityFindManyArgs } from "../../commonFacility/base/CommonFacilityFindManyArgs";
+import { CommonFacility } from "../../commonFacility/base/CommonFacility";
+import { CommonFacilityWhereUniqueInput } from "../../commonFacility/base/CommonFacilityWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -813,6 +816,110 @@ export class PropertyControllerBase {
   ): Promise<void> {
     const data = {
       requests: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateProperty({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/commonFacilities")
+  @ApiNestedQuery(CommonFacilityFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "CommonFacility",
+    action: "read",
+    possession: "any",
+  })
+  async findCommonFacilities(
+      @common.Req() request: Request,
+      @common.Param() params: PropertyWhereUniqueInput
+  ): Promise<CommonFacility[]> {
+    const query = plainToClass(CommonFacilityFindManyArgs, request.query);
+    const results = await this.service.findCommonFacilities(params.id, {
+      ...query,
+      select: {
+        createdAt: true,
+        facilityType: true,
+        id: true,
+
+        property: {
+          select: {
+            id: true,
+          },
+        },
+
+        status: true,
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+          `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/commonFacilities")
+  @nestAccessControl.UseRoles({
+    resource: "Property",
+    action: "update",
+    possession: "any",
+  })
+  async connectCommonFacilities(
+      @common.Param() params: PropertyWhereUniqueInput,
+      @common.Body() body: CommonFacilityWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      commonFacilities: {
+        connect: body,
+      },
+    };
+    await this.service.updateProperty({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/commonFacilities")
+  @nestAccessControl.UseRoles({
+    resource: "Property",
+    action: "update",
+    possession: "any",
+  })
+  async updateCommonFacilities(
+      @common.Param() params: PropertyWhereUniqueInput,
+      @common.Body() body: CommonFacilityWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      commonFacilities: {
+        set: body,
+      },
+    };
+    await this.service.updateProperty({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/commonFacilities")
+  @nestAccessControl.UseRoles({
+    resource: "Property",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectCommonFacilities(
+      @common.Param() params: PropertyWhereUniqueInput,
+      @common.Body() body: CommonFacilityWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      commonFacilities: {
         disconnect: body,
       },
     };

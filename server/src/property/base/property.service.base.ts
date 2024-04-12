@@ -9,6 +9,7 @@ import {
   Request, // @ts-ignore
   ParkingSpot, // @ts-ignore
   Company,
+  CommonFacility as PrismaCommonFacility,
 } from "@prisma/client";
 
 export class PropertyServiceBase {
@@ -100,6 +101,16 @@ export class PropertyServiceBase {
       .ParkingSpots(args);
   }
 
+  async findCommonFacilities(
+      parentId: number,
+      args: Prisma.CommonFacilityFindManyArgs
+  ): Promise<PrismaCommonFacility[]> {
+    return this.prisma.property
+        .findUniqueOrThrow({
+          where: { id: parentId },
+        })
+        .commonFacilities(args);
+  }
 
   async getCompany(parentId: number): Promise<Company | null> {
     return this.prisma.property

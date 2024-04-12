@@ -27,7 +27,8 @@ import { Company } from "../../company/base/Company";
 import { PropertyService } from "../property.service";
 import { RequestFindManyArgs } from "../../request/base/RequestFindManyArgs";
 import { RequestObject } from "../../request/base/Request";
-
+import { CommonFacilityFindManyArgs } from "../../commonFacility/base/CommonFacilityFindManyArgs";
+import { CommonFacility } from "../../commonFacility/base/CommonFacility";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => Property)
 export class PropertyResolverBase {
@@ -64,6 +65,26 @@ export class PropertyResolverBase {
     return this.service.properties(args);
   }
 
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [CommonFacility], { name: "commonFacilities" })
+  @nestAccessControl.UseRoles({
+    resource: "CommonFacility",
+    action: "read",
+    possession: "any",
+  })
+  async findCommonFacilities(
+      @graphql.Parent() parent: Property,
+      @graphql.Args() args: CommonFacilityFindManyArgs
+  ): Promise<CommonFacility[]> {
+    const results = await this.service.findCommonFacilities(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+  
   @common.UseInterceptors(AclFilterResponseInterceptor)
   @graphql.Query(() => Property, { nullable: true })
   @nestAccessControl.UseRoles({

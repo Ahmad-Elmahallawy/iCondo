@@ -4,13 +4,15 @@ import { PasswordService } from "./password.service";
 import { TokenService } from "./token.service";
 import { UserInfo } from "./UserInfo";
 import { UserService } from "../user/user.service";
+import { CondoUnitService } from "../condoUnit/condoUnit.service";
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly passwordService: PasswordService,
     private readonly tokenService: TokenService,
-    private readonly userService: UserService
+    private readonly userService: UserService,
+    private readonly condoUnitService: CondoUnitService,
   ) {}
 
   async validateUser(
@@ -41,8 +43,21 @@ export class AuthService {
       username,
       password,
     });
+    const userCondos = await this.userService.findUserCondos(user.id, {});
+    let propertyID;
+    if (userCondos.length !== 0 && userCondos[0].condoID != null) {
+      const condoID = userCondos[0].condoID ?? -1;
+      const propertyRes = await this.condoUnitService.getPropertyId(condoID);
+      propertyID = propertyRes?.id;
+    }
+    console.log({
+      accessToken,
+      propertyID,
+      ...user,
+    });
     return {
       accessToken,
+      propertyID,
       ...user,
     };
   }

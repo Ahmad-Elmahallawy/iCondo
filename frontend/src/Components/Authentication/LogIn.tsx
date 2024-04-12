@@ -101,7 +101,7 @@ const Login: React.FC = () => {
               : ""
           }`}
         >
-          <img src="Assets/letter.svg" alt="" />
+          <img src="Assets/person.svg" alt="" />
           <input
             id="username"
             name="username"

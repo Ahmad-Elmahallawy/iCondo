@@ -243,6 +243,23 @@ const api = {
   },
 
   properties: {
+    async getAllProperties(companyId: number, token: String) {
+      const response = await axios.get(`${urls.properties.getAllProperties}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        params: {
+          where: {
+            company: {
+              id: companyId, 
+            },
+          },
+        },
+      });
+
+      return response;
+    },
+
     // to get the property ID
     async getCondoProperty(condoId: number, token: String) {
       const response = await axios.get(`${urls.properties.getProperty}`, {
@@ -302,6 +319,51 @@ const api = {
         throw error;
       }
     },
+  },
+
+  costs: {
+    async postCost(
+      companyId: number, 
+      operationName: String, 
+      operationCost: number,
+      token: String) {
+        
+      let costData: any = {
+          company: {
+              id: companyId
+          },
+          costName: operationName,
+          amount: operationCost
+      };
+  
+      const response = await axios.post(
+        urls.costs.addCost, 
+        costData,
+        {
+          headers: {
+              Authorization: `Bearer ${token}`
+          },
+        }
+      );
+      return response;
+    },
+
+    async getCosts(companyId: number, token: String) {
+      const response = await axios.get(`${urls.costs.getCosts}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        params: {
+          where: {
+            company: {
+              id: companyId, 
+            },
+          },
+        },
+      });
+
+      return response;
+    }
   },
 
   employeeRegistration: {
@@ -379,6 +441,33 @@ const api = {
       return response.data;
     },
   },
+
+  commonFacility: {
+    async postCommonFacility(
+      facilityType: String,
+      propertyId: number,
+      status: String,
+      token: String
+    ){
+
+      let commonFacilityData: any = {
+        facilityType: facilityType,
+        property: {
+          id: propertyId,
+        },
+        status: status
+      };
+      const response = await axios.post(
+        urls.commonFacility.submitCommonFacility,
+        commonFacilityData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    }
+  }
 };
 
 export default api;

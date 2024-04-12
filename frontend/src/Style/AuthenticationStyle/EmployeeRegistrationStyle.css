@@ -11,7 +11,6 @@
   padding: 20px;
   border: 1px solid var(--color4);
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
 }
 
@@ -22,9 +21,13 @@
   padding: 10px;
   border-radius: 8px;
   margin-bottom: 10px;
-  box-shadow: 3px 4px 1px 1px rgba(0, 0, 0, 0.25);
+  border: 2px solid var(--color4);
+  box-shadow: none;
 }
-
+.input-with-icon input:focus {
+  border: none;
+  outline: none;
+}
 .input-with-icon img {
   margin-right: 10px;
   height: 20px;
@@ -49,11 +52,11 @@
 
 .registration-and-login-button {
   border-radius: 8px;
-  background: var(--color4);
+  background: var(--color3);
   width: 100%;
   border: none;
   box-shadow: 3px 4px 1px 1px rgba(0, 0, 0, 0.25);
-  color: var(--color2);
+  color: var(--color1);
   font-size: 15px;
   font-weight: 700;
   padding: 10px;
@@ -62,7 +65,7 @@
 }
 
 .registration-and-login-button:hover {
-  background-color: var(--color2);
+  background-color: var(--color4);
   color: white;
 }
 
@@ -71,7 +74,6 @@
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .employee-table h2 {
@@ -108,12 +110,12 @@
 }
 
 .registration-user-type select {
-  background: var(--color4);
+  background: var(--color1);
+  border: 2px solid var(--color4);
   color: white;
   border: none;
   border-radius: 10px;
   padding: 8px;
-  box-shadow: 3px 4px 1px 1px rgba(0, 0, 0, 0.25);
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -127,8 +129,6 @@
 
 .registration-user-type select {
   outline: none;
-}
-
-.registration-user-type select:focus {
-  box-shadow: 0 0 0 2px var(--color2);
+  border: 2px solid var(--color4);
+  color: var(--color4);
 }
