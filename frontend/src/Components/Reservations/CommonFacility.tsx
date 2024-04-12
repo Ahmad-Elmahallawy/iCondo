@@ -1,5 +1,4 @@
-// CommonFacility.tsx
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import axios from 'axios';
 import { createCommonFacilitySchema } from '../Common/ValidationSchema';
@@ -15,12 +14,35 @@ interface CommonFacilityFormValues {
   status: 'Open' | 'Closed' | '';
 }
 
+interface Property {
+  id: string;  // Adjust the type if necessary
+  name: string;
+}
+
 const CommonFacility = () => {
   const navigate = useNavigate();
-  const property = JSON.parse(localStorage.getItem("property") || "{}");
-  const propertyId = property.id;
+  const companyId = JSON.parse(localStorage.getItem('companyDetails') || '[]')[0]?.id;
   const userData = JSON.parse(localStorage.getItem("userData") || "{}");
   const token = userData.accessToken;
+
+  const [properties, setProperties] = useState<Property[]>([]);
+
+  useEffect(() => {
+    const fetchPropertyNames = async () => {
+      try {
+        const response = await api.properties.getAllProperties(
+          parseInt(companyId), 
+          token
+        );
+        console.log(response.data);
+        setProperties(response.data);
+      } catch (error) {
+        console.error('Error fetching property names', error);
+      }
+    };
+
+    fetchPropertyNames();
+  }, []); 
 
   const formik = useFormik<CommonFacilityFormValues>({
     initialValues: {
@@ -33,7 +55,7 @@ const CommonFacility = () => {
       try{
         const newCommonFacility = await api.commonFacility.postCommonFacility(
           values.facility,
-          propertyId,
+          parseInt(values.propertyName),
           values.status,
           token
         );
@@ -51,19 +73,21 @@ const CommonFacility = () => {
           <h2>New Common Facility</h2>
           <form onSubmit={formik.handleSubmit} className="common-facility-form">
             <div className="form-group">
-              <input
+              <select
                 id="propertyName"
                 name="propertyName"
-                type="text"
                 onChange={formik.handleChange}
                 value={formik.values.propertyName}
-                placeholder='Property Name'
-              />
-            </div>
-            {formik.touched.propertyName && formik.errors.propertyName ? (
+              >
+                <option value="" disabled>Property Name</option>
+                {properties.map(property => (
+                  <option key={property.id} value={property.id}>{property.name}</option>
+                ))}
+              </select>
+              {formik.touched.propertyName && formik.errors.propertyName ? (
                 <div className="error">{formik.errors.propertyName}</div>
               ) : null}
-      
+            </div>   
             <div className="form-group">
               <select
                 id="facility"
