@@ -1,83 +1,85 @@
 import React, { useState, useEffect } from "react";
-import { FiX } from "react-icons/fi"; // Icon for closing the modal
-import "../../Style/ReservationStyle/MCFR.css"; // Stylesheet specific to the Modify Common Facility Reservation (MCFR) modal
-import { Reservation } from "./MyReservation"; // Type definitions for the reservation data
+import { FiX } from "react-icons/fi";
+import "../../Style/ReservationStyle/MCFR.css";
+import { Reservation } from "./MyReservation";
 
-// TypeScript interface for props expected by the MCFR component
 interface MCFRProps {
   isOpen: boolean;
   onClose: () => void;
   reservation: Reservation | null;
-  availableFacilities: string[];
-  onReservationUpdate: (updatedReservation: Reservation) => void; // Add this line
+  availableFacilities: { name: string; id: string }[]; // Update this line
+  onReservationUpdate: (updatedReservation: Reservation) => void;
 }
 
-// The MCFR functional component
 const MCFR: React.FC<MCFRProps> = ({
   isOpen,
   onClose,
   reservation,
   availableFacilities,
-  onReservationUpdate, // This prop is used to update the reservation list
+  onReservationUpdate,
 }) => {
-  // State hooks for form fields
   const [selectedFacility, setSelectedFacility] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
-  const [selectedStartTime, setSelectedStartTime] = useState("");
-  const [selectedEndTime, setSelectedEndTime] = useState("");
+  const [selectedTimeSlot, setSelectedTimeSlot] = useState<string>("");
 
-  // Effect hook to update form fields when the modal opens or the reservation changes
   useEffect(() => {
     if (reservation) {
-      // Pre-fill the form with the current reservation data
       setSelectedFacility(reservation.location);
       setSelectedDate(reservation.date);
-      setSelectedStartTime(reservation.startTime);
-      setSelectedEndTime(reservation.endTime);
+
+      // Since the time is already in 12-hour format with AM/PM, we don't need to format it.
+      const initialTimeSlot = `${reservation.startTime} - ${reservation.endTime}`;
+      setSelectedTimeSlot(initialTimeSlot);
     }
   }, [reservation]);
 
-  // Event handler for form submission
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!reservation || reservation.id === undefined) {
-      // Safety check to ensure we have all the data needed for an update
       console.error("Cannot update reservation without an id.");
       return;
     }
 
-    // Constructs the updated reservation object from form field states
+    const [startTime, endTime] = selectedTimeSlot.split(" - ");
+
     const updatedReservation: Reservation = {
       id: reservation.id,
       location: selectedFacility,
       date: selectedDate,
-      startTime: `${selectedStartTime}`,
-      endTime: `${selectedEndTime}`,
+      startTime: startTime,
+      endTime: endTime,
+      name: undefined,
     };
-    // Passes the updated reservation back to parent
+
     onReservationUpdate(updatedReservation);
-    // Closes the modal
     onClose();
   };
+  function formatTimeSlot(hour: number): string {
+    let period = "AM";
+    let formattedHour = hour;
 
-  // Conditional rendering based on `isOpen` state
-  if (!isOpen) return null; // If not open, do not render anything
+    if (hour === 0 || hour === 12) {
+      formattedHour = 12; // midnight or noon
+      period = hour === 0 ? "AM" : "PM";
+    } else if (hour > 12) {
+      formattedHour = hour - 12;
+      period = "PM";
+    }
 
-  // Render the modal content
+    return `${formattedHour}:00 ${period}`;
+  }
+  if (!isOpen) return null;
+
   return (
-    <div
-      className="modal-overlay"
-      style={{ display: isOpen ? "flex" : "none" }}
-    >
+    <div className="modal-overlay">
       <div className="modal">
         <div className="modal-header">
           <h2>Modify Common Facility Reservation</h2>
           <button onClick={onClose} className="close-button">
-            <FiX /> {/* Icon for closing the modal */}
+            <FiX />
           </button>
         </div>
         <form className="modal-content" onSubmit={handleSubmit}>
-          {/* Form fields for reservation data */}
           <label htmlFor="facility">Facility:</label>
           <select
             id="facility"
@@ -86,8 +88,8 @@ const MCFR: React.FC<MCFRProps> = ({
             required
           >
             {availableFacilities.map((facility) => (
-              <option key={facility} value={facility}>
-                {facility}
+              <option key={facility.id} value={facility.id}>
+                {facility.name}
               </option>
             ))}
           </select>
@@ -101,29 +103,30 @@ const MCFR: React.FC<MCFRProps> = ({
             required
           />
 
-          <label htmlFor="startTime">Start Time:</label>
-          <input
-            type="time"
-            id="startTime"
-            name="startTime"
-            value={selectedStartTime}
-            onChange={(e) => setSelectedStartTime(e.target.value)}
-            className="custom-time-input"
+          <label htmlFor="time">Time Slot:</label>
+          <select
+            id="time"
+            value={selectedTimeSlot}
+            onChange={(e) => setSelectedTimeSlot(e.target.value)}
             required
-          />
+          >
+            {Array.from({ length: 12 }, (_, index) => {
+              const startHour = 8 + index; // Starting from 8AM
+              const endHour = startHour + 1;
 
-          <label htmlFor="endTime">End Time:</label>
-          <input
-            type="time"
-            id="endTime"
-            name="endTime"
-            value={selectedEndTime}
-            onChange={(e) => setSelectedEndTime(e.target.value)}
-            className="custom-time-input"
-            required
-          />
+              // Here we format the hours to create the dropdown options.
+              const startTimeSlot = formatTimeSlot(startHour);
+              const endTimeSlot = formatTimeSlot(endHour);
+              const timeSlotValue = `${startTimeSlot} - ${endTimeSlot}`;
 
-          {/* Modal action buttons */}
+              return (
+                <option key={timeSlotValue} value={timeSlotValue}>
+                  {timeSlotValue}
+                </option>
+              );
+            })}
+          </select>
+
           <div className="modal-actions">
             <button type="submit">Save</button>
           </div>
@@ -133,5 +136,4 @@ const MCFR: React.FC<MCFRProps> = ({
   );
 };
 
-// Export the MCFR component to be used in other parts of the application
 export default MCFR;

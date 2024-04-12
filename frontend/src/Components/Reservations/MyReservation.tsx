@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
-import "../../Style/ReservationStyle/MyReservation.css"; // Stylesheet for styling the reservation list
-import { FiEdit, FiX } from "react-icons/fi"; // Icons for edit and cancel actions
-import MCFR from "./MCFR"; // Modal component for editing reservations
-import Reservation from "./MyReservation"; // Reservation object interface import
-import { confirmAlert } from "react-confirm-alert"; // Alert confirmation dialog
-import "react-confirm-alert/src/react-confirm-alert.css"; // Stylesheet for the alert confirmation dialog
+import "../../Style/ReservationStyle/MyReservation.css";
+import { FiEdit, FiX } from "react-icons/fi";
+import MCFR from "./MCFR";
+import Reservation from "./MyReservation";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
 import axios from "axios";
 
-// Defines the shape of a reservation object
 export interface Reservation {
   name: any;
   id: number;
@@ -17,12 +16,49 @@ export interface Reservation {
   endTime: string;
 }
 
-// Main component for displaying a list of reservations
 const MyReservations: React.FC = () => {
   const user = JSON.parse(localStorage.getItem("userData") || "{}");
+  const [availableFacilities, setAvailableFacilities] = useState<
+    { name: string; id: string }[]
+  >([]);
 
-  // State for storing the list of reservations
   const [reservations, setReservations] = useState<Reservation[]>([]);
+
+  useEffect(() => {
+    const fetchFacilities = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/properties/${user.propertyID}/commonFacilities`,
+          {
+            headers: { Authorization: `Bearer ${user.accessToken}` },
+          }
+        );
+        console.log(response);
+        const formattedFacilities = response.data.map(
+          (facility: { facilityType: string; id: string }) => ({
+            ...facility,
+            facilityType: formatFacilityName(facility.facilityType),
+          })
+        );
+        setAvailableFacilities(
+          formattedFacilities.map(
+            (facility: { id: string; facilityType: string }) => ({
+              name: facility.facilityType,
+              id: facility.id,
+            })
+          )
+        );
+      } catch (error) {
+        console.error("Error fetching facilities:", error);
+      }
+    };
+
+    fetchFacilities();
+  }, [user.accessToken]);
+  const formatFacilityName = (name: string) => {
+    return name.replace(/_/g, " ").replace(/\b(\w)/g, (s) => s.toUpperCase());
+  };
+
   useEffect(() => {
     const fetchEvents = async () => {
       try {
@@ -40,8 +76,9 @@ const MyReservations: React.FC = () => {
 
         const formattedEvents = response.data.map(
           (event: { id: string; notes: string; availablity: string }) => {
-            // Dynamically create the regex pattern with the actual username
-            const regex = new RegExp(`${escapeRegex(user.username)} - (.+?) at (.+?) - (.+)`);
+            const regex = new RegExp(
+              `${escapeRegex(user.username)} - (.+?) at (.+?) - (.+)`
+            );
             const match = event.notes.match(regex);
             const location = match ? match[1] : "Unknown Location";
             const startTime = match ? match[2] : "Start Time Unknown";
@@ -57,27 +94,25 @@ const MyReservations: React.FC = () => {
             };
           }
         );
+
         setReservations(formattedEvents);
+        console.log(formattedEvents);
       } catch (error) {
         console.error("Error fetching reservations:", error);
       }
     };
 
     fetchEvents();
-  }, [user.id, user.username, user.accessToken]);  // Depend on user data to refetch when it changes
+  }, [user.id, user.username, user.accessToken]);
 
-  // Helper function to escape regex special characters in a string
   function escapeRegex(string: string) {
-    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   }
-  // State for controlling the visibility of the edit modal
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // State for the reservation currently being edited
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingReservation, setEditingReservation] =
     useState<Reservation | null>(null);
 
-  // Updates a reservation and closes the modal
   const handleReservationUpdate = (updatedReservation: Reservation) => {
     setReservations((prevReservations) =>
       prevReservations.map((res) =>
@@ -86,15 +121,11 @@ const MyReservations: React.FC = () => {
     );
     setIsModalOpen(false);
   };
-
-  // Opens the edit modal and sets the current reservation for editing
   const handleEdit = (reservation: Reservation) => {
-    console.log(reservation);
-
     const editedReservation = {
       ...reservation,
-      startTime: convertTo24HourFormat(reservation.startTime),
-      endTime: convertTo24HourFormat(reservation.endTime),
+      startTime: reservation.startTime,
+      endTime: reservation.endTime,
     };
 
     setEditingReservation(editedReservation);
@@ -113,7 +144,16 @@ const MyReservations: React.FC = () => {
 
     return `${hours.padStart(2, "0")}:${minutes}`;
   }
-  // Confirms the cancellation of a reservation
+  function formatTimeTo12Hour(timeStr: string): string {
+    let [hours, minutes] = timeStr.split(":");
+    const hour = parseInt(hours, 10);
+    const isPM = hour >= 12;
+    const adjustedHour = hour % 12 || 12;
+    const modifier = isPM ? "PM" : "AM";
+
+    return `${adjustedHour}:${minutes} ${modifier}`;
+  }
+
   const confirmCancellation = (id: number) => {
     confirmAlert({
       title: "Confirm to cancel",
@@ -130,19 +170,16 @@ const MyReservations: React.FC = () => {
     });
   };
 
-  // Removes a reservation from the list
   const cancelReservation = (id: number) => {
     setReservations(
       reservations.filter((reservation) => reservation.id !== id)
     );
   };
 
-  // Closes the edit modal
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
 
-  // Renders the list of reservations with edit and cancel actions
   return (
     <div className="reservations-wrapper">
       <h1>My Reservations</h1>
@@ -173,14 +210,12 @@ const MyReservations: React.FC = () => {
           ))}
         </div>
       </div>
-      {/* MCFR Modal Component */}
-      {/* Conditional rendering of the edit modal */}
       {isModalOpen && editingReservation && (
         <MCFR
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
           reservation={editingReservation}
-          availableFacilities={["Sky Lounge", "Sky Fitness", "Other Lounge"]}
+          availableFacilities={availableFacilities}
           onReservationUpdate={handleReservationUpdate}
         />
       )}
@@ -188,5 +223,4 @@ const MyReservations: React.FC = () => {
   );
 };
 
-// Export the MyReservation component to be used in other parts of the application
 export default MyReservations;
