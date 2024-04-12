@@ -33,7 +33,7 @@ export default function Calendar() {
               // Any query parameters go here, if needed
               where: {
                 user: { id: user.id },
-              },  
+              },
             },
             headers: { Authorization: `Bearer ${user.accessToken}` },
           }
@@ -54,41 +54,7 @@ export default function Calendar() {
 
     fetchEvents();
   }, []); // Empty dependency array ensures this runs once on component mount
-  const [dialogOpen, setDialogOpen] = useState(false);
-  const [selectedDate, setSelectedDate] = useState("");
-  const [events, setEvents] = useState<CalendarEvent[]>([]);
-  const user = JSON.parse(localStorage.getItem("userData") || "{}");
-  useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/reservations`, // URL
-          {
-            params: {
-              // Any query parameters go here, if needed
-              where: {
-                user: { id: user.id },
-              },  
-            },
-            headers: { Authorization: `Bearer ${user.accessToken}` },
-          }
-        );
-        // Assuming the API returns an array of events
-        const formattedEvents = response.data.map(
-          (event: { notes: any; availablity: any; date: string }) => ({
-            title: event.notes,
-            date: event.availablity.split("T")[0], // Splitting the datetime and taking the date part
-          })
-        );
-        setEvents(formattedEvents);
-      } catch (error) {
-        console.error("Error fetching reservations:", error);
-        // Handle error scenario
-      }
-    };
 
-    fetchEvents();
-  }, []); // Empty dependency array ensures this runs once on component mount
   const handleDateClick = (arg: any) => {
     setSelectedDate(arg.dateStr);
     setDialogOpen(true);
@@ -101,7 +67,7 @@ export default function Calendar() {
     const fullEvent = { ...newEvent, title: eventTitle };
     console.log(newEvent);
     console.log(newEvent);
-    
+
     setEvents([...events, fullEvent]);
     setDialogOpen(false);
 
@@ -113,6 +79,9 @@ export default function Calendar() {
       availablity: datetime,
       user: {
         id: user.id,
+      },
+      commonFacility: {
+        id: newEvent.facilityId,
       },
     };
 
@@ -147,17 +116,10 @@ export default function Calendar() {
     );
   }
 
-
   return (
     <div className="calendar-container">
       <div className="calendar-heading">
         <h2>Common Facilities Calendar</h2>
-        <button
-          className="my-reservations-btn"
-          onClick={navigateToMyReservations}
-        >
-          My Reservations
-        </button>
         <button
           className="my-reservations-btn"
           onClick={navigateToMyReservations}
@@ -173,11 +135,6 @@ export default function Calendar() {
           right: "dayGridMonth,timeGridWeek,timeGridDay",
         }}
         initialView="dayGridMonth"
-        events={events.map((event) => ({
-          title: event.title,
-          date: event.date,
-        }))}
-        dateClick={handleDateClick}
         events={events.map((event) => ({
           title: event.title,
           date: event.date,
