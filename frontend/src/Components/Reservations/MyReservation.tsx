@@ -9,6 +9,7 @@ import axios from "axios";
 
 // Defines the shape of a reservation object
 export interface Reservation {
+  name: any;
   id: number;
   location: string;
   date: string;
@@ -21,30 +22,7 @@ const MyReservations: React.FC = () => {
   const user = JSON.parse(localStorage.getItem("userData") || "{}");
 
   // State for storing the list of reservations
-  const [reservations, setReservations] = useState<Reservation[]>([
-    // Array of reservation objects
-    // {
-    //   id: 1,
-    //   location: "Sky Lounge",
-    //   date: "2024-04-24",
-    //   startTime: "20:00",
-    //   endTime: "21:00",
-    // },
-    // {
-    //   id: 2,
-    //   location: "Sky Fitness",
-    //   date: "2024-04-04",
-    //   startTime: "10:00",
-    //   endTime: "11:00",
-    // },
-    // {
-    //   id: 3,
-    //   location: "Sky Lounge",
-    //   date: "2024-04-26",
-    //   startTime: "20:00",
-    //   endTime: "21:00",
-    // },
-  ]);
+  const [reservations, setReservations] = useState<Reservation[]>([]);
   useEffect(() => {
     const fetchEvents = async () => {
       try {
@@ -61,8 +39,10 @@ const MyReservations: React.FC = () => {
         );
 
         const formattedEvents = response.data.map(
-          (event: { id: any; notes: string; availablity: string }) => {
-            const match = event.notes.match(/AT - (.+?) at (.+?) - (.+)/);
+          (event: { id: string; notes: string; availablity: string }) => {
+            // Dynamically create the regex pattern with the actual username
+            const regex = new RegExp(`${escapeRegex(user.username)} - (.+?) at (.+?) - (.+)`);
+            const match = event.notes.match(regex);
             const location = match ? match[1] : "Unknown Location";
             const startTime = match ? match[2] : "Start Time Unknown";
             const endTime = match ? match[3] : "End Time Unknown";
@@ -78,18 +58,18 @@ const MyReservations: React.FC = () => {
           }
         );
         setReservations(formattedEvents);
-
-        console.log(formattedEvents);
-
-        // setEvents(formattedEvents);
       } catch (error) {
         console.error("Error fetching reservations:", error);
-        // Handle error scenario
       }
     };
 
     fetchEvents();
-  }, []);
+  }, [user.id, user.username, user.accessToken]);  // Depend on user data to refetch when it changes
+
+  // Helper function to escape regex special characters in a string
+  function escapeRegex(string: string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
   // State for controlling the visibility of the edit modal
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -112,14 +92,14 @@ const MyReservations: React.FC = () => {
     console.log(reservation);
 
     const editedReservation = {
-        ...reservation,
-        startTime: convertTo24HourFormat(reservation.startTime),
-        endTime: convertTo24HourFormat(reservation.endTime)
+      ...reservation,
+      startTime: convertTo24HourFormat(reservation.startTime),
+      endTime: convertTo24HourFormat(reservation.endTime),
     };
 
     setEditingReservation(editedReservation);
     setIsModalOpen(true);
-};
+  };
 
   function convertTo24HourFormat(timeStr: string): string {
     const [time, modifier] = timeStr.split(" ");
