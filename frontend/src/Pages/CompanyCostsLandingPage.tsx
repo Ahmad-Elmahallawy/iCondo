@@ -4,7 +4,7 @@ import OperationCost from "../Components/Costs/OperationCost"
 
 const CompanyCostsLandingPage = () => {
     return (
-        <div>
+        <div data-testid="operation-cost">
           <OperationCost />
         </div>
       );
