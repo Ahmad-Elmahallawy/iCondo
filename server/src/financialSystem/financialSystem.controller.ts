@@ -28,7 +28,7 @@ export class FinancialSystemController {
                 name: true,
             },
         });
-        if (properties.length === null) {
+        if (properties.length === 0) {
             throw new errors.NotFoundException(
                 `No resource was found for ${JSON.stringify(params)}`
             );
