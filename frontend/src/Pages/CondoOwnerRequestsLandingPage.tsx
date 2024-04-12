@@ -20,22 +20,12 @@ const CondoOwnerRequestsLandingPage = () => {
 
   const handleSubmitModal = async (subject: string) => {
     try {
-      console.log(user.id, user.accessToken);
-      const getCondoId = await api.userCondoList.getUserCondo(
-        user.id,
-        user.accessToken
-      );
-
-      const getPropertyId = await api.properties.getCondoProperty(
-        getCondoId.data[0].condo.id,
-        user.accessToken
-      );
 
       const getCompanyId = await api.companies.getCompanyProperty(
-        getPropertyId.data[0].id,
+        user.propertyId,
         user.accessToken
       );
-
+      console.log("here 2");
       if (subject === "moving_in" || subject === "moving_out") {
         const sentRequest = await api.requests.postOwnerRequest(
           getCompanyId[0].id,

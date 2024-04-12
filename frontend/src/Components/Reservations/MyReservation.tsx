@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../Style/ReservationStyle/MyReservation.css"; // Stylesheet for styling the reservation list
 import { FiEdit, FiX } from "react-icons/fi"; // Icons for edit and cancel actions
 import MCFR from "./MCFR"; // Modal component for editing reservations
 import Reservation from "./MyReservation"; // Reservation object interface import
 import { confirmAlert } from "react-confirm-alert"; // Alert confirmation dialog
 import "react-confirm-alert/src/react-confirm-alert.css"; // Stylesheet for the alert confirmation dialog
+import axios from "axios";
 
 // Defines the shape of a reservation object
 export interface Reservation {
+  name: any;
   id: number;
   location: string;
   date: string;
@@ -17,32 +19,57 @@ export interface Reservation {
 
 // Main component for displaying a list of reservations
 const MyReservations: React.FC = () => {
-  // State for storing the list of reservations
-  const [reservations, setReservations] = useState<Reservation[]>([
-    // Array of reservation objects
-    {
-      id: 1,
-      location: "Sky Lounge",
-      date: "2024-04-24",
-      startTime: "20:00",
-      endTime: "21:00",
-    },
-    {
-      id: 2,
-      location: "Sky Fitness",
-      date: "2024-04-04",
-      startTime: "10:00",
-      endTime: "11:00",
-    },
-    {
-      id: 3,
-      location: "Sky Lounge",
-      date: "2024-04-26",
-      startTime: "20:00",
-      endTime: "21:00",
-    },
-  ]);
+  const user = JSON.parse(localStorage.getItem("userData") || "{}");
 
+  // State for storing the list of reservations
+  const [reservations, setReservations] = useState<Reservation[]>([]);
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/reservations`,
+          {
+            params: {
+              where: {
+                user: { id: user.id },
+              },
+            },
+            headers: { Authorization: `Bearer ${user.accessToken}` },
+          }
+        );
+
+        const formattedEvents = response.data.map(
+          (event: { id: string; notes: string; availablity: string }) => {
+            // Dynamically create the regex pattern with the actual username
+            const regex = new RegExp(`${escapeRegex(user.username)} - (.+?) at (.+?) - (.+)`);
+            const match = event.notes.match(regex);
+            const location = match ? match[1] : "Unknown Location";
+            const startTime = match ? match[2] : "Start Time Unknown";
+            const endTime = match ? match[3] : "End Time Unknown";
+
+            return {
+              id: event.id,
+              title: event.notes,
+              date: event.availablity.split("T")[0],
+              startTime: startTime,
+              endTime: endTime,
+              location: location,
+            };
+          }
+        );
+        setReservations(formattedEvents);
+      } catch (error) {
+        console.error("Error fetching reservations:", error);
+      }
+    };
+
+    fetchEvents();
+  }, [user.id, user.username, user.accessToken]);  // Depend on user data to refetch when it changes
+
+  // Helper function to escape regex special characters in a string
+  function escapeRegex(string: string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
   // State for controlling the visibility of the edit modal
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -62,10 +89,30 @@ const MyReservations: React.FC = () => {
 
   // Opens the edit modal and sets the current reservation for editing
   const handleEdit = (reservation: Reservation) => {
-    setEditingReservation(reservation);
+    console.log(reservation);
+
+    const editedReservation = {
+      ...reservation,
+      startTime: convertTo24HourFormat(reservation.startTime),
+      endTime: convertTo24HourFormat(reservation.endTime),
+    };
+
+    setEditingReservation(editedReservation);
     setIsModalOpen(true);
   };
 
+  function convertTo24HourFormat(timeStr: string): string {
+    const [time, modifier] = timeStr.split(" ");
+    let [hours, minutes] = time.split(":");
+
+    if (hours === "12") {
+      hours = modifier === "AM" ? "00" : "12";
+    } else {
+      hours = modifier === "PM" ? String(parseInt(hours, 10) + 12) : hours;
+    }
+
+    return `${hours.padStart(2, "0")}:${minutes}`;
+  }
   // Confirms the cancellation of a reservation
   const confirmCancellation = (id: number) => {
     confirmAlert({

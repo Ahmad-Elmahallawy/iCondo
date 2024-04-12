@@ -11,19 +11,28 @@ import {
   InputLabel,
   Typography,
   DialogTitle,
+  SelectChangeEvent, // Import this type for event handling
 } from "@mui/material";
+import axios from "axios";
 
+// Updated the type definitions as necessary
 interface EventCreationDialogProps {
   open: boolean;
   onClose: () => void;
   onSubmit: (eventData: {
     name: string;
     unitNumber: string;
-    facility: string;
+    facilityName: string; // Keep the readable string
+    facilityId: string; // Additional info to pass
     time: string;
     date: string;
   }) => void;
   defaultDate: string;
+}
+
+interface Facility {
+  id: string;
+  facilityType: string;
 }
 
 const ReservationModal: React.FC<EventCreationDialogProps> = ({
@@ -32,27 +41,9 @@ const ReservationModal: React.FC<EventCreationDialogProps> = ({
   onSubmit,
   defaultDate,
 }) => {
-  const [name, setName] = useState("");
-  const [unitNumber, setUnitNumber] = useState("");
-  const [facility, setFacility] = useState("");
-  const [time, setTime] = useState("");
-
-  useEffect(() => {
-    const userData = JSON.parse(localStorage.getItem("userData") || "{}");
-    setName(`${userData.username}`);
-  }, []);
-
-  const handleSubmit = () => {
-    onSubmit({ name, unitNumber, facility, time, date: defaultDate });
-    setUnitNumber("");
-    setFacility("");
-    setTime("");
-    onClose();
-  };
-
   const customTextFieldStyle = {
     "& .MuiOutlinedInput-root": {
-      color: "var(--color4)", // Default text color
+      color: "var(--color4)",
       "& fieldset": {
         borderColor: "var(--color3)",
       },
@@ -91,13 +82,70 @@ const ReservationModal: React.FC<EventCreationDialogProps> = ({
       backgroundColor: "var(--color4)",
     },
   };
+  const [name, setName] = useState("");
+  const [unitNumber, setUnitNumber] = useState("");
+  const [facility, setFacility] = useState("");
+  const [facilityId, setFacilityId] = useState("");
+  const [time, setTime] = useState("");
+  const [facilities, setFacilities] = useState<Facility[]>([]);
+  const user = JSON.parse(localStorage.getItem("userData") || "{}");
+
+  useEffect(() => {
+    setName(`${user.username}`);
+  }, []);
+
+  useEffect(() => {
+    const fetchFacilities = async () => {
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/properties/${user.propertyID}/commonFacilities`,
+        {
+          headers: { Authorization: `Bearer ${user.accessToken}` },
+        }
+      );
+      const formattedFacilities = response.data.map((facility: Facility) => ({
+        ...facility,
+        facilityType: formatFacilityName(facility.facilityType),
+      }));
+      setFacilities(formattedFacilities);
+    };
+
+    fetchFacilities();
+  }, []);
+
+  const formatFacilityName = (name: string) => {
+    return name.replace(/_/g, " ").replace(/\b(\w)/g, (s) => s.toUpperCase());
+  };
+
+  const handleFacilityChange = (event: SelectChangeEvent<string>) => {
+    const id = event.target.value;
+    const selectedFacility = facilities.find((f) => f.id === id);
+    if (selectedFacility) {
+      setFacility(selectedFacility.facilityType);
+      setFacilityId(selectedFacility.id);
+    }
+  };
+
+  const handleSubmit = () => {
+    onSubmit({
+      name,
+      unitNumber,
+      facilityName: facility,
+      facilityId,
+      time,
+      date: defaultDate,
+    });
+    setUnitNumber("");
+    setFacility("");
+    setFacilityId("");
+    setTime("");
+    onClose();
+  };
 
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle sx={{ color: "var(--color4)" }}>
         Common Facility Reservation
       </DialogTitle>
-
       <DialogContent>
         <Typography variant="h6" sx={{ color: "var(--color4)" }}>
           User: {name}
@@ -115,9 +163,9 @@ const ReservationModal: React.FC<EventCreationDialogProps> = ({
           <InputLabel
             id="facility-label"
             sx={{
-              color: "#3c3633", // Custom color for InputLabel
+              color: "#3c3633",
               "&.Mui-focused": {
-                color: "#747264", // Change the color of the label to brown when focused
+                color: "#747264",
               },
             }}
           >
@@ -126,43 +174,45 @@ const ReservationModal: React.FC<EventCreationDialogProps> = ({
           <Select
             labelId="facility-label"
             id="facility"
-            value={facility}
+            value={facilityId}
             label="Facility"
-            onChange={(e) => setFacility(e.target.value)}
+            onChange={handleFacilityChange}
             sx={{
               "& .MuiSelect-select": {
-                color: "#3c3633", // Change the color of the select button to brown
+                color: "#3c3633",
               },
 
               "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                borderColor: "#747264", // Ensure the border color remains brown when focused
+                borderColor: "#747264",
               },
             }}
             MenuProps={{
               PaperProps: {
                 sx: {
                   "& .MuiMenuItem-root:hover": {
-                    backgroundColor: "#747264", // Change the hover color of the menu items to brown
+                    backgroundColor: "#747264",
                   },
                   "& .MuiMenuItem-root.Mui-selected": {
-                    backgroundColor: "#e0ccbe", // Change the background color of the selected menu items to brown
+                    backgroundColor: "#e0ccbe",
                   },
                 },
               },
             }}
           >
-            <MenuItem value="Spa Fitness">Spa Fitness</MenuItem>
-            <MenuItem value="Sauna">Sauna</MenuItem>
-            <MenuItem value="Sky Lounge">Sky Lounge</MenuItem>
+            {facilities.map((facility) => (
+              <MenuItem key={facility.id} value={facility.id}>
+                {facility.facilityType}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
         <FormControl fullWidth margin="dense" sx={customTextFieldStyle}>
           <InputLabel
             id="time-label"
             sx={{
-              color: "#3c3633", // Custom color for InputLabel
+              color: "#3c3633",
               "&.Mui-focused": {
-                color: "#747264", // Change the color of the label to brown when focused
+                color: "#747264",
               },
             }}
           >
@@ -176,21 +226,21 @@ const ReservationModal: React.FC<EventCreationDialogProps> = ({
             onChange={(e) => setTime(e.target.value)}
             sx={{
               "& .MuiSelect-select": {
-                color: "#3c3633", // Change the color of the select button to brown
+                color: "#3c3633",
               },
 
               "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                borderColor: "#747264", // Ensure the border color remains brown when focused
+                borderColor: "#747264",
               },
             }}
             MenuProps={{
               PaperProps: {
                 sx: {
                   "& .MuiMenuItem-root:hover": {
-                    backgroundColor: "#747264", // Change the hover color of the menu items to brown
+                    backgroundColor: "#747264",
                   },
                   "& .MuiMenuItem-root.Mui-selected": {
-                    backgroundColor: "#e0ccbe", // Change the background color of the selected menu items to brown
+                    backgroundColor: "#e0ccbe",
                   },
                 },
               },
