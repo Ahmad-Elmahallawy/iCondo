@@ -65,7 +65,8 @@ export default function Calendar() {
     const eventTitle = `${newEvent.name} - ${newEvent.facilityName} at ${newEvent.time}`;
     const fullEvent = { ...newEvent, title: eventTitle };
     console.log(newEvent);
-
+    console.log(newEvent);
+    
     setEvents([...events, fullEvent]);
     setDialogOpen(false);
 
