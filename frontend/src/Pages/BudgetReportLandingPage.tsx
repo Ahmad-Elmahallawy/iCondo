@@ -8,11 +8,13 @@ const BudgetReportLandingPage = () => {
     const [condoData, setCondoData] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const userData = JSON.parse(localStorage.getItem("userData") || "{}");
-    const companyId = JSON.parse(localStorage.getItem('companyDetails') || '[]')[0]?.id;
+    const companyId = JSON.parse(localStorage.getItem('companyDetails') || '[]')[0].company.id;
     const token = userData.accessToken;
 
     useEffect(() => {
       const fetchProperties = async () => {
+        console.log(companyId);
+        
           try {
             const response = await api.properties.getAllProperties(
               parseInt(companyId), 

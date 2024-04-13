@@ -12,7 +12,7 @@ const ExpensesList: React.FC<ExpensesListProps> = ({ setTotalExpenses }) => {
     const [costData, setCostData] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const userData = JSON.parse(localStorage.getItem("userData") || "{}");
-    const companyId = JSON.parse(localStorage.getItem('companyDetails') || '[]')[0]?.id;
+    const companyId = JSON.parse(localStorage.getItem('companyDetails') || '[]')[0].company.id;
     const token = userData.accessToken;
 
     useEffect(() => {
@@ -40,7 +40,7 @@ const ExpensesList: React.FC<ExpensesListProps> = ({ setTotalExpenses }) => {
         if (!loading) {
             const totalExpenses = costData.reduce(
                 (sum, cost) => sum + cost.amount, 
-                null
+                0
             );
             setTotalExpenses(totalExpenses);
         }
