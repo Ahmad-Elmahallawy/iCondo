@@ -30,6 +30,7 @@ import CommonFacilityCreationLandingPage from "./Pages/CommonFacilityCreationLan
 import CompanyCostsLandingPage from "./Pages/CompanyCostsLandingPage";
 import BudgetReportLandingPage from "./Pages/BudgetReportLandingPage";
 import AnnualReportLandingPage from "./Pages/AnnualReportLandingPage";
+import FacilitiesStatusPage from "./Pages/FacilitiesStatusPage";
 
 function App() {
   return (
@@ -51,7 +52,10 @@ function App() {
           path="CondoOwnerDashboard"
           element={<CondoOwnerDashboardPage />}
         />
-        <Route path="RentalUserDashboard" element={<RentalUserDashboardPage/>} />
+        <Route
+          path="RentalUserDashboard"
+          element={<RentalUserDashboardPage />}
+        />
         <Route path="GenerateKey" element={<KeyGenerationLandingPage />} />
         <Route
           path="OwnerRequests"
@@ -89,13 +93,21 @@ function App() {
 
         <Route path="Notifications/User" element={<NotificationUser />} />
         <Route path="Calendar" element={<Calendar />} />
-        <Route path="CommonFacility" element={<CommonFacilityCreationLandingPage />} />
+        <Route
+          path="CommonFacility"
+          element={<CommonFacilityCreationLandingPage />}
+        />
         <Route path="MyReservation" element={<MyReservation />} />
 
-        <Route path="FacilitiesStatus" element={<Hero />} /* CHANGE PATH ONCE PAGE IS CREATED *//> 
-        <Route path="Costs" element={<CompanyCostsLandingPage />} /> 
-        <Route path="AnnualReport" element={<AnnualReportLandingPage />} /* CHANGE PATH ONCE PAGE IS CREATED *//> 
-        <Route path="BudgetReport" element={<BudgetReportLandingPage />} /> 
+        <Route path="FacilitiesStatus" element={<FacilitiesStatusPage />} />
+        <Route path="Costs" element={<CompanyCostsLandingPage />} />
+        <Route
+          path="AnnualReport"
+          element={
+            <AnnualReportLandingPage />
+          } /* CHANGE PATH ONCE PAGE IS CREATED */
+        />
+        <Route path="BudgetReport" element={<BudgetReportLandingPage />} />
       </Routes>
     </div>
   );
