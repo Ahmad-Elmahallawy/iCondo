@@ -1,5 +1,6 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { AuthService } from "./auth.service";
+import { CondoUnitService } from "../condoUnit/condoUnit.service";
 import { Credentials } from "./Credentials";
 import { PasswordService } from "./password.service";
 import { TokenService } from "./token.service";
@@ -25,6 +26,8 @@ const USER: any = {
 };
 
 const SIGN_TOKEN = "SIGN_TOKEN";
+const CONDO_ID = 42;
+const PROPERTY_ID = 42;
 
 const authEntityService = {
   user(args: { where: { username: string } }): any | null {
@@ -32,6 +35,15 @@ const authEntityService = {
       return USER;
     }
     return null;
+  },
+  findUserCondos(userID: number, args: any) {
+    return [{condoID: CONDO_ID}];
+  }
+};
+
+const condoUnitService = {
+  getPropertyId(condoID: number) {
+    return PROPERTY_ID;
   },
 };
 
@@ -64,6 +76,10 @@ describe("AuthService", () => {
         {
           provide: TokenService,
           useValue: tokenService,
+        },
+        {
+          provide: CondoUnitService,
+          useValue: condoUnitService,
         },
         AuthService,
       ],
