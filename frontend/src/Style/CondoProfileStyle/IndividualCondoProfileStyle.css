@@ -39,3 +39,24 @@
   border: 0.5px solid var(--color4);
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
 }
+
+.pay-btn-container {
+  justify-content: center;
+  align-items: center;
+  border-radius: 7px;
+  margin-bottom: 10px;
+  background: var(--color1);
+}
+
+.payButton {
+  padding: 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  color: var(--color1);
+  align-self: center;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.35);
+  background: var(--color3);
+  border: 1px solid var(--color3);
+  margin: 0 0.4rem;
+}
