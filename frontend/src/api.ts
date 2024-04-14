@@ -3,7 +3,11 @@ import urls from "./urls";
 import { UserData } from "./Components/UserProfile/UserInformation";
 import { CondoInfo } from "./Components/CondoProfile/MyCondos";
 import { IndividualCondo } from "./Components/CondoProfile/IndividualCondoProfile";
-
+import {
+  PropertyByIdResponse,
+  SinglePropertyFacilities,
+} from "./Pages/FacilitiesStatusPage";
+import { UpdateFacilityStatusRequest } from "./Components/CommonFacilities/IndividualFacility";
 
 const api = {
   userInformation: {
@@ -47,13 +51,14 @@ const api = {
         pictureFormData
       );
     },
-    async getUserInfo(userId: number, token: String){
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/users/${userId}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
+    async getUserInfo(userId: number, token: String) {
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/users/${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       return response;
     },
@@ -243,6 +248,17 @@ const api = {
   },
 
   properties: {
+    async getProperties(token: String) {
+      const response: AxiosResponse<PropertyByIdResponse[]> = await axios.get(
+        `${urls.properties.getAllProperties}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data;
+    },
     async getAllProperties(companyId: number, token: String) {
       const response = await axios.get(`${urls.properties.getAllProperties}`, {
         headers: {
@@ -251,13 +267,25 @@ const api = {
         params: {
           where: {
             company: {
-              id: companyId, 
+              id: companyId,
             },
           },
         },
       });
 
       return response;
+    },
+
+    async getPropertyById(propertyId: number, token: String) {
+      const response: AxiosResponse<PropertyByIdResponse> = await axios.get(
+        `${urls.properties.getAllProperties}/${propertyId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data;
     },
 
     // to get the property ID
@@ -323,28 +351,24 @@ const api = {
 
   costs: {
     async postCost(
-      companyId: number, 
-      operationName: String, 
+      companyId: number,
+      operationName: String,
       operationCost: number,
-      token: String) {
-        
+      token: String
+    ) {
       let costData: any = {
-          company: {
-              id: companyId
-          },
-          costName: operationName,
-          amount: operationCost
+        company: {
+          id: companyId,
+        },
+        costName: operationName,
+        amount: operationCost,
       };
-  
-      const response = await axios.post(
-        urls.costs.addCost, 
-        costData,
-        {
-          headers: {
-              Authorization: `Bearer ${token}`
-          },
-        }
-      );
+
+      const response = await axios.post(urls.costs.addCost, costData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       return response;
     },
 
@@ -356,14 +380,14 @@ const api = {
         params: {
           where: {
             company: {
-              id: companyId, 
+              id: companyId,
             },
           },
         },
       });
 
       return response;
-    }
+    },
   },
 
   employeeRegistration: {
@@ -409,13 +433,16 @@ const api = {
       return response;
     },
     //Gets employees for a company
-    async getCompanyEmployees(companyId: number, token: String){
+    async getCompanyEmployees(companyId: number, token: String) {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/companies/${companyId}/companyEmployees`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/companies/${companyId}/companyEmployees`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         return response.data;
       } catch (error) {
         throw error;
@@ -425,7 +452,6 @@ const api = {
 
   notifications: {
     async getComapnyNotifications(companyId: number, token: String) {
-
       const response = await axios.get(`${urls.companies.getCompany}`, {
         params: {
           where: {
@@ -448,14 +474,13 @@ const api = {
       propertyId: number,
       status: String,
       token: String
-    ){
-
+    ) {
       let commonFacilityData: any = {
         facilityType: facilityType,
         property: {
           id: propertyId,
         },
-        status: status
+        status: status,
       };
       const response = await axios.post(
         urls.commonFacility.submitCommonFacility,
@@ -466,8 +491,48 @@ const api = {
           },
         }
       );
-    }
-  }
+    },
+
+    async getAllCommonFacilities(token: String) {
+      const response: AxiosResponse<SinglePropertyFacilities[]> =
+        await axios.get(`${urls.commonFacility.submitCommonFacility}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+      return response.data;
+    },
+
+    async getCommonFacilitiesByPropertyId(propertyId: number, token: String) {
+      const response: AxiosResponse<SinglePropertyFacilities[]> =
+        await axios.get(
+          `${urls.commonFacility.commonFacilitiesByPropertyId}/${propertyId}/commonFacilities`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+      return response.data;
+    },
+
+    async updateFacilityStatus(
+      data: UpdateFacilityStatusRequest,
+      facilityId: String,
+      token: String
+    ) {
+      const response = await axios.patch(
+        `${urls.commonFacility.submitCommonFacility}/${facilityId}`,
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response;
+    },
+  },
 };
 
 export default api;

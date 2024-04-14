@@ -43,14 +43,15 @@ const urls = {
   },
   costs: {
     addCost: `${apiPrefix}/costs`,
-    getCosts: `${apiPrefix}/costs`
+    getCosts: `${apiPrefix}/costs`,
   },
   condos: {
     getAllCondos: `${apiPrefix}/condoUnits`,
   },
   commonFacility: {
-    submitCommonFacility: `${apiPrefix}/commonFacilities`
-  }
+    submitCommonFacility: `${apiPrefix}/commonFacilities`,
+    commonFacilitiesByPropertyId: `${apiPrefix}/properties`,
+  },
 };
 
 export default urls;
