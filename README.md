@@ -116,34 +116,34 @@ npm run start
 - For backend
 ```
 npm install
-npm run dev
+npm start
 ```
 - For prisma studio
 ```
-npm prisma studio
+npx prisma studio
 ```
 - For db dev connection
 ```
-cloudflared access tcp --hostname devdbcondos.happyfir.com --url localhost:5433
+cloudflared access tcp --hostname devdbcondos.happyfir.com --url localhost:5432
 ```
 - For db prod connection
 ```
-cloudflared access tcp --hostname dbcondos.happyfir.com --url localhost:5433
+cloudflared access tcp --hostname dbcondos.happyfir.com --url localhost:5432
 ```
 
 ## Naming Conventions
 In this project, we adhere to certain naming conventions to ensure consistency and clarity throughout the codebase. These conventions apply to variables, functions, classes, files, and any other identifiers used in the project.
 1. Variable Naming
 - Variables should be named using descriptive and meaningful names.
-- Use snake_case for variable names.
+- Use camelCase for variable names.
 - Avoid using single-letter variable names except for simple loop counters
 ```
 // Good
-let first_name = "Alex";
-let last_name = "Smith";
+let firstName = "Alex";
+let lastName = "Smith";
 
 // Avoid
-let firstName = "Smith";
+let first_name = "Smith";
 ```
 
 2. Function Naming
@@ -230,9 +230,9 @@ The Condo Management Systems project aims to develop a comprehensive software so
 ![Diagrams-Class Diagram drawio](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/323bfa9d-6df0-475d-8653-fe6b6beeb0dc)
 
 ## Deployment Diagram
-![Diagrams-Deployment Diagram drawio](https://github.com/Ahmad-Elmahallawy/iCondo/assets/90293133/c376bf40-2d7e-4bff-97d4-f3747aae43c5)
+![Diagrams-Deployment Diagram drawio](https://github.com/Ahmad-Elmahallawy/iCondo/assets/77291451/5b306435-d39e-4154-9fb0-22de3248a900)
 
-![Diagrams-Deployment Diagram drawio](https://github.com/Ahmad-Elmahallawy/iCondo/assets/90293133/171249d2-a2c4-4eaf-a792-04943823cf1c)
+![Diagrams-Deployment Diagram drawio](https://github.com/Ahmad-Elmahallawy/iCondo/assets/77291451/17ee5adb-5fbf-4fbc-acb7-f6aac6a975cc)
 
 ## Component Diagram
 ![Diagrams-Component Diagram drawio](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/6a25983e-5242-4ce3-a9f4-1c683d3d4b0a)
@@ -244,13 +244,13 @@ The Condo Management Systems project aims to develop a comprehensive software so
 
 | Admin/Company Use Case Diagram | Financial Manager Use Case Diagram | Operator Use Case Diagram |
 | ------------------------ | ---------------------------- | ------------------------ |
-| <img width="423" alt="Admin/Company Use Case Diagram" src="https://github.com/Ahmad-Elmahallawy/iCondo/assets/90293133/5e806668-a24f-455a-b980-e5cbb1195752"> | <img width="470" alt="Financial Manager Use Case Diagram" src="https://github.com/Ahmad-Elmahallawy/iCondo/assets/90293133/ee5aaa6e-804e-40f9-a1b4-c78227a815f5"> | <img width="493" alt="Operator Use Case Diagram" src="https://github.com/Ahmad-Elmahallawy/iCondo/assets/90293133/c42425fe-b54f-4b9a-ac09-e39338af9dba"> |
+| <img width="423" alt="Admin/Company Use Case Diagram" src="https://github.com/Ahmad-Elmahallawy/iCondo/assets/77291451/4eb1bc9a-6502-4082-aa61-513bd0c36388"> | <img width="470" alt="Financial Manager Use Case Diagram" src="https://github.com/Ahmad-Elmahallawy/iCondo/assets/77291451/2345c2e4-3837-4668-8fb2-16b09c3ef29c"> | <img width="493" alt="Operator Use Case Diagram" src="https://github.com/Ahmad-Elmahallawy/iCondo/assets/77291451/f9682c75-356a-45c1-84a2-7bb3257657b5"> |
 
 
 ## Activity Diagram
 | Public User Registration Activity Diagram | Public User Login Activity Diagram | Reservation Activity Diagram | Financial System Activity Diagram |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| ![Public User Registration Activity Diagram](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/9bd236c5-6236-4b7d-bce9-2abfc2edb1dc) | ![Public User Login Activity Diagram](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/c7474972-5dfc-4b3d-901f-691edf176a25) | ![Reservation Activity Diagram](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/38ae81d2-77f1-4efd-8367-81eff054bf29) | ![Financial System-Activity-Diagram](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/eb51a81a-b6e4-41cf-826f-f7d535cf9dca) |
+| ![Public User Registration Activity Diagram](https://github.com/Ahmad-Elmahallawy/iCondo/assets/77291451/e82e278c-9924-491b-afd0-f1022acdbb5c) | ![Public User Login Activity Diagram](https://github.com/Ahmad-Elmahallawy/iCondo/assets/77291451/8d7541fa-d319-47ce-b92e-ebe953ee23c5) | ![Reservation Activity Diagram](https://github.com/Ahmad-Elmahallawy/iCondo/assets/77291451/2a45119e-2efc-44fa-9cf4-65be347849e7) | ![Financial System-Activity-Diagram](https://github.com/Ahmad-Elmahallawy/iCondo/assets/77291451/8af47e82-1ee6-4221-9909-4ef9da90a6ca) |
 
 
 ## Sequence Diagram
