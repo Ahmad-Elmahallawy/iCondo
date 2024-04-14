@@ -176,6 +176,18 @@ const api = {
       );
       return response.data;
     },
+    async payCondoFee(isPaid: boolean, condoId: number, token: string) {
+      const response: AxiosResponse<IndividualCondo> = await axios.patch(
+        `${urls.userCondos.getCondoById}/${condoId}`,
+        { isPaid: isPaid },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data;
+    },
   },
 
   requests: {
