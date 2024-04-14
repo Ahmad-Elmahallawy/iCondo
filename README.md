@@ -230,7 +230,9 @@ The Condo Management Systems project aims to develop a comprehensive software so
 ![Diagrams-Class Diagram drawio](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/323bfa9d-6df0-475d-8653-fe6b6beeb0dc)
 
 ## Deployment Diagram
-![Diagrams-Deployment Diagram drawio](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/08725aa6-bf52-4859-ab86-9d6279c1d21c)
+![Diagrams-Deployment Diagram drawio](https://github.com/Ahmad-Elmahallawy/iCondo/assets/90293133/c376bf40-2d7e-4bff-97d4-f3747aae43c5)
+
+![Diagrams-Deployment Diagram drawio](https://github.com/Ahmad-Elmahallawy/iCondo/assets/90293133/171249d2-a2c4-4eaf-a792-04943823cf1c)
 
 ## Component Diagram
 ![Diagrams-Component Diagram drawio](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/6a25983e-5242-4ce3-a9f4-1c683d3d4b0a)
@@ -239,6 +241,11 @@ The Condo Management Systems project aims to develop a comprehensive software so
 | Tenant Use Case Diagram | Condo Owner Use Case Diagram | Manager Use Case Diagram |
 | ------------------------ | ---------------------------- | ------------------------ |
 | <img width="423" alt="Tenant Use Case Diagram" src="https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/4036ade6-807f-4ecd-b61f-8fc6f8beb88d"> | <img width="470" alt="Condo Owner Use Case Diagram" src="https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/bb01444d-19f2-458a-bbf1-dd81a089b6a4"> | <img width="493" alt="Manager Use Case Diagram" src="https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/5b13037a-d793-48c0-9e4f-09eaf6064bc9"> |
+
+| Admin/Company Use Case Diagram | Financial Manager Use Case Diagram | Operator Use Case Diagram |
+| ------------------------ | ---------------------------- | ------------------------ |
+| <img width="423" alt="Admin/Company Use Case Diagram" src="https://github.com/Ahmad-Elmahallawy/iCondo/assets/90293133/5e806668-a24f-455a-b980-e5cbb1195752"> | <img width="470" alt="Financial Manager Use Case Diagram" src="https://github.com/Ahmad-Elmahallawy/iCondo/assets/90293133/ee5aaa6e-804e-40f9-a1b4-c78227a815f5"> | <img width="493" alt="Operator Use Case Diagram" src="https://github.com/Ahmad-Elmahallawy/iCondo/assets/90293133/c42425fe-b54f-4b9a-ac09-e39338af9dba"> |
+
 
 ## Activity Diagram
 | Public User Registration Activity Diagram | Public User Login Activity Diagram | Reservation Activity Diagram | Financial System Activity Diagram |
