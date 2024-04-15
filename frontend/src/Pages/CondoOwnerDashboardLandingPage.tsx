@@ -8,7 +8,7 @@ const CondoOwnerDashboardPage: React.FC = () => {
   const Financial_status = "/Assets/FinancialStatus.svg";
   const Condos = "/Assets/CreateProperty.svg";
   const Requests = "/Assets/PropertiesList.svg";
-  const Calendar = "/Assets/Calander.svg";
+  const Calendar = "/Assets/calander.svg";
 
   // Check if the user is logged in
   const user = JSON.parse(localStorage.getItem("userData") || "{}");
