@@ -5,6 +5,7 @@ import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
 import { FileListRelationFilter } from "../../file/base/FileListRelationFilter";
 import { IntFilter } from "../../util/IntFilter";
+import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
 import { LockerWhereUniqueInput } from "../../locker/base/LockerWhereUniqueInput";
 import { ParkingSpotListRelationFilter } from "../../parkingSpot/base/ParkingSpotListRelationFilter";
 import { PropertyWhereUniqueInput } from "../../property/base/PropertyWhereUniqueInput";
@@ -59,6 +60,17 @@ class CondoUnitWhereInput {
     nullable: true,
   })
   id?: IntFilter;
+
+  @ApiProperty({
+    required: false,
+    type: BooleanNullableFilter,
+  })
+  @Type(() => BooleanNullableFilter)
+  @IsOptional()
+  @Field(() => BooleanNullableFilter, {
+    nullable: true,
+  })
+  isPaid?: BooleanNullableFilter;
 
   @ApiProperty({
     required: false,

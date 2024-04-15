@@ -17,6 +17,8 @@ import { UpdateCompanyArgs } from "./UpdateCompanyArgs";
 import { DeleteCompanyArgs } from "./DeleteCompanyArgs";
 import { CompanyEmployeeFindManyArgs } from "../../companyEmployee/base/CompanyEmployeeFindManyArgs";
 import { CompanyEmployee } from "../../companyEmployee/base/CompanyEmployee";
+import { CostFindManyArgs } from "../../cost/base/CostFindManyArgs";
+import { Cost } from "../../cost/base/Cost";
 import { FileFindManyArgs } from "../../file/base/FileFindManyArgs";
 import { File } from "../../file/base/File";
 import { ForumFindManyArgs } from "../../forum/base/ForumFindManyArgs";
@@ -143,6 +145,26 @@ export class CompanyResolverBase {
     @graphql.Args() args: CompanyEmployeeFindManyArgs
   ): Promise<CompanyEmployee[]> {
     const results = await this.service.findCompanyEmployees(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [Cost], { name: "costs" })
+  @nestAccessControl.UseRoles({
+    resource: "Cost",
+    action: "read",
+    possession: "any",
+  })
+  async findCosts(
+      @graphql.Parent() parent: Company,
+      @graphql.Args() args: CostFindManyArgs
+  ): Promise<Cost[]> {
+    const results = await this.service.findCosts(parent.id, args);
 
     if (!results) {
       return [];

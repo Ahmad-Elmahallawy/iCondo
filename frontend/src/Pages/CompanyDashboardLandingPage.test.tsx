@@ -21,7 +21,7 @@ test('renders correct number of IconCards', () => {
     </BrowserRouter>
   );
   const iconCards = getAllByTestId('icon-card');
-  expect(iconCards.length).toBe(6);
+  expect(iconCards.length).toBe(8);
 });
 
 test('renders IconCards with correct titles and routes', () => {

@@ -6,10 +6,10 @@
 .input-with-icon {
   display: flex;
   align-items: center;
-  background: var(--color4);
+  background: var(--color1);
   padding: 8px;
   border-radius: 10px;
-  box-shadow: 3px 4px 1px 1px rgba(0, 0, 0, 0.25);
+  border: 2px solid var(--color4);
 }
 
 .input-with-icon img {
@@ -22,15 +22,19 @@
   height: 100%;
   border: none;
   background: transparent;
+  -webkit-appearance: none;
+  -moz-appearance: none;
   color: white;
   outline: none;
 }
 
+.input-with-icon input:focus {
+  border: none;
+  outline: none;
+}
 .input-with-icon input::placeholder {
   color: white;
 }
-
-
 
 .input-border-error {
   border: 2px solid red;
@@ -38,11 +42,11 @@
 
 .registration-and-login-button {
   border-radius: 255px;
-  background: var(--color4);
+  background: var(--color3);
   width: 100%;
   border: none;
   box-shadow: 3px 4px 1px 1px rgba(0, 0, 0, 0.25);
-  color: var(--color2);
+  color: var(--color1);
   font-size: 15px;
   font-weight: 700;
   padding: 8px;
@@ -50,21 +54,21 @@
 }
 
 .registration-and-login-button:hover {
-  background-color: var(--color2);
+  background-color: var(--color4);
   color: white;
   cursor: pointer;
 }
 
 .registration-and-login-to-eachother {
-  color: var(--color1);
+  color: var(--color4);
   text-align: center;
 }
 
 .registration-and-login-to-eachother span {
-  color: var(--color1);
-  text-decoration: underline;
+  color: var(--color4);
 }
 
 .registration-and-login-to-eachother span:hover {
   color: var(--color4);
+  text-decoration: underline;
 }

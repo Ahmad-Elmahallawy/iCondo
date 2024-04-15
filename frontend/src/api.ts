@@ -3,7 +3,11 @@ import urls from "./urls";
 import { UserData } from "./Components/UserProfile/UserInformation";
 import { CondoInfo } from "./Components/CondoProfile/MyCondos";
 import { IndividualCondo } from "./Components/CondoProfile/IndividualCondoProfile";
-
+import {
+  PropertyByIdResponse,
+  SinglePropertyFacilities,
+} from "./Pages/FacilitiesStatusPage";
+import { UpdateFacilityStatusRequest } from "./Components/CommonFacilities/IndividualFacility";
 
 const api = {
   userInformation: {
@@ -47,13 +51,14 @@ const api = {
         pictureFormData
       );
     },
-    async getUserInfo(userId: number, token: String){
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/users/${userId}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
+    async getUserInfo(userId: number, token: String) {
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/users/${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       return response;
     },
@@ -171,6 +176,18 @@ const api = {
       );
       return response.data;
     },
+    async payCondoFee(isPaid: boolean, condoId: number, token: string) {
+      const response: AxiosResponse<IndividualCondo> = await axios.patch(
+        `${urls.userCondos.getCondoById}/${condoId}`,
+        { isPaid: isPaid },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data;
+    },
   },
 
   requests: {
@@ -243,6 +260,46 @@ const api = {
   },
 
   properties: {
+    async getProperties(token: String) {
+      const response: AxiosResponse<PropertyByIdResponse[]> = await axios.get(
+        `${urls.properties.getAllProperties}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data;
+    },
+    async getAllProperties(companyId: number, token: String) {
+      const response = await axios.get(`${urls.properties.getAllProperties}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        params: {
+          where: {
+            company: {
+              id: companyId,
+            },
+          },
+        },
+      });
+
+      return response;
+    },
+
+    async getPropertyById(propertyId: number, token: String) {
+      const response: AxiosResponse<PropertyByIdResponse> = await axios.get(
+        `${urls.properties.getAllProperties}/${propertyId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data;
+    },
+
     // to get the property ID
     async getCondoProperty(condoId: number, token: String) {
       const response = await axios.get(`${urls.properties.getProperty}`, {
@@ -304,6 +361,47 @@ const api = {
     },
   },
 
+  costs: {
+    async postCost(
+      companyId: number,
+      operationName: String,
+      operationCost: number,
+      token: String
+    ) {
+      let costData: any = {
+        company: {
+          id: companyId,
+        },
+        costName: operationName,
+        amount: operationCost,
+      };
+
+      const response = await axios.post(urls.costs.addCost, costData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return response;
+    },
+
+    async getCosts(companyId: number, token: String) {
+      const response = await axios.get(`${urls.costs.getCosts}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        params: {
+          where: {
+            company: {
+              id: companyId,
+            },
+          },
+        },
+      });
+
+      return response;
+    },
+  },
+
   employeeRegistration: {
     async postUser(userData: any, token: String) {
       const response = await axios.post(
@@ -347,13 +445,16 @@ const api = {
       return response;
     },
     //Gets employees for a company
-    async getCompanyEmployees(companyId: number, token: String){
+    async getCompanyEmployees(companyId: number, token: String) {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/companies/${companyId}/companyEmployees`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/companies/${companyId}/companyEmployees`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         return response.data;
       } catch (error) {
         throw error;
@@ -363,7 +464,6 @@ const api = {
 
   notifications: {
     async getComapnyNotifications(companyId: number, token: String) {
-
       const response = await axios.get(`${urls.companies.getCompany}`, {
         params: {
           where: {
@@ -377,6 +477,72 @@ const api = {
         },
       });
       return response.data;
+    },
+  },
+
+  commonFacility: {
+    async postCommonFacility(
+      facilityType: String,
+      propertyId: number,
+      status: String,
+      token: String
+    ) {
+      let commonFacilityData: any = {
+        facilityType: facilityType,
+        property: {
+          id: propertyId,
+        },
+        status: status,
+      };
+      const response = await axios.post(
+        urls.commonFacility.submitCommonFacility,
+        commonFacilityData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    },
+
+    async getAllCommonFacilities(token: String) {
+      const response: AxiosResponse<SinglePropertyFacilities[]> =
+        await axios.get(`${urls.commonFacility.submitCommonFacility}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+      return response.data;
+    },
+
+    async getCommonFacilitiesByPropertyId(propertyId: number, token: String) {
+      const response: AxiosResponse<SinglePropertyFacilities[]> =
+        await axios.get(
+          `${urls.commonFacility.commonFacilitiesByPropertyId}/${propertyId}/commonFacilities`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+      return response.data;
+    },
+
+    async updateFacilityStatus(
+      data: UpdateFacilityStatusRequest,
+      facilityId: String,
+      token: String
+    ) {
+      const response = await axios.patch(
+        `${urls.commonFacility.submitCommonFacility}/${facilityId}`,
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response;
     },
   },
 };

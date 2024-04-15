@@ -7,30 +7,40 @@ type CommonFacility {
   createdAt: DateTime!
   facilityType: EnumCommonFacilityType
   id: String!
+  property: Property
+  status: String
   updatedAt: DateTime!
 }
 
 input CommonFacilityCreateInput {
   availabilities: ReservationCreateNestedManyWithoutCommonFacilitiesInput
   facilityType: EnumCommonFacilityType
+  property: PropertyWhereUniqueInput
+  status: String
 }
 
 input CommonFacilityOrderByInput {
   createdAt: SortOrder
   facilityType: SortOrder
   id: SortOrder
+  propertyId: SortOrder
+  status: SortOrder
   updatedAt: SortOrder
 }
 
 input CommonFacilityUpdateInput {
   availabilities: ReservationUpdateManyWithoutCommonFacilitiesInput
   facilityType: EnumCommonFacilityType
+  property: PropertyWhereUniqueInput
+  status: String
 }
 
 input CommonFacilityWhereInput {
   availabilities: ReservationListRelationFilter
   facilityType: EnumCommonFacilityType
   id: StringFilter
+  property: PropertyWhereUniqueInput
+  status: StringNullableFilter
 }
 
 input CommonFacilityWhereUniqueInput {
@@ -69,6 +79,47 @@ input CondoUnitWhereUniqueInput {
   id: Float!
 }
 
+type Cost {
+  amount: Float
+  company: Company
+  costName: String
+  createdAt: DateTime!
+  id: Float!
+  updatedAt: DateTime!
+}
+
+input CostCreateInput {
+  amount: Float
+  company: CompanyWhereUniqueInput
+  costName: String
+}
+
+input CostOrderByInput {
+  amount: SortOrder
+  companyID: SortOrder
+  costName: SortOrder
+  createdAt: SortOrder
+  id: SortOrder
+  updatedAt: SortOrder
+}
+
+input CostUpdateInput {
+  amount: Float
+  company: CompanyWhereUniqueInput
+  costName: String
+}
+
+input CostWhereInput {
+  amount: DecimalNullableFilter
+  company: CompanyWhereUniqueInput
+  costName: StringNullableFilter
+  id: IntFilter
+}
+
+input CostWhereUniqueInput {
+  id: Float!
+}
+
 input Credentials {
   password: String!
   username: String!
@@ -78,6 +129,17 @@ input Credentials {
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
 scalar DateTime
+
+input DecimalNullableFilter {
+  equals: Float
+  gt: Float
+  gte: Float
+  in: [Float!]
+  lt: Float
+  lte: Float
+  not: Float
+  notIn: [Float!]
+}
 
 enum EnumCommonFacilityType {
   Type_1
@@ -144,6 +206,17 @@ input ForumWhereUniqueInput {
   id: String!
 }
 
+input IntFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: Int
+  notIn: [Int!]
+}
+
 """
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
@@ -155,12 +228,14 @@ type MetaQueryPayload {
 
 type Mutation {
   createCommonFacility(data: CommonFacilityCreateInput!): CommonFacility!
+  createCost(data: CostCreateInput!): Cost!
   createForum(data: ForumCreateInput!): Forum!
   createNotification(data: NotificationCreateInput!): Notification!
   createPost(data: PostCreateInput!): Post!
   createRequest(data: RequestCreateInput!): Request!
   createReservation(data: ReservationCreateInput!): Reservation!
   deleteCommonFacility(where: CommonFacilityWhereUniqueInput!): CommonFacility!
+  deleteCost(where: CostWhereUniqueInput!): Cost!
   deleteForum(where: ForumWhereUniqueInput!): Forum!
   deleteNotification(where: NotificationWhereUniqueInput!): Notification!
   deletePost(where: PostWhereUniqueInput!): Post!
@@ -168,6 +243,7 @@ type Mutation {
   deleteReservation(where: ReservationWhereUniqueInput!): Reservation!
   login(credentials: Credentials!): UserInfo!
   updateCommonFacility(data: CommonFacilityUpdateInput!, where: CommonFacilityWhereUniqueInput!): CommonFacility!
+  updateCost(data: CostUpdateInput!, where: CostWhereUniqueInput!): Cost!
   updateForum(data: ForumUpdateInput!, where: ForumWhereUniqueInput!): Forum!
   updateNotification(data: NotificationUpdateInput!, where: NotificationWhereUniqueInput!): Notification!
   updatePost(data: PostUpdateInput!, where: PostWhereUniqueInput!): Post!
@@ -311,6 +387,7 @@ input PropertyWhereUniqueInput {
 
 type Query {
   _commonFacilitiesMeta(where: CommonFacilityWhereInput): MetaQueryPayload!
+  _costsMeta(where: CostWhereInput): MetaQueryPayload!
   _forumsMeta(where: ForumWhereInput): MetaQueryPayload!
   _notificationsMeta(where: NotificationWhereInput): MetaQueryPayload!
   _postsMeta(where: PostWhereInput): MetaQueryPayload!
@@ -318,6 +395,8 @@ type Query {
   _reservationsMeta(where: ReservationWhereInput): MetaQueryPayload!
   commonFacilities(orderBy: [CommonFacilityOrderByInput!], skip: Float, take: Float, where: CommonFacilityWhereInput): [CommonFacility!]!
   commonFacility(where: CommonFacilityWhereUniqueInput!): CommonFacility
+  cost(where: CostWhereUniqueInput!): Cost
+  costs(orderBy: [CostOrderByInput!], skip: Float, take: Float, where: CostWhereInput): [Cost!]!
   forum(where: ForumWhereUniqueInput!): Forum
   forums(orderBy: [ForumOrderByInput!], skip: Float, take: Float, where: ForumWhereInput): [Forum!]!
   notification(where: NotificationWhereUniqueInput!): Notification
@@ -428,7 +507,7 @@ input RequestWhereUniqueInput {
 
 type Reservation {
   availablity: String
-  commonFacilityId: CommonFacility
+  commonFacility: CommonFacility
   createdAt: DateTime!
   id: String!
   notes: String
@@ -438,7 +517,7 @@ type Reservation {
 
 input ReservationCreateInput {
   availablity: String
-  commonFacilityID: CommonFacilityWhereUniqueInput
+  commonFacility: CommonFacilityWhereUniqueInput
   notes: String
   user: UserWhereUniqueInput
 }
@@ -455,7 +534,7 @@ input ReservationListRelationFilter {
 
 input ReservationOrderByInput {
   availablity: SortOrder
-  commonFacilityIDId: SortOrder
+  commonFacilityID: SortOrder
   createdAt: SortOrder
   id: SortOrder
   notes: SortOrder
@@ -465,7 +544,7 @@ input ReservationOrderByInput {
 
 input ReservationUpdateInput {
   availablity: String
-  commonFacilityID: CommonFacilityWhereUniqueInput
+  commonFacility: CommonFacilityWhereUniqueInput
   notes: String
   user: UserWhereUniqueInput
 }
@@ -478,7 +557,7 @@ input ReservationUpdateManyWithoutCommonFacilitiesInput {
 
 input ReservationWhereInput {
   availablity: StringNullableFilter
-  commonFacilityID: CommonFacilityWhereUniqueInput
+  commonFacility: CommonFacilityWhereUniqueInput
   id: StringFilter
   notes: StringNullableFilter
   user: UserWhereUniqueInput
@@ -538,6 +617,7 @@ type User {
 type UserInfo {
   accessToken: String
   id: Float!
+  propertyID: Float
   roles: [String!]!
   username: String!
 }

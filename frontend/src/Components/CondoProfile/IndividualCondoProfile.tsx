@@ -18,6 +18,7 @@ export interface IndividualCondo {
   size: string;
   unitNumber: string;
   updatedAt: string;
+  isPaid?: boolean;
 }
 
 const defaultCondoInfo: IndividualCondo = {
@@ -71,6 +72,15 @@ const IndividualCondoProfile = () => {
     link.click();
     document.body.removeChild(link);
   };
+
+  const payCondoFee = async () => {
+    const res = await api.userCondoList.payCondoFee(
+      true,
+      condo.id,
+      user.accessToken
+    );
+    setCondo(res);
+  };
   return (
     <div style={{ width: "100%" }}>
       <div className="condo-info-container">
@@ -105,6 +115,17 @@ const IndividualCondoProfile = () => {
             <div className="input-container">
               <span className="input-label">Locker ID:</span>
               <span className="input-label">{condo.locker}24</span>
+            </div>
+            <div className="input-container">
+              <span className="input-label">Paid:</span>
+              <span className="input-label">
+                {condo.isPaid ? "True" : "False"}
+              </span>
+            </div>
+            <div className="pay-btn-container">
+              <button className="payButton" onClick={payCondoFee}>
+                Pay ${condo.condoFee}
+              </button>
             </div>
           </div>
 

@@ -23,6 +23,14 @@ import IndividualCondoProfile from "./Components/CondoProfile/IndividualCondoPro
 import MyCondos from "./Components/CondoProfile/MyCondos";
 import NotificationUser from "./Pages/NotificationLandingPageUser";
 import EmployeeListLandingPage from "./Pages/EmployeeListLandingPage";
+import Calendar from "./Components/Reservations/Calendar";
+import RentalUserDashboardPage from "./Pages/RentalUserDashboard";
+import MyReservation from "./Components/Reservations/MyReservation";
+import CommonFacilityCreationLandingPage from "./Pages/CommonFacilityCreationLandingPage";
+import CompanyCostsLandingPage from "./Pages/CompanyCostsLandingPage";
+import BudgetReportLandingPage from "./Pages/BudgetReportLandingPage";
+import AnnualReportLandingPage from "./Pages/AnnualReportLandingPage";
+import FacilitiesStatusPage from "./Pages/FacilitiesStatusPage";
 
 function App() {
   return (
@@ -43,6 +51,10 @@ function App() {
         <Route
           path="CondoOwnerDashboard"
           element={<CondoOwnerDashboardPage />}
+        />
+        <Route
+          path="RentalUserDashboard"
+          element={<RentalUserDashboardPage />}
         />
         <Route path="GenerateKey" element={<KeyGenerationLandingPage />} />
         <Route
@@ -80,6 +92,22 @@ function App() {
         />
 
         <Route path="Notifications/User" element={<NotificationUser />} />
+        <Route path="Calendar" element={<Calendar />} />
+        <Route
+          path="CommonFacility"
+          element={<CommonFacilityCreationLandingPage />}
+        />
+        <Route path="MyReservation" element={<MyReservation />} />
+
+        <Route path="FacilitiesStatus" element={<FacilitiesStatusPage />} />
+        <Route path="Costs" element={<CompanyCostsLandingPage />} />
+        <Route
+          path="AnnualReport"
+          element={
+            <AnnualReportLandingPage />
+          } /* CHANGE PATH ONCE PAGE IS CREATED */
+        />
+        <Route path="BudgetReport" element={<BudgetReportLandingPage />} />
       </Routes>
     </div>
   );
