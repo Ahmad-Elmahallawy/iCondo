@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 const RentalUserDashboardPage: React.FC = () => {
   const Profile = "/Assets/profile.svg";
   const Condos = "/Assets/CreateProperty.svg";
-  const Calendar = "/Assets/Calander.svg";
+  const Calendar = "/Assets/calander.svg";
 
   // Check if the user is logged in
   const user = JSON.parse(localStorage.getItem("userData") || "{}");
