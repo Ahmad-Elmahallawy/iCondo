@@ -7,8 +7,8 @@ const ProductHomeItem = ({ title, price, image, onPress }) => {
     return (
         <Pressable onPress={onPress} style={styles.container}>
             <Image style={styles.image} source={{uri: image}} />
-            <Text style={styles.title}>{title}</Text>
-            <Text style={styles.price}>{price}</Text>
+            <Text style={styles.title}>Condo Unit {title}</Text>
+            {/*<Text style={styles.price}>{price}</Text>*/}
         </Pressable>
     )
 }

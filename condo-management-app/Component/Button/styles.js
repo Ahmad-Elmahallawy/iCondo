@@ -13,6 +13,6 @@ export const styles = StyleSheet.create(({
         color: colors.white,
         textAlign: 'center',
         fontWeight: 'bold',
-        fontSize: 16,
+        fontSize: 22,
     }
 }))

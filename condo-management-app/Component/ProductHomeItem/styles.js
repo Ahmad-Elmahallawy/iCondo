@@ -8,7 +8,8 @@ export const styles = StyleSheet.create({
         margin: 8,
     },
     title: {
-        color: colors.grey,
+        color: colors.darkBlack,
+        fontWeight: 'bold',
         paddingVertical: 8,
     },
     image: {

@@ -10,8 +10,8 @@ export const signup = async (values) => {
         });
 
         if (response) {
-            const { username, password } = values;
-            const loginResponse = await login({ username, password });
+            const {username, password} = values;
+            const loginResponse = await login({username, password});
 
             return loginResponse;
         }
@@ -92,12 +92,12 @@ export const submitRegistrationKey = async (key) => {
             url: `/api/registrationKeys`,
             method: 'get',
             params: {
-                    where: {
-                        value: {
-                            equals: key,
-                        },
+                where: {
+                    value: {
+                        equals: key,
                     },
                 },
+            },
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -107,8 +107,8 @@ export const submitRegistrationKey = async (key) => {
         }
         // Create userCondo link
         const data = {
-          condo: { id: key_response.data[0].condoUnit.id },
-          user: { id: user.id }
+            condo: {id: key_response.data[0].condoUnit.id},
+            user: {id: user.id}
         };
         const user_condo_response = await createUserCondos(data);
 
@@ -116,10 +116,10 @@ export const submitRegistrationKey = async (key) => {
         // And if user is a rental user and becomes a condo owner, update too
         const key_role = key_response.data[0].role[0];
         const user_role = user.roles[0];
-        if (user_role == 'PublicUser' && (key_role == 'rental' || key_role == 'condoOwner') ||
-            user_role == 'rental' && key_role == 'condoOwner') {
+        if (user_role === 'PublicUser' && (key_role === 'rental' || key_role === 'condoOwner') ||
+            user_role === 'rental' && key_role === 'condoOwner') {
             const newRole = {
-              roles: key_response.data[0].role
+                roles: key_response.data[0].role
             };
             await updateProfile(newRole);
         }
@@ -146,3 +146,44 @@ export const createUserCondos = async (data) => {
         console.error('Error linking user with condo in UserCondo:', e);
     }
 }
+
+export const getCondoUnits = async () => {
+    try {
+        const user_id = await AsyncStorage.getItem('user_id')
+        const token = await AsyncStorage.getItem('auth_token');
+        const response = await request({
+            url: `/api/users/${user_id}/userCondos`,
+            method: 'get',
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        let condoArray = response?.data;
+        let condoRes = [];
+        for (let i = 0; i < condoArray.length; i++) {
+            condoRes[i] = await getCondoUnit(condoArray[i].condo.id);
+        }
+        if (condoRes) {
+            return condoRes;
+        }
+    } catch (e) {
+        console.log('e condoUnits :>> ', e);
+    }
+};
+
+export const getCondoUnit = async (condo_id) => {
+    try {
+        const token = await AsyncStorage.getItem('auth_token');
+        const response = await request({
+            url: `/api/condoUnits/${condo_id}`,
+            method: 'get',
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        return response?.data;
+
+    } catch (e) {
+        console.log('e condoUnit :>> ', e);
+    }
+};
