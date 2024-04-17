@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useContext, useState} from 'react';
 import { Image, Linking, Pressable, ScrollView, Text, View } from 'react-native';
 import { styles } from './styles';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -8,18 +8,27 @@ import EditableBox from '../../../Component/EditableBox';
 import Button from '../../../Component/Button';
 import Input from "../../../Component/Input";
 import Separator from "../../../Component/Separator";
+import {ProfileContext} from "../../../App";
+import {updateProfile, submitRegistrationKey} from "../../../utils/backendRequest";
 
 const Settings = ({ navigation }) => {
+    const {profile, setProfile} = useContext(ProfileContext);
     const [editing, setEditing] = useState(false);
-    const [values, setValues] = useState({firstName: 'Joe',lastName: 'Doe',
-        phoneNumber: '111-111-111',password: '******', email: 'user@mail.com'})
+    const [values, setValues] = useState({firstName: profile?.firstName,lastName: profile?.lastName,
+        phoneNumber: profile?.phoneNumber ,password: "*******", email: profile?.email, registrationKey: ""})
 
     const onEditPress = () => {
         setEditing(true);
     }
 
-    const onSave = () => {
+    const onSave = async () => {
+        const updatedProfile = await updateProfile(values);
+        setProfile(updatedProfile);
         setEditing(false);
+    }
+
+    const onSubmit = async () => {
+        const response = await submitRegistrationKey(values.registrationKey);
     }
 
     const onChange = (key, value) => {
@@ -54,8 +63,8 @@ const Settings = ({ navigation }) => {
                     <Button style={styles.button} onPress={onSave} title="Save" />
                 ) : null}
                 <Text style={[styles.sectionTitle, {marginTop: 40}]}>Submit Registration Key</Text>
-                <Input placeholder="Registration Key" label="Registration Key" value={values.registrationKey} onChangeText={(v) => onChange(v, 'registrationKey')} />
-                <Button title="Submit" style={styles.button} />
+                <Input placeholder="Registration Key" label="Registration Key" value={values.registrationKey} onChangeText={(v) => onChange('registrationKey', v)} />
+                <Button title="Submit" style={styles.button} onPress={onSubmit} />
 
                 <Text style={[styles.sectionTitle, {marginTop: 40}]}>Help Center</Text>
                 <ListItem onPress={onItemPress} style={styles.item} title="FAQ" />

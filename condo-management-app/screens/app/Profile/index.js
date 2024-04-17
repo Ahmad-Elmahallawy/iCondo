@@ -1,16 +1,31 @@
-import React from 'react';
+import React, {useContext, useEffect} from 'react';
 import { Text, View } from 'react-native';
 import { styles } from './styles';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Header from '../../../Component/Header';
 import ListItem from '../../../Component/ListCondo';
 import Button from '../../../Component/Button';
+import {ProfileContext, UserContext} from "../../../App";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import {getProfile} from "../../../utils/backendRequest";
 
 const Profile = ({ navigation }) => {
     const num = 10;
+    const { profile, setProfile } = useContext(ProfileContext);
+    const { setUser } = useContext(UserContext);
 
-    const onLogout = () => {
-        console.log('log out clicked');
+    useEffect(() => {
+        (async () => {
+            const data = await getProfile();
+            setProfile(data)
+        }) ()
+    }, [])
+    const onLogout = async () => {
+        try {
+            setUser(null);
+        } catch (e) {
+            console.error('Error while logging out:', e);
+        }
     }
 
     const onSettingsPress = () => {
@@ -30,8 +45,8 @@ const Profile = ({ navigation }) => {
             <Header title="Profile" showLogout onLogout={onLogout} />
             <View style={styles.container}>
                 <View style={styles.content}>
-                    <Text style={styles.name}>User name</Text>
-                    <Text style={styles.email}>JoeDoe@gmail.com</Text>
+                    <Text style={styles.name}>{profile?.firstName + " " + profile?.lastName}</Text>
+                    <Text style={styles.email}>{profile?.email}</Text>
 
                     <ListItem onPress={onMyListingsPress} title="My Listings" subtitle={`You have ${num} listings`} />
                     <ListItem onPress={onSettingsPress} title="Settings" subtitle="Account, FAQ, Contact" />
