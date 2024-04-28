@@ -38,7 +38,7 @@ export class NotificationConsumerController {
                 });
 
 
-                // this.logger.log(`Received message from topic ${topic}: ${message?.value?.toString() ?? ''}`);
+                 this.logger.log(`Received message: ${JSON.stringify(message)?? ''}`);
             } catch (error) {
                 this.logger.error(`Error creating notification: ${error}`);
             }
