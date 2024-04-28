@@ -70,6 +70,7 @@ type CondoUnit {
   condoFee: Float
   createdAt: DateTime!
   id: Float!
+  isPaid: Boolean
   size: String!
   unitNumber: String
   updatedAt: DateTime!

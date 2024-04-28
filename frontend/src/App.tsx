@@ -31,6 +31,7 @@ import CompanyCostsLandingPage from "./Pages/CompanyCostsLandingPage";
 import BudgetReportLandingPage from "./Pages/BudgetReportLandingPage";
 import AnnualReportLandingPage from "./Pages/AnnualReportLandingPage";
 import FacilitiesStatusPage from "./Pages/FacilitiesStatusPage";
+import ForumLandingPage from "./Pages/ForumLandingPage";
 
 function App() {
   return (
@@ -101,12 +102,9 @@ function App() {
 
         <Route path="FacilitiesStatus" element={<FacilitiesStatusPage />} />
         <Route path="Costs" element={<CompanyCostsLandingPage />} />
-        <Route
-          path="AnnualReport"
-          element={
-            <AnnualReportLandingPage />
-          } /* CHANGE PATH ONCE PAGE IS CREATED */
-        />
+        <Route path="AnnualReport" element={<AnnualReportLandingPage />} />
+        <Route path="Forums" element={<ForumLandingPage />} /> 
+
         <Route path="BudgetReport" element={<BudgetReportLandingPage />} />
       </Routes>
     </div>
