@@ -12,7 +12,7 @@
       "backgroundColor": "#ffffff"
     },
     "extra": {
-      "API_BASE_URL": "https://example.com/api/"
+      "API_BASE_URL": "https://devbackendcondos.happyfir.com"
     },
     "plugins": [
       [
