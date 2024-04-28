@@ -99,20 +99,10 @@ export class NotificationControllerBase {
         id: true,
         message: true,
 
-        request: {
-          select: {
-            id: true,
-          },
-        },
 
         title: true,
         updatedAt: true,
 
-        user: {
-          select: {
-            id: true,
-          },
-        },
       },
     });
   }
@@ -139,20 +129,12 @@ export class NotificationControllerBase {
         id: true,
         message: true,
 
-        request: {
-          select: {
-            id: true,
-          },
-        },
+
 
         title: true,
         updatedAt: true,
 
-        user: {
-          select: {
-            id: true,
-          },
-        },
+
       },
     });
     if (result === null) {
@@ -201,21 +183,8 @@ export class NotificationControllerBase {
           createdAt: true,
           id: true,
           message: true,
-
-          request: {
-            select: {
-              id: true,
-            },
-          },
-
           title: true,
           updatedAt: true,
-
-          user: {
-            select: {
-              id: true,
-            },
-          },
         },
       });
     } catch (error) {
@@ -250,20 +219,12 @@ export class NotificationControllerBase {
           id: true,
           message: true,
 
-          request: {
-            select: {
-              id: true,
-            },
-          },
+
 
           title: true,
           updatedAt: true,
 
-          user: {
-            select: {
-              id: true,
-            },
-          },
+
         },
       });
     } catch (error) {

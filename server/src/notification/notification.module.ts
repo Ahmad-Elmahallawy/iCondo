@@ -10,7 +10,7 @@ import { NotificationConsumerController } from './notification-consumer/notifica
 @Module({
   imports: [NotificationModuleBase, forwardRef(() => AuthModule)],
   controllers: [NotificationController, NotificationConsumerController],
-  providers: [NotificationService, NotificationResolver, SocketGateway],
+  providers: [NotificationService, NotificationResolver],
   exports: [NotificationService],
 })
 export class NotificationModule {}

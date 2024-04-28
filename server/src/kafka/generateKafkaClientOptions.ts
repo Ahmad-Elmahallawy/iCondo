@@ -28,12 +28,16 @@ export const generateKafkaClientOptions = (
         clientId: kafkaClientId,
         brokers: [...kafkaBrokersString.split(",")],
         ssl: kafkaEnableSSL,
+
       },
       producer: {
-        metadataMaxAge: 3000,
+       // metadataMaxAge: 5000,
       },
       consumer: {
-        rebalanceTimeout: 3000,
+        heartbeatInterval:10000,
+        sessionTimeout:60000,
+        //maxWaitTimeInMs: 13000,
+       // rebalanceTimeout: 60000,
         groupId: kafkaGroupId,
       },
     },
