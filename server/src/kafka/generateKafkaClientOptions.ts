@@ -4,10 +4,12 @@ import { KafkaOptions, Transport } from "@nestjs/microservices";
 export const generateKafkaClientOptions = (
   configService: ConfigService
 ): KafkaOptions => {
+  const rnd = Math.random()
   const kafkaBrokersString = configService.get("KAFKA_BROKERS");
   const kafkaEnableSSL = configService.get("KAFKA_ENABLE_SSL") === "true";
-  const kafkaClientId = configService.get("KAFKA_CLIENT_ID");
-  const kafkaGroupId = configService.get("KAFKA_GROUP_ID");
+  const kafkaClientId = configService.get("KAFKA_CLIENT_ID")+rnd;
+  const kafkaGroupId = configService.get("KAFKA_GROUP_ID")+rnd;
+
 
   if (!kafkaBrokersString) {
     throw new Error("KAFKA_BROKERS environment variable must be defined");
