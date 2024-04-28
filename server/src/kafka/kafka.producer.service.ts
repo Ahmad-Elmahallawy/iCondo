@@ -11,7 +11,7 @@ export class KafkaProducerService {
     topic: MyMessageBrokerTopics,
     message: KafkaMessage
   ): Promise<void> {
-    return  new Promise((resolve, reject) => {
+    return await new Promise((resolve, reject) => {
       this.kafkaClient.emit(topic, message).subscribe({
         error: (err: Error) => {
           this.logger.log(err)
