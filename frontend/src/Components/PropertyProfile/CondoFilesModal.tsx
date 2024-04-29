@@ -99,7 +99,6 @@ export default function CondoFilesModal(props: any) {
           },
         };
 
-        console.log(id);
         await axios.post(postFilesEndpoint, data, {
           headers: {
             Authorization: `Bearer ${token}`, // Set Authorization header with token

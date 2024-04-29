@@ -59,7 +59,6 @@ const CondoCreation = () => {
           },
         });
 
-        console.log("Condo Unit created successfully");
         navigate("/PropertiesList");
       } catch (error: any) {
         if (error.response && error.response.status === 409) {

@@ -29,7 +29,6 @@ const EmployeeRequestSubject = () => {
           company[0]?.id,
           userData.accessToken
         );
-        console.log(response);
 
         if (response !== undefined) {
           setFetchedRequests(response.data);
@@ -60,7 +59,6 @@ const EmployeeRequestSubject = () => {
               userData.accessToken
             );
 
-      console.log(response);
 
       // Check if response data exists and has the id property
       if (response && response.data && response.data.id) {
@@ -85,7 +83,6 @@ const EmployeeRequestSubject = () => {
             },
           }
         );
-        console.log(notificationResponse);
 
         if (notificationResponse && notificationResponse.data) {
           const previousStatus = fetchedRequests.find(

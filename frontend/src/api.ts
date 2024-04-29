@@ -422,8 +422,6 @@ const api = {
       userId: number,
       token: String
     ) {
-      console.log(companyId, userId, token);
-
       const response = await axios.post(
         urls.employees.registerCompanyEmployee,
 

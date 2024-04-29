@@ -22,19 +22,16 @@ const EmployeeRegistration = () => {
     onSubmit: async (values) => {
       setIsLoading(true); // Set loading indicator to true on form submission
       values.roles = [selectedRole]; // Set the selected role as an array with one element
-      console.log(values);
       const user = JSON.parse(localStorage.getItem("userData") || "{}");
       const companyId = JSON.parse(
         localStorage.getItem("companyDetails") || "{}"
       )[0].id;
-      console.log(companyId);
       try {
         // Make API call to register employee
         const response = await api.employeeRegistration.postUser(
           values,
           user.accessToken
         );
-        console.log("Employee registration successful:", response.data); // Log successful response
         const companyResponse =
           await api.employeeRegistration.postCompanyEmployee(
             companyId,
