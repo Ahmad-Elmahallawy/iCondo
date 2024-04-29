@@ -260,9 +260,9 @@ const api = {
   },
 
   properties: {
-    async getProperties(token: String) {
+    async getProperties(companyId: number, token: String) {
       const response: AxiosResponse<PropertyByIdResponse[]> = await axios.get(
-        `${urls.properties.getAllProperties}`,
+        `${urls.properties.getCompanyProperties}/${companyId}/properties`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -276,13 +276,6 @@ const api = {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        // params: {
-        //   where: {
-        //     company: {
-        //       id: companyId,
-        //     },
-        //   },
-        // },
       });
 
       return response;
