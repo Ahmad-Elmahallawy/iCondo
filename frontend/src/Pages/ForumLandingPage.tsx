@@ -8,6 +8,9 @@ interface Post {
   content: string;
   replies: Reply[];
   showReplies: boolean;
+  user: {
+    id: number;
+  };
 }
 
 interface Reply {
@@ -31,7 +34,6 @@ const ForumLandingPage: React.FC = () => {
 
   const fetchPosts = async () => {
     try {
-      // Make a GET request to your backend API to fetch posts using Axios
       const response = await axios.get(
         `${process.env.REACT_APP_API_URL}/posts`,
         {
@@ -40,9 +42,24 @@ const ForumLandingPage: React.FC = () => {
           },
         }
       );
-      // Update the posts state with the fetched data
-      setPosts(response.data);
-      console.log(response.data);
+      // Fetch usernames associated with user IDs of posts
+      const postsWithUsernames = await Promise.all(
+        response.data.map(async (post: Post) => {
+          console.log(post.user.id);
+
+          const userResponse = await axios.get(
+            `${process.env.REACT_APP_API_URL}/users/${post.user.id}`, // Assuming the API route for fetching user details
+            {
+              headers: {
+                Authorization: `Bearer ${user.accessToken}`,
+              },
+            }
+          );
+          return { ...post, username: userResponse.data.username };
+        })
+      );
+      // Update the posts state with the fetched data including usernames
+      setPosts(postsWithUsernames);
     } catch (error) {
       console.error("Error fetching posts:", error);
     }
@@ -114,11 +131,13 @@ const ForumLandingPage: React.FC = () => {
       <div className="posts-container">
         {posts.map((post) => (
           <div key={post.id} className="post">
+            <strong>{post.username}</strong>
             <p className="post-content">{post.content}</p>
             <button onClick={() => toggleReplies(post.id)}>
               {post.showReplies ? "Hide Replies" : "Show Replies"}
             </button>
             {post.showReplies &&
+              post.replies &&
               post.replies.map((reply) => (
                 <div key={reply.id} className="reply">
                   <p className="reply-content">{reply.content}</p>

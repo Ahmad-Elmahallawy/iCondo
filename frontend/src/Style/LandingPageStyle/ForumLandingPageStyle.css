@@ -71,6 +71,10 @@ button:hover {
   font-size: 14px;
 }
 
+.posts-container strong {
+  margin: 0;
+}
+
 /* Responsive Handling */
 @media (max-width: 768px) {
   .forum-container {
