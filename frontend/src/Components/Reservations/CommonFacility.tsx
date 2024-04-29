@@ -21,7 +21,9 @@ interface Property {
 
 const CommonFacility = () => {
   const navigate = useNavigate();
-  const companyId = JSON.parse(localStorage.getItem('companyDetails') || '[]')[0]?.id;
+  const companyId = JSON.parse(localStorage.getItem('companyDetails') || '[]')[0]?.company.id;
+  console.log(companyId);
+  
   const userData = JSON.parse(localStorage.getItem("userData") || "{}");
   const token = userData.accessToken;
 

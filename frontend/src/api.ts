@@ -271,18 +271,18 @@ const api = {
       );
       return response.data;
     },
-    async getAllProperties(companyId: number, token: String) {
-      const response = await axios.get(`${urls.properties.getAllProperties}`, {
+    async getAllProperties(companyId: number, token: String) {      
+      const response = await axios.get(`${urls.properties.getCompanyProperties}/${companyId}/properties`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        params: {
-          where: {
-            company: {
-              id: companyId,
-            },
-          },
-        },
+        // params: {
+        //   where: {
+        //     company: {
+        //       id: companyId,
+        //     },
+        //   },
+        // },
       });
 
       return response;
