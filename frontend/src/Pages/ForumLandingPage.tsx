@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "../Style/LandingPageStyle/ForumLandingPageStyle.css";
 
 interface Post {
   id: number;
+  username: string;
   content: string;
   replies: Reply[];
   showReplies: boolean;
@@ -20,16 +22,58 @@ const ForumLandingPage: React.FC = () => {
   const [replyContents, setReplyContents] = useState<{ [key: number]: string }>(
     {}
   );
+  const user = JSON.parse(localStorage.getItem("userData") || "{}");
 
-  const handleAddPost = () => {
-    const newPost: Post = {
-      id: posts.length + 1,
-      content: postContent,
-      replies: [],
-      showReplies: false,
-    };
-    setPosts([...posts, newPost]);
-    setPostContent("");
+  useEffect(() => {
+    // Fetch posts from the backend API and update the state
+    fetchPosts();
+  }, []);
+
+  const fetchPosts = async () => {
+    try {
+      // Make a GET request to your backend API to fetch posts using Axios
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/posts`,
+        {
+          headers: {
+            Authorization: `Bearer ${user.accessToken}`,
+          },
+        }
+      );
+      // Update the posts state with the fetched data
+      setPosts(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+    }
+  };
+
+  const handleAddPost = async () => {
+    try {
+      console.log(postContent);
+
+      // Make a POST request to your backend API to create a new post
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/posts`,
+        {
+          content: postContent,
+          user: {
+            id: user.id,
+          },
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${user.accessToken}`,
+          },
+        }
+      );
+      // Update the posts state with the newly created post
+      setPosts([...posts, response.data]);
+      // Clear the post content input field
+      setPostContent("");
+    } catch (error) {
+      console.error("Error adding post:", error);
+    }
   };
 
   const toggleReplies = (postId: number) => {
