@@ -95,8 +95,8 @@ const FinancialStatusLandingPage = () => {
             <table className="financial-status-table">
             <thead>
                 <tr>
-                <th>Condo Units (ID)</th>
-                <th>Condo Fees Status ($)</th>
+                <th>Condo Unit Number</th>
+                <th>Condo Fees Status</th>
                 </tr>
             </thead>
             <tbody>
