@@ -45,8 +45,6 @@ const ForumLandingPage: React.FC = () => {
       // Fetch usernames associated with user IDs of posts
       const postsWithUsernames = await Promise.all(
         response.data.map(async (post: Post) => {
-          console.log(post.user.id);
-
           const userResponse = await axios.get(
             `${process.env.REACT_APP_API_URL}/users/${post.user.id}`, // Assuming the API route for fetching user details
             {
@@ -67,8 +65,6 @@ const ForumLandingPage: React.FC = () => {
 
   const handleAddPost = async () => {
     try {
-      console.log(postContent);
-
       // Make a POST request to your backend API to create a new post
       const response = await axios.post(
         `${process.env.REACT_APP_API_URL}/posts`,
