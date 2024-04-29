@@ -46,7 +46,7 @@ export class PostServiceBase {
   async findReplies(
       parentId: string,
       args: Prisma.ReplyFindManyArgs
-  ): Promise<PrismaReply[]> {
+  ): Promise<Reply[]> {
     return this.prisma.post
         .findUniqueOrThrow({
           where: { id: parentId },

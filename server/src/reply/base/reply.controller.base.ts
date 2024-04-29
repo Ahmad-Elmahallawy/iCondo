@@ -13,7 +13,6 @@ import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterRespon
 import { ReplyCreateInput } from "./ReplyCreateInput";
 import { Reply } from "./Reply";
 import { Post } from "../../post/base/Post";
-import { Request } from "../../request/base/Request";
 import { ReplyFindManyArgs } from "./ReplyFindManyArgs";
 import { ReplyWhereUniqueInput } from "./ReplyWhereUniqueInput";
 import { ReplyUpdateInput } from "./ReplyUpdateInput";
