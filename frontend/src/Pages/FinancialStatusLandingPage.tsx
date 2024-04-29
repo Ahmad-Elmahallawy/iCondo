@@ -77,13 +77,7 @@ const FinancialStatusLandingPage = () => {
                 if (mounted) {
                     setCondoData(condoDetails);
                 }
-            }).catch((error) => {
-                console.error("Failed to fetch condo details:", error);
-            }).finally(() => {
-                if (mounted) {
-                    setLoading(false);
-                }
-            });
+            })
         }
         return () => {
             mounted = false;
@@ -97,9 +91,6 @@ const FinancialStatusLandingPage = () => {
           <div className="financial-status-header">
             <h1>Financial Status</h1>
           </div>
-          {loading ? (
-            <p>Loading...</p>
-          ) : (
           <div className="financial-status-table-container">
             <table className="financial-status-table">
             <thead>
@@ -118,7 +109,6 @@ const FinancialStatusLandingPage = () => {
             </tbody>
             </table>
           </div>
-          )}
         </div>
       );
 }
