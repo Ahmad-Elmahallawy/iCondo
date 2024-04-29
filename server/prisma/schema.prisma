@@ -17,7 +17,7 @@ model User {
   lastName         String?
   password         String
   phoneNumber      String            @unique
-  posts            Post[]
+  post             Post[]
   requests         Request[]
   reservations     Reservation[]
   roles            Json
@@ -153,7 +153,7 @@ model Forum {
   createdAt DateTime @default(now())
   id        String   @id @default(cuid())
   name      String
-  posts     Post[]
+  post      Post[]
   updatedAt DateTime @updatedAt
 }
 
@@ -173,8 +173,8 @@ model Reply {
   content   String?
   createdAt DateTime @default(now())
   id        String   @id @default(cuid())
-  posts     Post?    @relation(fields: [postID], references: [id])
-  postID    String?
+  post      Post     @relation(fields: [postID], references: [id])
+  postID    String
   updatedAt DateTime @updatedAt
 }
 

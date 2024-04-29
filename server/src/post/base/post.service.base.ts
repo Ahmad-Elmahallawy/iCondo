@@ -3,6 +3,7 @@ import { PrismaService } from "../../prisma/prisma.service";
 import {
   Prisma,
   Post, // @ts-ignore
+  Reply,
   Forum, // @ts-ignore
   User,
 } from "@prisma/client";
@@ -40,6 +41,17 @@ export class PostServiceBase {
     args: Prisma.SelectSubset<T, Prisma.PostDeleteArgs>
   ): Promise<Post> {
     return this.prisma.post.delete(args);
+  }
+
+  async findReplies(
+      parentId: string,
+      args: Prisma.ReplyFindManyArgs
+  ): Promise<PrismaReply[]> {
+    return this.prisma.post
+        .findUniqueOrThrow({
+          where: { id: parentId },
+        })
+        .replies(args);
   }
 
   async getForum(parentId: string): Promise<Forum | null> {
