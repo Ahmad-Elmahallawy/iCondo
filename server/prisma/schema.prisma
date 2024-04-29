@@ -166,6 +166,16 @@ model Post {
   updatedAt DateTime @updatedAt
   user      User?    @relation(fields: [userID], references: [id])
   userID    Int?
+  replies   Reply[]
+}
+
+model Reply {
+  content   String?
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  posts     Post?    @relation(fields: [postID], references: [id])
+  postID    String?
+  updatedAt DateTime @updatedAt
 }
 
 model CommonFacility {
