@@ -9,7 +9,6 @@ interface ProfitsProps {
 const Profits: React.FC<ProfitsProps> = ({ totalRevenues, totalExpenses }) => {
   const [loading, setLoading] = useState(true);
 
-  console.log(totalRevenues, totalExpenses)
 
   useEffect(() => {
     // Simulating a check if totalRevenues and totalExpenses have been passed

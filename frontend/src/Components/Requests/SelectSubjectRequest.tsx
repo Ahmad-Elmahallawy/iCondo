@@ -21,7 +21,6 @@ export default function SelectSubjectRequest({
 
   const handleChange = (event: SelectChangeEvent) => {
     const selectedValue = event.target.value;
-    console.log(selectedValue);
 
     setRequest(selectedValue);
     onSelect(selectedValue); // Call the onSelect prop with the selected value
