@@ -43,7 +43,9 @@ export default function Calendar() {
             date: event.availablity.split("T")[0], // Splitting the datetime and taking the date part
           })
         );
+
         setEvents(formattedEvents);
+
       } catch (error) {
         console.error("Error fetching reservations:", error);
         // Handle error scenario
@@ -90,14 +92,6 @@ export default function Calendar() {
         }
       );
       console.log("Reservation created successfully", response.data);
-
-      const reserveAvailabilityResponse = await axios.post(
-        `${process.env.REACT_APP_API_URL}/commonFacilities/${requestBody.commonFacility.id}/availabilities`,
-        requestBody.availablity,
-        {
-          headers: { Authorization: `Bearer ${user.accessToken}` },
-        }
-      );
     } catch (error) {
       console.error("Error creating reservation:", error);
       // Handle error scenario
@@ -118,6 +112,9 @@ export default function Calendar() {
       </>
     );
   }
+
+
+  
 
   return (
     <div className="calendar-container">
@@ -156,12 +153,7 @@ export default function Calendar() {
         onSubmit={handleEventCreation}
         defaultDate={selectedDate}
       />
-      <ReservationModal
-        open={dialogOpen}
-        onClose={() => setDialogOpen(false)}
-        onSubmit={handleEventCreation}
-        defaultDate={selectedDate}
-      />
+
     </div>
   );
 }
