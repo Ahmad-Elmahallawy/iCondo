@@ -36,7 +36,7 @@ const DashboardPage: React.FC = () => {
         </div>
         <div className="dashboard-row">
           <IconCard title="Employees List" icon={Employee_list} route="/EmployeeList" />
-          <IconCard title="Anunal Report" icon={Annual_report} route="/AnnualReport" />
+          <IconCard title="Annual Report" icon={Annual_report} route="/AnnualReport" />
           <IconCard title="Properties List" icon={Properties_list} route="/PropertiesList" />
           <IconCard title="Operational Budget Report" icon={Operational_budget} route="/BudgetReport" />
         </div>
