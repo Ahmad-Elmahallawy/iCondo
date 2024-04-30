@@ -27,7 +27,7 @@ export default function Calendar() {
     const fetchEvents = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/reservations`, 
+          `${process.env.REACT_APP_API_URL}/reservations`,
           {
             params: {
               where: {
@@ -51,7 +51,7 @@ export default function Calendar() {
     };
 
     fetchEvents();
-  }, []); 
+  }, []);
 
   const handleDateClick = (arg: any) => {
     setSelectedDate(arg.dateStr);
@@ -63,7 +63,6 @@ export default function Calendar() {
   ) => {
     const eventTitle = `${newEvent.name} - ${newEvent.facilityName} at ${newEvent.time}`;
     const fullEvent = { ...newEvent, title: eventTitle };
-
 
     setEvents([...events, fullEvent]);
     setDialogOpen(false);
@@ -91,6 +90,14 @@ export default function Calendar() {
         }
       );
       console.log("Reservation created successfully", response.data);
+
+      const reserveAvailabilityResponse = await axios.post(
+        `${process.env.REACT_APP_API_URL}/commonFacilities/${requestBody.commonFacility.id}/availabilities`,
+        requestBody.availablity,
+        {
+          headers: { Authorization: `Bearer ${user.accessToken}` },
+        }
+      );
     } catch (error) {
       console.error("Error creating reservation:", error);
       // Handle error scenario
