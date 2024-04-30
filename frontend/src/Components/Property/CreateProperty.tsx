@@ -47,9 +47,7 @@ const CreateProperty: React.FC = () => {
           },
         });
 
-        console.log("Property created successfully");
         id = response.data.id;
-        console.log(id);
         navigate("/PropertiesList");
       } catch (error: any) {
         console.error(

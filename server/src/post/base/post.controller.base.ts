@@ -16,6 +16,9 @@ import { Post } from "./Post";
 import { PostFindManyArgs } from "./PostFindManyArgs";
 import { PostWhereUniqueInput } from "./PostWhereUniqueInput";
 import { PostUpdateInput } from "./PostUpdateInput";
+import { ReplyFindManyArgs } from "../../reply/base/ReplyFindManyArgs";
+import { Reply } from "../../reply/base/Reply";
+import { ReplyWhereUniqueInput } from "../../reply/base/ReplyWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -266,5 +269,108 @@ export class PostControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/replies")
+  @ApiNestedQuery(ReplyFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "Reply",
+    action: "read",
+    possession: "any",
+  })
+  async findReplies(
+      @common.Req() request: Request,
+      @common.Param() params: PostWhereUniqueInput
+  ): Promise<Reply[]> {
+    const query = plainToClass(ReplyFindManyArgs, request.query);
+    const results = await this.service.findReplies(params.id, {
+      ...query,
+      select: {
+        content: true,
+        createdAt: true,
+        id: true,
+
+        post: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+          `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/replies")
+  @nestAccessControl.UseRoles({
+    resource: "Post",
+    action: "update",
+    possession: "any",
+  })
+  async connectReplies(
+      @common.Param() params: PostWhereUniqueInput,
+      @common.Body() body: ReplyWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      replies: {
+        connect: body,
+      },
+    };
+    await this.service.updatePost({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/replies")
+  @nestAccessControl.UseRoles({
+    resource: "Post",
+    action: "update",
+    possession: "any",
+  })
+  async updateReplies(
+      @common.Param() params: PostWhereUniqueInput,
+      @common.Body() body: ReplyWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      replies: {
+        set: body,
+      },
+    };
+    await this.service.updatePost({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/replies")
+  @nestAccessControl.UseRoles({
+    resource: "Post",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectReplies(
+      @common.Param() params: PostWhereUniqueInput,
+      @common.Body() body: ReplyWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      replies: {
+        disconnect: body,
+      },
+    };
+    await this.service.updatePost({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 }

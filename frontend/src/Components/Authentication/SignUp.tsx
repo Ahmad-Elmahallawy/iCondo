@@ -56,8 +56,6 @@ const SignUp: React.FC = () => {
         // Set user type specific fields
         userType === "PublicUser" && (commonUserData.roles = ["PublicUser"]);
 
-        // Log common user data
-        console.log(commonUserData);
 
         const registrationEndpoint = `${process.env.REACT_APP_API_URL}/users`;
 
@@ -86,8 +84,6 @@ const SignUp: React.FC = () => {
               name: commonUserData.companyName,
             }
           );
-          console.log(response);
-          console.log(response1);
           const response2 = await axios.post(
             `${process.env.REACT_APP_API_URL}/companyEmployees`,
             {

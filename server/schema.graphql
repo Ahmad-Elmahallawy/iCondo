@@ -70,6 +70,7 @@ type CondoUnit {
   condoFee: Float
   createdAt: DateTime!
   id: Float!
+  isPaid: Boolean
   size: String!
   unitNumber: String
   updatedAt: DateTime!
@@ -232,6 +233,7 @@ type Mutation {
   createForum(data: ForumCreateInput!): Forum!
   createNotification(data: NotificationCreateInput!): Notification!
   createPost(data: PostCreateInput!): Post!
+  createReply(data: ReplyCreateInput!): Reply!
   createRequest(data: RequestCreateInput!): Request!
   createReservation(data: ReservationCreateInput!): Reservation!
   deleteCommonFacility(where: CommonFacilityWhereUniqueInput!): CommonFacility!
@@ -239,6 +241,7 @@ type Mutation {
   deleteForum(where: ForumWhereUniqueInput!): Forum!
   deleteNotification(where: NotificationWhereUniqueInput!): Notification!
   deletePost(where: PostWhereUniqueInput!): Post!
+  deleteReply(where: ReplyWhereUniqueInput!): Reply!
   deleteRequest(where: RequestWhereUniqueInput!): Request!
   deleteReservation(where: ReservationWhereUniqueInput!): Reservation!
   login(credentials: Credentials!): UserInfo!
@@ -247,6 +250,7 @@ type Mutation {
   updateForum(data: ForumUpdateInput!, where: ForumWhereUniqueInput!): Forum!
   updateNotification(data: NotificationUpdateInput!, where: NotificationWhereUniqueInput!): Notification!
   updatePost(data: PostUpdateInput!, where: PostWhereUniqueInput!): Post!
+  updateReply(data: ReplyUpdateInput!, where: ReplyWhereUniqueInput!): Reply!
   updateRequest(data: RequestUpdateInput!, where: RequestWhereUniqueInput!): Request!
   updateReservation(data: ReservationUpdateInput!, where: ReservationWhereUniqueInput!): Reservation!
 }
@@ -318,6 +322,7 @@ type Post {
   createdAt: DateTime!
   forum: Forum
   id: String!
+  replies(orderBy: [ReplyOrderByInput!], skip: Float, take: Float, where: ReplyWhereInput): [Reply!]!
   updatedAt: DateTime!
   user: User
 }
@@ -325,6 +330,7 @@ type Post {
 input PostCreateInput {
   content: String
   forum: ForumWhereUniqueInput
+  replies: ReplyCreateNestedManyWithoutPostsInput
   user: UserWhereUniqueInput
 }
 
@@ -350,6 +356,7 @@ input PostOrderByInput {
 input PostUpdateInput {
   content: String
   forum: ForumWhereUniqueInput
+  replies: ReplyUpdateManyWithoutPostsInput
   user: UserWhereUniqueInput
 }
 
@@ -363,6 +370,7 @@ input PostWhereInput {
   content: StringNullableFilter
   forum: ForumWhereUniqueInput
   id: StringFilter
+  replies: ReplyListRelationFilter
   user: UserWhereUniqueInput
 }
 
@@ -391,6 +399,7 @@ type Query {
   _forumsMeta(where: ForumWhereInput): MetaQueryPayload!
   _notificationsMeta(where: NotificationWhereInput): MetaQueryPayload!
   _postsMeta(where: PostWhereInput): MetaQueryPayload!
+  _repliesMeta(where: ReplyWhereInput): MetaQueryPayload!
   _requestsMeta(where: RequestWhereInput): MetaQueryPayload!
   _reservationsMeta(where: ReservationWhereInput): MetaQueryPayload!
   commonFacilities(orderBy: [CommonFacilityOrderByInput!], skip: Float, take: Float, where: CommonFacilityWhereInput): [CommonFacility!]!
@@ -403,6 +412,8 @@ type Query {
   notifications(orderBy: [NotificationOrderByInput!], skip: Float, take: Float, where: NotificationWhereInput): [Notification!]!
   post(where: PostWhereUniqueInput!): Post
   posts(orderBy: [PostOrderByInput!], skip: Float, take: Float, where: PostWhereInput): [Post!]!
+  replies(orderBy: [ReplyOrderByInput!], skip: Float, take: Float, where: ReplyWhereInput): [Reply!]!
+  reply(where: ReplyWhereUniqueInput!): Reply
   request(where: RequestWhereUniqueInput!): Request
   requests(orderBy: [RequestOrderByInput!], skip: Float, take: Float, where: RequestWhereInput): [Request!]!
   reservation(where: ReservationWhereUniqueInput!): Reservation
@@ -413,6 +424,58 @@ type Query {
 enum QueryMode {
   Default
   Insensitive
+}
+
+type Reply {
+  content: String
+  createdAt: DateTime!
+  id: String!
+  post: Post
+  updatedAt: DateTime!
+}
+
+input ReplyCreateInput {
+  content: String
+  post: PostWhereUniqueInput!
+}
+
+input ReplyCreateNestedManyWithoutPostsInput {
+  connect: [ReplyWhereUniqueInput!]
+}
+
+input ReplyListRelationFilter {
+  every: ReplyWhereInput
+  none: ReplyWhereInput
+  some: ReplyWhereInput
+}
+
+input ReplyOrderByInput {
+  content: SortOrder
+  createdAt: SortOrder
+  id: SortOrder
+  postID: SortOrder
+  updatedAt: SortOrder
+}
+
+input ReplyUpdateInput {
+  content: String
+  post: PostWhereUniqueInput
+}
+
+input ReplyUpdateManyWithoutPostsInput {
+  connect: [ReplyWhereUniqueInput!]
+  disconnect: [ReplyWhereUniqueInput!]
+  set: [ReplyWhereUniqueInput!]
+}
+
+input ReplyWhereInput {
+  content: StringNullableFilter
+  id: StringFilter
+  post: PostWhereUniqueInput
+}
+
+input ReplyWhereUniqueInput {
+  id: String!
 }
 
 type Request {

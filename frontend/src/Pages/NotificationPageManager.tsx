@@ -42,7 +42,7 @@ const App: React.FC = () => {
             params: {
               where: {
                 message: {
-                  contains: `\"company\":{\"id\":${company[0].company.id}}`,
+                  contains: `\"company\":{\"id\":${company[0].id}}`,
                 },
               },
             },

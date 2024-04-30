@@ -27,7 +27,7 @@ export default function Calendar() {
     const fetchEvents = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/reservations`, 
+          `${process.env.REACT_APP_API_URL}/reservations`,
           {
             params: {
               where: {
@@ -43,7 +43,9 @@ export default function Calendar() {
             date: event.availablity.split("T")[0], // Splitting the datetime and taking the date part
           })
         );
+
         setEvents(formattedEvents);
+
       } catch (error) {
         console.error("Error fetching reservations:", error);
         // Handle error scenario
@@ -51,7 +53,7 @@ export default function Calendar() {
     };
 
     fetchEvents();
-  }, []); 
+  }, []);
 
   const handleDateClick = (arg: any) => {
     setSelectedDate(arg.dateStr);
@@ -63,8 +65,6 @@ export default function Calendar() {
   ) => {
     const eventTitle = `${newEvent.name} - ${newEvent.facilityName} at ${newEvent.time}`;
     const fullEvent = { ...newEvent, title: eventTitle };
-    console.log(newEvent);
-    console.log(newEvent);
 
     setEvents([...events, fullEvent]);
     setDialogOpen(false);
@@ -113,6 +113,9 @@ export default function Calendar() {
     );
   }
 
+
+  
+
   return (
     <div className="calendar-container">
       <div className="calendar-heading">
@@ -150,12 +153,7 @@ export default function Calendar() {
         onSubmit={handleEventCreation}
         defaultDate={selectedDate}
       />
-      <ReservationModal
-        open={dialogOpen}
-        onClose={() => setDialogOpen(false)}
-        onSubmit={handleEventCreation}
-        defaultDate={selectedDate}
-      />
+
     </div>
   );
 }

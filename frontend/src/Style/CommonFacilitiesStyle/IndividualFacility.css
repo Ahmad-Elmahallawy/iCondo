@@ -6,6 +6,16 @@
   border-radius: 5px;
   width: 50%;
 }
+.common-facilities-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.common-facilities-header button{
+  text-align: center;
+  width: 150px;
+}
 
 .facility-list-header {
   text-align: center;
