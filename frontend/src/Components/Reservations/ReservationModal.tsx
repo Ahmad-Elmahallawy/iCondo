@@ -31,6 +31,7 @@ interface EventCreationDialogProps {
 }
 
 interface Facility {
+  status: string;
   id: string;
   facilityType: string;
 }
@@ -88,6 +89,7 @@ const ReservationModal: React.FC<EventCreationDialogProps> = ({
   const [facilityId, setFacilityId] = useState("");
   const [time, setTime] = useState("");
   const [facilities, setFacilities] = useState<Facility[]>([]);
+  const [takenTimeSlots, setTakenTimeSlots] = useState<any[]>([]);
   const user = JSON.parse(localStorage.getItem("userData") || "{}");
 
   useEffect(() => {
@@ -107,6 +109,24 @@ const ReservationModal: React.FC<EventCreationDialogProps> = ({
         facilityType: formatFacilityName(facility.facilityType),
       }));
       setFacilities(formattedFacilities);
+
+      // Fetch availability for each common facility
+      const availabilityPromises = response.data.map(
+        async (reservation: any) => {
+          const reserveAvailabilityResponse = await axios.get(
+            `${process.env.REACT_APP_API_URL}/commonFacilities/${reservation.id}/availabilities`,
+            {
+              headers: { Authorization: `Bearer ${user.accessToken}` },
+            }
+          );
+
+          return reserveAvailabilityResponse.data;
+        }
+      );
+
+      const availabilities = await Promise.all(availabilityPromises);
+      const flattenedAvailabilities = availabilities.flat(); // Flatten the array of arrays
+      setTakenTimeSlots(flattenedAvailabilities);
     };
 
     fetchFacilities();
@@ -134,6 +154,18 @@ const ReservationModal: React.FC<EventCreationDialogProps> = ({
       time,
       date: defaultDate,
     });
+
+    // Update takenTimeSlots state to remove the booked time slot
+    const updatedTakenTimeSlots = takenTimeSlots.filter(
+      (slot) =>
+        !(
+          slot.availablity.includes(time) &&
+          slot.commonFacility.id === facilityId &&
+          slot.availablity.includes(defaultDate)
+        )
+    );
+    setTakenTimeSlots(updatedTakenTimeSlots);
+
     setUnitNumber("");
     setFacility("");
     setFacilityId("");
@@ -199,70 +231,85 @@ const ReservationModal: React.FC<EventCreationDialogProps> = ({
               },
             }}
           >
-            {facilities.map((facility) => (
-              <MenuItem key={facility.id} value={facility.id}>
-                {facility.facilityType}
-              </MenuItem>
-            ))}
+            {facilities.map((facility) =>
+              // Check if the facility status is not "close" before rendering the MenuItem
+              facility.status !== "close" ? (
+                <MenuItem key={facility.id} value={facility.id}>
+                  {facility.facilityType}
+                </MenuItem>
+              ) : null
+            )}
           </Select>
         </FormControl>
-        <FormControl fullWidth margin="dense" sx={customTextFieldStyle}>
-          <InputLabel
-            id="time-label"
-            sx={{
-              color: "#3c3633",
-              "&.Mui-focused": {
-                color: "#747264",
-              },
-            }}
-          >
-            Time
-          </InputLabel>
-          <Select
-            labelId="time-label"
-            id="time"
-            value={time}
-            label="Time"
-            onChange={(e) => setTime(e.target.value)}
-            sx={{
-              "& .MuiSelect-select": {
+        {facilityId && (
+          <FormControl fullWidth margin="dense" sx={customTextFieldStyle}>
+            <InputLabel
+              id="time-label"
+              sx={{
                 color: "#3c3633",
-              },
+                "&.Mui-focused": {
+                  color: "#747264",
+                },
+              }}
+            >
+              Time
+            </InputLabel>
+            <Select
+              labelId="time-label"
+              id="time"
+              value={time}
+              label="Time"
+              onChange={(e) => setTime(e.target.value)}
+              sx={{
+                "& .MuiSelect-select": {
+                  color: "#3c3633",
+                },
 
-              "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                borderColor: "#747264",
-              },
-            }}
-            MenuProps={{
-              PaperProps: {
-                sx: {
-                  "& .MuiMenuItem-root:hover": {
-                    backgroundColor: "#747264",
-                  },
-                  "& .MuiMenuItem-root.Mui-selected": {
-                    backgroundColor: "#e0ccbe",
+                "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                  borderColor: "#747264",
+                },
+              }}
+              MenuProps={{
+                PaperProps: {
+                  sx: {
+                    "& .MuiMenuItem-root:hover": {
+                      backgroundColor: "#747264",
+                    },
+                    "& .MuiMenuItem-root.Mui-selected": {
+                      backgroundColor: "#e0ccbe",
+                    },
                   },
                 },
-              },
-            }}
-          >
-            {Array.from({ length: 13 }, (_, i) => {
-              const startHour = 8 + i; // Start from 8 AM
-              const endHour = startHour + 1; // End hour for each slot
-              const startAmPm = startHour >= 12 ? "PM" : "AM";
-              const endAmPm = endHour >= 12 ? "PM" : "AM";
-              const formattedStartHour =
-                startHour > 12 ? startHour - 12 : startHour;
-              const formattedEndHour = endHour > 12 ? endHour - 12 : endHour;
-              const timeString = `${formattedStartHour}:00 ${startAmPm} - ${formattedEndHour}:00 ${endAmPm}`;
-              return (
-                <MenuItem key={timeString} value={timeString}>
-                  {timeString}
-                </MenuItem>
-              );
-            })}
-          </Select>
-        </FormControl>
+              }}
+            >
+              {Array.from({ length: 13 }, (_, i) => {
+                const startHour = 8 + i; // Start from 8 AM
+                const endHour = startHour + 1; // End hour for each slot
+                const startAmPm = startHour >= 12 ? "PM" : "AM";
+                const endAmPm = endHour >= 12 ? "PM" : "AM";
+                const formattedStartHour =
+                  startHour > 12 ? startHour - 12 : startHour;
+                const formattedEndHour = endHour > 12 ? endHour - 12 : endHour;
+                const timeString = `${formattedStartHour}:00 ${startAmPm} - ${formattedEndHour}:00 ${endAmPm}`;
+                const isTaken = takenTimeSlots.some(
+                  (slot) =>
+                    slot.availablity.includes(timeString) &&
+                    slot.commonFacility.id === facilityId &&
+                    slot.availablity.includes(defaultDate)
+                );
+                // Only render the time slot in the dropdown if it's not taken
+                if (!isTaken) {
+                  return (
+                    <MenuItem key={timeString} value={timeString}>
+                      {timeString}
+                    </MenuItem>
+                  );
+                }
+                return null; // Skip rendering if the time slot is taken
+              })}
+            </Select>
+          </FormControl>
+        )}
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose} sx={customButtonStyle}>
