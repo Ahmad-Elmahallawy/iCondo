@@ -102,11 +102,15 @@ const ForumLandingPage: React.FC = () => {
       content: replyContents[postId],
       postId,
     };
-    const updatedPosts = posts.map((post) =>
-      post.id === postId
-        ? { ...post, replies: [...post.replies, newReply] }
-        : post
-    );
+
+    const updatedPosts = posts.map((post) => {
+      if (post.id === postId) {
+        const replies = post.replies || []; // Ensure replies is an array or initialize it as an empty array
+        return { ...post, replies: [...replies, newReply] };
+      }
+      return post;
+    });
+
     setPosts(updatedPosts);
     setReplyContents({ ...replyContents, [postId]: "" });
   };
