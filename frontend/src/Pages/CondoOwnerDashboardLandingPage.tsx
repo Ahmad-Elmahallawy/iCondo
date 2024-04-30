@@ -39,7 +39,7 @@ const CondoOwnerDashboardPage: React.FC = () => {
           <IconCard
             title="My Financial Status"
             icon={Financial_status}
-            route="/"
+            route="/FinancialStatus"
           />
           {/*TODO: ADD ROUTE*/}
           <IconCard

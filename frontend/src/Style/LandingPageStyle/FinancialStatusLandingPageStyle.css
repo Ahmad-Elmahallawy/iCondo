@@ -1,0 +1,33 @@
+.financial-status-container {
+    margin: 50px auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    border: 1px solid var(--color4);
+    border-radius: 5px;
+    width: 50%;
+  }
+  
+  .financial-status-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .financial-status-header h1 {
+    margin: 0;
+  }
+  
+  .financial-status-table-container {
+    overflow-x: auto;
+  }
+  
+  .financial-status-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .financial-status-table th,
+  .financial-status-table td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid var(--color4);
+  }
