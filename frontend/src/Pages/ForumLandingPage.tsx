@@ -43,7 +43,6 @@ const ForumLandingPage: React.FC = () => {
           },
         }
       );
-      console.log(response);
 
       // Fetch usernames AND replies associated with user IDs of posts
       const postsWithUsernames = await Promise.all(
@@ -67,8 +66,6 @@ const ForumLandingPage: React.FC = () => {
               },
             }
           );
-
-          console.log(replies);
 
           return {
             ...post,
@@ -124,7 +121,6 @@ const ForumLandingPage: React.FC = () => {
       content: replyContents[postId],
       postId,
     };
-    console.log(postId);
 
     try {
       const response = await axios.post(
