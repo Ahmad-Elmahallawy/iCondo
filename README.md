@@ -122,12 +122,12 @@ Make sure your PostgreSQL database is running and change the following variables
   - DB_URL
   - DB_USER
 
-  A running Kafka instance is also needed with the `KAFKA_BROKERS` variable in the .env modified accordingly.
+  A running Kafka instance is also needed with the `KAFKA_BROKERS` variable in the .env modified accordingly.<br>
 ```
 cd server
 npm install
-npm run prisma:generate
-npm run db:migrate-save
+npm run prisma:generate    # This two commands are only needed
+npm run db:migrate-save    # the first time to generate the database!
 npm start
 ```
 - For prisma studio (to view database content)
