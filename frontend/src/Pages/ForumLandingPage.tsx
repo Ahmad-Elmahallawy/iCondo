@@ -16,6 +16,7 @@ interface Post {
 interface Reply {
   id: number;
   content: string;
+  post?: any;
   postId: number;
 }
 
@@ -42,18 +43,38 @@ const ForumLandingPage: React.FC = () => {
           },
         }
       );
-      // Fetch usernames associated with user IDs of posts
+      console.log(response);
+
+      // Fetch usernames AND replies associated with user IDs of posts
       const postsWithUsernames = await Promise.all(
         response.data.map(async (post: Post) => {
+          // fetching username
           const userResponse = await axios.get(
-            `${process.env.REACT_APP_API_URL}/users/${post.user.id}`, // Assuming the API route for fetching user details
+            `${process.env.REACT_APP_API_URL}/users/${post.user.id}`,
             {
               headers: {
                 Authorization: `Bearer ${user.accessToken}`,
               },
             }
           );
-          return { ...post, username: userResponse.data.username };
+
+          // fetching all replies
+          const replies = await axios.get(
+            `${process.env.REACT_APP_API_URL}/replies`,
+            {
+              headers: {
+                Authorization: `Bearer ${user.accessToken}`,
+              },
+            }
+          );
+
+          console.log(replies);
+
+          return {
+            ...post,
+            username: userResponse.data.username,
+            replies: replies.data,
+          };
         })
       );
       // Update the posts state with the fetched data including usernames
@@ -96,16 +117,37 @@ const ForumLandingPage: React.FC = () => {
     setPosts(updatedPosts);
   };
 
-  const handleAddReply = (postId: number) => {
+  // to add replies to a specific post
+  const handleAddReply = async (postId: number) => {
     const newReply: Reply = {
       id: Date.now(),
       content: replyContents[postId],
       postId,
     };
+    console.log(postId);
+
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/replies`,
+        {
+          content: newReply.content,
+          post: {
+            id: postId,
+          },
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${user.accessToken}`,
+          },
+        }
+      );
+    } catch (error) {
+      console.error("Error adding post:", error);
+    }
 
     const updatedPosts = posts.map((post) => {
       if (post.id === postId) {
-        const replies = post.replies || []; // Ensure replies is an array or initialize it as an empty array
+        const replies = post.replies || [];
         return { ...post, replies: [...replies, newReply] };
       }
       return post;
@@ -138,11 +180,13 @@ const ForumLandingPage: React.FC = () => {
             </button>
             {post.showReplies &&
               post.replies &&
-              post.replies.map((reply) => (
-                <div key={reply.id} className="reply">
-                  <p className="reply-content">{reply.content}</p>
-                </div>
-              ))}
+              post.replies
+                .filter((reply) => reply.post && reply.post.id === post.id) 
+                .map((reply) => (
+                  <div key={reply.id} className="reply">
+                    <p className="reply-content">{reply.content}</p>
+                  </div>
+                ))}
             <div className="reply-input">
               <textarea
                 value={replyContents[post.id] || ""}
