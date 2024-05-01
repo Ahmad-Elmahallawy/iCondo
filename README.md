@@ -107,6 +107,9 @@
 - **Production**: [condos.happyfir.com](https://condos.happyfir.com/)
 - **Development**: [devcondos.happyfir.com](https://devcondos.happyfir.com/)
 
+## Demo Video
+https://www.youtube.com/watch?v=SXpMYqXq65Y
+
 ## Running & Building the project 🔨
 - For frontend
 ```
