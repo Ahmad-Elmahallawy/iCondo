@@ -73,7 +73,6 @@ const MyCondos = () => {
   }, []);
 
   const handleCondoClick = (condo: any) => {
-    console.log(condo);
     navigate(`/CondoProfile/${condo.condo.id}`);
   };
   return (
