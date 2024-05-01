@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
-import axios from 'axios';
 import { createCommonFacilitySchema } from '../Common/ValidationSchema';
 import { useNavigate } from 'react-router-dom';
 import "../../Style/LandingPageStyle/CommonFacilityCreationLandingPageStyle.css";
-import CondoCarousel from '../CondoProfile/CondoCarousel';
 import api from '../../api';
 
 

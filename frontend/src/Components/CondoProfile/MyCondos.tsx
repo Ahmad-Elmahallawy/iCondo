@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
-import CondoCarousel from "./CondoCarousel";
 import api from "../../api";
+import List from "../Common/List";
+import { useNavigate } from "react-router-dom";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
 export interface CondoInfo {
   condo: {
@@ -53,6 +56,8 @@ const defaultCondo: Array<CondoInfo> = [
 const MyCondos = () => {
   const [property, setProperty] = useState<Array<CondoInfo>>(defaultCondo);
   const user = JSON.parse(localStorage.getItem("userData") || "{}");
+  const navigate = useNavigate();
+  const defaultProfilePicturePath = "/Assets/default-property-image.webp";
   useEffect(() => {
     let mounted = true;
     api.userCondoList
@@ -67,6 +72,9 @@ const MyCondos = () => {
     };
   }, []);
 
+  const handleCondoClick = (condo: any) => {
+    navigate(`/CondoProfile/${condo.condo.id}`);
+  };
   return (
     <div
       style={{
@@ -77,7 +85,38 @@ const MyCondos = () => {
         minHeight: "100vh",
       }}
     >
-      <CondoCarousel condos={property} />
+      <List
+        data-testid="add-unit-page"
+        items={property}
+        renderItem={(condo) => (
+          <Box
+            key={condo.condo.id}
+            sx={{
+              maxWidth: 400,
+              p: 2,
+              border: "1px solid var(--color4)",
+              background: "var(--color1)",
+              borderRadius: "5px",
+              boxShadow: "2px 2px 8px rgba(0, 0, 0, 0.5)",
+            }}
+            onClick={() => handleCondoClick(condo)}
+          >
+            <Box
+              component="img"
+              sx={{
+                height: 255,
+                display: "block",
+                maxWidth: 400,
+                overflow: "hidden",
+              }}
+              src={defaultProfilePicturePath}
+              alt="Error retrieving image"
+            />
+            <Typography>{condo.condo.id}</Typography>
+            <Typography>{condo.createdAt}</Typography>
+          </Box>
+        )}
+      />
     </div>
   );
 };
