@@ -109,7 +109,7 @@
 
 ## Running & Building the project 🔨
 - For frontend
-```
+```shell
 cd frontend
 npm install
 npm start
@@ -123,7 +123,7 @@ Make sure your PostgreSQL database is running and change the following variables
   - DB_USER
 
   A running Kafka instance is also needed with the `KAFKA_BROKERS` variable in the .env modified accordingly.<br>
-```
+```shell
 cd server
 npm install
 npm run prisma:generate    # This two commands are only needed
@@ -131,7 +131,8 @@ npm run db:migrate-save    # the first time to generate the database!
 npm start
 ```
 - For prisma studio (to view database content)
-```
+```shell
+cd server
 npx prisma studio
 ```
 
@@ -141,7 +142,7 @@ In this project, we adhere to certain naming conventions to ensure consistency a
 - Variables should be named using descriptive and meaningful names.
 - Use camelCase for variable names.
 - Avoid using single-letter variable names except for simple loop counters
-```
+```js
 // Good
 let firstName = "Alex";
 let lastName = "Smith";
@@ -153,7 +154,7 @@ let first_name = "Smith";
 2. Function Naming
 - Function names should accurately describe the action or behavior performed by the function.
 - Use camelCase for function names.
-```
+```js
 // Good
 function calculateTotalPrice(){
   // Function logic here
@@ -167,14 +168,14 @@ function calc_price(){
 3. File Naming
 - File names should be descriptive and reflect the content or purpose of the file.
 - Use camelCase for file names.
-```
+```js
 userController.js
 condoController.js
 ```
 4. Constant Naming
 - Constants should be named using all uppercase letters.
 - Use underscores (_) to separate words in constant names.
-```
+```js
 const MAX = 3;
 const PI = 3.41;
 ```
