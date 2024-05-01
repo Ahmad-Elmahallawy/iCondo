@@ -9,10 +9,10 @@
 .my-profile-container,
 .properties-and-requests-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 50%;
+  width: 80%;
   padding: 1rem;
   height: 100%;
   margin: 0.5rem;
@@ -80,6 +80,7 @@
   .properties-and-requests-container {
     padding: 0;
     margin: 0;
+    flex-direction: column;
   }
 
   .user-profile-container {

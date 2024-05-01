@@ -2,8 +2,6 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 import "../Style/UserProfileStyle/UserProfilePageStyle.css";
 import UserInformation from "../Components/UserProfile/UserInformation";
-import Properties from "../Components/UserProfile/UserProperties";
-import Requests from "../Components/UserProfile/UserRequests";
 import UserKeyRegister from "../Components/UserProfile/UserKeyRegister";
 
 const UserProfileLandingPage = () => {
@@ -29,14 +27,7 @@ const UserProfileLandingPage = () => {
           <UserKeyRegister />
         </div>
       </div>
-      <div className="properties-and-requests-container">
-        <div className="properties-content">
-          <Properties />
-        </div>
-        <div className="requests-content">
-          <Requests />
-        </div>
-      </div>
+
     </div>
   );
 };

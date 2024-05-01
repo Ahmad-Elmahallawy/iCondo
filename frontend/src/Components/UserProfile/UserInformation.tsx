@@ -22,7 +22,6 @@ interface UserInformationProps {
 
 const UserInformation: React.FC<UserInformationProps> = ({ data }) => {
   const defaultProfilePicturePath = "/Assets/default-profile-picture.png";
-  console.log(data);
 
   const [userData, setUserData] = useState<UserData>(data);
   const [editMode, setEditMode] = useState<boolean>(false);
