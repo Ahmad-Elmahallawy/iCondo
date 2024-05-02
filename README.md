@@ -139,49 +139,25 @@ cd server
 npx prisma studio
 ```
 
-## Naming Conventions
-In this project, we adhere to certain naming conventions to ensure consistency and clarity throughout the codebase. These conventions apply to variables, functions, classes, files, and any other identifiers used in the project.
-1. Variable Naming
-- Variables should be named using descriptive and meaningful names.
-- Use camelCase for variable names.
-- Avoid using single-letter variable names except for simple loop counters
-```js
-// Good
-let firstName = "Alex";
-let lastName = "Smith";
+## Existing accounts 🥸
+> [!NOTE]
+> They exist in dev only, not in prod.
+### Company Account
+- Username: company
+- Password: hello123
 
-// Avoid
-let first_name = "Smith";
-```
+### Condo Owner Account
+- Username: AT
+- Password: hello123
 
-2. Function Naming
-- Function names should accurately describe the action or behavior performed by the function.
-- Use camelCase for function names.
-```js
-// Good
-function calculateTotalPrice(){
-  // Function logic here
-}
+### Manager Account
+- Username: manager
+- Password: hello123
 
-// Avoid
-function calc_price(){
-  // Function logic here
-}
-```
-3. File Naming
-- File names should be descriptive and reflect the content or purpose of the file.
-- Use camelCase for file names.
-```js
-userController.js
-condoController.js
-```
-4. Constant Naming
-- Constants should be named using all uppercase letters.
-- Use underscores (_) to separate words in constant names.
-```js
-const MAX = 3;
-const PI = 3.41;
-```
+### Operator Account
+- Username: operator
+- Password: hello123
+
 ## Team Members (Team 6)
 | Name   | GitHub         | Student ID | Role |
 |--------| -----          | -----------| -----|
