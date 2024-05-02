@@ -26,7 +26,7 @@ const EmployeeRequestSubject = () => {
       try {
         setIsLoading(true);
         const response = await api.requests.getEmployeeRequest(
-          company[0]?.company?.id,
+          company[0]?.id,
           userData.accessToken
         );
 
@@ -58,6 +58,8 @@ const EmployeeRequestSubject = () => {
               "Complete",
               userData.accessToken
             );
+
+
       // Check if response data exists and has the id property
       if (response && response.data && response.data.id) {
         const notificationResponse = await axios.get<Notification[]>(
@@ -102,7 +104,6 @@ const EmployeeRequestSubject = () => {
               },
             }
           );
-          console.log(editNotificationMsg);
           // Update local state to reflect the changes
           setFetchedRequests((prevState) =>
             prevState.map((request) =>

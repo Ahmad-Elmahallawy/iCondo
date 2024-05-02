@@ -33,6 +33,7 @@ const urls = {
     getAllProperties: `${apiPrefix}/properties`,
     getProperty: `${apiPrefix}/properties`,
     deleteProperty: `${apiPrefix}/properties`,
+    getCompanyProperties: `${apiPrefix}/companies`,
   },
   companies: {
     getCompany: `${apiPrefix}/companies`,

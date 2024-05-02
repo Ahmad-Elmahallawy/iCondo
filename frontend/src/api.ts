@@ -260,9 +260,9 @@ const api = {
   },
 
   properties: {
-    async getProperties(token: String) {
+    async getProperties(companyId: number, token: String) {
       const response: AxiosResponse<PropertyByIdResponse[]> = await axios.get(
-        `${urls.properties.getAllProperties}`,
+        `${urls.properties.getCompanyProperties}/${companyId}/properties`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -271,17 +271,10 @@ const api = {
       );
       return response.data;
     },
-    async getAllProperties(companyId: number, token: String) {
-      const response = await axios.get(`${urls.properties.getAllProperties}`, {
+    async getAllProperties(companyId: number, token: String) {      
+      const response = await axios.get(`${urls.properties.getCompanyProperties}/${companyId}/properties`, {
         headers: {
           Authorization: `Bearer ${token}`,
-        },
-        params: {
-          where: {
-            company: {
-              id: companyId,
-            },
-          },
         },
       });
 
@@ -422,8 +415,6 @@ const api = {
       userId: number,
       token: String
     ) {
-      console.log(companyId, userId, token);
-
       const response = await axios.post(
         urls.employees.registerCompanyEmployee,
 

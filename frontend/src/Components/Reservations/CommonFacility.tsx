@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
-import axios from 'axios';
 import { createCommonFacilitySchema } from '../Common/ValidationSchema';
 import { useNavigate } from 'react-router-dom';
 import "../../Style/LandingPageStyle/CommonFacilityCreationLandingPageStyle.css";
-import CondoCarousel from '../CondoProfile/CondoCarousel';
 import api from '../../api';
 
 
@@ -21,7 +19,8 @@ interface Property {
 
 const CommonFacility = () => {
   const navigate = useNavigate();
-  const companyId = JSON.parse(localStorage.getItem('companyDetails') || '[]')[0]?.id;
+  const companyId = JSON.parse(localStorage.getItem('companyDetails') || '[]')[0]?.company.id;
+  
   const userData = JSON.parse(localStorage.getItem("userData") || "{}");
   const token = userData.accessToken;
 
@@ -34,7 +33,6 @@ const CommonFacility = () => {
           parseInt(companyId), 
           token
         );
-        console.log(response.data);
         setProperties(response.data);
       } catch (error) {
         console.error('Error fetching property names', error);

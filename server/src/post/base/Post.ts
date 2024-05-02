@@ -3,6 +3,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { IsDate, ValidateNested, IsOptional, IsString } from "class-validator";
 import { Type } from "class-transformer";
 import { Forum } from "../../forum/base/Forum";
+import { Reply } from "../../reply/base/Reply";
 import { User } from "../../user/base/User";
 
 @ObjectType()
@@ -42,6 +43,15 @@ class Post {
   @IsString()
   @Field(() => String)
   id!: string;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Reply],
+  })
+  @ValidateNested()
+  @Type(() => Reply)
+  @IsOptional()
+  replies?: Array<Reply>;
 
   @ApiProperty({
     required: true,

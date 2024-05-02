@@ -12,7 +12,7 @@ const EmployeeListLandingPage = () => {
         const fetchEmployees = async () => {
             try {
                 const response = await api.employeeRegistration.getCompanyEmployees(
-                    companyDetails[0].company.id,
+                    companyDetails[0].id,
                     user.accessToken
                 );
 

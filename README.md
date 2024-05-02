@@ -107,73 +107,57 @@
 - **Production**: [condos.happyfir.com](https://condos.happyfir.com/)
 - **Development**: [devcondos.happyfir.com](https://devcondos.happyfir.com/)
 
+## Demo
+https://youtu.be/rFu35ZaLNT4
+
 ## Running & Building the project 🔨
 - For frontend
-```
-npm install
-npm run start
-```
-- For backend
-```
+```shell
+cd frontend
 npm install
 npm start
 ```
-- For prisma studio
+- For backend<br>
+Make sure your PostgreSQL database is running and change the following variables in the server's .env:
+  - DB_NAME
+  - DB_PASSWORD
+  - DB_PORT
+  - DB_URL
+  - DB_USER
+
+  A running Kafka instance is also needed with the `KAFKA_BROKERS` variable in the .env modified accordingly.<br>
+```shell
+cd server
+npm install
+npm run prisma:generate    # This two commands are only needed
+npm run db:migrate-save    # the first time to generate the database!
+npm start
 ```
+- For prisma studio (to view database content)
+```shell
+cd server
 npx prisma studio
 ```
-- For db dev connection
-```
-cloudflared access tcp --hostname devdbcondos.happyfir.com --url localhost:5432
-```
-- For db prod connection
-```
-cloudflared access tcp --hostname dbcondos.happyfir.com --url localhost:5432
-```
 
-## Naming Conventions
-In this project, we adhere to certain naming conventions to ensure consistency and clarity throughout the codebase. These conventions apply to variables, functions, classes, files, and any other identifiers used in the project.
-1. Variable Naming
-- Variables should be named using descriptive and meaningful names.
-- Use camelCase for variable names.
-- Avoid using single-letter variable names except for simple loop counters
-```
-// Good
-let firstName = "Alex";
-let lastName = "Smith";
+## Existing accounts 🥸
+> [!NOTE]
+> They exist in dev only, not in prod.
+### Company Account
+- Username: company
+- Password: hello123
 
-// Avoid
-let first_name = "Smith";
-```
+### Condo Owner Account
+- Username: AT
+- Password: hello123
 
-2. Function Naming
-- Function names should accurately describe the action or behavior performed by the function.
-- Use camelCase for function names.
-```
-// Good
-function calculateTotalPrice(){
-  // Function logic here
-}
+### Manager Account
+- Username: manager
+- Password: hello123
 
-// Avoid
-function calc_price(){
-  // Function logic here
-}
-```
-3. File Naming
-- File names should be descriptive and reflect the content or purpose of the file.
-- Use camelCase for file names.
-```
-userController.js
-condoController.js
-```
-4. Constant Naming
-- Constants should be named using all uppercase letters.
-- Use underscores (_) to separate words in constant names.
-```
-const MAX = 3;
-const PI = 3.41;
-```
+### Operator Account
+- Username: operator
+- Password: hello123
+
 ## Team Members (Team 6)
 | Name   | GitHub         | Student ID | Role |
 |--------| -----          | -----------| -----|
@@ -273,32 +257,28 @@ The Condo Management Systems project aims to develop a comprehensive software so
 | <img width="523" alt="ManagerSignUpPage" src="https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap/assets/97756628/169a1f5a-d8af-42d5-ba35-ccf1a1a16e10"> |
 # Mobile Application UI
 ## iOS
-| WelcomePage | SignInPage |SignUpPage |
+| WelcomePage | SignInPage | SignUpPage |
 |----------|------------|------------|
-| ![Simulator Screenshot - iPhone 15 Pro - 2024-02-27 at 02 01 18](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/ec0e45f8-ad00-41c9-ad87-31700c03e4e8) | ![Simulator Screenshot - iPhone 15 Pro - 2024-02-27 at 02 01 33](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/44269025-088e-44ce-8ed9-111853221cf4) |![Simulator Screenshot - iPhone 15 Pro - 2024-02-27 at 02 01 13](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/491ec0c6-105c-4f4d-9203-b56c5a033d1e)|
+| <img width="1100" alt="WelcomePage - iPhone 15 Pro" src="https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/ec0e45f8-ad00-41c9-ad87-31700c03e4e8"> | ![SignInPage - iPhone 15 Pro](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/44269025-088e-44ce-8ed9-111853221cf4) |![SignUpPage - iPhone 15 Pro](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/491ec0c6-105c-4f4d-9203-b56c5a033d1e)|
 
 | CondoDetailPage | ProfilePage | CreateNewCondoPage |
 |------------|-------------|-------------|
-|![Simulator Screenshot - iPhone 15 Pro - 2024-02-27 at 03 53 53](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/b424cb23-626a-49e8-9458-0a5094dfa594)|![Simulator Screenshot - iPhone 15 Pro - 2024-02-27 at 03 25 53](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/3bf28d21-6544-486f-90a4-3a18caedc231) | ![Simulator Screenshot - iPhone 15 Pro - 2024-02-27 at 03 26 35](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/8475184a-05d9-40d2-8f78-da3e9c318c67)|
+|<img width="1100" alt="CondoDetailPage - iPhone 15 Pro" src="https://github.com/Ahmad-Elmahallawy/iCondo/assets/77291451/366f37ec-b4b4-4fd3-a35e-a93d4452c711">|![ProfilePage - iPhone 15 Pro](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/3bf28d21-6544-486f-90a4-3a18caedc231) | ![CreateNewCondoPage - iPhone 15 Pro](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/8475184a-05d9-40d2-8f78-da3e9c318c67)|
 
 
 | HomePage | FavoritePage | SettingPage |
 |------------|-------------|-------------|
-| ![Simulator Screenshot - iPhone 15 Pro - 2024-02-27 at 03 43 53](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/545d7357-36f6-4504-98cf-5fb64a521b97) | ![Simulator Screenshot - iPhone 15 Pro - 2024-02-27 at 03 25 43](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/ae0a60f4-6350-4c86-905c-e98ebbfc74e2) | ![Simulator Screenshot - iPhone 15 Pro - 2024-02-27 at 03 26 04](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/67d055d1-c961-422b-bd81-c0da3aa1cc0c) |
+| <img width="1100" alt="HomePage - iPhone 15 Pro" src="https://github.com/Ahmad-Elmahallawy/iCondo/assets/77291451/62a587c7-47fe-4438-a57d-440cb1d9f94f"> | ![FavoritePage - iPhone 15 Pro](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/ae0a60f4-6350-4c86-905c-e98ebbfc74e2) | ![SettingPage - iPhone 15 Pro](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/67d055d1-c961-422b-bd81-c0da3aa1cc0c) |
 
 ## Android
 | WelcomePage | SignInPage | SignUpPage | 
 |----------|------------|------------|
-| ![Screenshot_20240227_034917](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/0a912825-7a22-41c1-99a6-b4d92ae107ce) | ![Screenshot_20240227_034937](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/4c54f004-d52b-4b2a-ab4f-f946c600986d) | ![Screenshot_20240227_034926](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/6f008e9f-dc8e-4f0b-bbbe-b8b31cb5dbe8) |
+| ![WelcomePage - Android](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/0a912825-7a22-41c1-99a6-b4d92ae107ce) | ![SignInPage - Android](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/4c54f004-d52b-4b2a-ab4f-f946c600986d) | ![SignUpPage - Android](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/6f008e9f-dc8e-4f0b-bbbe-b8b31cb5dbe8) |
 
 | CondoDetailPage | ProfilePage | CreateNewCondoPage |
 |------------|-------------|-------------|
-|![Screenshot_20240227_033320](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/094fb2c5-a260-4596-bd1e-2add74901e1f)| ![Screenshot_20240227_033420](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/ff4af4d3-d295-4687-aa14-b96cbaf8dd2d) |![Screenshot_20240227_033447](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/0a2ef022-62fc-4402-a075-6c0704758257) |
+|![CondoDetailPage - Android](https://github.com/Ahmad-Elmahallawy/iCondo/assets/77291451/e793783e-67e4-4c7b-bde8-7f3a3a17c8cc)| ![ProfilePage - Android](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/ff4af4d3-d295-4687-aa14-b96cbaf8dd2d) |![CreateNewCondoPage - Android](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/0a2ef022-62fc-4402-a075-6c0704758257) |
 
 | HomePage | FavoritePage | SettingPage |
 |------------|-------------|-------------|
-| ![Screenshot_20240227_033258](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/195deb15-9e3a-4349-9792-a2ddb8a38e21) | ![Screenshot_20240227_033402](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/0a05aed9-bdb5-4d2d-abe1-ccd9b0c3d282) | ![Screenshot_20240227_033439](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/517840cc-1c43-4b37-b162-20a6eecfed9b)
-
-
-
-
+| ![HomePage - Android](https://github.com/Ahmad-Elmahallawy/iCondo/assets/77291451/858f5160-004f-4afa-88b3-1b2f75557b2e) | ![FavoritePage - Android](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/0a05aed9-bdb5-4d2d-abe1-ccd9b0c3d282) | ![SettingPage - Android](https://github.com/Ahmad-Elmahallawy/SOEN390-MiniCap-Team6/assets/97756628/517840cc-1c43-4b37-b162-20a6eecfed9b)

@@ -8,13 +8,15 @@ interface UserInformationProps {
   handleChange: (field: string, value: string) => void;
 }
 
-const user = JSON.parse(localStorage.getItem("userData") || "{}");
 
 const UserInfoFields: React.FC<UserInformationProps> = ({
   data,
   editMode,
   handleChange,
 }) => {
+  const user = JSON.parse(localStorage.getItem("userData") || "{}");
+  console.log(user);
+  
   return (
     // Component to display userinformation: username, first, last, email, phone number and password.
     <div className="user-information-fields">
@@ -119,7 +121,7 @@ const UserInfoFields: React.FC<UserInformationProps> = ({
             onChange={(e) => handleChange("password", e.target.value)}
           />
         ) : (
-          <span className="user-information-text">{data.password}</span>
+          <span className="user-information-text">{user.password}</span>
         )}
       </div>
     </div>
